@@ -1,6 +1,7 @@
 # Summary
 
 * [简介](README.md)
+* [说明文档](Guide/README.md)
 * [Physics Processes](PhysicsProcesses/README.md)
 	* [Electromagnetic](PhysicsProcesses/Electromagnetic.md)
 	* [Hadronic](PhysicsProcesses/Hadronic.md)
