@@ -276,14 +276,73 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:17:45 2017 (+0800)
-;; Last-Updated: 六 12月 23 23:02:17 2017 (+0800)
+;; Last-Updated: 三 1月 31 23:26:59 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 3
+;;     Update #: 6
 ;; URL: http://wuhongyi.cn -->
 <h1 id="electromagnetic">Electromagnetic</h1>
+<p><strong>&#x8FD9;&#x91CC;&#x53EA;&#x4ECB;&#x7ECD;&#x4E2D;&#x4F4E;&#x80FD;&#x5B9E;&#x9A8C;&#x6838;&#x7269;&#x7406;&#x6A21;&#x62DF;&#x9700;&#x8981;&#x7528;&#x5230;&#x7684;&#xFF0C;&#x7C92;&#x5B50;&#x7269;&#x7406;&#x4E2D;&#x7684;&#x90E8;&#x5206;&#x8FD9;&#x91CC;&#x4E0D;&#x7ED9;&#x51FA;&#x8BF4;&#x660E;</strong></p>
+<p><strong>A description of the various electromagnetic physics constructors and their effects on the simulation performance both in terms of computation (CPU) and physics precision.</strong></p>
 <blockquote>
 <p><a href="http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/PhysicsListGuide/html/index.html" target="_blank">http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/PhysicsListGuide/html/index.html</a></p>
 </blockquote>
+<p>&#x6587;&#x732E;&#xFF1A;</p>
+<ul>
+<li>2011<ul>
+<li><a href="http://wuhongyi.cn/Geant4Note/pdf/article/electromagnetic/898-903.pdf" target="_blank">Recent Improvements in Geant4 Electromagnetic Physics Models and Interfaces</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>The default electromagnetic physics is built by the G4EmStandardPhysics constructor (see details in EM Opt0).
+It is implemented for the following particles: &#x3B3;, e&#x2212;, e+, &#x3BC;&#x2212;, &#x3BC;+, &#x3C4;&#x2212;, &#x3C4;+, K+, K&#x2212;, p, &#x3A3;+, &#x3A3;&#x2212;, &#x39E;&#x2212;, &#x3A9;&#x2212;, anti(&#x3A3;+, &#x3A3;&#x2212;, &#x39E;&#x2212;, &#x3A9;&#x2212;), d, t, 3He, &#x3B1;, anti(d, t, 3He, &#x3B1;), and G4GenericIon.</p>
+<p>Several charmed mesons are also treated, D+, D&#x2212;, Ds+, Ds&#x2212;, &#x39B;c+, &#x3A3;c+, &#x3A3;c++, &#x39E;c+, anti(&#x39B;c+, &#x3A3;c+, &#x3A3;c++, &#x39E;c++), as well as two bottom mesons, B+ and B&#x2212;.</p>
+<p>Internal tables for energy loss, range and cross sections are built from 100 eV to 100 TeV. These limits are defined
+based on LHC experiments requirements. Upper limits of applicability of various electromagnetic processes are larger
+and are process dependent. For example, muon models are valid up to 1 PeV. In order to provide particle transport
+for all use-cases, the operational energy range goes down to zero but below 1 keV the accuracy of the default set of
+models is degraded substantially.</p>
+<p>The GEANT4 toolkit includes many alternative physics models, especially, for electromagnetic physics. There are
+several well established configurations recommended for different applications:</p>
+<pre><code>G4EmStandardPhysics_option1 EM Opt1 - extention name EMV;
+G4EmStandardPhysics_option2 EM Opt2 - extention name EMX;
+G4EmStandardPhysics_option3 EM Opt3 - extention name EMY;
+G4EmStandardPhysics_option4 EM Opt4 - extention name EMZ;
+G4EmLivermorePhysics EM Liv - extention name LIV;
+G4EmPenelopePhysics EM Pen - extention name PEN;
+G4EmStandardPhysics_GS EM GS - extention name _GS;
+G4EmStandardPhysics_SS EM SS
+</code></pre><h2 id="em-opt0">EM Opt0</h2>
+<p>This physics list uses &#x201C;standard&#x201D; GEANT4 electromagnetic physics as built by the G4EmStandardPhysics constructor. It is implemented for the following particles: <em>&#x3B3;, e&#x2212;, e+, p, d, t, 3He, &#x3B1;, anti(d,t,3He,&#x3B1;), and G4GenericIon</em>.</p>
+<p>Processes cover physics from 0 to 100 TeV for gamma, e &#x2212; and e + and up to 1 PeV for muons. EM interactions of
+charged hadrons and ions cover the range 0 to 100 TeV. Though the operational energy range goes down to zero, below
+1 keV accuracy of these models is substantially lower.
+For each particle type Standard EM models implement several processes.
+Photons: e &#x2212; /e + pair production is implemented by the BetheHeitler model with the LPM effect at high energies and
+Compton scattering is implemented by the Klein-Nishina model. Photo-electric effect and Rayleigh scattering are both
+handled by the Livermore models.
+Electrons and positrons: multiple Coulomb scattering is handled by the Urban model from 0 to 100 MeV and by the
+WentzelVI model from 100 MeV to 100 TeV, which is combined with the single Coulomb scattering model, which is
+applied for large angle scattering. Bremsstrahlung is implemented by the eBremSB model and the eBremLPM model
+which takes into account the LPM effect at high energies. Ionization is modeled by the Moller-Bhabha formulation,
+and positron annihilation is implemented by the eplus2gg model.</p>
+<p>Muons: multiple Coulomb scattering is handled by the WentzelVI model combined with the single scattering model
+at all energies, and by the eCoulombScattering model at all energies. Bremsstrahlung is handled by the MuBrem
+model. Ionization is implemented by several models depending on energy and particle type. From 0 to 200 keV, the
+Bragg model is used for mu+ and the ICRU73Q0 parameterization is used for mu-. Between 200 keV and 1 GeV the
+BetheBloch model is used for both mu+ and mu-, and from 1 GeV to 100 TeV, the MuBetheBloch model is used for
+both mu+ and mu-. The muPairProduction model handles e+/e- pair production caused by either mu+ or mu-.
+Pions, kaons, protons and anti-protons: multiple Coulomb scattering is performed by the WentzelVI model and
+Coulomb scattering by the eCoulombScattering model. Bremsstrahlung is handled by hBrem model. e &#x2212; /e + pair
+production by hadrons is implemented by the hPairProduction model. Ionization is handled by several models de-
+pending on energy and particle type. For pions below 298 keV, Bragg model ionization is used for &#x3C0; + , and the
+ICRU73Q0 parameterization is used for &#x3C0; &#x2212; . Above this energy BetheBloch ionization is used. For kaons, the same
+ionization models are used, but the change from low energy to high energy models occurs at 1.05 MeV. For protons,
+the Bragg model is used below 2 MeV and the BetheBloch above. For anti-protons ICRU73Q0 is used below 2 MeV
+and BetheBloch above.
+alpha and G4GenericIon: only two EM processes are applied. Multiple Coulomb scattering in implemented by the
+Urban model at all energies. For alphas Bragg ionization is performed below 7.9 MeV and BetheBloch ionization
+above. For generic ions, Bragg is used below 2 MeV and BetheBloch above.</p>
 <!-- Electromagnetic.md ends here -->
 
                                 
@@ -328,7 +387,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Electromagnetic","level":"1.3.1","depth":2,"next":{"title":"Hadronic","level":"1.3.2","depth":2,"path":"PhysicsProcesses/Hadronic.md","ref":"PhysicsProcesses/Hadronic.md","articles":[]},"previous":{"title":"Physics Processes","level":"1.3","depth":1,"path":"PhysicsProcesses/README.md","ref":"PhysicsProcesses/README.md","articles":[{"title":"Electromagnetic","level":"1.3.1","depth":2,"path":"PhysicsProcesses/Electromagnetic.md","ref":"PhysicsProcesses/Electromagnetic.md","articles":[]},{"title":"Hadronic","level":"1.3.2","depth":2,"path":"PhysicsProcesses/Hadronic.md","ref":"PhysicsProcesses/Hadronic.md","articles":[]},{"title":"Decay","level":"1.3.3","depth":2,"path":"PhysicsProcesses/Decay.md","ref":"PhysicsProcesses/Decay.md","articles":[]},{"title":"photolepton-hadron","level":"1.3.4","depth":2,"path":"PhysicsProcesses/photoleptonhadron.md","ref":"PhysicsProcesses/photoleptonhadron.md","articles":[]},{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},{"title":"Parameterization","level":"1.3.6","depth":2,"path":"PhysicsProcesses/Parameterization.md","ref":"PhysicsProcesses/Parameterization.md","articles":[]},{"title":"Transportation","level":"1.3.7","depth":2,"path":"PhysicsProcesses/Transportation.md","ref":"PhysicsProcesses/Transportation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/Electromagnetic.md","mtime":"2017-12-23T15:02:18.075Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-01-17T07:21:55.959Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Electromagnetic","level":"1.3.1","depth":2,"next":{"title":"Hadronic","level":"1.3.2","depth":2,"path":"PhysicsProcesses/Hadronic.md","ref":"PhysicsProcesses/Hadronic.md","articles":[]},"previous":{"title":"Physics Processes","level":"1.3","depth":1,"path":"PhysicsProcesses/README.md","ref":"PhysicsProcesses/README.md","articles":[{"title":"Electromagnetic","level":"1.3.1","depth":2,"path":"PhysicsProcesses/Electromagnetic.md","ref":"PhysicsProcesses/Electromagnetic.md","articles":[]},{"title":"Hadronic","level":"1.3.2","depth":2,"path":"PhysicsProcesses/Hadronic.md","ref":"PhysicsProcesses/Hadronic.md","articles":[]},{"title":"Decay","level":"1.3.3","depth":2,"path":"PhysicsProcesses/Decay.md","ref":"PhysicsProcesses/Decay.md","articles":[]},{"title":"photolepton-hadron","level":"1.3.4","depth":2,"path":"PhysicsProcesses/photoleptonhadron.md","ref":"PhysicsProcesses/photoleptonhadron.md","articles":[]},{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},{"title":"Parameterization","level":"1.3.6","depth":2,"path":"PhysicsProcesses/Parameterization.md","ref":"PhysicsProcesses/Parameterization.md","articles":[]},{"title":"Transportation","level":"1.3.7","depth":2,"path":"PhysicsProcesses/Transportation.md","ref":"PhysicsProcesses/Transportation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/Electromagnetic.md","mtime":"2018-01-31T15:26:59.878Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-01-31T15:56:44.007Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
