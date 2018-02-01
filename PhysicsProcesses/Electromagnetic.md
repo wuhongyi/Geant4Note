@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:17:45 2017 (+0800)
-;; Last-Updated: 三 1月 31 23:26:59 2018 (+0800)
+;; Last-Updated: 四 2月  1 15:01:18 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 6
+;;     Update #: 7
 ;; URL: http://wuhongyi.cn -->
 
 # Electromagnetic
@@ -55,36 +55,33 @@ G4EmStandardPhysics_SS EM SS
 This physics list uses “standard” GEANT4 electromagnetic physics as built by the G4EmStandardPhysics constructor. It is implemented for the following particles: *γ, e−, e+, p, d, t, 3He, α, anti(d,t,3He,α), and G4GenericIon*.
 
 
-Processes cover physics from 0 to 100 TeV for gamma, e − and e + and up to 1 PeV for muons. EM interactions of
-charged hadrons and ions cover the range 0 to 100 TeV. Though the operational energy range goes down to zero, below
-1 keV accuracy of these models is substantially lower.
-For each particle type Standard EM models implement several processes.
-Photons: e − /e + pair production is implemented by the BetheHeitler model with the LPM effect at high energies and
-Compton scattering is implemented by the Klein-Nishina model. Photo-electric effect and Rayleigh scattering are both
-handled by the Livermore models.
-Electrons and positrons: multiple Coulomb scattering is handled by the Urban model from 0 to 100 MeV and by the
-WentzelVI model from 100 MeV to 100 TeV, which is combined with the single Coulomb scattering model, which is
-applied for large angle scattering. Bremsstrahlung is implemented by the eBremSB model and the eBremLPM model
-which takes into account the LPM effect at high energies. Ionization is modeled by the Moller-Bhabha formulation,
-and positron annihilation is implemented by the eplus2gg model.
+Processes cover physics from 0 to 100 TeV for gamma, e− and e+ and up to 1 PeV for muons. EM interactions of
+charged hadrons and ions cover the range 0 to 100 TeV. **Though the operational energy range goes down to zero, below
+1 keV accuracy of these models is substantially lower.**
 
-Muons: multiple Coulomb scattering is handled by the WentzelVI model combined with the single scattering model
-at all energies, and by the eCoulombScattering model at all energies. Bremsstrahlung is handled by the MuBrem
-model. Ionization is implemented by several models depending on energy and particle type. From 0 to 200 keV, the
-Bragg model is used for mu+ and the ICRU73Q0 parameterization is used for mu-. Between 200 keV and 1 GeV the
-BetheBloch model is used for both mu+ and mu-, and from 1 GeV to 100 TeV, the MuBetheBloch model is used for
-both mu+ and mu-. The muPairProduction model handles e+/e- pair production caused by either mu+ or mu-.
-Pions, kaons, protons and anti-protons: multiple Coulomb scattering is performed by the WentzelVI model and
-Coulomb scattering by the eCoulombScattering model. Bremsstrahlung is handled by hBrem model. e − /e + pair
-production by hadrons is implemented by the hPairProduction model. Ionization is handled by several models de-
-pending on energy and particle type. For pions below 298 keV, Bragg model ionization is used for π + , and the
-ICRU73Q0 parameterization is used for π − . Above this energy BetheBloch ionization is used. For kaons, the same
-ionization models are used, but the change from low energy to high energy models occurs at 1.05 MeV. For protons,
-the Bragg model is used below 2 MeV and the BetheBloch above. For anti-protons ICRU73Q0 is used below 2 MeV
-and BetheBloch above.
-alpha and G4GenericIon: only two EM processes are applied. Multiple Coulomb scattering in implemented by the
-Urban model at all energies. For alphas Bragg ionization is performed below 7.9 MeV and BetheBloch ionization
-above. For generic ions, Bragg is used below 2 MeV and BetheBloch above.
+
+For each particle type Standard EM models implement several processes.
+
+- Photons:
+	- e−/e+ pair production is implemented by the *BetheHeitler model* with the LPM effect at high energies and
+	- Compton scattering is implemented by the *Klein-Nishina model*.
+	- Photo-electric effect and Rayleigh scattering are both handled by the *Livermore models*.
+- Electrons and positrons:
+	- multiple Coulomb scattering is handled by the *Urban model* from 0 to 100 MeV and by the *WentzelVI model* from 100 MeV to 100 TeV, which is combined with the single Coulomb scattering model, which is
+	applied for large angle scattering.
+	- Bremsstrahlung is implemented by the eBremSB model and the eBremLPM model which takes into account the LPM effect at high energies.
+	- Ionization is modeled by the Moller-Bhabha formulation, and positron annihilation is implemented by the eplus2gg model.
+- protons and anti-protons:
+	- multiple Coulomb scattering is performed by the *WentzelVI model* and Coulomb scattering by the *eCoulombScattering model*.
+	- Bremsstrahlung is handled by *hBrem model*.
+	- Ionization is handled by several models depending on energy and particle type.
+	- For protons, the *Bragg model* is used below 2 MeV and the *BetheBloch above*.
+	- For anti-protons *ICRU73Q0* is used below 2 MeV and *BetheBloch above*.
+
+- alpha and G4GenericIon: only two EM processes are applied.
+	- Multiple Coulomb scattering in implemented by the *Urban model* at all energies.
+	- For *alphas Bragg ionization* is performed below 7.9 MeV and *BetheBloch ionization* above.
+	- For generic ions, *Bragg* is used below 2 MeV and BetheBloch above.
 
 
 
