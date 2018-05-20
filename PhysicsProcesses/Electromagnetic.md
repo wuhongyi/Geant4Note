@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:17:45 2017 (+0800)
-;; Last-Updated: 四 2月  1 15:01:18 2018 (+0800)
+;; Last-Updated: 四 2月  1 15:39:00 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 7
+;;     Update #: 8
 ;; URL: http://wuhongyi.cn -->
 
 # Electromagnetic
@@ -77,11 +77,53 @@ For each particle type Standard EM models implement several processes.
 	- Ionization is handled by several models depending on energy and particle type.
 	- For protons, the *Bragg model* is used below 2 MeV and the *BetheBloch above*.
 	- For anti-protons *ICRU73Q0* is used below 2 MeV and *BetheBloch above*.
-
 - alpha and G4GenericIon: only two EM processes are applied.
 	- Multiple Coulomb scattering in implemented by the *Urban model* at all energies.
 	- For *alphas Bragg ionization* is performed below 7.9 MeV and *BetheBloch ionization* above.
 	- For generic ions, *Bragg* is used below 2 MeV and BetheBloch above.
+
+## EM Opt1
+
+Though the operational energy range goes down to zero, below 1 keV accuracy of these models is substantially lower.
+
+For each particle type Standard EM models implement several processes.
+
+- Photons:
+	- e−/e+ pair production is implemented by the BetheHeitler model with the LPM effect at high energies and
+	- Compton scattering is implemented by the Klein-Nishina model.
+	- Photo-electric effect and Rayleigh scattering are both handled by the Livermore models.
+- Electrons and positrons:
+	- multiple Coulomb scattering is handled by the Urban model from 0 to 100 MeV and by the WentzelVI model from 100 MeV to 100 TeV, which is combined with the single Coulomb scattering model, which is applied for large angle scattering.
+	- Bremsstrahlung is implemented by the eBremSB model and the eBremLPM model which takes into account the LPM effect at high energies.
+	- Ionization is modeled by the Moller-Bhabha formulation, and positron annihilation is implemented by the eplus2gg model.
+- protons and anti-protons:
+	- multiple Coulomb scattering is performed by the WentzelVI model and Coulomb scattering by the eCoulombScattering model.
+	- Bremsstrahlung is handled by hBrem model.
+	- e−/e+ pair production by hadrons is implemented by the hPairProduction model.
+	- Ionization is handled by several models depending on energy and particle type.
+	- For protons, the Bragg model is used below 2 MeV and the BetheBloch above.
+	- For anti-protons ICRU73Q0 is used below 2 MeV and BetheBloch above.
+- alpha and G4GenericIon: only two EM processes are applied.
+	- Multiple Coulomb scattering in implemented by the Urban model at all energies.
+	- For alphas Bragg ionization is performed below 7.9 MeV and BetheBloch ionization above.
+	- For generic ions, Bragg is used below 2 MeV and BetheBloch above.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

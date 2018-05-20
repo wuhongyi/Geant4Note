@@ -2,12 +2,12 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <title>Hadronic · GitBook</title>
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="generator" content="GitBook 3.2.0">
         
         
         
@@ -276,12 +276,85 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:18:51 2017 (+0800)
-;; Last-Updated: 六 12月 23 22:19:00 2017 (+0800)
+;; Last-Updated: 日 5月 20 09:03:30 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 9
 ;; URL: http://wuhongyi.cn -->
-<h1 id="hadronic">Hadronic</h1>
+
+
+<h1 id="hadronic">Hadronic</h1><hr><h2 id="&#x7535;&#x5B50;&#x5728;-si-&#x4E0A;">&#x7535;&#x5B50;&#x5728; Si &#x4E0A;</h2><p>&#x622A;&#x9762;&#x6570;&#x636E; G4EMLOW7.3/microelec</p><ul><li>G4MicroElecCrossSectionDataSet.hh
+</li>
+<li>G4MicroElecElastic.hh
+</li>
+<li><p>G4MicroElecElasticModel.hh</p><ul><li>Geant4 physics processes for microdosimetry simulation: very low energy electromagnetic models for electrons in Si, NIM B, vol. 288, pp. 66 - 73, 2012.
+</li></ul>
+</li>
+<li><p>G4MicroElecInelastic.hh</p></li>
+<li>G4MicroElecInelasticModel.hh
+<ul><li>Inelastic cross-sections of low energy electrons in silicon for the simulation of heavy ion tracks with theGeant4-DNA toolkit, NSS Conf. Record 2010, pp. 80-85
+</li>
+<li>Geant4 physics processes for microdosimetry simulation: very low energy electromagnetic models for electrons in Si, NIM B, vol. 288, pp. 66-73, 2012.
+</li>
+<li>Geant4 physics processes for microdosimetry simulation: very low energy electromagnetic models for protons and heavy ions in Si, NIM B, vol. 287, pp. 124-129, 2012.
+</li></ul>
+</li></ul>
+<h2 id="neutron">neutron</h2><ul><li>G4ChipsProtonElasticXS.hh
+</li>
+<li><p>G4ChipsNeutronElasticXS.hh</p><ul><li>Short description: Interaction cross-sections for the elastic process. Class extracted from CHIPS and integrated in Geant4 by W.Pokorski
+</li></ul>
+</li>
+<li><p>G4ChipsProtonInelasticXS.hh</p><ul><li>Short description: Cross-sections extracted (by W.Pokorski) from the CHIPS package for proton-nuclear interactions. Original author: M. Kossov
+</li></ul>
+</li>
+<li><p>G4ChipsNeutronInelasticXS.hh</p><ul><li>Short description: Cross-sections extracted (by W.Pokorski) from the CHIPS package for neutron-nuclear interactions. Original author: M. Kossov
+</li></ul>
+</li></ul>
+<p><strong>Model  -- G4HadronicInteraction</strong></p><ul><li><p>G4HadronElastic.hh</p><ul><li>Default model for elastic scattering; GHEISHA algorithm is used Class Description
+</li></ul>
+</li>
+<li><p>G4ChipsElasticModel.hh</p><ul><li>Default model for elastic scattering; GHEISHA algorithm is used Class Description
+</li>
+<li>CHIPS model of hadron elastic scattering
+</li></ul>
+</li>
+<li><p>G4DiffuseElastic.hh</p><ul><li>G4 Model: optical diffuse elastic scattering with 4-momentum balance
+</li>
+<li>Final state production model for hadron nuclear elastic scattering; 
+</li>
+<li>0.01 MeV - 1. TeV
+</li></ul>
+</li>
+<li><p>G4ParticleHPElastic.hh</p><ul><li>Final state production model for a high precision (based on evaluated data libraries) description of neutron elastic scattering below 20 MeV; 
+</li>
+<li>A prototype of the low energy neutron transport model.
+</li>
+<li><ol><li>eV - 20. MeV
+</li></ol>
+</li></ul>
+</li></ul>
+<ul><li>G4LENDElastic.hh
+<ul><li>LEND is Geant4 interface for GIDI (General Interaction Data Interface) which gives a discription of nuclear and atomic reactions, such as Binary collision cross sections / Particle number multiplicity distributions of reaction products / Energy and angular distributions of reaction products / Derived calculational constants
+</li>
+<li>GIDI is developped at Lawrence Livermore National Laboratory
+</li></ul>
+</li></ul>
+<p><strong>Cross section</strong></p><ul><li><p>G4HadronElasticDataSet.hh(G4HadronCrossSections.hh) &#x8FD9;&#x4E2A;&#x53EF;&#x80FD;&#x5C31;&#x662F;&#x81EA;&#x5E26;&#x7684;&#x622A;&#x9762;&#x6765;&#x6E90;&#xFF1F;&#xFF1F;&#xFF1F;</p><ul><li>Baseline data-set for hadron nucleaus elastic cross-section. This does not need to be registered, but provides part of the general cross-section baseline
+</li>
+<li>This class encapsulates cross section data and interpolations from the Geant3/Gheisha routine GHESIG.
+</li></ul>
+</li>
+<li><p>G4LENDElasticCrossSection.hh</p></li>
+<li><p>G4NeutronElasticXS.hh</p><ul><li>This is a base class for neutron elastic hadronic cross section based on data files from G4NEUTRONXSDATA data set 
+</li>
+<li>G4NEUTRONXS1.4  &#x6587;&#x4EF6;&#x4E2D;&#x7B2C;&#x4E00;&#x5217;&#x4E3A;&#x80FD;&#x91CF; MeV&#xFF0C;&#x7B2C;&#x4E8C;&#x5217;&#x4E3A;&#x622A;&#x9762;
+</li></ul>
+</li>
+<li><p>G4ParticleHPElasticData.hh</p><ul><li>&#x9AD8;&#x7CBE;&#x5EA6;&#x6570;&#x636E; &lt; 20 MeV
+</li></ul>
+</li></ul>
 <!-- Hadronic.md ends here -->
+
+
 
                                 
                                 </section>
@@ -325,7 +398,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Hadronic","level":"1.3.2","depth":2,"next":{"title":"Decay","level":"1.3.3","depth":2,"path":"PhysicsProcesses/Decay.md","ref":"PhysicsProcesses/Decay.md","articles":[]},"previous":{"title":"Electromagnetic","level":"1.3.1","depth":2,"path":"PhysicsProcesses/Electromagnetic.md","ref":"PhysicsProcesses/Electromagnetic.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/Hadronic.md","mtime":"2017-12-23T14:19:00.785Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-02-01T07:01:35.328Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Hadronic","level":"1.3.2","depth":2,"next":{"title":"Decay","level":"1.3.3","depth":2,"path":"PhysicsProcesses/Decay.md","ref":"PhysicsProcesses/Decay.md","articles":[]},"previous":{"title":"Electromagnetic","level":"1.3.1","depth":2,"path":"PhysicsProcesses/Electromagnetic.md","ref":"PhysicsProcesses/Electromagnetic.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/Hadronic.md","mtime":"2018-05-20T01:03:30.755Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-20T01:12:05.848Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
