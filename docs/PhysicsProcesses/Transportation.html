@@ -274,13 +274,21 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:20:24 2017 (+0800)
-;; Last-Updated: 六 12月 23 22:20:35 2017 (+0800)
+;; Last-Updated: 一 5月 21 08:48:44 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 
-<h1 id="transportation">Transportation</h1><!-- Transportation.md ends here -->
+<h1 id="transportation">Transportation</h1><blockquote><p><a href="http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#transportation-process" target="_blank">http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#transportation-process</a></p></blockquote><p>A Transportation process is required for every particle which is tracked in a simulation. It interfaces with the Geometry Modeller, to move a track inside the geometry by calling the G4Navigator class. In addition, if an external field (potentially Electromagnetic, but also gravity or a combination) is registered for the whole setup or inside the current volume, it calls the class (G4PropagatorInField) which integrates the equation of motion, and then intersects the curved trajectory with the geometry.</p><p>Transportation comes in two flavours:</p><ul><li>the &#x2018;standard&#x2019; <strong>G4Transportation</strong> process, used for most applications, and
+</li>
+<li>the <strong>G4CoupledTransportation</strong> process, which is activated when multiple geometries are active.
+</li></ul>
+<p>Multiple geometries can be created in order to cope with different use cases:</p><ul><li>when a mass overlay geometry is used to overlap a set of &#x2018;top&#x2019; volume onto a complex existing geometry,
+</li>
+<li>when the Geant4 scoring and/or biasing capabilities are activated.
+</li></ul>
+<p>The registration of the relevant Transportation process is handled by the <strong>G4RunManager</strong>, which chooses the correct type depending on whether any of the features which require parallel geometries have been used.</p><p>The <strong>G4Transportation</strong> process uses the <strong>G4Navigator</strong> of the Geant4 Geometry Modeller to obtain the distance to the next boundary along a straight line (for a neutral particle, or a charged particle in zero field.)</p><p>The <strong>G4CoupledTransportation</strong> process uses the <strong>G4PathFinder</strong> class to obtain the shortest length to a boundary amongst the geometries registered for the current particle - in effect multiplexing the different geometries.</p><p>In addition the transportation processes estimates the time of flight for the current step. For a neutral particle or a charged particle inside a pure magnetic field, this is estimated from the initial and final velocity of the particle. This taking into account roughly the effect of energy loss from ionisation. Since the full path length is used (rather than the geometrical one) the path lengthening due to multiple scattering is also taken into account.</p><p>For a charged particle in an EM field with a non-zero electric component, or a gravity field, the time of flight is calculated taking into account the change in velocity.</p><!-- Transportation.md ends here -->
 
 
 
@@ -322,7 +330,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Transportation","level":"1.3.7","depth":2,"previous":{"title":"Parameterization","level":"1.3.6","depth":2,"path":"PhysicsProcesses/Parameterization.md","ref":"PhysicsProcesses/Parameterization.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/Transportation.md","mtime":"2018-05-14T09:12:22.297Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-20T01:12:05.848Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Transportation","level":"1.3.7","depth":2,"previous":{"title":"Parameterization","level":"1.3.6","depth":2,"path":"PhysicsProcesses/Parameterization.md","ref":"PhysicsProcesses/Parameterization.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/Transportation.md","mtime":"2018-05-21T00:48:44.321Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-21T01:15:39.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

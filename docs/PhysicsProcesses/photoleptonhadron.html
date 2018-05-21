@@ -276,13 +276,32 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:19:29 2017 (+0800)
-;; Last-Updated: 六 12月 23 22:19:44 2017 (+0800)
+;; Last-Updated: 一 5月 21 09:15:14 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 
-<h1 id="photolepton-hadron">photolepton-hadron</h1><!-- photoleptonhadron.md ends here -->
+<h1 id="photolepton-hadron">photolepton-hadron</h1><blockquote><p><a href="http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#gamma-nuclear-and-lepto-nuclear-processes" target="_blank">http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#gamma-nuclear-and-lepto-nuclear-processes</a></p></blockquote><p>Gamma-nuclear and lepto-nuclear reactions are handled in Geant4 as hybrid processes which typically require both electromagnetic and hadronic models for their implementation. While neutrino-induced reactions are not currently provided, the Geant4 hadronic framework is general enough to include their future implementation as a hybrid of weak and hadronic models.</p><p>The general scheme followed is to factor the full interaction into an electromagnetic (or weak) vertex, in which a virtual particle is generated, and a hadronic vertex in which the virtual particle interacts with a target nucleus. In most cases the hadronic vertex is implemented by an existing Geant4 model which handles the intra-nuclear propagation.</p><p>The cross sections for these processes are parameterizations, either directly of data or of theoretical distributions determined from the integration of lepton-nucleon cross sections double differential in energy loss and momentum transfer.</p><p>For the most part gammas can be treated as hadrons and in fact they interact that way with the nucleus when the Bertini-style cascade <strong>G4CascadeInterface</strong> and QGSP models are used. These models may be assigned to <strong>G4PhotoNuclearProcess</strong> as shown in the following partial code:</p><pre><code class="lang-cpp">G4TheoFSGenerator* theHEModel = <span class="hljs-keyword">new</span> G4TheoFSGenerator;
+G4QGSModel* theStringModel = <span class="hljs-keyword">new</span> G4QGSModel&lt;G4GammaParticipants&gt;;
+G4ExcitedStringDecay* theStringDecay =
+  <span class="hljs-keyword">new</span> G4ExcitedStringDecay(theFragmentation=<span class="hljs-keyword">new</span> G4QGSMFragmentation);
+theStringModel-&gt;SetFragmentationModel(theStringDecay);
+
+theHEModel-&gt;SetHighEnergyGenerator(theStringModel);
+theHEModel-&gt;SetTransport(<span class="hljs-keyword">new</span> G4GeneratorPrecompoundInterface);
+theHEModel-&gt;SetMinEnergy(<span class="hljs-number">8</span>*GeV);
+
+G4CascadeInterface* theLEModel = <span class="hljs-keyword">new</span> G4CascadeInterface;
+theLEModel-&gt;SetMaxEnergy(<span class="hljs-number">10</span>*GeV);
+
+G4PhotoNuclearProcess* thePhotoNuclearProcess = <span class="hljs-keyword">new</span> G4PhotoNuclearProcess;
+thePhotoNuclearProcess-&gt;RegisterMe(theLEModel);
+thePhotoNuclearProcess-&gt;RegisterMe(theHEModel);
+
+G4ProcessManager* procMan = G4Gamma::Gamma()-&gt;GetProcessManager();
+procMan-&gt;AddDiscreteProcess(thePhotoNuclearProcess);</code></pre>
+<p>Electro-nuclear reactions in Geant4 are handled by the classes <strong>G4ElectronNuclearProcess</strong> and <strong>G4PositronNuclearProcess</strong>, which are both implmented by <strong>G4ElectroVDNuclearModel</strong>. This model consists of three sub-models: code which generates the virtual photon from the lepton-nucleus vertex, the Bertini-style cascade to handle the low and medium energy photons, and the FTFP model to handle the high energy photons.</p><p>Muon-nuclear reactions are handled similarly. The process <strong>G4MuonNuclearProcess</strong> can be assigned the <strong>G4MuonVDNuclearModel</strong> which in turn is implemented by three sub-models: virtual gamma generation code, Bertini-style cascade and the FTFP model.</p><!-- photoleptonhadron.md ends here -->
 
 
 
@@ -328,7 +347,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"photolepton-hadron","level":"1.3.4","depth":2,"next":{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},"previous":{"title":"Decay","level":"1.3.3","depth":2,"path":"PhysicsProcesses/Decay.md","ref":"PhysicsProcesses/Decay.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/photoleptonhadron.md","mtime":"2018-05-14T09:12:22.211Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-20T01:12:05.848Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"photolepton-hadron","level":"1.3.4","depth":2,"next":{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},"previous":{"title":"Decay","level":"1.3.3","depth":2,"path":"PhysicsProcesses/Decay.md","ref":"PhysicsProcesses/Decay.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/photoleptonhadron.md","mtime":"2018-05-21T01:15:14.383Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-21T01:15:39.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
