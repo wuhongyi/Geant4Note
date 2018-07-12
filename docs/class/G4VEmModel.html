@@ -1,0 +1,902 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <title>G4VEmModel · GitBook</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.0">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="G4BraggModel.html" />
+    
+    
+    <link rel="prev" href="G4EmParameters.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Guide/">
+            
+                <a href="../Guide/">
+            
+                    
+                    说明文档
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../PhysicsProcesses/">
+            
+                <a href="../PhysicsProcesses/">
+            
+                    
+                    Physics Processes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../PhysicsProcesses/Electromagnetic.html">
+            
+                <a href="../PhysicsProcesses/Electromagnetic.html">
+            
+                    
+                    Electromagnetic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../PhysicsProcesses/Hadronic.html">
+            
+                <a href="../PhysicsProcesses/Hadronic.html">
+            
+                    
+                    Hadronic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../PhysicsProcesses/Decay.html">
+            
+                <a href="../PhysicsProcesses/Decay.html">
+            
+                    
+                    Decay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../PhysicsProcesses/photoleptonhadron.html">
+            
+                <a href="../PhysicsProcesses/photoleptonhadron.html">
+            
+                    
+                    photolepton-hadron
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../PhysicsProcesses/OpticalPhoton.html">
+            
+                <a href="../PhysicsProcesses/OpticalPhoton.html">
+            
+                    
+                    Optical Photon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../PhysicsProcesses/Parameterization.html">
+            
+                <a href="../PhysicsProcesses/Parameterization.html">
+            
+                    
+                    Parameterization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../PhysicsProcesses/Transportation.html">
+            
+                <a href="../PhysicsProcesses/Transportation.html">
+            
+                    
+                    Transportation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Class
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="G4LossTableManager.html">
+            
+                <a href="G4LossTableManager.html">
+            
+                    
+                    G4LossTableManager-
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="G4EmModelActivator.html">
+            
+                <a href="G4EmModelActivator.html">
+            
+                    
+                    G4EmModelActivator-
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="G4EmCorrections.html">
+            
+                <a href="G4EmCorrections.html">
+            
+                    
+                    G4EmCorrections-
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="G4EmCalculator.html">
+            
+                <a href="G4EmCalculator.html">
+            
+                    
+                    G4EmCalculator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="G4EmParameters.html">
+            
+                <a href="G4EmParameters.html">
+            
+                    
+                    G4EmParameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.6" data-path="G4VEmModel.html">
+            
+                <a href="G4VEmModel.html">
+            
+                    
+                    G4VEmModel
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.6.1" data-path="G4BraggModel.html">
+            
+                <a href="G4BraggModel.html">
+            
+                    
+                    G4BraggModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6.2" data-path="G4BetheBlochModel.html">
+            
+                <a href="G4BetheBlochModel.html">
+            
+                    
+                    G4BetheBlochModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="G4VProcess.html">
+            
+                <a href="G4VProcess.html">
+            
+                    
+                    G4VProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.7.1" data-path="G4VContinuousDiscreteProcess.html">
+            
+                <a href="G4VContinuousDiscreteProcess.html">
+            
+                    
+                    G4VContinuousDiscreteProcess-
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.7.1.1" data-path="G4VEnergyLossProcess.html">
+            
+                <a href="G4VEnergyLossProcess.html">
+            
+                    
+                    G4VEnergyLossProcess-
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.7.1.1.1" data-path="G4hIonisation.html">
+            
+                <a href="G4hIonisation.html">
+            
+                    
+                    G4hIonisation-
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="G4PhysicsListHelper.html">
+            
+                <a href="G4PhysicsListHelper.html">
+            
+                    
+                    G4PhysicsListHelper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="G4ProcessManager.html">
+            
+                <a href="G4ProcessManager.html">
+            
+                    
+                    G4ProcessManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="G4NistManager.html">
+            
+                <a href="G4NistManager.html">
+            
+                    
+                    G4NistManager-
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Geant4.html">
+            
+                <a href="../Geant4.html">
+            
+                    
+                    修改源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >G4VEmModel</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <!-- G4VEmModel.md --- 
+;; 
+;; Description: 
+;; Author: Hongyi Wu(吴鸿毅)
+;; Email: wuhongyi@qq.com 
+;; Created: 四 7月 12 22:27:09 2018 (+0800)
+;; Last-Updated: 四 7月 12 22:30:41 2018 (+0800)
+;;           By: Hongyi Wu(吴鸿毅)
+;;     Update #: 1
+;; URL: http://wuhongyi.cn -->
+
+
+<h1 id="g4vemmodel">G4VEmModel</h1><p>Abstract interface to energy loss models</p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4VEmModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; nam)</span></span>;
+
+  <span class="hljs-keyword">virtual</span> ~G4VEmModel();
+
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+  <span class="hljs-comment">// Virtual methods to be implemented for any concrete model</span>
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-keyword">const</span> G4DataVector&amp;)</span> </span>= <span class="hljs-number">0</span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SampleSecondaries</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt;*,
+                                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                                 <span class="hljs-keyword">const</span> G4DynamicParticle*,
+                                 G4double tmin = <span class="hljs-number">0.0</span>,
+                                 G4double tmax = DBL_MAX)</span> </span>= <span class="hljs-number">0</span>;
+
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+  <span class="hljs-comment">// Methods for initialisation of MT; may be overwritten if needed</span>
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+
+  <span class="hljs-comment">// initilisation in local thread</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseLocal</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                               G4VEmModel* masterModel)</span></span>;
+
+  <span class="hljs-comment">// initilisation of a new material at run time</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseForMaterial</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                     <span class="hljs-keyword">const</span> G4Material*)</span></span>;
+
+  <span class="hljs-comment">// initilisation of a new element at run time</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseForElement</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                    G4int Z)</span></span>;
+
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+  <span class="hljs-comment">// Methods with standard implementation; may be overwritten if needed </span>
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+
+  <span class="hljs-comment">// main method to compute dEdx</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeDEDXPerVolume</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
+                                        <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                        G4double kineticEnergy,
+                                        G4double cutEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// main method to compute cross section per Volume</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">CrossSectionPerVolume</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
+                                         <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                         G4double kineticEnergy,
+                                         G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                                         G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// method to get partial cross section</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetPartialCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
+                                          G4int level,
+                                          <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                          G4double kineticEnergy)</span></span>;
+
+  <span class="hljs-comment">// main method to compute cross section per atom</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                              G4double kinEnergy,
+                                              G4double Z,
+                                              G4double A = <span class="hljs-number">0.</span>, <span class="hljs-comment">/* amu */</span>
+                                              G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                                              G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// main method to compute cross section per atomic shell</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerShell</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                               G4int Z, G4int shellIdx,
+                                               G4double kinEnergy,
+                                               G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                                               G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// Compute effective ion charge square</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ChargeSquareRatio</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
+
+  <span class="hljs-comment">// Compute effective ion charge square</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetChargeSquareRatio</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                        <span class="hljs-keyword">const</span> G4Material*,
+                                        G4double kineticEnergy)</span></span>;
+
+  <span class="hljs-comment">// Compute ion charge </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetParticleCharge</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                     <span class="hljs-keyword">const</span> G4Material*,
+                                     G4double kineticEnergy)</span></span>;
+
+  <span class="hljs-comment">// Initialisation for a new track</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">StartTracking</span><span class="hljs-params">(G4Track*)</span></span>;
+
+  <span class="hljs-comment">// add correction to energy loss and compute non-ionizing energy loss</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CorrectionsAlongStep</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                                    <span class="hljs-keyword">const</span> G4DynamicParticle*,
+                                    G4double&amp; eloss,
+                                    G4double&amp; niel,
+                                    G4double length)</span></span>;
+
+  <span class="hljs-comment">// value which may be tabulated (by default cross section)</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">Value</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                         <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                         G4double kineticEnergy)</span></span>;
+
+  <span class="hljs-comment">// threshold for zero value </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">MinPrimaryEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
+                                    <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                    G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
+
+  <span class="hljs-comment">// model can define low-energy limit for the cut</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">MinEnergyCut</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                <span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;
+
+  <span class="hljs-comment">// initilisation at run time for a given material</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetupForMaterial</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                <span class="hljs-keyword">const</span> G4Material*,
+                                G4double kineticEnergy)</span></span>;
+
+  <span class="hljs-comment">// add a region for the model</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DefineForRegion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Region*)</span></span>;
+
+  <span class="hljs-comment">// for automatic documentation</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ModelDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; outFile)</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ModelDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; outFile,
+                                G4String endOfLine)</span> <span class="hljs-keyword">const</span></span>; 
+
+
+
+
+
+
+<span class="hljs-keyword">public</span>:
+
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+  <span class="hljs-comment">// Generic methods common to all models</span>
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+
+  <span class="hljs-comment">// should be called at initialisation to build element selectors</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseElementSelectors</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                  <span class="hljs-keyword">const</span> G4DataVector&amp;)</span></span>;
+
+  <span class="hljs-comment">// should be called at initialisation to access element selectors</span>
+  <span class="hljs-keyword">inline</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4EmElementSelector*&gt;* GetElementSelectors();
+
+  <span class="hljs-comment">// should be called at initialisation to set element selectors</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetElementSelectors</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4EmElementSelector*&gt;*)</span></span>;
+
+  <span class="hljs-comment">// dEdx per unit length</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeDEDX</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                              <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                              G4double kineticEnergy,
+                              G4double cutEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// cross section per volume</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">CrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                               <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                               G4double kineticEnergy,
+                               G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                               G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// compute mean free path via cross section per volume</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeMeanFreePath</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                      G4double kineticEnergy,
+                                      <span class="hljs-keyword">const</span> G4Material*,
+                                      G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                                      G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// generic cross section per element</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                             <span class="hljs-keyword">const</span> G4Element*,
+                                             G4double kinEnergy,
+                                             G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                                             G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// select isotope in order to have precise mass of the nucleus</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4int <span class="hljs-title">SelectIsotopeNumber</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Element*)</span></span>;
+
+  <span class="hljs-comment">// atom can be selected effitiantly if element selectors are initialised </span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4Element* <span class="hljs-title">SelectRandomAtom</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                                           <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                           G4double kineticEnergy,
+                                           G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                                           G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// to select atom cross section per volume is recomputed for each element </span>
+  <span class="hljs-function"><span class="hljs-keyword">const</span> G4Element* <span class="hljs-title">SelectRandomAtom</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
+                                    <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                    G4double kineticEnergy,
+                                    G4double cutEnergy = <span class="hljs-number">0.0</span>,
+                                    G4double maxEnergy = DBL_MAX)</span></span>;
+
+  <span class="hljs-comment">// to select atom if cross section is proportional number of electrons </span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4int <span class="hljs-title">SelectRandomAtomNumber</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*)</span></span>;
+
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+  <span class="hljs-comment">// Get/Set methods</span>
+  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetParticleChange</span><span class="hljs-params">(G4VParticleChange*, G4VEmFluctuationModel* f=<span class="hljs-literal">nullptr</span>)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetCrossSectionTable</span><span class="hljs-params">(G4PhysicsTable*, G4bool isLocal)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4ElementData* <span class="hljs-title">GetElementData</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4PhysicsTable* <span class="hljs-title">GetCrossSectionTable</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4VEmFluctuationModel* <span class="hljs-title">GetModelOfFluctuations</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4VEmAngularDistribution* <span class="hljs-title">GetAngularDistribution</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4VEmModel* <span class="hljs-title">GetTripletModel</span><span class="hljs-params">()</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetTripletModel</span><span class="hljs-params">(G4VEmModel*)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAngularDistribution</span><span class="hljs-params">(G4VEmAngularDistribution*)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">HighEnergyLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">LowEnergyLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">HighEnergyActivationLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">LowEnergyActivationLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">PolarAngleLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">SecondaryThreshold</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">LPMFlag</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">DeexcitationFlag</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">ForceBuildTableFlag</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">UseAngularGeneratorFlag</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAngularGeneratorFlag</span><span class="hljs-params">(G4bool)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetHighEnergyLimit</span><span class="hljs-params">(G4double)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetLowEnergyLimit</span><span class="hljs-params">(G4double)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetActivationHighEnergyLimit</span><span class="hljs-params">(G4double)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetActivationLowEnergyLimit</span><span class="hljs-params">(G4double)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">IsActive</span><span class="hljs-params">(G4double kinEnergy)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetPolarAngleLimit</span><span class="hljs-params">(G4double)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetSecondaryThreshold</span><span class="hljs-params">(G4double)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetLPMFlag</span><span class="hljs-params">(G4bool val)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetDeexcitationFlag</span><span class="hljs-params">(G4bool val)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetForceBuildTable</span><span class="hljs-params">(G4bool val)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetFluctuationFlag</span><span class="hljs-params">(G4bool val)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetMasterThread</span><span class="hljs-params">(G4bool val)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">IsMaster</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">MaxSecondaryKinEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle* dynParticle)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetName</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetCurrentCouple</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4Element* <span class="hljs-title">GetCurrentElement</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4Isotope* <span class="hljs-title">GetCurrentIsotope</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">IsLocked</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetLocked</span><span class="hljs-params">(G4bool)</span></span>;
+
+
+
+
+
+
+
+
+
+</code></pre>
+<!-- G4VEmModel.md ends here -->
+
+
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="G4EmParameters.html" class="navigation navigation-prev " aria-label="Previous page: G4EmParameters">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="G4BraggModel.html" class="navigation navigation-next " aria-label="Next page: G4BraggModel">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"G4VEmModel","level":"1.4.6","depth":2,"next":{"title":"G4BraggModel","level":"1.4.6.1","depth":3,"path":"class/G4BraggModel.md","ref":"class/G4BraggModel.md","articles":[]},"previous":{"title":"G4EmParameters","level":"1.4.5","depth":2,"path":"class/G4EmParameters.md","ref":"class/G4EmParameters.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VEmModel.md","mtime":"2018-07-12T14:30:41.528Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-12T20:41:36.350Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

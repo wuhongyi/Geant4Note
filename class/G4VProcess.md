@@ -4,17 +4,87 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 07:38:44 2018 (+0800)
-;; Last-Updated: 四 7月 12 07:42:40 2018 (+0800)
+;; Last-Updated: 四 7月 12 09:02:58 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 # G4VProcess
 
 This class is the virtual class for physics process objects. It defines public methods which describe the behavior of a physics process.
 
-## class
 
+G4VProcess is the base class for all physics processes.   
+Each physics process must implement virtual methods of G4VProcess which describe the interaction (DoIt) and determine when an interaction should occur (GPIL).   
+
+In order to accommodate various types of interactions G4VProcess provides three DoIt methods:  
+- G4VParticleChange* AlongStepDoIt( const G4Track& track, const G4Step& stepData )
+	- This method is invoked while G4SteppingManager is transporting a particle through one step. 
+	- The corresponding AlongStepDoIt for each defined process is applied for every step regardless of which process produces the minimum step length. 
+	- Each resulting change to the track information is recorded and accumulated in G4Step. 
+	- After all processes have been invoked, changes due to AlongStepDoIt are applied to G4Track, including the particle relocation and the safety update. 
+	- Note that after the invocation of AlongStepDoIt, the endpoint of the G4Track object is in a new volume if the step was limited by a geometric boundary. 
+	- In order to obtain information about the old volume, G4Step must be accessed, since it contains information about both endpoints of a step.
+- G4VParticleChange* PostStepDoIt( const G4Track& track, const G4Step& stepData )
+	- This method is invoked at the end point of a step, only if its process has produced the minimum step length, or if the process is forced to occur. 
+	- G4Track will be updated after each invocation of PostStepDoIt, in contrast to the AlongStepDoIt method.
+- G4VParticleChange* AtRestDoIt( const G4Track& track, const G4Step& stepData )
+	- This method is invoked only for stopped particles, and only if its process produced the minimum step length or the process is forced to occur.
+
+
+For each of the above DoIt methods G4VProcess provides a corresponding pure virtual GPIL method:  
+- G4double PostStepGetPhysicalInteractionLength( const G4Track& track, G4double previousStepSize, G4ForceCondition* condition )
+	- This method generates the step length allowed by its process. 
+	- It also provides a flag to force the interaction to occur regardless of its step length.
+- G4double AlongStepGetPhysicalInteractionLength( const G4Track& track, G4double previousStepSize, G4double currentMinimumStep, G4double& proposedSafety, G4GPILSelection* selection )
+	- This method generates the step length allowed by its process.
+- G4double AtRestGetPhysicalInteractionLength( const G4Track& track, G4ForceCondition* condition )
+	- This method generates the step length in time allowed by its process. 
+	- It also provides a flag to force the interaction to occur regardless of its step length.
+
+
+Other pure virtual methods in G4VProcess follow:  
+- virtual G4bool IsApplicable(const G4ParticleDefinition&)
+	- returns true if this process object is applicable to the particle type.
+- virtual void PreparePhysicsTable(const G4ParticleDefinition&) and
+- virtual void BuildPhysicsTable(const G4ParticleDefinition&)
+	- is messaged by the process manager, whenever cross section tables should be prepared and rebuilt due to changing cut-off values. 
+	- It is not mandatory if the process is not affected by cut-off values.
+- virtual void StartTracking() and
+- virtual void EndTracking()
+	- are messaged by the tracking manager at the beginning and end of tracking the current track.
+
+
+
+Specialized processes may be derived from seven additional virtual base classes which are themselves derived from G4VProcess.   
+
+Three of these classes are used for simple processes:  
+- G4VRestProcess
+	- Processes using only the AtRestDoIt method.
+	- example: neutron capture
+- G4VDiscreteProcess
+	- Processes using only the PostStepDoIt method.
+	- example: Compton scattering, hadron inelastic interaction
+- TODO 说明书这里缺一个
+
+The other four classes are provided for rather complex processes:  
+
+- G4VContinuousDiscreteProcess
+	- Processes using both AlongStepDoIt and PostStepDoIt methods.
+	- example: transportation, ionisation(energy loss and delta ray)
+- G4VRestDiscreteProcess
+	- Processes using both AtRestDoIt and PostStepDoIt methods.
+	- example: positron annihilation, decay (both in flight and at rest)
+- G4VRestContinuousProcess
+	- Processes using both AtRestDoIt and AlongStepDoIt methods.
+- G4VRestContinuousDiscreteProcess
+	- Processes using AtRestDoIt, AlongStepDoIt and PostStepDoIt methods.
+
+
+
+----
+
+## class
 
 ```cpp
   public: // with description
