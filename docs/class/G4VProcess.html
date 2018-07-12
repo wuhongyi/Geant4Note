@@ -1,0 +1,665 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <title>G4VProcess · GitBook</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.0">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="G4ProcessManager.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Guide/">
+            
+                <a href="../Guide/">
+            
+                    
+                    说明文档
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../PhysicsProcesses/">
+            
+                <a href="../PhysicsProcesses/">
+            
+                    
+                    Physics Processes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../PhysicsProcesses/Electromagnetic.html">
+            
+                <a href="../PhysicsProcesses/Electromagnetic.html">
+            
+                    
+                    Electromagnetic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../PhysicsProcesses/Hadronic.html">
+            
+                <a href="../PhysicsProcesses/Hadronic.html">
+            
+                    
+                    Hadronic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../PhysicsProcesses/Decay.html">
+            
+                <a href="../PhysicsProcesses/Decay.html">
+            
+                    
+                    Decay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../PhysicsProcesses/photoleptonhadron.html">
+            
+                <a href="../PhysicsProcesses/photoleptonhadron.html">
+            
+                    
+                    photolepton-hadron
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../PhysicsProcesses/OpticalPhoton.html">
+            
+                <a href="../PhysicsProcesses/OpticalPhoton.html">
+            
+                    
+                    Optical Photon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../PhysicsProcesses/Parameterization.html">
+            
+                <a href="../PhysicsProcesses/Parameterization.html">
+            
+                    
+                    Parameterization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../PhysicsProcesses/Transportation.html">
+            
+                <a href="../PhysicsProcesses/Transportation.html">
+            
+                    
+                    Transportation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Class
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="G4ProcessManager.html">
+            
+                <a href="G4ProcessManager.html">
+            
+                    
+                    G4ProcessManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.2" data-path="G4VProcess.html">
+            
+                <a href="G4VProcess.html">
+            
+                    
+                    G4VProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >G4VProcess</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <!-- G4VProcess.md --- 
+;; 
+;; Description: 
+;; Author: Hongyi Wu(吴鸿毅)
+;; Email: wuhongyi@qq.com 
+;; Created: 四 7月 12 07:38:44 2018 (+0800)
+;; Last-Updated: 四 7月 12 07:42:40 2018 (+0800)
+;;           By: Hongyi Wu(吴鸿毅)
+;;     Update #: 1
+;; URL: http://wuhongyi.cn -->
+
+
+<h1 id="g4vprocess">G4VProcess</h1><p>This class is the virtual class for physics process objects. It defines public methods which describe the behavior of a physics process.</p><h2 id="class">class</h2><pre><code class="lang-cpp">  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+  <span class="hljs-comment">//  constructor requires the process name and type</span>
+      G4VProcess(<span class="hljs-keyword">const</span> G4String&amp; aName =  <span class="hljs-string">&quot;NoName&quot;</span>,
+         G4ProcessType   aType = fNotDefined );
+
+  <span class="hljs-comment">//  copy constructor copys the name but does not copy the </span>
+  <span class="hljs-comment">//  physics table (0 pointer is assigned)</span>
+      G4VProcess(<span class="hljs-keyword">const</span> G4VProcess &amp;right);
+
+  <span class="hljs-keyword">public</span>: 
+  <span class="hljs-comment">//  destructor </span>
+      <span class="hljs-keyword">virtual</span> ~G4VProcess();
+
+  <span class="hljs-comment">// equal opperators</span>
+      G4int <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> G4VProcess &amp;right) <span class="hljs-keyword">const</span>;
+      G4int <span class="hljs-keyword">operator</span>!=(<span class="hljs-keyword">const</span> G4VProcess &amp;right) <span class="hljs-keyword">const</span>;
+
+
+  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+  <span class="hljs-comment">////////////////////////////</span>
+  <span class="hljs-comment">// DoIt    /////////////////</span>
+  <span class="hljs-comment">///////////////////////////</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VParticleChange* <span class="hljs-title">PostStepDoIt</span><span class="hljs-params">(
+                 <span class="hljs-keyword">const</span> G4Track&amp; track,
+                 <span class="hljs-keyword">const</span> G4Step&amp;  stepData
+                )</span> </span>= <span class="hljs-number">0</span>;
+
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VParticleChange* <span class="hljs-title">AlongStepDoIt</span><span class="hljs-params">(
+                 <span class="hljs-keyword">const</span> G4Track&amp; track,
+                 <span class="hljs-keyword">const</span> G4Step&amp; stepData
+                )</span> </span>= <span class="hljs-number">0</span>;
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VParticleChange* <span class="hljs-title">AtRestDoIt</span><span class="hljs-params">(
+                 <span class="hljs-keyword">const</span> G4Track&amp; track,
+                 <span class="hljs-keyword">const</span> G4Step&amp; stepData
+                )</span> </span>= <span class="hljs-number">0</span>;
+      <span class="hljs-comment">//  A virtual base class function that has to be overridden</span>
+      <span class="hljs-comment">//  by any subclass. The DoIt method actually performs the</span>
+      <span class="hljs-comment">//  physics process and determines either momentum change</span>
+      <span class="hljs-comment">//  of the production of secondaries etc.</span>
+      <span class="hljs-comment">//    arguments</span>
+      <span class="hljs-comment">//      const G4Track&amp;    track:</span>
+      <span class="hljs-comment">//        reference to the current G4Track information</span>
+      <span class="hljs-comment">//      const G4Step&amp;     stepData:</span>
+      <span class="hljs-comment">//        reference to the current G4Step information</span>
+
+  <span class="hljs-comment">//////////////////////////</span>
+  <span class="hljs-comment">// GPIL    //////////////</span>
+  <span class="hljs-comment">/////////////////////////  </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">AlongStepGetPhysicalInteractionLength</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                 G4double  previousStepSize,
+                 G4double  currentMinimumStep,
+                 G4double&amp; proposedSafety,
+                             G4GPILSelection* selection)</span> </span>= <span class="hljs-number">0</span>;
+
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">AtRestGetPhysicalInteractionLength</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                 G4ForceCondition* condition
+                )</span> </span>= <span class="hljs-number">0</span>;
+
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">PostStepGetPhysicalInteractionLength</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                 G4double   previousStepSize,
+                 G4ForceCondition* condition
+                )</span> </span>= <span class="hljs-number">0</span>;
+
+      <span class="hljs-comment">//  Returns the Step-size (actual length) which is allowed </span>
+      <span class="hljs-comment">//  by &quot;this&quot; process. (for AtRestGetPhysicalInteractionLength,</span>
+      <span class="hljs-comment">//  return value is Step-time) The NumberOfInteractionLengthLeft is</span>
+      <span class="hljs-comment">//  recalculated by using previousStepSize and the Step-size is </span>
+      <span class="hljs-comment">//  calucalted accoding to the resultant NumberOfInteractionLengthLeft.</span>
+      <span class="hljs-comment">//  using NumberOfInteractionLengthLeft, which is recalculated at </span>
+      <span class="hljs-comment">//    arguments</span>
+      <span class="hljs-comment">//      const G4Track&amp;    track:</span>
+      <span class="hljs-comment">//        reference to the current G4Track information</span>
+      <span class="hljs-comment">//      G4double*          previousStepSize: </span>
+      <span class="hljs-comment">//        the Step-size (actual length) of the previous Step </span>
+      <span class="hljs-comment">//        of this track. Negative calue indicates that</span>
+      <span class="hljs-comment">//        NumberOfInteractionLengthLeft must be reset.</span>
+      <span class="hljs-comment">//        the current physical interaction legth of this process</span>
+      <span class="hljs-comment">//      G4ForceCondition* condition:</span>
+      <span class="hljs-comment">//        the flag indicates DoIt of this process is forced </span>
+      <span class="hljs-comment">//        to be called</span>
+      <span class="hljs-comment">//         Forced:    Corresponding DoIt is forced</span>
+      <span class="hljs-comment">//         NotForced: Corresponding DoIt is called </span>
+      <span class="hljs-comment">//                    if the Step size of this Step is determined </span>
+      <span class="hljs-comment">//                    by this process</span>
+      <span class="hljs-comment">//        !! AlongStepDoIt is always called !! </span>
+      <span class="hljs-comment">//      G4double&amp; currentMinimumStep:</span>
+      <span class="hljs-comment">//        this value is used for transformation of</span>
+      <span class="hljs-comment">//        true path length to geometrical path length</span>
+
+      <span class="hljs-function">G4double <span class="hljs-title">GetCurrentInteractionLength</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">// Returns currentInteractionLength</span>
+
+      <span class="hljs-comment">////////// PIL factor ////////</span>
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetPILfactor</span><span class="hljs-params">(G4double value)</span></span>;
+      <span class="hljs-function">G4double <span class="hljs-title">GetPILfactor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">// Set/Get factor for PhysicsInteractionLength </span>
+      <span class="hljs-comment">// which is passed to G4SteppingManager for both AtRest and PostStep</span>
+
+      <span class="hljs-comment">// These three GPIL methods are used by Stepping Manager.</span>
+      <span class="hljs-comment">// They invoke virtual GPIL methods listed above.</span>
+      <span class="hljs-comment">// As for AtRest and PostStep the returned value is multipled by thePILfactor </span>
+      <span class="hljs-comment">// </span>
+      <span class="hljs-function">G4double <span class="hljs-title">AlongStepGPIL</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4Track&amp; track,
+                              G4double  previousStepSize,
+                              G4double  currentMinimumStep,
+                              G4double&amp; proposedSafety,
+                              G4GPILSelection* selection     )</span></span>;
+
+      <span class="hljs-function">G4double <span class="hljs-title">AtRestGPIL</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4Track&amp; track,
+                           G4ForceCondition* condition )</span></span>;
+
+      <span class="hljs-function">G4double <span class="hljs-title">PostStepGPIL</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4Track&amp; track,
+                             G4double   previousStepSize,
+                             G4ForceCondition* condition )</span></span>;
+
+  <span class="hljs-comment">////////////////////// </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">IsApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>{<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;}
+      <span class="hljs-comment">// Returns true if this process object is applicable to</span>
+      <span class="hljs-comment">// the particle type</span>
+      <span class="hljs-comment">// Process will not be registered to a particle if IsApplicable is false   </span>
+
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BuildPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>{}
+      <span class="hljs-comment">// Messaged by the Particle definition (via the Process manager)</span>
+      <span class="hljs-comment">// whenever cross section tables have to be rebuilt (i.e. if new</span>
+      <span class="hljs-comment">// materials have been defined). </span>
+      <span class="hljs-comment">// It is overloaded by individual processes when they need physics</span>
+      <span class="hljs-comment">// tables. </span>
+
+     <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PreparePhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>{}
+      <span class="hljs-comment">// Messaged by the Particle definition (via the Process manager)</span>
+      <span class="hljs-comment">// whenever cross section tables have to be prepare for rebuilt </span>
+      <span class="hljs-comment">// (i.e. if new materials have been defined). </span>
+      <span class="hljs-comment">// It is overloaded by individual processes when they need physics</span>
+      <span class="hljs-comment">// tables. </span>
+
+      <span class="hljs-comment">// Processes which Build physics tables independent of cuts</span>
+      <span class="hljs-comment">// (for example in their constructors)</span>
+      <span class="hljs-comment">// should preferably use private </span>
+      <span class="hljs-comment">// void BuildThePhysicsTable() and void PreparePhysicsTable().</span>
+      <span class="hljs-comment">// Not another BuildPhysicsTable, please.</span>
+
+
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">StorePhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* ,
+                       <span class="hljs-keyword">const</span> G4String&amp;, G4bool)</span></span>{<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;}
+      <span class="hljs-comment">// Store PhysicsTable in a file.</span>
+      <span class="hljs-comment">// (return false in case of failure at I/O )</span>
+
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">RetrievePhysicsTable</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4ParticleDefinition* ,
+                       <span class="hljs-keyword">const</span> G4String&amp;, G4bool)</span></span>{<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;}
+      <span class="hljs-comment">// Retrieve Physics from a file.</span>
+      <span class="hljs-comment">// (return true if the Physics Table can be build by using file)</span>
+      <span class="hljs-comment">// (return false if the process has no functionality or in case of failure)</span>
+      <span class="hljs-comment">// File name should be defined by each process</span>
+      <span class="hljs-comment">// and the file should be placed under the directory specifed by the argument.</span>
+      <span class="hljs-function"><span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetPhysicsTableFileName</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* ,
+                          <span class="hljs-keyword">const</span> G4String&amp; directory,
+                          <span class="hljs-keyword">const</span> G4String&amp; tableName,
+                          G4bool ascii =<span class="hljs-literal">false</span>)</span></span>;
+      <span class="hljs-comment">// this method is utility for Store/RetreivePhysicsTable</span>
+
+  <span class="hljs-comment">////////////////////////////</span>
+      <span class="hljs-function"><span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetProcessName</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the name of the process.</span>
+
+      <span class="hljs-function">G4ProcessType <span class="hljs-title">GetProcessType</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the process type.</span>
+
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessType</span><span class="hljs-params">(G4ProcessType )</span></span>;
+      <span class="hljs-comment">//  Set the process type.</span>
+
+      <span class="hljs-function">G4int <span class="hljs-title">GetProcessSubType</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the process sub type.</span>
+
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessSubType</span><span class="hljs-params">(G4int )</span></span>;
+      <span class="hljs-comment">//  Set the process sub type.</span>
+
+      <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetProcessTypeName</span><span class="hljs-params">(G4ProcessType )</span></span>;
+      <span class="hljs-comment">//  Returns the process type name</span>
+
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">StartTracking</span><span class="hljs-params">(G4Track*)</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EndTracking</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-comment">// inform Start/End of tracking for each track to the physics process </span>
+
+  <span class="hljs-keyword">public</span>:
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessManager</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ProcessManager*)</span></span>; 
+      <span class="hljs-comment">// A process manager set its own pointer when the process is registered</span>
+      <span class="hljs-comment">// the process Manager</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  <span class="hljs-keyword">const</span> G4ProcessManager* <span class="hljs-title">GetProcessManager</span><span class="hljs-params">()</span></span>; 
+      <span class="hljs-comment">// Get the process manager which the process belongs to</span>
+
+
+
+ <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span>      <span class="hljs-title">ResetNumberOfInteractionLengthLeft</span><span class="hljs-params">()</span></span>;
+     <span class="hljs-comment">// reset (determine the value of)NumberOfInteractionLengthLeft</span>
+
+      <span class="hljs-function">G4double <span class="hljs-title">GetNumberOfInteractionLengthLeft</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+     <span class="hljs-comment">// get NumberOfInteractionLengthLeft</span>
+
+      <span class="hljs-function">G4double <span class="hljs-title">GetTotalNumberOfInteractionLengthTraversed</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+     <span class="hljs-comment">// get NumberOfInteractionLength </span>
+     <span class="hljs-comment">//   after  ResetNumberOfInteractionLengthLeft is invoked</span>
+
+
+ <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+    <span class="hljs-comment">// These methods indicate which DoIt is enabled</span>
+    <span class="hljs-comment">// These methods are used by G4ProcessManager to check</span>
+    <span class="hljs-comment">// that ordering parameters are set properly</span>
+    <span class="hljs-function">G4bool <span class="hljs-title">isAtRestDoItIsEnabled</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+    <span class="hljs-function">G4bool <span class="hljs-title">isAlongStepDoItIsEnabled</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+    <span class="hljs-function">G4bool <span class="hljs-title">isPostStepDoItIsEnabled</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+
+
+ <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span>  <span class="hljs-title">DumpInfo</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-comment">// dump out process information    </span>
+
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; outfile)</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-comment">// write out to html file for automatic documentation</span>
+
+ <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span>  <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">(G4int value)</span></span>;
+   <span class="hljs-function">G4int <span class="hljs-title">GetVerboseLevel</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-comment">// set/get controle flag for output message</span>
+   <span class="hljs-comment">//  0: Silent</span>
+   <span class="hljs-comment">//  1: Warning message</span>
+   <span class="hljs-comment">//  2: More</span>
+
+
+
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetMasterProcess</span><span class="hljs-params">( G4VProcess* masterP)</span></span>;
+    <span class="hljs-comment">// Sets the master thread process instance</span>
+    <span class="hljs-function"><span class="hljs-keyword">const</span> G4VProcess* <span class="hljs-title">GetMasterProcess</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+    <span class="hljs-comment">// Returns the master thread process instnace</span>
+    <span class="hljs-comment">// Can be used to initialize worker type processes</span>
+    <span class="hljs-comment">// instances from master one (e.g. to share a read-only table)</span>
+    <span class="hljs-comment">// if ( this != GetMasterProcess() ) { /*worker*/ }</span>
+    <span class="hljs-comment">// else { /* master or sequential */ }</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BuildWorkerPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp; part)</span></span>;
+    <span class="hljs-comment">// Messaged by the Particle definition (via the Process manager)</span>
+    <span class="hljs-comment">// in worker threads. See BuildWorkerBhyiscsTable method.</span>
+    <span class="hljs-comment">// Can be used to share among threads physics tables. Use GetMasterProcess</span>
+    <span class="hljs-comment">// to get pointer of master process from worker thread.</span>
+    <span class="hljs-comment">// By default this method makes a forward call to</span>
+    <span class="hljs-comment">// BuildPhysicsTable</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PrepareWorkerPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
+    <span class="hljs-comment">// Messaged by the Particle definition (via the Process manager)</span>
+    <span class="hljs-comment">// in worker threads. See PreparephysicsTable</span>
+    <span class="hljs-comment">// Can be used to share among threads physics tables. Use GetMasterProcess</span>
+    <span class="hljs-comment">// to get pointer of master process from worker thread</span>
+    <span class="hljs-comment">// By default this method makes a forward call</span>
+    <span class="hljs-comment">// to PreparePhysicsTable</span>
+</code></pre>
+<!-- G4VProcess.md ends here -->
+
+
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="G4ProcessManager.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: G4ProcessManager">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"G4VProcess","level":"1.4.2","depth":2,"previous":{"title":"G4ProcessManager","level":"1.4.1","depth":2,"path":"class/G4ProcessManager.md","ref":"class/G4ProcessManager.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VProcess.md","mtime":"2018-07-11T23:42:40.701Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-12T00:00:33.108Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

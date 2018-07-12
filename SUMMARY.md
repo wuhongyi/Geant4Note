@@ -10,4 +10,6 @@
 	* [Optical Photon](PhysicsProcesses/OpticalPhoton.md)
 	* [Parameterization](PhysicsProcesses/Parameterization.md)
 	* [Transportation](PhysicsProcesses/Transportation.md)
-	
+* [Class](class/README.md)
+	* [G4ProcessManager](class/G4ProcessManager.md)
+	* [G4VProcess](class/G4VProcess.md)
