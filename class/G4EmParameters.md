@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 09:07:40 2018 (+0800)
-;; Last-Updated: 四 7月 12 09:15:54 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:50:37 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 # G4EmParameters
@@ -323,6 +323,19 @@ This class has the following public methods:
 
   G4EmParameters(G4EmParameters &) = delete;
   G4EmParameters & operator=(const G4EmParameters &right) = delete;  
+
+
+private:
+
+  G4EmParameters();
+
+  void Initialise();
+
+  G4bool IsLocked() const;
+
+  G4String CheckRegion(const G4String&) const;
+
+  void PrintWarning(G4ExceptionDescription& ed) const;
 ```
 
 <!-- G4EmParameters.md ends here -->

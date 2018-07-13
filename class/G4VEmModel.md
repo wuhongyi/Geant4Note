@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 22:27:09 2018 (+0800)
-;; Last-Updated: 四 7月 12 22:30:41 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:49:13 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 # G4VEmModel
@@ -144,10 +144,17 @@ public:
   virtual void ModelDescription(std::ostream& outFile,
                                 G4String endOfLine) const; 
 
+protected:
 
+  // initialisation of the ParticleChange for the model
+  G4ParticleChangeForLoss* GetParticleChangeForLoss();
 
+  // initialisation of the ParticleChange for the model
+  G4ParticleChangeForGamma* GetParticleChangeForGamma();
 
-
+  // kinematically allowed max kinetic energy of a secondary
+  virtual G4double MaxSecondaryEnergy(const G4ParticleDefinition*,
+                                      G4double kineticEnergy);
 
 public:
 
@@ -296,15 +303,17 @@ public:
 
   inline void SetLocked(G4bool);
 
+protected:
 
+  inline const G4MaterialCutsCouple* CurrentCouple() const;
 
+  inline void SetCurrentElement(const G4Element*);
 
+private:
 
-
-
-
-
-
+  //  hide assignment operator
+  G4VEmModel & operator=(const  G4VEmModel &right) = delete;
+  G4VEmModel(const  G4VEmModel&) = delete;
 ```
 
 <!-- G4VEmModel.md ends here -->

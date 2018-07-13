@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 23:22:41 2018 (+0800)
-;; Last-Updated: 五 7月 13 03:54:39 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:48:21 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 5
+;;     Update #: 6
 ;; URL: http://wuhongyi.cn -->
 
 # G4BraggModel
@@ -87,6 +87,37 @@ public:
   virtual G4double GetParticleCharge(const G4ParticleDefinition* p,
 				     const G4Material* mat,
 				     G4double kineticEnergy) override;
+
+protected:
+
+  virtual G4double MaxSecondaryEnergy(const G4ParticleDefinition*,
+				      G4double kinEnergy) final;
+
+  inline G4double GetChargeSquareRatio() const;
+
+  inline void SetChargeSquareRatio(G4double val);
+
+private:
+
+  inline void SetParticle(const G4ParticleDefinition* p);
+
+  G4bool HasMaterial(const G4Material* material);
+
+  G4double StoppingPower(const G4Material* material,
+                               G4double kineticEnergy);
+
+  G4double ElectronicStoppingPower(G4double z,
+                                   G4double kineticEnergy) const;
+
+  G4double DEDX(const G4Material* material, G4double kineticEnergy);
+
+  G4bool MolecIsInZiegler1988(const G4Material* material);
+
+  G4double ChemicalFactor(G4double kineticEnergy, G4double eloss125) const;
+
+  // hide assignment operator
+  G4BraggModel & operator=(const  G4BraggModel &right) = delete;
+  G4BraggModel(const  G4BraggModel&) = delete;
 ```
 
 <!-- G4BraggModel.md ends here -->

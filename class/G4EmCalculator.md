@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 09:17:04 2018 (+0800)
-;; Last-Updated: 四 7月 12 22:37:55 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:51:35 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 3
+;;     Update #: 4
 ;; URL: http://wuhongyi.cn -->
 
 # G4EmCalculator
@@ -237,6 +237,44 @@ public:
   void SetupMaterial(const G4String&);
 
   void SetVerbose(G4int val);
+
+  //===========================================================================
+  // Private methods 
+  //===========================================================================
+
+private:
+
+  G4bool UpdateParticle(const G4ParticleDefinition*, G4double kinEnergy);
+
+  G4bool UpdateCouple(const G4Material*, G4double cut);
+
+  void FindLambdaTable(const G4ParticleDefinition*, 
+		       const G4String& processName,
+		       G4double kinEnergy);
+
+  G4bool FindEmModel(const G4ParticleDefinition*, 
+                     const G4String& processName,
+                           G4double kinEnergy);
+
+  G4VEnergyLossProcess* FindEnergyLossProcess(const G4ParticleDefinition*);
+
+  G4VEnergyLossProcess* FindEnLossProcess(const G4ParticleDefinition*,
+					  const G4String& processName);
+
+  G4VEmProcess* FindDiscreteProcess(const G4ParticleDefinition*,
+				    const G4String& processName);
+
+  G4VMultipleScattering* FindMscProcess(const G4ParticleDefinition*,
+					const G4String& processName);
+
+  G4bool ActiveForParticle(const G4ParticleDefinition* part,
+			   G4VProcess* proc);
+
+  void CheckMaterial(G4int Z);
+
+  // hide copy and assign
+  G4EmCalculator & operator=(const  G4EmCalculator &right) = delete;
+  G4EmCalculator(const  G4EmCalculator&) = delete;
 ```
 
 

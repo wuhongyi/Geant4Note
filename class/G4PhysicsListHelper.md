@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 23:03:44 2018 (+0800)
-;; Last-Updated: 四 7月 12 23:05:37 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:42:24 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 # G4PhysicsListHelper
@@ -24,6 +24,11 @@ This class is a singleton
 ## class
 
 ```cpp
+  private:
+   // Hide constructor and destructor 
+   G4PhysicsListHelper();
+   virtual ~G4PhysicsListHelper();
+
   public:  // with description
    // This method gives the ponter to the physics list helper 
    static G4PhysicsListHelper* GetPhysicsListHelper(); 
@@ -52,7 +57,9 @@ This class is a singleton
     void DumpOrdingParameterTable(G4int subType = -1) const;
     G4PhysicsListOrderingParameter GetOrdingParameter(G4int subType) const;
 
-
+  private: 
+    void ReadOrdingParameterTable();
+    void ReadInDefaultOrderingParameter();
 
   ///////////////////////////////////////////////////////////////////////
   public: // with description

@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 05:37:40 2018 (+0800)
-;; Last-Updated: 四 7月 12 05:45:51 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:41:26 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 # G4ProcessManager
@@ -53,8 +53,29 @@ enum G4ProcessVectorOrdering
 };
 ```
 
-
+ G4ProcessManager
 ```cpp
+  public: 
+      // copy constructor
+      G4ProcessManager(G4ProcessManager &right);
+
+  private:
+      // hide default constructor and assignment operator
+      G4ProcessManager & operator=(const G4ProcessManager &right);
+      G4ProcessManager();
+
+  public:
+ 
+      G4ProcessManager(const G4ParticleDefinition* aParticleType);
+      //  Constructor
+
+      ~G4ProcessManager();
+      //  Destructor
+
+      G4int operator==(const G4ProcessManager &right) const;
+      G4int operator!=(const G4ProcessManager &right) const;
+
+ public: //  with description
       G4ProcessVector* GetProcessList() const;
       //  Returns the address of the vector of all processes 
 
@@ -226,6 +247,66 @@ enum G4ProcessVectorOrdering
 
   public:
       enum {SizeOfProcVectorArray = 6};
+  private:
+      G4ProcessVector* theProcVector[SizeOfProcVectorArray];
+      // vector for processes with GetPhysicalInteractionLength/DoIt
+
+      typedef std::vector<G4ProcessAttribute*> G4ProcessAttrVector; 
+      G4ProcessAttrVector*  theAttrVector;
+      // vector for process attribute  
+
+  protected: // with description
+      G4int InsertAt(G4int position, G4VProcess* process, G4int ivec);
+      // insert process at position in theProcVector[ivec]
+
+      G4int RemoveAt(G4int position, G4VProcess* process, G4int ivec);
+      // remove process at position in theProcVector[ivec]
+
+      G4int FindInsertPosition(G4int ord, G4int ivec);
+      // find insert position according to ordering parameter 
+      // in theProcVector[ivec]
+
+      G4int GetProcessVectorId(G4ProcessVectorDoItIndex idx,
+			       G4ProcessVectorTypeIndex typ  = typeGPIL) const;
+
+  void CheckOrderingParameters(G4VProcess*) const;
+       // check consistencies between ordering parameters and 
+       // validity of DoIt of the Process 
+
+  private:     
+      G4ProcessAttribute* GetAttribute(G4int      index) const;
+      G4ProcessAttribute* GetAttribute(G4VProcess *aProcess) const;
+      // get Pointer to ProcessAttribute
+
+      G4VProcess* ActivateProcess(G4int   index);
+      G4VProcess* InActivateProcess(G4int  index);
+      // Activate/InActivateProcess   Process
+      
+  private:     
+      const G4ParticleDefinition*   theParticleType;
+      //  particle which has this process manager object     
+
+      G4int             numberOfProcesses;
+      G4ProcessVector*  theProcessList;
+      // vector for all processes (called as "process List")
+
+ private:
+      G4bool  duringTracking;
+      void    CreateGPILvectors();
+      void    SetIndexToProcessVector(G4int ivec);
+
+      G4bool  isSetOrderingFirstInvoked[NDoit];
+      G4bool  isSetOrderingLastInvoked[NDoit];
+
+ public: // with description
+   void  DumpInfo();
+
+   void  SetVerboseLevel(G4int value);
+   G4int GetVerboseLevel() const;
+   // controle flag for output message
+   //  0: Silent
+   //  1: Warning message
+   //  2: More
 ```
 
 

@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 四 7月 12 07:38:44 2018 (+0800)
-;; Last-Updated: 四 7月 12 09:02:58 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:46:16 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 2
+;;     Update #: 3
 ;; URL: http://wuhongyi.cn -->
 
 # G4VProcess
@@ -87,6 +87,16 @@ The other four classes are provided for rather complex processes:
 ## class
 
 ```cpp
+  //  A virtual class for physics process objects. It defines
+  //  public methods which describe the behavior of a
+  //  physics process.
+
+  private:
+  // hide default constructor and assignment operator as private 
+  //  do not hide default constructor for alpha version 
+  //  G4VProcess G4VProcess();  
+      G4VProcess & operator=(const G4VProcess &right);
+
   public: // with description
   //  constructor requires the process name and type
       G4VProcess(const G4String& aName =  "NoName",
@@ -103,7 +113,6 @@ The other four classes are provided for rather complex processes:
   // equal opperators
       G4int operator==(const G4VProcess &right) const;
       G4int operator!=(const G4VProcess &right) const;
-
 
   public: // with description
   ////////////////////////////
@@ -279,8 +288,30 @@ The other four classes are provided for rather complex processes:
       // the process Manager
       virtual  const G4ProcessManager* GetProcessManager(); 
       // Get the process manager which the process belongs to
+  
+  protected:
+      const G4ProcessManager* aProcessManager; 
+ 
+  protected:
+      G4VParticleChange* pParticleChange;
+      //  The pointer to G4VParticleChange object 
+      //  which is modified and returned by address by the DoIt() method.
+      //  This pointer should be set in each physics process
+      //  after construction of derived class object.  
 
+      G4ParticleChange aParticleChange;
+      //  This object is kept for compatibility with old scheme
+      //  This will be removed in future
 
+      G4double          theNumberOfInteractionLengthLeft;
+     // The flight length left for the current tracking particle
+     // in unit of "Interaction length".
+
+      G4double          currentInteractionLength;
+     // The InteractionLength in the current material
+
+      G4double          theInitialNumberOfInteractionLength;
+     // The initial value when ResetNumberOfInteractionLengthLeft is invoked
 
  public: // with description
       virtual void      ResetNumberOfInteractionLengthLeft();
@@ -293,6 +324,17 @@ The other four classes are provided for rather complex processes:
      // get NumberOfInteractionLength 
      //   after  ResetNumberOfInteractionLengthLeft is invoked
 
+ protected:  // with description
+     void      SubtractNumberOfInteractionLengthLeft(
+				  G4double previousStepSize
+                                );
+     // subtract NumberOfInteractionLengthLeft by the value corresponding to 
+     // previousStepSize      
+ 
+     void      ClearNumberOfInteractionLengthLeft();
+     // clear NumberOfInteractionLengthLeft 
+     // !!! This method should be at the end of PostStepDoIt()
+     // !!! and AtRestDoIt
 
  public: // with description
     // These methods indicate which DoIt is enabled
@@ -301,8 +343,27 @@ The other four classes are provided for rather complex processes:
     G4bool isAtRestDoItIsEnabled() const;
     G4bool isAlongStepDoItIsEnabled() const;
     G4bool isPostStepDoItIsEnabled() const;
+  
+ protected: 
+      G4String theProcessName;
+      //  The name of the process
 
+      G4String thePhysicsTableFileName;
 
+      G4ProcessType theProcessType;
+      //  The type of the process
+
+      G4int theProcessSubType;
+      //  The sub type of the process
+
+      G4double thePILfactor;
+      // factor for PhysicsInteractionLength 
+      // which is passed to G4SteppingManager
+ 
+      G4bool enableAtRestDoIt;
+      G4bool enableAlongStepDoIt;
+      G4bool enablePostStepDoIt;
+      
  public: // with description
    virtual void  DumpInfo() const;
    // dump out process information    
@@ -319,7 +380,14 @@ The other four classes are provided for rather complex processes:
    //  2: More
 
 
-
+ protected:
+   G4int verboseLevel;
+   // controle flag for output message
+    
+private:
+    G4VProcess* masterProcessShadow;
+    //For multi-threaded: poitner to the instance of this process
+    // for the master thread
 public:
     virtual void SetMasterProcess( G4VProcess* masterP);
     // Sets the master thread process instance
@@ -345,7 +413,6 @@ public:
     // to get pointer of master process from worker thread
     // By default this method makes a forward call
     // to PreparePhysicsTable
-
 ```
 
 

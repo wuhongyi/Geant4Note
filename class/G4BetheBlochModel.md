@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 五 7月 13 03:59:49 2018 (+0800)
-;; Last-Updated: 五 7月 13 04:20:33 2018 (+0800)
+;; Last-Updated: 六 7月 14 02:47:14 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 # G4BetheBlochModel
@@ -20,7 +20,6 @@ Energy > 2 MeV
 ## class
 
 ```cpp
-
 public:
 
   explicit G4BetheBlochModel(const G4ParticleDefinition* p = nullptr,
@@ -77,6 +76,27 @@ public:
 				 const G4DynamicParticle*,
 				 G4double tmin,
 				 G4double maxEnergy) override;
+
+protected:
+
+  virtual G4double MaxSecondaryEnergy(const G4ParticleDefinition*,
+				      G4double kinEnergy) override;
+
+  inline G4double GetChargeSquareRatio() const;
+
+  inline void SetChargeSquareRatio(G4double val);
+
+private:
+
+  void SetupParameters();
+
+  inline void SetParticle(const G4ParticleDefinition* p);
+
+  inline void SetGenericIon(const G4ParticleDefinition* p);
+
+  // hide assignment operator
+  G4BetheBlochModel & operator=(const  G4BetheBlochModel &right) = delete;
+  G4BetheBlochModel(const  G4BetheBlochModel&) = delete;
 ```
 
 
