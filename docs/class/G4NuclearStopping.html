@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>G4VEnergyLossProcess · GitBook</title>
+        <title>G4NuclearStopping · GitBook</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="G4hIonisation.html" />
+    <link rel="next" href="G4PhysicsListHelper.html" />
     
     
-    <link rel="prev" href="G4VContinuousDiscreteProcess.html" />
+    <link rel="prev" href="G4VEmProcess.html" />
     
 
     </head>
@@ -525,7 +525,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.11.1.1" data-path="G4VEnergyLossProcess.html">
+        <li class="chapter " data-level="1.4.11.1.1" data-path="G4VEnergyLossProcess.html">
             
                 <a href="G4VEnergyLossProcess.html">
             
@@ -603,7 +603,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.11.2.1.1" data-path="G4NuclearStopping.html">
+        <li class="chapter active" data-level="1.4.11.2.1.1" data-path="G4NuclearStopping.html">
             
                 <a href="G4NuclearStopping.html">
             
@@ -750,7 +750,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >G4VEnergyLossProcess</a>
+        <a href=".." >G4NuclearStopping</a>
     </h1>
 </div>
 
@@ -765,370 +765,59 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <!-- G4VEnergyLossProcess.md --- 
+                                <!-- G4NuclearStopping.md --- 
 ;; 
 ;; Description: 
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
-;; Created: 五 7月 13 04:37:35 2018 (+0800)
-;; Last-Updated: 六 7月 14 02:44:26 2018 (+0800)
+;; Created: 六 7月 14 11:49:52 2018 (+0800)
+;; Last-Updated: 六 7月 14 12:05:31 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 3
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 
-<h1 id="g4venergylossprocess">G4VEnergyLossProcess</h1><p>It is the unified energy loss process it calculates the continuous energy loss for charged particles using a set of Energy Loss models valid for different energy regions. There are a possibility to create and access to dE/dx and range tables, or to calculate that information on fly.</p><h2 id="class">class</h2><pre><code class="lang-cpp">public:
+<h1 id="g4nuclearstopping">G4NuclearStopping</h1><p><strong>public G4VEmProcess</strong></p><p>The class simulates nuclear stopping due to multiple scattering</p><p><em>It should be instantiated after G4ionIonisation</em></p><ul><li>Model
+<ul><li>G4ICRU49NuclearStoppingModel
+</li></ul>
+</li></ul>
+<h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:    <span class="hljs-comment">// with description</span>
 
-  G4VEnergyLossProcess(const G4String&amp; name = &quot;EnergyLoss&quot;,
-                       G4ProcessType type = fElectromagnetic);
+  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4NuclearStopping</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; processName=<span class="hljs-string">&quot;nuclearStopping&quot;</span>)</span></span>;
 
-  virtual ~G4VEnergyLossProcess();
+  <span class="hljs-keyword">virtual</span> ~G4NuclearStopping();
 
-private:
-  // clean vectors and arrays
-  void Clean();
+  <span class="hljs-comment">// returns true for charged particles, false otherwise</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">IsApplicable</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp; p)</span> final</span>;
 
-  //------------------------------------------------------------------------
-  // Virtual methods to be implemented in concrete processes
-  //------------------------------------------------------------------------
+  <span class="hljs-comment">// implementation of pure virtual method</span>
+  <span class="hljs-function">G4double <span class="hljs-title">AlongStepGetPhysicalInteractionLength</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp; track,
+                         G4double  previousStepSize,
+                         G4double  currentMinimumStep,
+                         G4double&amp; proposedSafety,
+                         G4GPILSelection* selection)</span> final</span>;
 
-public:
-  virtual G4bool IsApplicable(const G4ParticleDefinition&amp; p) override = 0;
+  <span class="hljs-comment">// implementation of energy loss along step</span>
+  <span class="hljs-function">G4VParticleChange* <span class="hljs-title">AlongStepDoIt</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp; track,
+                   <span class="hljs-keyword">const</span> G4Step&amp;  step)</span> final</span>;
 
-  // obsolete to be removed
-  virtual void PrintInfo() {};
+  <span class="hljs-comment">// Print few lines of informations about the process: validity range,</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PrintInfo</span><span class="hljs-params">()</span> final</span>;
 
-  virtual void ProcessDescription(std::ostream&amp; outFile) const override;
+  <span class="hljs-comment">// print documentation in html format</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp;)</span> <span class="hljs-keyword">const</span> override</span>;
 
-protected:
+<span class="hljs-keyword">protected</span>:
 
-  virtual void StreamProcessInfo(std::ostream&amp;, G4String) const {};
+  <span class="hljs-comment">// This function initialise process</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span> final</span>;
 
-  virtual void InitialiseEnergyLossProcess(const G4ParticleDefinition*,
-                                           const G4ParticleDefinition*) = 0;
+<span class="hljs-keyword">private</span>:       
 
-  //------------------------------------------------------------------------
-  // Methods with standard implementation; may be overwritten if needed 
-  //------------------------------------------------------------------------
-
-  virtual G4double MinPrimaryEnergy(const G4ParticleDefinition*,
-                                    const G4Material*, G4double cut);
-
-  //------------------------------------------------------------------------
-  // Virtual methods implementation common to all EM ContinuousDiscrete 
-  // processes. Further inheritance is not assumed 
-  //------------------------------------------------------------------------
-
-public:
-
-  // prepare all tables
-  virtual void PreparePhysicsTable(const G4ParticleDefinition&amp;) override;
-
-  // build all tables
-  virtual void BuildPhysicsTable(const G4ParticleDefinition&amp;) override;
-
-  // build a table
-  G4PhysicsTable* BuildDEDXTable(G4EmTableType tType = fRestricted);
-
-  // build a table
-  G4PhysicsTable* BuildLambdaTable(G4EmTableType tType = fRestricted);
-
-  // Called before tracking of each new G4Track
-  virtual void StartTracking(G4Track*) override;
-
-  // Step limit from AlongStep 
-  virtual G4double AlongStepGetPhysicalInteractionLength(
-                                  const G4Track&amp;,
-                                  G4double  previousStepSize,
-                                  G4double  currentMinimumStep,
-                                  G4double&amp; currentSafety,
-                                  G4GPILSelection* selection) override;
-
-  // Step limit from cross section
-  virtual G4double PostStepGetPhysicalInteractionLength(
-                                  const G4Track&amp; track,
-                                  G4double   previousStepSize,
-                                  G4ForceCondition* condition) override;
-
-  // AlongStep computations
-  virtual G4VParticleChange* AlongStepDoIt(const G4Track&amp;, 
-                                           const G4Step&amp;) override;
-
-  // Sampling of secondaries in vicinity of geometrical boundary
-  // Return sum of secodaries energy 
-  G4double SampleSubCutSecondaries(std::vector&lt;G4Track*&gt;&amp;, const G4Step&amp;, 
-                                   G4VEmModel* model, G4int matIdx); 
-
-  // PostStep sampling of secondaries
-  virtual G4VParticleChange* PostStepDoIt(const G4Track&amp;, 
-                                          const G4Step&amp;) override;
-
-  // Store all PhysicsTable in files.
-  // Return false in case of any fatal failure at I/O  
-  virtual G4bool StorePhysicsTable(const G4ParticleDefinition*,
-                                   const G4String&amp; directory,
-                                   G4bool ascii = false) override;
-
-  // Retrieve all Physics from a files.
-  // Return true if all the Physics Table are built.
-  // Return false if any fatal failure. 
-  virtual G4bool RetrievePhysicsTable(const G4ParticleDefinition*,
-                                      const G4String&amp; directory,
-                                      G4bool ascii) override;
-
-private:
-
-  // summary printout after initialisation
-  void StreamInfo(std::ostream&amp; out, const G4ParticleDefinition&amp; part,
-                  G4String endOfLine=G4String(&quot;\n&quot;)) const;
-
-  // store a table
-  G4bool StoreTable(const G4ParticleDefinition* p, 
-                    G4PhysicsTable*, G4bool ascii,
-                    const G4String&amp; directory, 
-                    const G4String&amp; tname);
-
-  // retrieve a table
-  G4bool RetrieveTable(const G4ParticleDefinition* p, 
-                       G4PhysicsTable*, G4bool ascii,
-                       const G4String&amp; directory, 
-                       const G4String&amp; tname, 
-                       G4bool mandatory);
-
-  //------------------------------------------------------------------------
-  // Public interface to cross section, mfp and sampling of fluctuations
-  // These methods are not used in run time
-  //------------------------------------------------------------------------
-
-public:
-
-  // access to dispersion of restricted energy loss
-  G4double GetDEDXDispersion(const G4MaterialCutsCouple *couple,
-                             const G4DynamicParticle* dp,
-                             G4double length);
-
-  // Access to cross section table
-  G4double CrossSectionPerVolume(G4double kineticEnergy,
-                                 const G4MaterialCutsCouple* couple);
-
-  // access to cross section
-  G4double MeanFreePath(const G4Track&amp; track);
-
-  // access to step limit
-  G4double ContinuousStepLimit(const G4Track&amp; track,
-                               G4double previousStepSize,
-                               G4double currentMinimumStep,
-                               G4double&amp; currentSafety);
-
-protected:
-
-  // implementation of the pure virtual method
-  virtual G4double GetMeanFreePath(const G4Track&amp; track,
-                                   G4double previousStepSize,
-                                   G4ForceCondition* condition) override;
-
-  // implementation of the pure virtual method
-  virtual G4double GetContinuousStepLimit(const G4Track&amp; track,
-                                          G4double previousStepSize,
-                                          G4double currentMinimumStep,
-                                          G4double&amp; currentSafety) override;
-
-  //------------------------------------------------------------------------
-  // Run time method which may be also used by derived processes
-  //------------------------------------------------------------------------
-
-  // creeation of an empty vector for cross section
-  G4PhysicsVector* LambdaPhysicsVector(const G4MaterialCutsCouple*, 
-                                       G4double cut);
-
-  inline size_t CurrentMaterialCutsCoupleIndex() const;
-
-  //------------------------------------------------------------------------
-  // Specific methods to set, access, modify models
-  //------------------------------------------------------------------------
-
-  // Select model in run time
-  inline void SelectModel(G4double kinEnergy);
-
-public:
-  // Select model by energy and region index
-  inline G4VEmModel* SelectModelForMaterial(G4double kinEnergy, 
-                                            size_t&amp; idx) const;
-
-  // Add EM model coupled with fluctuation model for region, smaller value 
-  // of order defines which pair of models will be selected for a given 
-  // energy interval  
-  void AddEmModel(G4int, G4VEmModel*, 
-                  G4VEmFluctuationModel* fluc = 0,
-                  const G4Region* region = nullptr);
-
-  // Define new energy range for the model identified by the name
-  void UpdateEmModel(const G4String&amp;, G4double, G4double);
-
-  // Assign a model to a process local list, to enable the list in run time 
-  // the derived process should execute AddEmModel(..) for all such models
-  void SetEmModel(G4VEmModel*, G4int index=0);
-
-  // return a model from the local list
-  G4VEmModel* EmModel(size_t index=0) const;
-
-  // Access to models
-  G4VEmModel* GetModelByIndex(G4int idx = 0, G4bool ver = false) const;
-
-  G4int NumberOfModels() const;
-
-  // Assign a fluctuation model to a process
-  inline void SetFluctModel(G4VEmFluctuationModel*);
-
-  // return the assigned fluctuation model
-  inline G4VEmFluctuationModel* FluctModel();
-
-  //------------------------------------------------------------------------
-  // Define and access particle type 
-  //------------------------------------------------------------------------
-
-protected:
-  inline void SetParticle(const G4ParticleDefinition* p);
-  inline void SetSecondaryParticle(const G4ParticleDefinition* p);
-
-public:
-  inline void SetBaseParticle(const G4ParticleDefinition* p);
-  inline const G4ParticleDefinition* Particle() const;
-  inline const G4ParticleDefinition* BaseParticle() const;
-  inline const G4ParticleDefinition* SecondaryParticle() const;
-
-  //------------------------------------------------------------------------
-  // Get/set parameters to configure the process at initialisation time
-  //------------------------------------------------------------------------
-
-  // Add subcutoff option for the region
-  void ActivateSubCutoff(G4bool val, const G4Region* region = nullptr);
-
-  // Activate biasing
-  void SetCrossSectionBiasingFactor(G4double f, G4bool flag = true);
-
-  void ActivateForcedInteraction(G4double length, 
-                                 const G4String&amp; region,
-                                 G4bool flag = true);
-
-  void ActivateSecondaryBiasing(const G4String&amp; region, G4double factor,
-                                G4double energyLimit);
-
-  // Add subcutoff process (bremsstrahlung) to sample secondary 
-  // particle production in vicinity of the geometry boundary
-  void AddCollaborativeProcess(G4VEnergyLossProcess*);
-
-  inline void SetLossFluctuations(G4bool val);
-
-  inline void SetIntegral(G4bool val);
-  inline G4bool IsIntegral() const;
-
-  // Set/Get flag &quot;isIonisation&quot;
-  void SetIonisation(G4bool val);
-  inline G4bool IsIonisationProcess() const;
-
-  // Redefine parameteters for stepping control
-  void SetLinearLossLimit(G4double val);
-  void SetStepFunction(G4double v1, G4double v2, G4bool lock=true);
-  void SetLowestEnergyLimit(G4double);
-
-  inline G4int NumberOfSubCutoffRegions() const;
-
-  //------------------------------------------------------------------------
-  // Specific methods to path Physics Tables to the process
-  //------------------------------------------------------------------------
-
-  void SetDEDXTable(G4PhysicsTable* p, G4EmTableType tType);
-  void SetCSDARangeTable(G4PhysicsTable* pRange);
-  void SetRangeTableForLoss(G4PhysicsTable* p);
-  void SetSecondaryRangeTable(G4PhysicsTable* p);
-  void SetInverseRangeTable(G4PhysicsTable* p);
-
-  void SetLambdaTable(G4PhysicsTable* p);
-  void SetSubLambdaTable(G4PhysicsTable* p);
-
-  // Binning for dEdx, range, inverse range and labda tables
-  void SetDEDXBinning(G4int nbins);
-
-  // Min kinetic energy for tables
-  void SetMinKinEnergy(G4double e);
-  inline G4double MinKinEnergy() const;
-
-  // Max kinetic energy for tables
-  void SetMaxKinEnergy(G4double e);
-  inline G4double MaxKinEnergy() const;
-
-  // Biasing parameters
-  inline G4double CrossSectionBiasingFactor() const;
-
-  // Return values for given G4MaterialCutsCouple
-  inline G4double GetDEDX(G4double&amp; kineticEnergy, 
-                          const G4MaterialCutsCouple*);
-  inline G4double GetDEDXForSubsec(G4double&amp; kineticEnergy, 
-                                   const G4MaterialCutsCouple*);
-  inline G4double GetRange(G4double&amp; kineticEnergy, 
-                           const G4MaterialCutsCouple*);
-  inline G4double GetCSDARange(G4double&amp; kineticEnergy, 
-                               const G4MaterialCutsCouple*);
-  inline G4double GetRangeForLoss(G4double&amp; kineticEnergy, 
-                                  const G4MaterialCutsCouple*);
-  inline G4double GetKineticEnergy(G4double&amp; range, 
-                                   const G4MaterialCutsCouple*);
-  inline G4double GetLambda(G4double&amp; kineticEnergy, 
-                            const G4MaterialCutsCouple*);
-
-  inline G4bool TablesAreBuilt() const;
-
-  // Access to specific tables
-  inline G4PhysicsTable* DEDXTable() const;
-  inline G4PhysicsTable* DEDXTableForSubsec() const;
-  inline G4PhysicsTable* DEDXunRestrictedTable() const;
-  inline G4PhysicsTable* IonisationTable() const;
-  inline G4PhysicsTable* IonisationTableForSubsec() const;
-  inline G4PhysicsTable* CSDARangeTable() const;
-  inline G4PhysicsTable* SecondaryRangeTable() const;
-  inline G4PhysicsTable* RangeTableForLoss() const;
-  inline G4PhysicsTable* InverseRangeTable() const;
-  inline G4PhysicsTable* LambdaTable() const;
-  inline G4PhysicsTable* SubLambdaTable() const;
-
-  //------------------------------------------------------------------------
-  // Run time method for simulation of ionisation
-  //------------------------------------------------------------------------
-
-  // access atom on which interaction happens
-  const G4Element* GetCurrentElement() const;
-
-  // Set scaling parameters for ions is needed to G4EmCalculator
-  inline void SetDynamicMassCharge(G4double massratio, G4double charge2ratio);
-
-private:
-
-  void FillSecondariesAlongStep(G4double&amp; eloss, G4double&amp; weight);
-
-  void PrintWarning(G4String, G4double val);
-
-  // define material and indexes
-  inline void DefineMaterial(const G4MaterialCutsCouple* couple);
-
-  //------------------------------------------------------------------------
-  // Compute values using scaling relation, mass and charge of based particle
-  //------------------------------------------------------------------------
-
-  inline G4double GetDEDXForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetSubDEDXForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetIonisationForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetSubIonisationForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetScaledRangeForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetLimitScaledRangeForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double ScaledKinEnergyForLoss(G4double range);
-  inline G4double GetLambdaForScaledEnergy(G4double scaledKinEnergy);
-  inline void ComputeLambdaForScaledEnergy(G4double scaledKinEnergy);
-
-  // hide  assignment operator
-  G4VEnergyLossProcess(G4VEnergyLossProcess &amp;) = delete;
-  G4VEnergyLossProcess &amp; operator=(const G4VEnergyLossProcess &amp;right) = delete;</code></pre>
-<!-- G4VEnergyLossProcess.md ends here -->
+  <span class="hljs-comment">// copy constructor and hide assignment operator</span>
+  G4NuclearStopping(G4NuclearStopping &amp;) = <span class="hljs-keyword">delete</span>;
+  G4NuclearStopping &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4NuclearStopping &amp;right) = <span class="hljs-keyword">delete</span>;</code></pre>
+<!-- G4NuclearStopping.md ends here -->
 
 
 
@@ -1158,12 +847,12 @@ private:
 
             
                 
-                <a href="G4VContinuousDiscreteProcess.html" class="navigation navigation-prev " aria-label="Previous page: G4VContinuousDiscreteProcess">
+                <a href="G4VEmProcess.html" class="navigation navigation-prev " aria-label="Previous page: G4VEmProcess">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="G4hIonisation.html" class="navigation navigation-next " aria-label="Next page: G4hIonisation">
+                <a href="G4PhysicsListHelper.html" class="navigation navigation-next " aria-label="Next page: G4PhysicsListHelper">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1174,7 +863,7 @@ private:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VEnergyLossProcess","level":"1.4.11.1.1","depth":4,"next":{"title":"G4hIonisation","level":"1.4.11.1.1.1","depth":5,"path":"class/G4hIonisation.md","ref":"class/G4hIonisation.md","articles":[]},"previous":{"title":"G4VContinuousDiscreteProcess","level":"1.4.11.1","depth":3,"path":"class/G4VContinuousDiscreteProcess.md","ref":"class/G4VContinuousDiscreteProcess.md","articles":[{"title":"G4VEnergyLossProcess","level":"1.4.11.1.1","depth":4,"path":"class/G4VEnergyLossProcess.md","ref":"class/G4VEnergyLossProcess.md","articles":[{"title":"G4hIonisation","level":"1.4.11.1.1.1","depth":5,"path":"class/G4hIonisation.md","ref":"class/G4hIonisation.md","articles":[]},{"title":"G4ionIonisation","level":"1.4.11.1.1.2","depth":5,"path":"class/G4ionIonisation.md","ref":"class/G4ionIonisation.md","articles":[]}]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VEnergyLossProcess.md","mtime":"2018-07-13T18:44:26.140Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T04:17:32.840Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4NuclearStopping","level":"1.4.11.2.1.1","depth":5,"next":{"title":"G4PhysicsListHelper","level":"1.4.12","depth":2,"path":"class/G4PhysicsListHelper.md","ref":"class/G4PhysicsListHelper.md","articles":[]},"previous":{"title":"G4VEmProcess","level":"1.4.11.2.1","depth":4,"path":"class/G4VEmProcess.md","ref":"class/G4VEmProcess.md","articles":[{"title":"G4NuclearStopping","level":"1.4.11.2.1.1","depth":5,"path":"class/G4NuclearStopping.md","ref":"class/G4NuclearStopping.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4NuclearStopping.md","mtime":"2018-07-14T04:05:31.616Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T04:17:32.840Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

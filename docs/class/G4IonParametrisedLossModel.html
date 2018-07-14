@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>G4BraggModel · GitBook</title>
+        <title>G4IonParametrisedLossModel · GitBook</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="G4BetheBlochModel.html" />
+    <link rel="next" href="G4ICRU49NuclearStoppingModel.html" />
     
     
-    <link rel="prev" href="G4VEmModel.html" />
+    <link rel="prev" href="G4BetheBlochModel.html" />
     
 
     </head>
@@ -395,7 +395,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.9.1" data-path="G4BraggModel.html">
+        <li class="chapter " data-level="1.4.9.1" data-path="G4BraggModel.html">
             
                 <a href="G4BraggModel.html">
             
@@ -421,7 +421,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.9.3" data-path="G4IonParametrisedLossModel.html">
+        <li class="chapter active" data-level="1.4.9.3" data-path="G4IonParametrisedLossModel.html">
             
                 <a href="G4IonParametrisedLossModel.html">
             
@@ -750,7 +750,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >G4BraggModel</a>
+        <a href=".." >G4IonParametrisedLossModel</a>
     </h1>
 </div>
 
@@ -765,124 +765,183 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <!-- G4BraggModel.md --- 
+                                <!-- G4IonParametrisedLossModel.md --- 
 ;; 
 ;; Description: 
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
-;; Created: 四 7月 12 23:22:41 2018 (+0800)
-;; Last-Updated: 六 7月 14 02:48:21 2018 (+0800)
+;; Created: 六 7月 14 05:38:32 2018 (+0800)
+;; Last-Updated: 六 7月 14 07:57:44 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 6
+;;     Update #: 3
 ;; URL: http://wuhongyi.cn -->
 
 
-<h1 id="g4braggmodel">G4BraggModel</h1><p><strong>public G4VEmModel</strong></p><p>Implementation of energy loss and delta-electron production by heavy slow charged particles using ICRU&apos;49 and NIST evaluated data for protons</p><p>DEDX &#x6570;&#x636E;&#x53C2;&#x6570;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;</p><ul><li>PSTAR;             // PSTAR G4PSTARStopping   GetElectronicDEDX
+<h1 id="g4ionparametrisedlossmodel">G4IonParametrisedLossModel</h1><p><strong>public G4VEmModel</strong></p><p>Model for computing the energy loss of ions by employing a parameterisation of dE/dx tables (default ICRU 73 tables). For ion-material combinations and/or projectile energies not covered by this model, the G4BraggIonModel and G4BetheBloch models are employed.</p><ul><li>G4BraggIonModel
 </li>
-<li><p>Molecula;          // the molecula&apos;s table</p><ul><li>The data and the fit from: 
+<li>G4BetheBlochModel
 </li>
-<li>ICRU Report N49, 1993. Ziegler&apos;s model for protons.
-</li>
-<li>Proton kinetic energy for parametrisation (keV/amu)  
+<li><p>By default ICRU 73 stopping power tables</p><ul><li><p>G4IonStoppingData</p><ul><li>&quot;ion_stopping_data/icru73&quot;
 </li></ul>
 </li>
-<li><p>numberOfElements==1 // Pure material ICRU49 paralmeterisation</p><ul><li>The data and the fit from: 
-</li>
-<li>ICRU Report 49, 1993. Ziegler&apos;s type of parametrisations.
-</li>
-<li>Proton kinetic energy for parametrisation (keV/amu)  
+<li><p>G4IonDEDXScalingICRU73</p></li></ul>
 </li></ul>
-</li>
-<li><p>expStopPower125;    // Experimental Stopping power at 125keV</p><ul><li>C<em>{x}H</em>{y}
-</li>
-<li>The list of molecules from
-</li>
-<li>J.F.Ziegler and J.M.Manoyan, The stopping of ions in compaunds,
-</li>
-<li>Nucl. Inst. &amp; Meth. in Phys. Res. B35 (1988) 215-228.
-</li></ul>
-</li>
-<li><p>Brugg&apos;s rule calculation</p></li></ul>
-<p><strong>ICRU Report 49, z &lt; 92</strong></p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+<h2 id="class">class</h2><pre><code class="lang-cpp"> <span class="hljs-keyword">public</span>:
+   G4IonParametrisedLossModel(<span class="hljs-keyword">const</span> G4ParticleDefinition* particle = <span class="hljs-number">0</span>,
+                              <span class="hljs-keyword">const</span> G4String&amp; name = <span class="hljs-string">&quot;ParamICRU73&quot;</span>);
 
-  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4BraggModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* p = <span class="hljs-literal">nullptr</span>,
-            <span class="hljs-keyword">const</span> G4String&amp; nam = <span class="hljs-string">&quot;Bragg&quot;</span>)</span></span>;
+   <span class="hljs-keyword">virtual</span> ~G4IonParametrisedLossModel();
 
-  <span class="hljs-keyword">virtual</span> ~G4BraggModel();
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">(
+                           <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                           <span class="hljs-keyword">const</span> G4DataVector&amp;)</span></span>; <span class="hljs-comment">// Cut energies</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-              <span class="hljs-keyword">const</span> G4DataVector&amp;)</span> override</span>;
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">MinEnergyCut</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile</span>
+                     <span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerElectron</span><span class="hljs-params">(
-                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 G4double kineticEnergy,
-                 G4double cutEnergy,
-                 G4double maxEnergy)</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double,  <span class="hljs-comment">// Atomic number</span>
+                                 G4double,  <span class="hljs-comment">// Mass number</span>
+                 G4double,  <span class="hljs-comment">// Energy cut for secondary prod.</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Maximum energy of secondaries</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(
-                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 G4double kineticEnergy,
-                 G4double Z, G4double A,
-                 G4double cutEnergy,
-                 G4double maxEnergy)</span> override</span>;
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">CrossSectionPerVolume</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4Material*,  <span class="hljs-comment">// Target material</span>
+                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy</span>
+                 G4double,  <span class="hljs-comment">// Energy cut for secondary prod.</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Maximum energy of secondaries</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">CrossSectionPerVolume</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
-                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 G4double kineticEnergy,
-                 G4double cutEnergy,
-                 G4double maxEnergy)</span> override</span>;
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeDEDXPerVolume</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Target material</span>
+                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Energy cut for secondary prod.</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeDEDXPerVolume</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
-                <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                G4double kineticEnergy,
-                G4double cutEnergy)</span> override</span>;
+   <span class="hljs-comment">// Function, which computes the continuous energy loss (due to electronic</span>
+   <span class="hljs-comment">// stopping) for a given pre-step energy and step length by using</span>
+   <span class="hljs-comment">// range vs energy (and energy vs range) tables  </span>
+   <span class="hljs-function">G4double <span class="hljs-title">ComputeLossForStep</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*, <span class="hljs-comment">// Mat-cuts couple</span>
+                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Length of current step</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SampleSecondaries</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt;*,
+   <span class="hljs-comment">// Function, which computes the mean energy transfer rate to delta rays </span>
+   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">DeltaRayMeanEnergyTransferRate</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Target Material</span>
+                     <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Energy cut for secondary prod.</span>
+
+
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SampleSecondaries</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt;*,
                  <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
                  <span class="hljs-keyword">const</span> G4DynamicParticle*,
-                 G4double tmin,
-                 G4double maxEnergy)</span> override</span>;
+                 G4double,  <span class="hljs-comment">// Energy cut for secondary prod.</span>
+                                 G4double)</span></span>; <span class="hljs-comment">// Maximum energy of secondaries</span>
 
-  <span class="hljs-comment">// Compute ion charge </span>
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetChargeSquareRatio</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                    <span class="hljs-keyword">const</span> G4Material*,
-                    G4double kineticEnergy)</span> override</span>;
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetChargeSquareRatio</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                   <span class="hljs-keyword">const</span> G4Material*,  <span class="hljs-comment">// Target Material</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Kinetic energy of projectile</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetParticleCharge</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* p,
-                     <span class="hljs-keyword">const</span> G4Material* mat,
-                     G4double kineticEnergy)</span> override</span>;
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetParticleCharge</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 <span class="hljs-keyword">const</span> G4Material*,  <span class="hljs-comment">// Target Material</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Kinetic energy of projectile </span>
 
-<span class="hljs-keyword">protected</span>:
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CorrectionsAlongStep</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,<span class="hljs-comment">// Mat.-Cut couple</span>
+                 <span class="hljs-keyword">const</span> G4DynamicParticle*,  <span class="hljs-comment">// Dyn. particle</span>
+                 G4double&amp;, <span class="hljs-comment">// Energy loss in current step</span>
+                 G4double&amp;, 
+                 G4double)</span></span>; <span class="hljs-comment">// Length of current step</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">MaxSecondaryEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                      G4double kinEnergy)</span> final</span>;
+   <span class="hljs-comment">// Function which allows to add additional stopping power tables</span>
+   <span class="hljs-comment">// in combination with a scaling algorithm, which may depend on dynamic</span>
+   <span class="hljs-comment">// information like the current particle energy (the table and scaling </span>
+   <span class="hljs-comment">// algorithm are used via a handler class, which performs e.g.caching or</span>
+   <span class="hljs-comment">// which applies the scaling of energy and dE/dx values)</span>
+   <span class="hljs-function">G4bool <span class="hljs-title">AddDEDXTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; name,
+                     G4VIonDEDXTable* table, 
+                     G4VIonDEDXScalingAlgorithm* algorithm = <span class="hljs-number">0</span>)</span></span>; 
 
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetChargeSquareRatio</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-function">G4bool <span class="hljs-title">RemoveDEDXTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; name)</span></span>; 
 
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetChargeSquareRatio</span><span class="hljs-params">(G4double val)</span></span>;
+   <span class="hljs-comment">// Function which allows to switch off scaling of stopping powers of heavy</span>
+   <span class="hljs-comment">// ions from existing ICRU 73 data</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DeactivateICRU73Scaling</span><span class="hljs-params">()</span></span>;
 
-<span class="hljs-keyword">private</span>:
+   <span class="hljs-comment">// Function checking the applicability of physics tables to ion-material</span>
+   <span class="hljs-comment">// combinations (Note: the energy range of tables is not checked)</span>
+   <span class="hljs-keyword">inline</span> LossTableList::<span class="hljs-function">iterator <span class="hljs-title">IsApplicable</span><span class="hljs-params">(
+                      <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile (ion) </span>
+                      <span class="hljs-keyword">const</span> G4Material*)</span></span>;           <span class="hljs-comment">// Target material</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetParticle</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* p)</span></span>;
+   <span class="hljs-comment">// Function printing a dE/dx table for a given ion-material combination</span>
+   <span class="hljs-comment">// and a specified energy grid </span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintDEDXTable</span><span class="hljs-params">(
+                      <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile (ion) </span>
+                      <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Absorber material</span>
+                      G4double,          <span class="hljs-comment">// Minimum energy per nucleon</span>
+                      G4double,          <span class="hljs-comment">// Maximum energy per nucleon</span>
+                      G4int,             <span class="hljs-comment">// Number of bins</span>
+                      G4bool)</span></span>;           <span class="hljs-comment">// Logarithmic scaling of energy</span>
 
-  <span class="hljs-function">G4bool <span class="hljs-title">HasMaterial</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material)</span></span>;
+   <span class="hljs-comment">// Function printing a dE/dx table for a given ion-material combination</span>
+   <span class="hljs-comment">// and a specified energy grid </span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintDEDXTableHandlers</span><span class="hljs-params">(
+                      <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile (ion) </span>
+                      <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Absorber material</span>
+                      G4double,          <span class="hljs-comment">// Minimum energy per nucleon</span>
+                      G4double,          <span class="hljs-comment">// Maximum energy per nucleon</span>
+                      G4int,             <span class="hljs-comment">// Number of bins</span>
+                      G4bool)</span></span>;           <span class="hljs-comment">// Logarithmic scaling of energy</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">StoppingPower</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material,
-                               G4double kineticEnergy)</span></span>;
+   <span class="hljs-comment">// Function for setting energy loss limit for stopping power integration</span>
+   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEnergyLossLimit</span><span class="hljs-params">(G4double ionEnergyLossLimit)</span></span>; 
 
-  <span class="hljs-function">G4double <span class="hljs-title">ElectronicStoppingPower</span><span class="hljs-params">(G4double z,
-                                   G4double kineticEnergy)</span> <span class="hljs-keyword">const</span></span>;
+ <span class="hljs-keyword">protected</span>:
 
-  <span class="hljs-function">G4double <span class="hljs-title">DEDX</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material, G4double kineticEnergy)</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> 
+   G4double <span class="hljs-title">MaxSecondaryEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                   G4double)</span></span>;   <span class="hljs-comment">// Kinetic energy of projectile</span>
 
-  <span class="hljs-function">G4bool <span class="hljs-title">MolecIsInZiegler1988</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material)</span></span>;
+ <span class="hljs-keyword">private</span>:
+   <span class="hljs-comment">// Function which updates parameters concerning the dE/dx calculation</span>
+   <span class="hljs-comment">// (the parameters are only updated if the particle, the material or </span>
+   <span class="hljs-comment">// the associated energy cut has changed)</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UpdateDEDXCache</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*,   <span class="hljs-comment">// Projectile (ion) </span>
+                  <span class="hljs-keyword">const</span> G4Material*,             <span class="hljs-comment">// Target material</span>
+                  G4double cutEnergy)</span></span>;           <span class="hljs-comment">// Energy cut</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ChemicalFactor</span><span class="hljs-params">(G4double kineticEnergy, G4double eloss125)</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-comment">// Function which updates parameters concerning the range calculation</span>
+   <span class="hljs-comment">// (the parameters are only updated if the particle, the material or </span>
+   <span class="hljs-comment">// the associated energy cut has changed)</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UpdateRangeCache</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*,   <span class="hljs-comment">// Projectile (ion) </span>
+                  <span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;  <span class="hljs-comment">// Target material</span>
 
-  <span class="hljs-comment">// hide assignment operator</span>
-  G4BraggModel &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span>  G4BraggModel &amp;right) = <span class="hljs-keyword">delete</span>;
-  G4BraggModel(<span class="hljs-keyword">const</span>  G4BraggModel&amp;) = <span class="hljs-keyword">delete</span>;</code></pre>
-<!-- G4BraggModel.md ends here -->
+   <span class="hljs-comment">// Function, which updates parameters concering particle properties</span>
+   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UpdateCache</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;  <span class="hljs-comment">// Projectile (ion) </span>
+
+   <span class="hljs-comment">// Function, which builds range vs energy (and energy vs range) vectors</span>
+   <span class="hljs-comment">// for a given particle, material and energy cut   </span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildRangeVector</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*,   <span class="hljs-comment">// Projectile (ion) </span>
+                  <span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;  <span class="hljs-comment">// Material cuts couple</span>
+
+   <span class="hljs-comment">// Assignment operator and copy constructor are hidden:</span>
+   G4IonParametrisedLossModel &amp; <span class="hljs-keyword">operator</span>=(
+                              <span class="hljs-keyword">const</span> G4IonParametrisedLossModel &amp;right);
+   G4IonParametrisedLossModel(<span class="hljs-keyword">const</span> G4IonParametrisedLossModel &amp;);</code></pre>
+<!-- G4IonParametrisedLossModel.md ends here -->
 
 
 
@@ -912,12 +971,12 @@
 
             
                 
-                <a href="G4VEmModel.html" class="navigation navigation-prev " aria-label="Previous page: G4VEmModel">
+                <a href="G4BetheBlochModel.html" class="navigation navigation-prev " aria-label="Previous page: G4BetheBlochModel">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="G4BetheBlochModel.html" class="navigation navigation-next " aria-label="Next page: G4BetheBlochModel">
+                <a href="G4ICRU49NuclearStoppingModel.html" class="navigation navigation-next " aria-label="Next page: G4ICRU49NuclearStoppingModel">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -928,7 +987,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4BraggModel","level":"1.4.9.1","depth":3,"next":{"title":"G4BetheBlochModel","level":"1.4.9.2","depth":3,"path":"class/G4BetheBlochModel.md","ref":"class/G4BetheBlochModel.md","articles":[]},"previous":{"title":"G4VEmModel","level":"1.4.9","depth":2,"path":"class/G4VEmModel.md","ref":"class/G4VEmModel.md","articles":[{"title":"G4BraggModel","level":"1.4.9.1","depth":3,"path":"class/G4BraggModel.md","ref":"class/G4BraggModel.md","articles":[]},{"title":"G4BetheBlochModel","level":"1.4.9.2","depth":3,"path":"class/G4BetheBlochModel.md","ref":"class/G4BetheBlochModel.md","articles":[]},{"title":"G4IonParametrisedLossModel","level":"1.4.9.3","depth":3,"path":"class/G4IonParametrisedLossModel.md","ref":"class/G4IonParametrisedLossModel.md","articles":[]},{"title":"G4ICRU49NuclearStoppingModel","level":"1.4.9.4","depth":3,"path":"class/G4ICRU49NuclearStoppingModel.md","ref":"class/G4ICRU49NuclearStoppingModel.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4BraggModel.md","mtime":"2018-07-13T18:48:21.414Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T04:17:32.840Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4IonParametrisedLossModel","level":"1.4.9.3","depth":3,"next":{"title":"G4ICRU49NuclearStoppingModel","level":"1.4.9.4","depth":3,"path":"class/G4ICRU49NuclearStoppingModel.md","ref":"class/G4ICRU49NuclearStoppingModel.md","articles":[]},"previous":{"title":"G4BetheBlochModel","level":"1.4.9.2","depth":3,"path":"class/G4BetheBlochModel.md","ref":"class/G4BetheBlochModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4IonParametrisedLossModel.md","mtime":"2018-07-13T23:57:44.185Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T04:17:32.840Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
