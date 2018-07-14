@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>G4BraggModel · GitBook</title>
+        <title>G4LowEPComptonModel · GitBook</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="G4BetheBlochModel.html" />
+    <link rel="next" href="G4PEEffectFluoModel.html" />
     
     
-    <link rel="prev" href="G4VEmModel.html" />
+    <link rel="prev" href="G4KleinNishinaModel.html" />
     
 
     </head>
@@ -395,7 +395,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.9.1" data-path="G4BraggModel.html">
+        <li class="chapter " data-level="1.4.9.1" data-path="G4BraggModel.html">
             
                 <a href="G4BraggModel.html">
             
@@ -473,7 +473,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.9.7" data-path="G4LowEPComptonModel.html">
+        <li class="chapter active" data-level="1.4.9.7" data-path="G4LowEPComptonModel.html">
             
                 <a href="G4LowEPComptonModel.html">
             
@@ -841,7 +841,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >G4BraggModel</a>
+        <a href=".." >G4LowEPComptonModel</a>
     </h1>
 </div>
 
@@ -856,124 +856,79 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <!-- G4BraggModel.md --- 
+                                <!-- G4LowEPComptonModel.md --- 
 ;; 
 ;; Description: 
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
-;; Created: 四 7月 12 23:22:41 2018 (+0800)
-;; Last-Updated: 六 7月 14 02:48:21 2018 (+0800)
+;; Created: 六 7月 14 12:33:29 2018 (+0800)
+;; Last-Updated: 六 7月 14 12:39:48 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 6
+;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
 
 
-<h1 id="g4braggmodel">G4BraggModel</h1><p><strong>public G4VEmModel</strong></p><p>Implementation of energy loss and delta-electron production by heavy slow charged particles using ICRU&apos;49 and NIST evaluated data for protons</p><p>DEDX &#x6570;&#x636E;&#x53C2;&#x6570;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;</p><ul><li>PSTAR;             // PSTAR G4PSTARStopping   GetElectronicDEDX
+<h1 id="g4lowepcomptonmodel">G4LowEPComptonModel</h1><p><strong>public G4VEmModel</strong></p><pre><code class="lang-cpp"><span class="hljs-comment">// | The following is a Geant4 class to simulate the process of        |</span>
+<span class="hljs-comment">// | bound electron Compton scattering. General code structure is      |</span>
+<span class="hljs-comment">// | based on G4LowEnergyCompton.cc and G4LivermoreComptonModel.cc.    |</span>
+<span class="hljs-comment">// | Algorithms for photon energy, and ejected Compton electron        |</span>
+<span class="hljs-comment">// | direction taken from:                                             |</span>
+<span class="hljs-comment">// |                                                                   |</span>
+<span class="hljs-comment">// | J. M. C. Brown, M. R. Dimmock, J. E. Gillam and D. M. Paganin,    |</span>
+<span class="hljs-comment">// | &quot;A low energy bound atomic electron Compton scattering model      |</span>
+<span class="hljs-comment">// |  for Geant4&quot;, NIMB, Vol. 338, 77-88, 2014.                        |</span>
+<span class="hljs-comment">// |                                                                   |</span>
+<span class="hljs-comment">// | The author acknowledges the work of the Geant4 collaboration      |</span>
+<span class="hljs-comment">// | in developing the following algorithms that have been employed    |</span>
+<span class="hljs-comment">// | or adapeted for the present software:                             |    </span>
+<span class="hljs-comment">// |                                                                   |</span>
+<span class="hljs-comment">// |  # sampling of photon scattering angle,                           |</span>
+<span class="hljs-comment">// |  # target element selection in composite materials,               |</span>
+<span class="hljs-comment">// |  # target shell selection in element,                             |</span>
+<span class="hljs-comment">// |  # and sampling of bound electron momentum from Compton profiles. |</span>
+<span class="hljs-comment">// |                                                                   |</span></code></pre>
+<ul><li>/livermore/comp/ce-cs-x.dat&quot;
 </li>
-<li><p>Molecula;          // the molecula&apos;s table</p><ul><li>The data and the fit from: 
-</li>
-<li>ICRU Report N49, 1993. Ziegler&apos;s model for protons.
-</li>
-<li>Proton kinetic energy for parametrisation (keV/amu)  
+<li><p>G4ShellData</p><ul><li>&quot;/doppler/shell-doppler&quot;
 </li></ul>
 </li>
-<li><p>numberOfElements==1 // Pure material ICRU49 paralmeterisation</p><ul><li>The data and the fit from: 
-</li>
-<li>ICRU Report 49, 1993. Ziegler&apos;s type of parametrisations.
-</li>
-<li>Proton kinetic energy for parametrisation (keV/amu)  
-</li></ul>
-</li>
-<li><p>expStopPower125;    // Experimental Stopping power at 125keV</p><ul><li>C<em>{x}H</em>{y}
-</li>
-<li>The list of molecules from
-</li>
-<li>J.F.Ziegler and J.M.Manoyan, The stopping of ions in compaunds,
-</li>
-<li>Nucl. Inst. &amp; Meth. in Phys. Res. B35 (1988) 215-228.
-</li></ul>
-</li>
-<li><p>Brugg&apos;s rule calculation</p></li></ul>
-<p><strong>ICRU Report 49, z &lt; 92</strong></p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+<li><p>G4DopplerProfile</p></li></ul>
+<h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
 
-  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4BraggModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* p = <span class="hljs-literal">nullptr</span>,
-            <span class="hljs-keyword">const</span> G4String&amp; nam = <span class="hljs-string">&quot;Bragg&quot;</span>)</span></span>;
+  G4LowEPComptonModel(<span class="hljs-keyword">const</span> G4ParticleDefinition* p = <span class="hljs-number">0</span>, 
+                  <span class="hljs-keyword">const</span> G4String&amp; nam = <span class="hljs-string">&quot;LowEPComptonModel&quot;</span>);
 
-  <span class="hljs-keyword">virtual</span> ~G4BraggModel();
+  <span class="hljs-keyword">virtual</span> ~G4LowEPComptonModel();
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-              <span class="hljs-keyword">const</span> G4DataVector&amp;)</span> override</span>;
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-keyword">const</span> G4DataVector&amp;)</span></span>;
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerElectron</span><span class="hljs-params">(
-                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 G4double kineticEnergy,
-                 G4double cutEnergy,
-                 G4double maxEnergy)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseLocal</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                               G4VEmModel* masterModel)</span></span>;
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(
-                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 G4double kineticEnergy,
-                 G4double Z, G4double A,
-                 G4double cutEnergy,
-                 G4double maxEnergy)</span> override</span>;
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseForElement</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, G4int Z)</span></span>;
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">CrossSectionPerVolume</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
-                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 G4double kineticEnergy,
-                 G4double cutEnergy,
-                 G4double maxEnergy)</span> override</span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeDEDXPerVolume</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
-                <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                G4double kineticEnergy,
-                G4double cutEnergy)</span> override</span>;
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                                               G4double kinEnergy,
+                                               G4double Z,
+                                               G4double A=<span class="hljs-number">0</span>,
+                                               G4double cut=<span class="hljs-number">0</span>,
+                                               G4double emax=DBL_MAX )</span></span>;
 
   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SampleSecondaries</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt;*,
-                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
-                 <span class="hljs-keyword">const</span> G4DynamicParticle*,
-                 G4double tmin,
-                 G4double maxEnergy)</span> override</span>;
-
-  <span class="hljs-comment">// Compute ion charge </span>
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetChargeSquareRatio</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                    <span class="hljs-keyword">const</span> G4Material*,
-                    G4double kineticEnergy)</span> override</span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetParticleCharge</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* p,
-                     <span class="hljs-keyword">const</span> G4Material* mat,
-                     G4double kineticEnergy)</span> override</span>;
-
-<span class="hljs-keyword">protected</span>:
-
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">MaxSecondaryEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                      G4double kinEnergy)</span> final</span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetChargeSquareRatio</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetChargeSquareRatio</span><span class="hljs-params">(G4double val)</span></span>;
+                                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                                 <span class="hljs-keyword">const</span> G4DynamicParticle*,
+                                 G4double tmin,
+                                 G4double maxEnergy)</span></span>;
 
 <span class="hljs-keyword">private</span>:
 
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetParticle</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* p)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReadData</span><span class="hljs-params">(size_t Z, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="hljs-function">G4bool <span class="hljs-title">HasMaterial</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">ComputeScatteringFunction</span><span class="hljs-params">(G4double x, G4int Z)</span></span>;
 
-  <span class="hljs-function">G4double <span class="hljs-title">StoppingPower</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material,
-                               G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">ElectronicStoppingPower</span><span class="hljs-params">(G4double z,
-                                   G4double kineticEnergy)</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">DEDX</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material, G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4bool <span class="hljs-title">MolecIsInZiegler1988</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material* material)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">ChemicalFactor</span><span class="hljs-params">(G4double kineticEnergy, G4double eloss125)</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-comment">// hide assignment operator</span>
-  G4BraggModel &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span>  G4BraggModel &amp;right) = <span class="hljs-keyword">delete</span>;
-  G4BraggModel(<span class="hljs-keyword">const</span>  G4BraggModel&amp;) = <span class="hljs-keyword">delete</span>;</code></pre>
-<!-- G4BraggModel.md ends here -->
+  G4LowEPComptonModel &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span>  G4LowEPComptonModel &amp;right);
+  G4LowEPComptonModel(<span class="hljs-keyword">const</span>  G4LowEPComptonModel&amp;);</code></pre>
+<!-- G4LowEPComptonModel.md ends here -->
 
 
 
@@ -1003,12 +958,12 @@
 
             
                 
-                <a href="G4VEmModel.html" class="navigation navigation-prev " aria-label="Previous page: G4VEmModel">
+                <a href="G4KleinNishinaModel.html" class="navigation navigation-prev " aria-label="Previous page: G4KleinNishinaModel">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="G4BetheBlochModel.html" class="navigation navigation-next " aria-label="Next page: G4BetheBlochModel">
+                <a href="G4PEEffectFluoModel.html" class="navigation navigation-next " aria-label="Next page: G4PEEffectFluoModel">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1019,7 +974,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4BraggModel","level":"1.4.9.1","depth":3,"next":{"title":"G4BetheBlochModel","level":"1.4.9.2","depth":3,"path":"class/G4BetheBlochModel.md","ref":"class/G4BetheBlochModel.md","articles":[]},"previous":{"title":"G4VEmModel","level":"1.4.9","depth":2,"path":"class/G4VEmModel.md","ref":"class/G4VEmModel.md","articles":[{"title":"G4BraggModel","level":"1.4.9.1","depth":3,"path":"class/G4BraggModel.md","ref":"class/G4BraggModel.md","articles":[]},{"title":"G4BetheBlochModel","level":"1.4.9.2","depth":3,"path":"class/G4BetheBlochModel.md","ref":"class/G4BetheBlochModel.md","articles":[]},{"title":"G4IonParametrisedLossModel","level":"1.4.9.3","depth":3,"path":"class/G4IonParametrisedLossModel.md","ref":"class/G4IonParametrisedLossModel.md","articles":[]},{"title":"G4ICRU49NuclearStoppingModel","level":"1.4.9.4","depth":3,"path":"class/G4ICRU49NuclearStoppingModel.md","ref":"class/G4ICRU49NuclearStoppingModel.md","articles":[]},{"title":"G4KleinNishinaCompton","level":"1.4.9.5","depth":3,"path":"class/G4KleinNishinaCompton.md","ref":"class/G4KleinNishinaCompton.md","articles":[]},{"title":"G4KleinNishinaModel","level":"1.4.9.6","depth":3,"path":"class/G4KleinNishinaModel.md","ref":"class/G4KleinNishinaModel.md","articles":[]},{"title":"G4LowEPComptonModel","level":"1.4.9.7","depth":3,"path":"class/G4LowEPComptonModel.md","ref":"class/G4LowEPComptonModel.md","articles":[]},{"title":"G4PEEffectFluoModel","level":"1.4.9.8","depth":3,"path":"class/G4PEEffectFluoModel.md","ref":"class/G4PEEffectFluoModel.md","articles":[]},{"title":"G4LivermorePhotoElectricModel","level":"1.4.9.9","depth":3,"path":"class/G4LivermorePhotoElectricModel.md","ref":"class/G4LivermorePhotoElectricModel.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4BraggModel.md","mtime":"2018-07-13T18:48:21.414Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T04:59:31.286Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4LowEPComptonModel","level":"1.4.9.7","depth":3,"next":{"title":"G4PEEffectFluoModel","level":"1.4.9.8","depth":3,"path":"class/G4PEEffectFluoModel.md","ref":"class/G4PEEffectFluoModel.md","articles":[]},"previous":{"title":"G4KleinNishinaModel","level":"1.4.9.6","depth":3,"path":"class/G4KleinNishinaModel.md","ref":"class/G4KleinNishinaModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4LowEPComptonModel.md","mtime":"2018-07-14T04:39:48.612Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T04:59:31.286Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
