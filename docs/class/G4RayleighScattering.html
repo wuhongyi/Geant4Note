@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>G4EmCorrections · GitBook</title>
+        <title>G4RayleighScattering · GitBook</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="G4EmCalculator.html" />
+    <link rel="next" href="G4PhysicsListHelper.html" />
     
     
-    <link rel="prev" href="G4EmModelActivator.html" />
+    <link rel="prev" href="G4GammaConversion.html" />
     
 
     </head>
@@ -265,7 +265,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.3" data-path="G4EmCorrections.html">
+        <li class="chapter " data-level="1.4.3" data-path="G4EmCorrections.html">
             
                 <a href="G4EmCorrections.html">
             
@@ -772,7 +772,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.11.2.1.5" data-path="G4RayleighScattering.html">
+        <li class="chapter active" data-level="1.4.11.2.1.5" data-path="G4RayleighScattering.html">
             
                 <a href="G4RayleighScattering.html">
             
@@ -919,7 +919,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >G4EmCorrections</a>
+        <a href=".." >G4RayleighScattering</a>
     </h1>
 </div>
 
@@ -934,136 +934,48 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <!-- G4EmCorrections.md --- 
+                                <!-- G4RayleighScattering.md --- 
 ;; 
 ;; Description: 
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
-;; Created: 五 7月 13 04:14:35 2018 (+0800)
-;; Last-Updated: 六 7月 14 02:52:41 2018 (+0800)
+;; Created: 日 7月 15 05:03:18 2018 (+0800)
+;; Last-Updated: 日 7月 15 05:05:02 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 3
+;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
 
 
-<h1 id="g4emcorrections">G4EmCorrections</h1><p>This class provides calculation of EM corrections to ionisation</p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+<h1 id="g4rayleighscattering">G4RayleighScattering</h1><p><strong>public G4VEmProcess</strong></p><p>Class to implement Rayleigh scattering as a physics process. The default model used for the process is G4LivermoreRayleighModel</p><ul><li>Model
+<ul><li>G4LivermoreRayleighModel
+</li></ul>
+</li></ul>
+<h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:  <span class="hljs-comment">// with description</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4EmCorrections</span><span class="hljs-params">(G4int verb)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4RayleighScattering</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; processName =<span class="hljs-string">&quot;Rayl&quot;</span>,
+                        G4ProcessType type = fElectromagnetic)</span></span>;
 
-  <span class="hljs-keyword">virtual</span> ~G4EmCorrections();
+  <span class="hljs-keyword">virtual</span> ~G4RayleighScattering();
 
-  <span class="hljs-function">G4double <span class="hljs-title">HighOrderCorrections</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                                <span class="hljs-keyword">const</span> G4Material*,
-                                G4double kineticEnergy,
-                                G4double cutEnergy)</span></span>;
+  <span class="hljs-comment">// true for Gamma only.  </span>
+  <span class="hljs-function">G4bool <span class="hljs-title">IsApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span> final</span>;
 
-  <span class="hljs-function">G4double <span class="hljs-title">IonHighOrderCorrections</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                                   <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
-                                   G4double kineticEnergy)</span></span>;
+  <span class="hljs-comment">// Print few lines of informations about the process: validity range,</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PrintInfo</span><span class="hljs-params">()</span> override</span>;
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeIonCorrections</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                                 <span class="hljs-keyword">const</span> G4Material*,
-                                 G4double kineticEnergy)</span></span>;
+  <span class="hljs-comment">// print description in html</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp;)</span> <span class="hljs-keyword">const</span> override</span>;
 
-  <span class="hljs-function">G4double <span class="hljs-title">IonBarkasCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                               <span class="hljs-keyword">const</span> G4Material*,
-                               G4double kineticEnergy)</span></span>;
+<span class="hljs-keyword">protected</span>:
 
-  <span class="hljs-function">G4double <span class="hljs-title">Bethe</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 <span class="hljs-keyword">const</span> G4Material*,
-                 G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">SpinCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                          <span class="hljs-keyword">const</span> G4Material*,
-                          G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">KShellCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                            <span class="hljs-keyword">const</span> G4Material*,
-                            G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">LShellCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                            <span class="hljs-keyword">const</span> G4Material*,
-                            G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">ShellCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                           <span class="hljs-keyword">const</span> G4Material*,
-                           G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">ShellCorrectionSTD</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                              <span class="hljs-keyword">const</span> G4Material*,
-                              G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">DensityCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                             <span class="hljs-keyword">const</span> G4Material*,
-                             G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">BarkasCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                            <span class="hljs-keyword">const</span> G4Material*,
-                            G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">BlochCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                           <span class="hljs-keyword">const</span> G4Material*,
-                           G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">MottCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                          <span class="hljs-keyword">const</span> G4Material*,
-                          G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddStoppingData</span><span class="hljs-params">(G4int Z, G4int A, <span class="hljs-keyword">const</span> G4String&amp; materialName,
-                       G4PhysicsVector* dVector)</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseForNewRun</span><span class="hljs-params">()</span></span>;
-
-  <span class="hljs-comment">// effective charge correction using stopping power data</span>
-  <span class="hljs-function">G4double <span class="hljs-title">EffectiveChargeCorrection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                                     <span class="hljs-keyword">const</span> G4Material*,
-                                     G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-comment">// effective charge of an ion</span>
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetParticleCharge</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                                    <span class="hljs-keyword">const</span> G4Material*,
-                                    G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span>
-  G4double <span class="hljs-title">EffectiveChargeSquareRatio</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                                      <span class="hljs-keyword">const</span> G4Material*,
-                                      G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-comment">// ionisation models for ions</span>
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetIonisationModels</span><span class="hljs-params">(G4VEmModel* m1 = <span class="hljs-literal">nullptr</span>, 
-                                  G4VEmModel* m2 = <span class="hljs-literal">nullptr</span>)</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4int <span class="hljs-title">GetNumberOfStoppingVectors</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetVerbose</span><span class="hljs-params">(G4int verb)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span> override</span>;
 
 <span class="hljs-keyword">private</span>:
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">()</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildCorrectionVector</span><span class="hljs-params">()</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetupKinematics</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                       <span class="hljs-keyword">const</span> G4Material*,
-                       G4double kineticEnergy)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">KShell</span><span class="hljs-params">(G4double theta, G4double eta)</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">LShell</span><span class="hljs-params">(G4double theta, G4double eta)</span></span>;
-
-  <span class="hljs-function">G4int <span class="hljs-title">Index</span><span class="hljs-params">(G4double x, <span class="hljs-keyword">const</span> G4double* y, G4int n)</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">Value</span><span class="hljs-params">(G4double xv, G4double x1, G4double x2, 
-                 G4double y1, G4double y2)</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-function">G4double <span class="hljs-title">Value2</span><span class="hljs-params">(G4double xv, G4double yv, G4double x1, G4double x2,
-                  G4double y1, G4double y2, G4double z11, G4double z21, 
-          G4double z12, G4double z22)</span> <span class="hljs-keyword">const</span></span>;
-
   <span class="hljs-comment">// hide assignment operator</span>
-  G4EmCorrections &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4EmCorrections &amp;right) = <span class="hljs-keyword">delete</span>;
-  G4EmCorrections(<span class="hljs-keyword">const</span> G4EmCorrections&amp;) = <span class="hljs-keyword">delete</span>;</code></pre>
-<!-- G4EmCorrections.md ends here -->
+  G4RayleighScattering &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4RayleighScattering &amp;right) = <span class="hljs-keyword">delete</span>;
+  G4RayleighScattering(<span class="hljs-keyword">const</span> G4RayleighScattering&amp;) = <span class="hljs-keyword">delete</span>;</code></pre>
+<!-- G4RayleighScattering.md ends here -->
 
 
 
@@ -1093,12 +1005,12 @@
 
             
                 
-                <a href="G4EmModelActivator.html" class="navigation navigation-prev " aria-label="Previous page: G4EmModelActivator">
+                <a href="G4GammaConversion.html" class="navigation navigation-prev " aria-label="Previous page: G4GammaConversion">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="G4EmCalculator.html" class="navigation navigation-next " aria-label="Next page: G4EmCalculator">
+                <a href="G4PhysicsListHelper.html" class="navigation navigation-next " aria-label="Next page: G4PhysicsListHelper">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1109,7 +1021,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4EmCorrections","level":"1.4.3","depth":2,"next":{"title":"G4EmCalculator","level":"1.4.4","depth":2,"path":"class/G4EmCalculator.md","ref":"class/G4EmCalculator.md","articles":[]},"previous":{"title":"G4EmModelActivator","level":"1.4.2","depth":2,"path":"class/G4EmModelActivator.md","ref":"class/G4EmModelActivator.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4EmCorrections.md","mtime":"2018-07-13T18:52:41.231Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T21:09:35.420Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4RayleighScattering","level":"1.4.11.2.1.5","depth":5,"next":{"title":"G4PhysicsListHelper","level":"1.4.12","depth":2,"path":"class/G4PhysicsListHelper.md","ref":"class/G4PhysicsListHelper.md","articles":[]},"previous":{"title":"G4GammaConversion","level":"1.4.11.2.1.4","depth":5,"path":"class/G4GammaConversion.md","ref":"class/G4GammaConversion.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4RayleighScattering.md","mtime":"2018-07-14T21:05:02.504Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-07-14T21:09:35.420Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
