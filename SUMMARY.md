@@ -98,7 +98,7 @@
 				* [G4HadronInelasticProcess](class/G4HadronInelasticProcess.md)
 					* [G4NeutronInelasticProcess](class/G4NeutronInelasticProcess.md)
 				* [G4HadronCaptureProcess](class/G4HadronCaptureProcess.md)
-				* [ G4HadronFissionProcess](class/ G4HadronFissionProcess.md)
+				* [ G4HadronFissionProcess](class/G4HadronFissionProcess.md)
 		* [G4VRestContinuousDiscreteProcess](class/G4VRestContinuousDiscreteProcess.md)
 		* [G4VRestContinuousProcess](class/G4VRestContinuousProcess.md)
 		* [G4VRestDiscreteProcess](class/G4VRestDiscreteProcess.md)
