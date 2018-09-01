@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 五 8月 10 07:08:42 2018 (+0800)
-;; Last-Updated: 五 8月 10 07:10:04 2018 (+0800)
+;; Last-Updated: 六 9月  1 09:05:41 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 # G4HadronInelasticProcess
@@ -15,6 +15,11 @@
 
 - The specific particle inelastic processes derive from this class
 - This is an abstract base class, since the pure virtual function PostStepDoIt has not been defined yet.
+
+
+AddDataSet
+- G4HadronInelasticDataSet
+
 
 ## class
 

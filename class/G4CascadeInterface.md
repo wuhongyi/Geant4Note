@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 五 8月 10 07:14:43 2018 (+0800)
-;; Last-Updated: 五 8月 10 07:15:48 2018 (+0800)
+;; Last-Updated: 六 9月  1 11:15:40 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 3
 ;; URL: http://wuhongyi.cn -->
 
 # G4CascadeInterface
@@ -14,6 +14,15 @@
 **public G4VIntraNuclearTransportModel**
 
 Defines an interface to Bertini (BERT) cascade based on INUCL  intra-nuclear transport.models with bullet hadron energy ~< 10 GeV
+
+```cpp
+  G4HadFinalState* ApplyYourself(const G4HadProjectile& aTrack, G4Nucleus& theNucleus);
+
+// 弹靶对撞
+G4InuclCollider
+G4CascadeCheckBalance
+```
+
 
 ## class
 
