@@ -1,15 +1,15 @@
-<!--  G4HadronFissionProcess.md --- 
+<!-- G4HadronFissionProcess.md --- 
 ;; 
 ;; Description: 
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 五 8月 10 07:32:25 2018 (+0800)
-;; Last-Updated: 五 8月 10 07:33:14 2018 (+0800)
+;; Last-Updated: 日 9月  2 00:25:40 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
-#  G4HadronFissionProcess
+# G4HadronFissionProcess
 
 **public G4HadronicProcess**
 
@@ -30,4 +30,4 @@ public:
   virtual void ProcessDescription(std::ostream& outFile) const;
 ```
 
-<!--  G4HadronFissionProcess.md ends here -->
+<!-- G4HadronFissionProcess.md ends here -->

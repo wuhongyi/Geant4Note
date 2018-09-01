@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>G4ParticleHPCaptureData · GitBook</title>
+        <title> G4HadronFissionProcess · GitBook</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="G4ParticleHPFissionData.html" />
+    <link rel="next" href="G4VRestContinuousDiscreteProcess.html" />
     
     
-    <link rel="prev" href="G4ParticleHPInelasticData.html" />
+    <link rel="prev" href="G4HadronCaptureProcess.html" />
     
 
     </head>
@@ -1475,7 +1475,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.16.3.2.4" data-path="G4HadronFissionProcess.html">
+        <li class="chapter active" data-level="1.4.16.3.2.4" data-path="G4HadronFissionProcess.html">
             
                 <a href="G4HadronFissionProcess.html">
             
@@ -2308,7 +2308,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.23.9" data-path="G4ParticleHPCaptureData.html">
+        <li class="chapter " data-level="1.4.23.9" data-path="G4ParticleHPCaptureData.html">
             
                 <a href="G4ParticleHPCaptureData.html">
             
@@ -2787,7 +2787,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >G4ParticleHPCaptureData</a>
+        <a href=".." > G4HadronFissionProcess</a>
     </h1>
 </div>
 
@@ -2802,73 +2802,29 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <!-- G4ParticleHPCaptureData.md --- 
+                                <!-- G4HadronFissionProcess.md --- 
 ;; 
 ;; Description: 
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
-;; Created: 五 8月 10 07:57:49 2018 (+0800)
-;; Last-Updated: 五 8月 10 07:58:38 2018 (+0800)
+;; Created: 五 8月 10 07:32:25 2018 (+0800)
+;; Last-Updated: 日 9月  2 00:25:40 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 
 
-<h1 id="g4particlehpcapturedata">G4ParticleHPCaptureData</h1><p><strong>public G4VCrossSectionDataSet</strong></p><ul><li>Cross-section data set for a high precision (based on evaluated data libraries) description of neutron capture below 20 MeV; 
-</li>
-<li>To be used in your physics list in case you need this physics.
-</li>
-<li>In this case you want to register an object of this class with the corresponding process.
-</li></ul>
-<h2 id="class">class</h2><pre><code class="lang-cpp">   <span class="hljs-keyword">public</span>:
+<h1 id="g4hadronfissionprocess">G4HadronFissionProcess</h1><p><strong>public G4HadronicProcess</strong></p><p>Process for induced fission; 
+ to be used in your physics list in case you need this physics.</p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
 
-      G4ParticleHPCaptureData();
+  G4HadronFissionProcess(<span class="hljs-keyword">const</span> G4String&amp; processName =<span class="hljs-string">&quot;nFission&quot;</span>);
 
-      ~G4ParticleHPCaptureData();
+  <span class="hljs-keyword">virtual</span> ~G4HadronFissionProcess();
 
-      <span class="hljs-function">G4bool <span class="hljs-title">IsIsoApplicable</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4DynamicParticle* , 
-                              G4int <span class="hljs-comment">/*Z*/</span> , G4int <span class="hljs-comment">/*A*/</span> ,
-                              <span class="hljs-keyword">const</span> G4Element* <span class="hljs-comment">/*elm*/</span> ,
-                              <span class="hljs-keyword">const</span> G4Material* <span class="hljs-comment">/*mat*/</span> )</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">IsApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp; p)</span></span>;
 
-      <span class="hljs-function">G4double <span class="hljs-title">GetIsoCrossSection</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4DynamicParticle*  , 
-                                   G4int <span class="hljs-comment">/*Z*/</span> , G4int <span class="hljs-comment">/*A*/</span> ,
-                                   <span class="hljs-keyword">const</span> G4Isotope* <span class="hljs-comment">/*iso*/</span>  ,
-                                   <span class="hljs-keyword">const</span> G4Element* <span class="hljs-comment">/*elm*/</span>  ,
-                                   <span class="hljs-keyword">const</span> G4Material* <span class="hljs-comment">/*mat*/</span> )</span></span>;
-
-      <span class="hljs-comment">//G4bool IsApplicable(const G4DynamicParticle*, const G4Element*);</span>
-
-   <span class="hljs-keyword">public</span>:
-      <span class="hljs-comment">//G4bool IsZAApplicable( const G4DynamicParticle* , G4double /*ZZ*/, G4double /*AA*/)</span>
-      <span class="hljs-comment">//{ return false;}</span>
-
-      <span class="hljs-function">G4double <span class="hljs-title">GetCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, <span class="hljs-keyword">const</span> G4Element*, G4double aT)</span></span>;
-
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
-
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DumpPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
-
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">IgnoreOnFlightDopplerBroadening</span><span class="hljs-params">()</span></span>{ onFlightDB = <span class="hljs-literal">false</span>; };
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">EnableOnFlightDopplerBroadening</span><span class="hljs-params">()</span></span>{ onFlightDB = <span class="hljs-literal">true</span>; };
-
-   <span class="hljs-keyword">public</span>:
-      <span class="hljs-function">G4int <span class="hljs-title">GetVerboseLevel</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">( G4int )</span></span>;
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CrossSectionDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp;)</span> <span class="hljs-keyword">const</span></span>;
-
-   <span class="hljs-keyword">private</span>:
-
-      G4PhysicsTable * theCrossSections;
-
-      G4bool onFlightDB;
-      G4bool instanceOfWorker;
-
-      G4double ke_cache;
-      G4double xs_cache;
-      <span class="hljs-keyword">const</span> G4Element* element_cache;
-      <span class="hljs-keyword">const</span> G4Material* material_cache;</code></pre>
-<!-- G4ParticleHPCaptureData.md ends here -->
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; outFile)</span> <span class="hljs-keyword">const</span></span>;</code></pre>
+<!-- G4HadronFissionProcess.md ends here -->
 
 
 
@@ -2898,12 +2854,12 @@
 
             
                 
-                <a href="G4ParticleHPInelasticData.html" class="navigation navigation-prev " aria-label="Previous page: G4ParticleHPInelasticData">
+                <a href="G4HadronCaptureProcess.html" class="navigation navigation-prev " aria-label="Previous page: G4HadronCaptureProcess">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="G4ParticleHPFissionData.html" class="navigation navigation-next " aria-label="Next page: G4ParticleHPFissionData">
+                <a href="G4VRestContinuousDiscreteProcess.html" class="navigation navigation-next " aria-label="Next page: G4VRestContinuousDiscreteProcess">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -2914,7 +2870,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPCaptureData","level":"1.4.23.9","depth":3,"next":{"title":"G4ParticleHPFissionData","level":"1.4.23.10","depth":3,"path":"class/G4ParticleHPFissionData.md","ref":"class/G4ParticleHPFissionData.md","articles":[]},"previous":{"title":"G4ParticleHPInelasticData","level":"1.4.23.8","depth":3,"path":"class/G4ParticleHPInelasticData.md","ref":"class/G4ParticleHPInelasticData.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4ParticleHPCaptureData.md","mtime":"2018-08-09T23:58:38.224Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-01T16:26:10.776Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":" G4HadronFissionProcess","level":"1.4.16.3.2.4","depth":5,"next":{"title":"G4VRestContinuousDiscreteProcess","level":"1.4.16.4","depth":3,"path":"class/G4VRestContinuousDiscreteProcess.md","ref":"class/G4VRestContinuousDiscreteProcess.md","articles":[]},"previous":{"title":"G4HadronCaptureProcess","level":"1.4.16.3.2.3","depth":5,"path":"class/G4HadronCaptureProcess.md","ref":"class/G4HadronCaptureProcess.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4HadronFissionProcess.md","mtime":"2018-09-01T16:25:40.199Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-01T16:26:10.776Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
