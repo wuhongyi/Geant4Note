@@ -4,18 +4,38 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 9月  1 11:49:27 2018 (+0800)
-;; Last-Updated: 六 9月  1 11:58:38 2018 (+0800)
+;; Last-Updated: 二 9月  4 05:46:05 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 1
+;;     Update #: 5
 ;; URL: http://wuhongyi.cn -->
 
 # G4IntraNucleiCascader
 
 **public G4CascadeColliderBase**
 
+**产生对撞产物！！！**
+
 ```cpp
 void collide(G4InuclParticle* bullet, G4InuclParticle* target, G4CollisionOutput& globalOutput);
 ```
+
+```cpp
+  G4bool initialize(G4InuclParticle* bullet, G4InuclParticle* target);
+
+  void newCascade(G4int itry);		// Clear buffers for next attempt
+  void setupCascade();			// Fill cascade using nuclear model
+  void generateCascade();		// Track secondaries through nucleus
+  G4bool finishCascade();		// Clean up output, check consistency
+
+  void finalize(G4int itry, 		// Transfer final state for return
+		G4InuclParticle* bullet, G4InuclParticle* target,
+		G4CollisionOutput& globalOutput);
+```
+
+
+- G4NucleiModel
+
+
 
 ## class
 

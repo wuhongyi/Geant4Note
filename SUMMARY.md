@@ -53,6 +53,7 @@
 	* [G4VEmFluctuationModel](class/G4VEmFluctuationModel.md)
 		* [G4IonFluctuations](class/G4IonFluctuations.md)
 		* [G4UniversalFluctuation](class/G4UniversalFluctuation.md)
+	* [G4NucleiModel](class/G4NucleiModel.md)
 	* [G4HadronicInteraction](class/G4HadronicInteraction.md)
 		* [G4HadronElastic](class/G4HadronElastic.md)
 		* [G4ParticleHPElastic](class/G4ParticleHPElastic.md)
