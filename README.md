@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:22:16 2017 (+0800)
-;; Last-Updated: 日 9月  2 11:55:33 2018 (+0800)
+;; Last-Updated: 二 9月  4 02:10:01 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 6
+;;     Update #: 7
 ;; URL: http://wuhongyi.cn -->
 
 # 简介
@@ -26,7 +26,8 @@
 物理过程
 - 2015
 	- [NIMA / The Geant4 Bertini Cascade](http://wuhongyi.cn/Geant4Note/pdf/article/phys/1-s2.0-S0168900215011134-main.pdf)
-
+- 2017
+	- [NIMA / New physics model in GEANT4 for the simulation of neutron interactions with organic scintillation detectors](http://wuhongyi.cn/Geant4Note/pdf/article/phys/1-s2.0-S0168900217306745-main.pdf)
 
 几何
 

@@ -9,3 +9,5 @@ mv _book docs
 git add --all
 git commit -m ""
 git push -u origin master
+
+rm -r docs
