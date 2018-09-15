@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4HadronicDeveloperParameters · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4HadronicDeveloperParameters · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,65 +3046,65 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4hadronicdeveloperparameters">G4HadronicDeveloperParameters</h1>
+<p><strong>&#x9759;&#x6001;&#x7C7B;</strong></p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp">   <span class="token keyword">public</span><span class="token operator">:</span>
+      <span class="token keyword">static</span> G4HadronicDeveloperParameters<span class="token operator">&amp;</span> <span class="token function">GetInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+   <span class="token comment">//protected:</span>
+   <span class="token keyword">private</span><span class="token operator">:</span>
+      <span class="token function">G4HadronicDeveloperParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">G4HadronicDeveloperParameters</span><span class="token punctuation">(</span> <span class="token keyword">const</span> G4HadronicDeveloperParameters<span class="token operator">&amp;</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4HadronicDeveloperParameters <span class="token operator">&amp;</span><span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span> <span class="token keyword">const</span> G4HadronicDeveloperParameters<span class="token operator">&amp;</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h1 id="g4hadronicdeveloperparameters">G4HadronicDeveloperParameters</h1><p><strong>&#x9759;&#x6001;&#x7C7B;</strong></p><h2 id="class">class</h2><pre><code class="lang-cpp">   <span class="hljs-keyword">public</span>:
-      <span class="hljs-function"><span class="hljs-keyword">static</span> G4HadronicDeveloperParameters&amp; <span class="hljs-title">GetInstance</span><span class="hljs-params">()</span></span>;
+   <span class="token keyword">public</span><span class="token operator">:</span>
+      G4bool <span class="token function">Set</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> <span class="token keyword">const</span> G4bool <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">Set</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> <span class="token keyword">const</span> G4int <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">Set</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> <span class="token keyword">const</span> G4double <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">GetDefault</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4bool<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">GetDefault</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4int<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">GetDefault</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4double<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">Get</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4bool<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">Get</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4int<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">Get</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4double<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">DeveloperGet</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4bool<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">DeveloperGet</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4int<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">DeveloperGet</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4double<span class="token operator">&amp;</span> value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">void</span> <span class="token function">Dump</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   <span class="hljs-comment">//protected:</span>
-   <span class="hljs-keyword">private</span>:
-      G4HadronicDeveloperParameters();
-      G4HadronicDeveloperParameters( <span class="hljs-keyword">const</span> G4HadronicDeveloperParameters&amp; );
-      G4HadronicDeveloperParameters &amp;<span class="hljs-keyword">operator</span>=( <span class="hljs-keyword">const</span> G4HadronicDeveloperParameters&amp; );
+   <span class="token comment">//protected:</span>
+   <span class="token keyword">public</span><span class="token operator">:</span>
+      G4bool <span class="token function">SetDefault</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> <span class="token keyword">const</span> G4bool value <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">SetDefault</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> <span class="token keyword">const</span> G4int value <span class="token punctuation">,</span> G4int lower_limit <span class="token operator">=</span> <span class="token operator">-</span>INT_MAX <span class="token punctuation">,</span> G4int upper_limit <span class="token operator">=</span> INT_MAX <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">SetDefault</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> <span class="token keyword">const</span> G4double value <span class="token punctuation">,</span> G4double lower_limit <span class="token operator">=</span> <span class="token operator">-</span>DBL_MAX <span class="token punctuation">,</span> G4double upper_limit <span class="token operator">=</span> DBL_MAX <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   <span class="hljs-keyword">public</span>:
-      <span class="hljs-function">G4bool <span class="hljs-title">Set</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , <span class="hljs-keyword">const</span> G4bool )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">Set</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , <span class="hljs-keyword">const</span> G4int )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">Set</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , <span class="hljs-keyword">const</span> G4double )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">GetDefault</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4bool&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">GetDefault</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4int&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">GetDefault</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4double&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">Get</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4bool&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">Get</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4int&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">Get</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4double&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">DeveloperGet</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4bool&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">DeveloperGet</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4int&amp; value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">DeveloperGet</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4double&amp; value )</span></span>;
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Dump</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name )</span></span>;
+   <span class="token keyword">private</span><span class="token operator">:</span>
+      G4bool <span class="token function">get</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4bool<span class="token operator">&amp;</span> value <span class="token punctuation">,</span> G4bool check_change <span class="token operator">=</span> <span class="token boolean">false</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">get</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4int<span class="token operator">&amp;</span> value <span class="token punctuation">,</span> G4bool check_change <span class="token operator">=</span> <span class="token boolean">false</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">get</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string name <span class="token punctuation">,</span> G4double<span class="token operator">&amp;</span> value <span class="token punctuation">,</span> G4bool check_change<span class="token operator">=</span> <span class="token boolean">false</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   <span class="hljs-comment">//protected:</span>
-   <span class="hljs-keyword">public</span>:
-      <span class="hljs-function">G4bool <span class="hljs-title">SetDefault</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , <span class="hljs-keyword">const</span> G4bool value )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">SetDefault</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , <span class="hljs-keyword">const</span> G4int value , G4int lower_limit = -INT_MAX , G4int upper_limit = INT_MAX )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">SetDefault</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , <span class="hljs-keyword">const</span> G4double value , G4double lower_limit = -DBL_MAX , G4double upper_limit = DBL_MAX )</span></span>;
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span>G4bool<span class="token operator">&gt;</span> b_values<span class="token punctuation">;</span>
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span><span class="token keyword">const</span> G4bool<span class="token operator">&gt;</span> b_defaults<span class="token punctuation">;</span>
 
-   <span class="hljs-keyword">private</span>:
-      <span class="hljs-function">G4bool <span class="hljs-title">get</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4bool&amp; value , G4bool check_change = <span class="hljs-literal">false</span> )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">get</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4int&amp; value , G4bool check_change = <span class="hljs-literal">false</span> )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">get</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> name , G4double&amp; value , G4bool check_change= <span class="hljs-literal">false</span> )</span></span>;
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span>G4int<span class="token operator">&gt;</span> i_values<span class="token punctuation">;</span>
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span><span class="token keyword">const</span> G4int<span class="token operator">&gt;</span> i_defaults<span class="token punctuation">;</span>
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span>std<span class="token operator">::</span>pair<span class="token operator">&lt;</span><span class="token keyword">const</span> G4int<span class="token punctuation">,</span><span class="token keyword">const</span> G4int<span class="token operator">&gt;&gt;</span> i_limits<span class="token punctuation">;</span>
 
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,G4bool&gt; b_values;
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,<span class="hljs-keyword">const</span> G4bool&gt; b_defaults;
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span>G4double<span class="token operator">&gt;</span> values<span class="token punctuation">;</span>
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span><span class="token keyword">const</span> G4double<span class="token operator">&gt;</span> defaults<span class="token punctuation">;</span>
+      std<span class="token operator">::</span>map<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token punctuation">,</span>std<span class="token operator">::</span>pair<span class="token operator">&lt;</span><span class="token keyword">const</span> G4double<span class="token punctuation">,</span><span class="token keyword">const</span> G4double<span class="token operator">&gt;&gt;</span> limits<span class="token punctuation">;</span>
 
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,G4int&gt; i_values;
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,<span class="hljs-keyword">const</span> G4int&gt; i_defaults;
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,<span class="hljs-built_in">std</span>::pair&lt;<span class="hljs-keyword">const</span> G4int,<span class="hljs-keyword">const</span> G4int&gt;&gt; i_limits;
+      G4bool <span class="token function">check_value_within_limits</span><span class="token punctuation">(</span> std<span class="token operator">::</span>pair<span class="token operator">&lt;</span><span class="token keyword">const</span> G4double<span class="token punctuation">,</span><span class="token keyword">const</span> G4double<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token punctuation">,</span> G4double <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4bool <span class="token function">check_value_within_limits</span><span class="token punctuation">(</span> std<span class="token operator">::</span>pair<span class="token operator">&lt;</span><span class="token keyword">const</span> G4int<span class="token punctuation">,</span><span class="token keyword">const</span> G4int<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token punctuation">,</span> G4int <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,G4double&gt; values;
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,<span class="hljs-keyword">const</span> G4double&gt; defaults;
-      <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>,<span class="hljs-built_in">std</span>::pair&lt;<span class="hljs-keyword">const</span> G4double,<span class="hljs-keyword">const</span> G4double&gt;&gt; limits;
-
-      <span class="hljs-function">G4bool <span class="hljs-title">check_value_within_limits</span><span class="hljs-params">( <span class="hljs-built_in">std</span>::pair&lt;<span class="hljs-keyword">const</span> G4double,<span class="hljs-keyword">const</span> G4double&gt;&amp; , G4double )</span></span>;
-      <span class="hljs-function">G4bool <span class="hljs-title">check_value_within_limits</span><span class="hljs-params">( <span class="hljs-built_in">std</span>::pair&lt;<span class="hljs-keyword">const</span> G4int,<span class="hljs-keyword">const</span> G4int&gt;&amp; , G4int )</span></span>;
-
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">issue_no_param</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; name )</span></span>;
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">issue_has_changed</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; name )</span></span>;
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">issue_non_eligible_value</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; name )</span></span>;
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">issue_is_already_defined</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; name )</span></span>;
-      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">issue_is_modified</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; name )</span></span>;</code></pre>
+      <span class="token keyword">void</span> <span class="token function">issue_no_param</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string<span class="token operator">&amp;</span> name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">void</span> <span class="token function">issue_has_changed</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string<span class="token operator">&amp;</span> name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">void</span> <span class="token function">issue_non_eligible_value</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string<span class="token operator">&amp;</span> name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">void</span> <span class="token function">issue_is_already_defined</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string<span class="token operator">&amp;</span> name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">void</span> <span class="token function">issue_is_modified</span><span class="token punctuation">(</span> <span class="token keyword">const</span> std<span class="token operator">::</span>string<span class="token operator">&amp;</span> name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4HadronicDeveloperParameters.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3140,7 +3148,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4HadronicDeveloperParameters","level":"1.4.26","depth":2,"next":{"title":"G4CascadeParameters","level":"1.4.27","depth":2,"path":"class/G4CascadeParameters.md","ref":"class/G4CascadeParameters.md","articles":[]},"previous":{"title":"G4HadronCrossSections","level":"1.4.25","depth":2,"path":"class/G4HadronCrossSections.md","ref":"class/G4HadronCrossSections.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4HadronicDeveloperParameters.md","mtime":"2018-09-01T02:06:09.472Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4HadronicDeveloperParameters","level":"1.4.26","depth":2,"next":{"title":"G4CascadeParameters","level":"1.4.27","depth":2,"path":"class/G4CascadeParameters.md","ref":"class/G4CascadeParameters.md","articles":[]},"previous":{"title":"G4HadronCrossSections","level":"1.4.25","depth":2,"path":"class/G4HadronCrossSections.md","ref":"class/G4HadronCrossSections.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4HadronicDeveloperParameters.md","mtime":"2018-09-01T02:06:09.472Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3148,6 +3156,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

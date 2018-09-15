@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4Track · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4Track · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,285 +3046,285 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
-
-
-<h1 id="g4track">G4Track</h1><p>This class represents the partilce under tracking.
+<h1 id="g4track">G4Track</h1>
+<p>This class represents the partilce under tracking.
 It includes information related to tracking for examples:
  1) current position/time of the particle,
  2) static particle information,
- 3) the pointer to the physical volume where currently the particle exists</p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-comment">//--------</span>
-<span class="hljs-keyword">public</span>: <span class="hljs-comment">// With description</span>
+ 3) the pointer to the physical volume where currently the particle exists</p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"><span class="token comment">//--------</span>
+<span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// With description</span>
 
-<span class="hljs-comment">// Constructor</span>
-   G4Track();
-   G4Track(G4DynamicParticle* apValueDynamicParticle,
-           G4double aValueTime,
-           <span class="hljs-keyword">const</span> G4ThreeVector&amp; aValuePosition);
-      <span class="hljs-comment">// aValueTime is a global time</span>
-   G4Track(<span class="hljs-keyword">const</span> G4Track&amp;);
-   <span class="hljs-comment">// Copy Constructor copys members other than tracking information</span>
+<span class="token comment">// Constructor</span>
+   <span class="token function">G4Track</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token function">G4Track</span><span class="token punctuation">(</span>G4DynamicParticle<span class="token operator">*</span> apValueDynamicParticle<span class="token punctuation">,</span>
+           G4double aValueTime<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> aValuePosition<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// aValueTime is a global time</span>
+   <span class="token function">G4Track</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">// Copy Constructor copys members other than tracking information</span>
 
-<span class="hljs-keyword">private</span>:
-  <span class="hljs-comment">// Hide assignment operator as private</span>
-   G4Track&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span>  G4Track&amp;);
+<span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token comment">// Hide assignment operator as private</span>
+   G4Track<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span>  G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">//--------</span>
-<span class="hljs-keyword">public</span>: <span class="hljs-comment">// With description</span>
+<span class="token comment">//--------</span>
+<span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// With description</span>
 
-<span class="hljs-comment">// Destrcutor</span>
-   ~G4Track();
+<span class="token comment">// Destrcutor</span>
+   <span class="token operator">~</span><span class="token function">G4Track</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">// Operators</span>
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> *<span class="hljs-keyword">operator</span> <span class="hljs-title">new</span><span class="hljs-params">(size_t)</span></span>;
-      <span class="hljs-comment">// Override &quot;new&quot; for &quot;G4Allocator&quot;.</span>
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-keyword">operator</span> <span class="hljs-title">delete</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *aTrack)</span></span>;
-      <span class="hljs-comment">// Override &quot;delete&quot; for &quot;G4Allocator&quot;.</span>
+<span class="token comment">// Operators</span>
+   <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token operator">*</span><span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">(</span>size_t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Override &quot;new&quot; for &quot;G4Allocator&quot;.</span>
+   <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>aTrack<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Override &quot;delete&quot; for &quot;G4Allocator&quot;.</span>
 
-   G4bool <span class="hljs-keyword">operator</span>==( <span class="hljs-keyword">const</span> G4Track&amp; );
+   G4bool <span class="token keyword">operator</span><span class="token operator">==</span><span class="token punctuation">(</span> <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">//--------</span>
-<span class="hljs-keyword">public</span>: <span class="hljs-comment">// With description</span>
-<span class="hljs-comment">// Copy information of the track (w/o tracking information)</span>
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CopyTrackInfo</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
+<span class="token comment">//--------</span>
+<span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// With description</span>
+<span class="token comment">// Copy information of the track (w/o tracking information)</span>
+   <span class="token keyword">void</span> <span class="token function">CopyTrackInfo</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">// Get/Set functions</span>
-  <span class="hljs-comment">// track ID</span>
-   <span class="hljs-function">G4int <span class="hljs-title">GetTrackID</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetTrackID</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4int aValue)</span></span>;
+<span class="token comment">// Get/Set functions</span>
+  <span class="token comment">// track ID</span>
+   G4int <span class="token function">GetTrackID</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetTrackID</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4int aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4int <span class="token function">GetParentID</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetParentID</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4int aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   <span class="hljs-function">G4int <span class="hljs-title">GetParentID</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetParentID</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4int aValue)</span></span>;
+  <span class="token comment">// dynamic particle </span>
+   <span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span> <span class="token function">GetDynamicParticle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// dynamic particle </span>
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4DynamicParticle* <span class="hljs-title">GetDynamicParticle</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+  <span class="token comment">// particle definition</span>
+    <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token function">GetParticleDefinition</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token comment">//  following method of GetDefinition remains </span>
+   <span class="token comment">//  because of backward compatiblity. It will be removed in future </span>
+   G4ParticleDefinition<span class="token operator">*</span> <span class="token function">GetDefinition</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+   <span class="token comment">// position, time </span>
+   <span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> <span class="token function">GetPosition</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetPosition</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4double <span class="token function">GetGlobalTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetGlobalTime</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4double aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment">// Time since the event in which the track belongs is created.</span>
+
+   G4double <span class="token function">GetLocalTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetLocalTime</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4double aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Time since the current track is created.</span>
+
+   G4double <span class="token function">GetProperTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetProperTime</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4double aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Proper time of the current track</span>
+
+  <span class="token comment">// volume, material, touchable</span>
+   G4VPhysicalVolume<span class="token operator">*</span> <span class="token function">GetVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   G4VPhysicalVolume<span class="token operator">*</span> <span class="token function">GetNextVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// particle definition</span>
-    <span class="hljs-function"><span class="hljs-keyword">const</span> G4ParticleDefinition* <span class="hljs-title">GetParticleDefinition</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-comment">//  following method of GetDefinition remains </span>
-   <span class="hljs-comment">//  because of backward compatiblity. It will be removed in future </span>
-   <span class="hljs-function">G4ParticleDefinition* <span class="hljs-title">GetDefinition</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-   <span class="hljs-comment">// position, time </span>
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4ThreeVector&amp; <span class="hljs-title">GetPosition</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetPosition</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ThreeVector&amp; aValue)</span></span>;
-
-   <span class="hljs-function">G4double <span class="hljs-title">GetGlobalTime</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetGlobalTime</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4double aValue)</span></span>;
-     <span class="hljs-comment">// Time since the event in which the track belongs is created.</span>
+   G4Material<span class="token operator">*</span> <span class="token function">GetMaterial</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   G4Material<span class="token operator">*</span> <span class="token function">GetNextMaterial</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-   <span class="hljs-function">G4double <span class="hljs-title">GetLocalTime</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLocalTime</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4double aValue)</span></span>;
-      <span class="hljs-comment">// Time since the current track is created.</span>
+   <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span> <span class="token function">GetMaterialCutsCouple</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span> <span class="token function">GetNextMaterialCutsCouple</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-   <span class="hljs-function">G4double <span class="hljs-title">GetProperTime</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProperTime</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4double aValue)</span></span>;
-      <span class="hljs-comment">// Proper time of the current track</span>
+   <span class="token keyword">const</span> G4VTouchable<span class="token operator">*</span>      <span class="token function">GetTouchable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">const</span> G4TouchableHandle<span class="token operator">&amp;</span> <span class="token function">GetTouchableHandle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetTouchableHandle</span><span class="token punctuation">(</span> <span class="token keyword">const</span> G4TouchableHandle<span class="token operator">&amp;</span> apValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// volume, material, touchable</span>
-   <span class="hljs-function">G4VPhysicalVolume* <span class="hljs-title">GetVolume</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function">G4VPhysicalVolume* <span class="hljs-title">GetNextVolume</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="token keyword">const</span> G4VTouchable<span class="token operator">*</span>      <span class="token function">GetNextTouchable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">const</span> G4TouchableHandle<span class="token operator">&amp;</span> <span class="token function">GetNextTouchableHandle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetNextTouchableHandle</span><span class="token punctuation">(</span> <span class="token keyword">const</span> G4TouchableHandle<span class="token operator">&amp;</span> apValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   <span class="hljs-function">G4Material* <span class="hljs-title">GetMaterial</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function">G4Material* <span class="hljs-title">GetNextMaterial</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="token keyword">const</span> G4VTouchable<span class="token operator">*</span>      <span class="token function">GetOriginTouchable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">const</span> G4TouchableHandle<span class="token operator">&amp;</span> <span class="token function">GetOriginTouchableHandle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetOriginTouchableHandle</span><span class="token punctuation">(</span> <span class="token keyword">const</span> G4TouchableHandle<span class="token operator">&amp;</span> apValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4MaterialCutsCouple* <span class="hljs-title">GetMaterialCutsCouple</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4MaterialCutsCouple* <span class="hljs-title">GetNextMaterialCutsCouple</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+  <span class="token comment">// energy</span>
+   G4double <span class="token function">GetKineticEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetKineticEnergy</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4double aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4VTouchable*      <span class="hljs-title">GetTouchable</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4TouchableHandle&amp; <span class="hljs-title">GetTouchableHandle</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetTouchableHandle</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4TouchableHandle&amp; apValue)</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4VTouchable*      <span class="hljs-title">GetNextTouchable</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4TouchableHandle&amp; <span class="hljs-title">GetNextTouchableHandle</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetNextTouchableHandle</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4TouchableHandle&amp; apValue)</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4VTouchable*      <span class="hljs-title">GetOriginTouchable</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4TouchableHandle&amp; <span class="hljs-title">GetOriginTouchableHandle</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetOriginTouchableHandle</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4TouchableHandle&amp; apValue)</span></span>;
-
-  <span class="hljs-comment">// energy</span>
-   <span class="hljs-function">G4double <span class="hljs-title">GetKineticEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetKineticEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4double aValue)</span></span>;
-
-   <span class="hljs-function">G4double <span class="hljs-title">GetTotalEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-
-  <span class="hljs-comment">// moemtnum</span>
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4ThreeVector&amp; <span class="hljs-title">GetMomentumDirection</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMomentumDirection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ThreeVector&amp; aValue)</span></span>;
-
-   <span class="hljs-function">G4ThreeVector <span class="hljs-title">GetMomentum</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-   <span class="hljs-comment">// velocity</span>
-   <span class="hljs-function">G4double <span class="hljs-title">GetVelocity</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span>     <span class="hljs-title">SetVelocity</span><span class="hljs-params">(G4double val)</span></span>;
-
-   <span class="hljs-function">G4double <span class="hljs-title">CalculateVelocity</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function">G4double <span class="hljs-title">CalculateVelocityForOpticalPhoton</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-   <span class="hljs-function">G4bool   <span class="hljs-title">UseGivenVelocity</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>; 
-   <span class="hljs-function"><span class="hljs-keyword">void</span>     <span class="hljs-title">UseGivenVelocity</span><span class="hljs-params">(G4bool val)</span></span>;
-
-  <span class="hljs-comment">// polarization </span>
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4ThreeVector&amp; <span class="hljs-title">GetPolarization</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetPolarization</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ThreeVector&amp; aValue)</span></span>;
-
-  <span class="hljs-comment">// track status, flags for tracking</span>
-   <span class="hljs-function">G4TrackStatus <span class="hljs-title">GetTrackStatus</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetTrackStatus</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4TrackStatus aTrackStatus)</span></span>;
-
-   <span class="hljs-function">G4bool <span class="hljs-title">IsBelowThreshold</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span>   <span class="hljs-title">SetBelowThresholdFlag</span><span class="hljs-params">(G4bool value = <span class="hljs-literal">true</span>)</span></span>;
-     <span class="hljs-comment">// The flag of &quot;BelowThreshold&quot; is set to true </span>
-     <span class="hljs-comment">// if this track energy is below threshold energy </span>
-     <span class="hljs-comment">//  in this material determined by the range cut value</span>
-
-   <span class="hljs-function">G4bool <span class="hljs-title">IsGoodForTracking</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span>   <span class="hljs-title">SetGoodForTrackingFlag</span><span class="hljs-params">(G4bool value = <span class="hljs-literal">true</span>)</span></span>;
-     <span class="hljs-comment">// The flag of &quot;GoodForTracking&quot; is set by processes </span>
-     <span class="hljs-comment">// if this track should be tracked</span>
-     <span class="hljs-comment">// even if the energy is below threshold</span>
-
-  <span class="hljs-comment">// track length</span>
-   <span class="hljs-function">G4double <span class="hljs-title">GetTrackLength</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddTrackLength</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4double aValue)</span></span>;
-      <span class="hljs-comment">// Accumulated the track length</span>
-
-  <span class="hljs-comment">// step information</span>
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4Step* <span class="hljs-title">GetStep</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetStep</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Step* aValue)</span></span>;
-
-   <span class="hljs-function">G4int <span class="hljs-title">GetCurrentStepNumber</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">IncrementCurrentStepNumber</span><span class="hljs-params">()</span></span>;
-
-   <span class="hljs-function">G4double <span class="hljs-title">GetStepLength</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetStepLength</span><span class="hljs-params">(G4double value)</span></span>;
-      <span class="hljs-comment">// Before the end of the AlongStepDoIt loop,StepLength keeps </span>
-      <span class="hljs-comment">// the initial value which is determined by the shortest geometrical Step </span>
-      <span class="hljs-comment">// proposed by a physics process. After finishing the AlongStepDoIt,</span>
-      <span class="hljs-comment">// it will be set equal to &apos;StepLength&apos; in G4Step.</span>
-
-  <span class="hljs-comment">// vertex (,where this track was created) information  </span>
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4ThreeVector&amp; <span class="hljs-title">GetVertexPosition</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVertexPosition</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ThreeVector&amp; aValue)</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4ThreeVector&amp; <span class="hljs-title">GetVertexMomentumDirection</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVertexMomentumDirection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ThreeVector&amp; aValue)</span></span>;
-
-   <span class="hljs-function">G4double <span class="hljs-title">GetVertexKineticEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVertexKineticEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4double aValue)</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4LogicalVolume* <span class="hljs-title">GetLogicalVolumeAtVertex</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLogicalVolumeAtVertex</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4LogicalVolume* )</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">const</span> G4VProcess* <span class="hljs-title">GetCreatorProcess</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetCreatorProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4VProcess* aValue)</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetCreatorModelIndex</span><span class="hljs-params">(G4int idx)</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetCreatorModelName</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4int <span class="hljs-title">GetCreatorModelID</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-comment">// track weight</span>
-  <span class="hljs-comment">// These are methods for manipulating a weight for this track.</span>
-   <span class="hljs-function">G4double <span class="hljs-title">GetWeight</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span>     <span class="hljs-title">SetWeight</span><span class="hljs-params">(G4double aValue)</span></span>;
-
-  <span class="hljs-comment">// User information</span>
-  <span class="hljs-function">G4VUserTrackInformation* <span class="hljs-title">GetUserInformation</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetUserInformation</span><span class="hljs-params">(G4VUserTrackInformation* aValue)</span> <span class="hljs-keyword">const</span></span>;
-
-  <span class="hljs-comment">// Velocity table</span>
-  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetVelocityTableProperties</span><span class="hljs-params">(G4double t_max, G4double t_min, G4int nbin)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">GetMaxTOfVelocityTable</span><span class="hljs-params">()</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">GetMinTOfVelocityTable</span><span class="hljs-params">()</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">static</span> G4int    <span class="hljs-title">GetNbinOfVelocityTable</span><span class="hljs-params">()</span></span>;
-
-<span class="hljs-comment">//---------</span>
-   <span class="hljs-keyword">private</span>:
-<span class="hljs-comment">//---------</span>
-   <span class="hljs-comment">// Member data</span>
-   G4int fCurrentStepNumber;       <span class="hljs-comment">// Total steps number up to now</span>
-   G4ThreeVector fPosition;        <span class="hljs-comment">// Current positon</span>
-   G4double fGlobalTime;           <span class="hljs-comment">// Time since the event is created</span>
-   G4double fLocalTime;            <span class="hljs-comment">// Time since the track is created</span>
-   G4double fTrackLength;          <span class="hljs-comment">// Accumulated track length</span>
-   G4int    fParentID;
-   G4int    fTrackID;
-   G4double fVelocity; 
-
-   G4TouchableHandle fpTouchable;
-   G4TouchableHandle fpNextTouchable;
-   G4TouchableHandle fpOriginTouchable;
-  <span class="hljs-comment">// Touchable Handle</span>
-
-   G4DynamicParticle* fpDynamicParticle;
-   G4TrackStatus fTrackStatus;
-
-   G4bool  fBelowThreshold;
-   <span class="hljs-comment">// This flag is set to true if this track energy is below</span>
-   <span class="hljs-comment">// threshold energy in this material determined by the range cut value</span>
-   G4bool  fGoodForTracking;
-   <span class="hljs-comment">// This flag is set by processes if this track should be tracked</span>
-   <span class="hljs-comment">// even if the energy is below threshold</span>
-
-   G4double fStepLength;           
-      <span class="hljs-comment">// Before the end of the AlongStepDoIt loop, this keeps the initial </span>
-      <span class="hljs-comment">// Step length which is determined by the shortest geometrical Step </span>
-      <span class="hljs-comment">// proposed by a physics process. After finishing the AlongStepDoIt,</span>
-      <span class="hljs-comment">// this will be set equal to &apos;StepLength&apos; in G4Step.</span>
-
-   G4double fWeight;
-     <span class="hljs-comment">// This is a weight for this track </span>
-
-   <span class="hljs-keyword">const</span> G4Step* fpStep;
-
-   G4ThreeVector fVtxPosition;          <span class="hljs-comment">// (x,y,z) of the vertex</span>
-   G4ThreeVector fVtxMomentumDirection; <span class="hljs-comment">// Momentum direction at the vertex</span>
-   G4double fVtxKineticEnergy;          <span class="hljs-comment">// Kinetic energy at the vertex</span>
-   <span class="hljs-keyword">const</span> G4LogicalVolume* fpLVAtVertex; <span class="hljs-comment">//Logical Volume at the vertex</span>
-   <span class="hljs-keyword">const</span> G4VProcess* fpCreatorProcess; <span class="hljs-comment">// Process which created the track</span>
-   G4int fCreatorModelIndex;           <span class="hljs-comment">// Index of the physics model which created the track</span>
-
-   <span class="hljs-keyword">mutable</span> G4VUserTrackInformation* fpUserInformation;
-
-   <span class="hljs-comment">// cached values for CalculateVelocity  </span>
-   <span class="hljs-keyword">mutable</span> G4Material*               prev_mat;
-   <span class="hljs-keyword">mutable</span> G4MaterialPropertyVector* groupvel;
-   <span class="hljs-keyword">mutable</span> G4double                  prev_velocity;
-   <span class="hljs-keyword">mutable</span> G4double                  prev_momentum;
-
-   G4bool          is_OpticalPhoton; 
-   <span class="hljs-keyword">static</span> G4ThreadLocal G4VelocityTable*  velTable;
-
-   G4bool          useGivenVelocity;
-      <span class="hljs-comment">// do not calclulate velocity and just use current fVelocity</span>
-      <span class="hljs-comment">// if this flag is set</span>
-
-   <span class="hljs-keyword">mutable</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;G4int,G4VAuxiliaryTrackInformation*&gt;* fpAuxiliaryTrackInformationMap;
-
-<span class="hljs-comment">//--------</span>
-<span class="hljs-keyword">public</span>: 
-<span class="hljs-comment">//--------</span>
-
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetAuxiliaryTrackInformation</span><span class="hljs-params">(G4int idx, G4VAuxiliaryTrackInformation* info)</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-function">G4VAuxiliaryTrackInformation* <span class="hljs-title">GetAuxiliaryTrackInformation</span><span class="hljs-params">(G4int idx)</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;G4int,G4VAuxiliaryTrackInformation*&gt;* GetAuxiliaryTrackInformationMap() <span class="hljs-keyword">const</span>
-   { <span class="hljs-keyword">return</span> fpAuxiliaryTrackInformationMap; }
-
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RemoveAuxiliaryTrackInformation</span><span class="hljs-params">(G4int idx)</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RemoveAuxiliaryTrackInformation</span><span class="hljs-params">(G4String&amp; name)</span></span>;
-      <span class="hljs-comment">// Note: G4VAuxiliaryTrackInformation object itself is *NOT* deleted</span>
-
-<span class="hljs-comment">//--------</span>
-<span class="hljs-keyword">private</span>:
-<span class="hljs-comment">//--------</span>
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ClearAuxiliaryTrackInformation</span><span class="hljs-params">()</span></span>;</code></pre>
+   G4double <span class="token function">GetTotalEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+
+  <span class="token comment">// moemtnum</span>
+   <span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> <span class="token function">GetMomentumDirection</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetMomentumDirection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4ThreeVector <span class="token function">GetMomentum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+   <span class="token comment">// velocity</span>
+   G4double <span class="token function">GetVelocity</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span>     <span class="token function">SetVelocity</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4double <span class="token function">CalculateVelocity</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   G4double <span class="token function">CalculateVelocityForOpticalPhoton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+   G4bool   <span class="token function">UseGivenVelocity</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span> 
+   <span class="token keyword">void</span>     <span class="token function">UseGivenVelocity</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// polarization </span>
+   <span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> <span class="token function">GetPolarization</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetPolarization</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// track status, flags for tracking</span>
+   G4TrackStatus <span class="token function">GetTrackStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetTrackStatus</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4TrackStatus aTrackStatus<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4bool <span class="token function">IsBelowThreshold</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span>   <span class="token function">SetBelowThresholdFlag</span><span class="token punctuation">(</span>G4bool value <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment">// The flag of &quot;BelowThreshold&quot; is set to true </span>
+     <span class="token comment">// if this track energy is below threshold energy </span>
+     <span class="token comment">//  in this material determined by the range cut value</span>
+
+   G4bool <span class="token function">IsGoodForTracking</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span>   <span class="token function">SetGoodForTrackingFlag</span><span class="token punctuation">(</span>G4bool value <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment">// The flag of &quot;GoodForTracking&quot; is set by processes </span>
+     <span class="token comment">// if this track should be tracked</span>
+     <span class="token comment">// even if the energy is below threshold</span>
+
+  <span class="token comment">// track length</span>
+   G4double <span class="token function">GetTrackLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">AddTrackLength</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4double aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Accumulated the track length</span>
+
+  <span class="token comment">// step information</span>
+   <span class="token keyword">const</span> G4Step<span class="token operator">*</span> <span class="token function">GetStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetStep</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Step<span class="token operator">*</span> aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4int <span class="token function">GetCurrentStepNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">IncrementCurrentStepNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4double <span class="token function">GetStepLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetStepLength</span><span class="token punctuation">(</span>G4double value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Before the end of the AlongStepDoIt loop,StepLength keeps </span>
+      <span class="token comment">// the initial value which is determined by the shortest geometrical Step </span>
+      <span class="token comment">// proposed by a physics process. After finishing the AlongStepDoIt,</span>
+      <span class="token comment">// it will be set equal to &apos;StepLength&apos; in G4Step.</span>
+
+  <span class="token comment">// vertex (,where this track was created) information  </span>
+   <span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> <span class="token function">GetVertexPosition</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetVertexPosition</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> <span class="token function">GetVertexMomentumDirection</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetVertexMomentumDirection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   G4double <span class="token function">GetVertexKineticEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetVertexKineticEnergy</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4double aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">const</span> G4LogicalVolume<span class="token operator">*</span> <span class="token function">GetLogicalVolumeAtVertex</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetLogicalVolumeAtVertex</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4LogicalVolume<span class="token operator">*</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">const</span> G4VProcess<span class="token operator">*</span> <span class="token function">GetCreatorProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">SetCreatorProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VProcess<span class="token operator">*</span> aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetCreatorModelIndex</span><span class="token punctuation">(</span>G4int idx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">inline</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">GetCreatorModelName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">inline</span> G4int <span class="token function">GetCreatorModelID</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// track weight</span>
+  <span class="token comment">// These are methods for manipulating a weight for this track.</span>
+   G4double <span class="token function">GetWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span>     <span class="token function">SetWeight</span><span class="token punctuation">(</span>G4double aValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// User information</span>
+  G4VUserTrackInformation<span class="token operator">*</span> <span class="token function">GetUserInformation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetUserInformation</span><span class="token punctuation">(</span>G4VUserTrackInformation<span class="token operator">*</span> aValue<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Velocity table</span>
+  <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">SetVelocityTableProperties</span><span class="token punctuation">(</span>G4double t_max<span class="token punctuation">,</span> G4double t_min<span class="token punctuation">,</span> G4int nbin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> G4double <span class="token function">GetMaxTOfVelocityTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> G4double <span class="token function">GetMinTOfVelocityTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> G4int    <span class="token function">GetNbinOfVelocityTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//---------</span>
+   <span class="token keyword">private</span><span class="token operator">:</span>
+<span class="token comment">//---------</span>
+   <span class="token comment">// Member data</span>
+   G4int fCurrentStepNumber<span class="token punctuation">;</span>       <span class="token comment">// Total steps number up to now</span>
+   G4ThreeVector fPosition<span class="token punctuation">;</span>        <span class="token comment">// Current positon</span>
+   G4double fGlobalTime<span class="token punctuation">;</span>           <span class="token comment">// Time since the event is created</span>
+   G4double fLocalTime<span class="token punctuation">;</span>            <span class="token comment">// Time since the track is created</span>
+   G4double fTrackLength<span class="token punctuation">;</span>          <span class="token comment">// Accumulated track length</span>
+   G4int    fParentID<span class="token punctuation">;</span>
+   G4int    fTrackID<span class="token punctuation">;</span>
+   G4double fVelocity<span class="token punctuation">;</span> 
+
+   G4TouchableHandle fpTouchable<span class="token punctuation">;</span>
+   G4TouchableHandle fpNextTouchable<span class="token punctuation">;</span>
+   G4TouchableHandle fpOriginTouchable<span class="token punctuation">;</span>
+  <span class="token comment">// Touchable Handle</span>
+
+   G4DynamicParticle<span class="token operator">*</span> fpDynamicParticle<span class="token punctuation">;</span>
+   G4TrackStatus fTrackStatus<span class="token punctuation">;</span>
+
+   G4bool  fBelowThreshold<span class="token punctuation">;</span>
+   <span class="token comment">// This flag is set to true if this track energy is below</span>
+   <span class="token comment">// threshold energy in this material determined by the range cut value</span>
+   G4bool  fGoodForTracking<span class="token punctuation">;</span>
+   <span class="token comment">// This flag is set by processes if this track should be tracked</span>
+   <span class="token comment">// even if the energy is below threshold</span>
+
+   G4double fStepLength<span class="token punctuation">;</span>           
+      <span class="token comment">// Before the end of the AlongStepDoIt loop, this keeps the initial </span>
+      <span class="token comment">// Step length which is determined by the shortest geometrical Step </span>
+      <span class="token comment">// proposed by a physics process. After finishing the AlongStepDoIt,</span>
+      <span class="token comment">// this will be set equal to &apos;StepLength&apos; in G4Step.</span>
+
+   G4double fWeight<span class="token punctuation">;</span>
+     <span class="token comment">// This is a weight for this track </span>
+
+   <span class="token keyword">const</span> G4Step<span class="token operator">*</span> fpStep<span class="token punctuation">;</span>
+
+   G4ThreeVector fVtxPosition<span class="token punctuation">;</span>          <span class="token comment">// (x,y,z) of the vertex</span>
+   G4ThreeVector fVtxMomentumDirection<span class="token punctuation">;</span> <span class="token comment">// Momentum direction at the vertex</span>
+   G4double fVtxKineticEnergy<span class="token punctuation">;</span>          <span class="token comment">// Kinetic energy at the vertex</span>
+   <span class="token keyword">const</span> G4LogicalVolume<span class="token operator">*</span> fpLVAtVertex<span class="token punctuation">;</span> <span class="token comment">//Logical Volume at the vertex</span>
+   <span class="token keyword">const</span> G4VProcess<span class="token operator">*</span> fpCreatorProcess<span class="token punctuation">;</span> <span class="token comment">// Process which created the track</span>
+   G4int fCreatorModelIndex<span class="token punctuation">;</span>           <span class="token comment">// Index of the physics model which created the track</span>
+
+   <span class="token keyword">mutable</span> G4VUserTrackInformation<span class="token operator">*</span> fpUserInformation<span class="token punctuation">;</span>
+
+   <span class="token comment">// cached values for CalculateVelocity  </span>
+   <span class="token keyword">mutable</span> G4Material<span class="token operator">*</span>               prev_mat<span class="token punctuation">;</span>
+   <span class="token keyword">mutable</span> G4MaterialPropertyVector<span class="token operator">*</span> groupvel<span class="token punctuation">;</span>
+   <span class="token keyword">mutable</span> G4double                  prev_velocity<span class="token punctuation">;</span>
+   <span class="token keyword">mutable</span> G4double                  prev_momentum<span class="token punctuation">;</span>
+
+   G4bool          is_OpticalPhoton<span class="token punctuation">;</span> 
+   <span class="token keyword">static</span> G4ThreadLocal G4VelocityTable<span class="token operator">*</span>  velTable<span class="token punctuation">;</span>
+
+   G4bool          useGivenVelocity<span class="token punctuation">;</span>
+      <span class="token comment">// do not calclulate velocity and just use current fVelocity</span>
+      <span class="token comment">// if this flag is set</span>
+
+   <span class="token keyword">mutable</span> std<span class="token operator">::</span>map<span class="token operator">&lt;</span>G4int<span class="token punctuation">,</span>G4VAuxiliaryTrackInformation<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">*</span> fpAuxiliaryTrackInformationMap<span class="token punctuation">;</span>
+
+<span class="token comment">//--------</span>
+<span class="token keyword">public</span><span class="token operator">:</span> 
+<span class="token comment">//--------</span>
+
+   <span class="token keyword">void</span> <span class="token function">SetAuxiliaryTrackInformation</span><span class="token punctuation">(</span>G4int idx<span class="token punctuation">,</span> G4VAuxiliaryTrackInformation<span class="token operator">*</span> info<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   G4VAuxiliaryTrackInformation<span class="token operator">*</span> <span class="token function">GetAuxiliaryTrackInformation</span><span class="token punctuation">(</span>G4int idx<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   std<span class="token operator">::</span>map<span class="token operator">&lt;</span>G4int<span class="token punctuation">,</span>G4VAuxiliaryTrackInformation<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">*</span> <span class="token function">GetAuxiliaryTrackInformationMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+   <span class="token punctuation">{</span> <span class="token keyword">return</span> fpAuxiliaryTrackInformationMap<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+   <span class="token keyword">void</span> <span class="token function">RemoveAuxiliaryTrackInformation</span><span class="token punctuation">(</span>G4int idx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">RemoveAuxiliaryTrackInformation</span><span class="token punctuation">(</span>G4String<span class="token operator">&amp;</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Note: G4VAuxiliaryTrackInformation object itself is *NOT* deleted</span>
+
+<span class="token comment">//--------</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+<span class="token comment">//--------</span>
+
+  <span class="token keyword">void</span> <span class="token function">ClearAuxiliaryTrackInformation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4Track.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3360,7 +3368,7 @@ It includes information related to tracking for examples:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4Track","level":"1.4.38","depth":2,"next":{"title":"G4Step","level":"1.4.39","depth":2,"path":"class/G4Step.md","ref":"class/G4Step.md","articles":[]},"previous":{"title":"G4TrajectoryPoint","level":"1.4.37.1","depth":3,"path":"class/G4TrajectoryPoint.md","ref":"class/G4TrajectoryPoint.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4Track.md","mtime":"2018-08-10T00:26:55.188Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4Track","level":"1.4.38","depth":2,"next":{"title":"G4Step","level":"1.4.39","depth":2,"path":"class/G4Step.md","ref":"class/G4Step.md","articles":[]},"previous":{"title":"G4TrajectoryPoint","level":"1.4.37.1","depth":3,"path":"class/G4TrajectoryPoint.md","ref":"class/G4TrajectoryPoint.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4Track.md","mtime":"2018-08-10T00:26:55.188Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3368,6 +3376,14 @@ It includes information related to tracking for examples:
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

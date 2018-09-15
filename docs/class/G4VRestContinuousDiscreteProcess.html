@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4VRestContinuousDiscreteProcess · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4VRestContinuousDiscreteProcess · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,94 +3046,95 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4vrestcontinuousdiscreteprocess">G4VRestContinuousDiscreteProcess</h1>
+<p><strong>public G4VProcess</strong></p>
+<p>Abstract class which defines the public behavior of continuous and discrete physics interactions.</p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp">  <span class="token comment">//  Abstract class which defines the public behavior of</span>
+  <span class="token comment">//  discrete physics interactions.</span>
+  <span class="token keyword">public</span><span class="token operator">:</span>     
+
+      <span class="token function">G4VRestContinuousDiscreteProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token punctuation">,</span>
+                       G4ProcessType   aType <span class="token operator">=</span> fNotDefined <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">G4VRestContinuousDiscreteProcess</span><span class="token punctuation">(</span>G4VRestContinuousDiscreteProcess <span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">virtual</span>  <span class="token operator">~</span><span class="token function">G4VRestContinuousDiscreteProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-<h1 id="g4vrestcontinuousdiscreteprocess">G4VRestContinuousDiscreteProcess</h1><p><strong>public G4VProcess</strong></p><p>Abstract class which defines the public behavior of continuous and discrete physics interactions.</p><h2 id="class">class</h2><pre><code class="lang-cpp">  <span class="hljs-comment">//  Abstract class which defines the public behavior of</span>
-  <span class="hljs-comment">//  discrete physics interactions.</span>
-  <span class="hljs-keyword">public</span>:     
+  <span class="token keyword">public</span> <span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span> with description
+      <span class="token keyword">virtual</span>  G4double <span class="token function">PostStepGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
+                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
+                 G4double   previousStepSize<span class="token punctuation">,</span>
+                 G4ForceCondition<span class="token operator">*</span> condition
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      G4VRestContinuousDiscreteProcess(<span class="hljs-keyword">const</span> G4String&amp; ,
-                       G4ProcessType   aType = fNotDefined );
-      G4VRestContinuousDiscreteProcess(G4VRestContinuousDiscreteProcess &amp;);
+      <span class="token keyword">virtual</span>  G4VParticleChange<span class="token operator">*</span> <span class="token function">PostStepDoIt</span><span class="token punctuation">(</span>
+                 <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> <span class="token punctuation">,</span>
+                 <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span> 
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="hljs-keyword">virtual</span>  ~G4VRestContinuousDiscreteProcess();
+      <span class="token keyword">virtual</span>  G4double <span class="token function">AlongStepGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
+                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
+                 G4double previousStepSize<span class="token punctuation">,</span>
+                 G4double currentMinimumStep<span class="token punctuation">,</span>
+                 G4double<span class="token operator">&amp;</span> currentSafety<span class="token punctuation">,</span>
+                             G4GPILSelection<span class="token operator">*</span> selection
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+      <span class="token keyword">virtual</span>  G4VParticleChange<span class="token operator">*</span> <span class="token function">AlongStepDoIt</span><span class="token punctuation">(</span>
+                 <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> <span class="token punctuation">,</span>
+                 <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span> 
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-keyword">public</span> :<span class="hljs-comment">// with description</span>
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  G4double <span class="hljs-title">PostStepGetPhysicalInteractionLength</span><span class="hljs-params">(
-                             <span class="hljs-keyword">const</span> G4Track&amp; track,
-                 G4double   previousStepSize,
-                 G4ForceCondition* condition
-                )</span></span>;
+      <span class="token keyword">virtual</span>  G4double <span class="token function">AtRestGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
+                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> <span class="token punctuation">,</span>
+                 G4ForceCondition<span class="token operator">*</span> 
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  G4VParticleChange* <span class="hljs-title">PostStepDoIt</span><span class="hljs-params">(
-                 <span class="hljs-keyword">const</span> G4Track&amp; ,
-                 <span class="hljs-keyword">const</span> G4Step&amp; 
-                )</span></span>;
+      <span class="token keyword">virtual</span>  G4VParticleChange<span class="token operator">*</span> <span class="token function">AtRestDoIt</span><span class="token punctuation">(</span>
+                 <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> <span class="token punctuation">,</span>
+                 <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  G4double <span class="hljs-title">AlongStepGetPhysicalInteractionLength</span><span class="hljs-params">(
-                             <span class="hljs-keyword">const</span> G4Track&amp; track,
-                 G4double previousStepSize,
-                 G4double currentMinimumStep,
-                 G4double&amp; currentSafety,
-                             G4GPILSelection* selection
-                )</span></span>;
+  <span class="token keyword">protected</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+      <span class="token keyword">virtual</span> G4double <span class="token function">GetMeanLifeTime</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> aTrack<span class="token punctuation">,</span>G4ForceCondition<span class="token operator">*</span> condition<span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token comment">//  Calculates the mean life-time (i.e. for decays) of the</span>
+      <span class="token comment">//  particle at rest due to the occurence of the given process,</span>
+      <span class="token comment">//  or converts the probability of interaction (i.e. for</span>
+      <span class="token comment">//  annihilation) into the life-time of the particle for the</span>
+      <span class="token comment">//  occurence of the given process.</span>
 
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  G4VParticleChange* <span class="hljs-title">AlongStepDoIt</span><span class="hljs-params">(
-                 <span class="hljs-keyword">const</span> G4Track&amp; ,
-                 <span class="hljs-keyword">const</span> G4Step&amp; 
-                )</span></span>;
+    <span class="token keyword">virtual</span> G4double <span class="token function">GetContinuousStepLimit</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> aTrack<span class="token punctuation">,</span>
+                             G4double  previousStepSize<span class="token punctuation">,</span>
+                             G4double  currentMinimumStep<span class="token punctuation">,</span>
+                 G4double<span class="token operator">&amp;</span> currentSafety
+                                                             <span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span><span class="token operator">:</span>
+    <span class="token comment">// this is the returnd value of  G4GPILSelection in </span>
+    <span class="token comment">// the arguments of AlongStepGPIL()</span>
+    G4GPILSelection  valueGPILSelection<span class="token punctuation">;</span>
 
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  G4double <span class="hljs-title">AtRestGetPhysicalInteractionLength</span><span class="hljs-params">(
-                             <span class="hljs-keyword">const</span> G4Track&amp; ,
-                 G4ForceCondition* 
-                )</span></span>;
+  <span class="token keyword">protected</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+    <span class="token comment">// these two methods are set/get methods for valueGPILSelection</span>
+     <span class="token keyword">void</span> <span class="token function">SetGPILSelection</span><span class="token punctuation">(</span>G4GPILSelection selection<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span> valueGPILSelection <span class="token operator">=</span> selection<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  G4VParticleChange* <span class="hljs-title">AtRestDoIt</span><span class="hljs-params">(
-                 <span class="hljs-keyword">const</span> G4Track&amp; ,
-                 <span class="hljs-keyword">const</span> G4Step&amp;
-                )</span></span>;
+    G4GPILSelection <span class="token function">GetGPILSelection</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">{</span><span class="token keyword">return</span> valueGPILSelection<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-  <span class="hljs-keyword">protected</span>: <span class="hljs-comment">// with description</span>
-      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetMeanLifeTime</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp; aTrack,G4ForceCondition* condition)</span></span>=<span class="hljs-number">0</span>;
-      <span class="hljs-comment">//  Calculates the mean life-time (i.e. for decays) of the</span>
-      <span class="hljs-comment">//  particle at rest due to the occurence of the given process,</span>
-      <span class="hljs-comment">//  or converts the probability of interaction (i.e. for</span>
-      <span class="hljs-comment">//  annihilation) into the life-time of the particle for the</span>
-      <span class="hljs-comment">//  occurence of the given process.</span>
+  <span class="token keyword">protected</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+     <span class="token keyword">virtual</span> G4double <span class="token function">GetMeanFreePath</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> aTrack<span class="token punctuation">,</span>
+                             G4double   previousStepSize<span class="token punctuation">,</span>
+                             G4ForceCondition<span class="token operator">*</span> condition
+                                                               <span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token comment">//  Calculates from the macroscopic cross section a mean</span>
+      <span class="token comment">//  free path, the value is returned in units of distance.</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetContinuousStepLimit</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp; aTrack,
-                             G4double  previousStepSize,
-                             G4double  currentMinimumStep,
-                 G4double&amp; currentSafety
-                                                             )</span></span>=<span class="hljs-number">0</span>;
-  <span class="hljs-keyword">private</span>:
-    <span class="hljs-comment">// this is the returnd value of  G4GPILSelection in </span>
-    <span class="hljs-comment">// the arguments of AlongStepGPIL()</span>
-    G4GPILSelection  valueGPILSelection;
-
-  <span class="hljs-keyword">protected</span>: <span class="hljs-comment">// with description</span>
-    <span class="hljs-comment">// these two methods are set/get methods for valueGPILSelection</span>
-     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetGPILSelection</span><span class="hljs-params">(G4GPILSelection selection)</span>
-    </span>{ valueGPILSelection = selection;};
-
-    <span class="hljs-function">G4GPILSelection <span class="hljs-title">GetGPILSelection</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>{<span class="hljs-keyword">return</span> valueGPILSelection;};
-
-  <span class="hljs-keyword">protected</span>: <span class="hljs-comment">// with description</span>
-     <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetMeanFreePath</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp; aTrack,
-                             G4double   previousStepSize,
-                             G4ForceCondition* condition
-                                                               )</span></span>=<span class="hljs-number">0</span>;
-      <span class="hljs-comment">//  Calculates from the macroscopic cross section a mean</span>
-      <span class="hljs-comment">//  free path, the value is returned in units of distance.</span>
-
- <span class="hljs-keyword">private</span>:
-  <span class="hljs-comment">// hide default constructor and assignment operator as private </span>
-      G4VRestContinuousDiscreteProcess();
-      G4VRestContinuousDiscreteProcess &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4VRestContinuousDiscreteProcess &amp;right);</code></pre>
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token comment">// hide default constructor and assignment operator as private </span>
+      <span class="token function">G4VRestContinuousDiscreteProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4VRestContinuousDiscreteProcess <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VRestContinuousDiscreteProcess <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4VRestContinuousDiscreteProcess.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3169,7 +3178,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VRestContinuousDiscreteProcess","level":"1.4.17.4","depth":3,"next":{"title":"G4VRestContinuousProcess","level":"1.4.17.5","depth":3,"path":"class/G4VRestContinuousProcess.md","ref":"class/G4VRestContinuousProcess.md","articles":[]},"previous":{"title":" G4HadronFissionProcess","level":"1.4.17.3.2.4","depth":5,"path":"class/G4HadronFissionProcess.md","ref":"class/G4HadronFissionProcess.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VRestContinuousDiscreteProcess.md","mtime":"2018-08-06T21:26:32.458Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VRestContinuousDiscreteProcess","level":"1.4.17.4","depth":3,"next":{"title":"G4VRestContinuousProcess","level":"1.4.17.5","depth":3,"path":"class/G4VRestContinuousProcess.md","ref":"class/G4VRestContinuousProcess.md","articles":[]},"previous":{"title":" G4HadronFissionProcess","level":"1.4.17.3.2.4","depth":5,"path":"class/G4HadronFissionProcess.md","ref":"class/G4HadronFissionProcess.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VRestContinuousDiscreteProcess.md","mtime":"2018-08-06T21:26:32.458Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3177,6 +3186,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

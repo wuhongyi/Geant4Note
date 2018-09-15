@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4ParticleHPNXInelasticFS · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4ParticleHPNXInelasticFS · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,26 +3046,27 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4particlehpnxinelasticfs">G4ParticleHPNXInelasticFS</h1>
+<p><strong>public G4ParticleHPInelasticBaseFS</strong></p>
+<pre class="language-"><code class="lang-cpp">  <span class="token keyword">void</span> Init <span class="token punctuation">(</span>G4double A<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4int M<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> dirName<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> aFSType<span class="token punctuation">,</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  G4HadFinalState <span class="token operator">*</span> <span class="token function">ApplyYourself</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadProjectile <span class="token operator">&amp;</span> theTrack<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp">  <span class="token keyword">public</span><span class="token operator">:</span>
 
+  <span class="token function">G4ParticleHPNXInelasticFS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token operator">~</span><span class="token function">G4ParticleHPNXInelasticFS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token keyword">void</span> Init <span class="token punctuation">(</span>G4double A<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4int M<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> dirName<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> aFSType<span class="token punctuation">,</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  G4HadFinalState <span class="token operator">*</span> <span class="token function">ApplyYourself</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadProjectile <span class="token operator">&amp;</span> theTrack<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  G4ParticleHPFinalState <span class="token operator">*</span> <span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+  <span class="token punctuation">{</span>
+   G4ParticleHPNXInelasticFS <span class="token operator">*</span> theNew <span class="token operator">=</span> <span class="token keyword">new</span> G4ParticleHPNXInelasticFS<span class="token punctuation">;</span>
+   <span class="token keyword">return</span> theNew<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-<h1 id="g4particlehpnxinelasticfs">G4ParticleHPNXInelasticFS</h1><p><strong>public G4ParticleHPInelasticBaseFS</strong></p><pre><code class="lang-cpp">  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Init</span> <span class="hljs-params">(G4double A, G4double Z, G4int M, G4String &amp; dirName, G4String &amp; aFSType, G4ParticleDefinition*)</span></span>;
-  <span class="hljs-function">G4HadFinalState * <span class="hljs-title">ApplyYourself</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4HadProjectile &amp; theTrack)</span></span>;</code></pre>
-<h2 id="class">class</h2><pre><code class="lang-cpp">  <span class="hljs-keyword">public</span>:
-
-  G4ParticleHPNXInelasticFS(){}
-  ~G4ParticleHPNXInelasticFS(){}
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Init</span> <span class="hljs-params">(G4double A, G4double Z, G4int M, G4String &amp; dirName, G4String &amp; aFSType, G4ParticleDefinition*)</span></span>;
-  <span class="hljs-function">G4HadFinalState * <span class="hljs-title">ApplyYourself</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4HadProjectile &amp; theTrack)</span></span>;
-  <span class="hljs-function">G4ParticleHPFinalState * <span class="hljs-title">New</span><span class="hljs-params">()</span> 
-  </span>{
-   G4ParticleHPNXInelasticFS * theNew = <span class="hljs-keyword">new</span> G4ParticleHPNXInelasticFS;
-   <span class="hljs-keyword">return</span> theNew;
-  }
-
-  <span class="hljs-keyword">private</span>:</code></pre>
+  <span class="token keyword">private</span><span class="token operator">:</span>
+</code></pre>
 <!-- G4ParticleHPNXInelasticFS.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3101,7 +3110,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPNXInelasticFS","level":"1.4.22.2.2","depth":4,"next":{"title":"G4ParticleHP2NDInelasticFS","level":"1.4.22.2.3","depth":4,"path":"class/G4ParticleHP2NDInelasticFS.md","ref":"class/G4ParticleHP2NDInelasticFS.md","articles":[]},"previous":{"title":"G4ParticleHPNInelasticFS","level":"1.4.22.2.1","depth":4,"path":"class/G4ParticleHPNInelasticFS.md","ref":"class/G4ParticleHPNInelasticFS.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4ParticleHPNXInelasticFS.md","mtime":"2018-09-02T01:49:34.400Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPNXInelasticFS","level":"1.4.22.2.2","depth":4,"next":{"title":"G4ParticleHP2NDInelasticFS","level":"1.4.22.2.3","depth":4,"path":"class/G4ParticleHP2NDInelasticFS.md","ref":"class/G4ParticleHP2NDInelasticFS.md","articles":[]},"previous":{"title":"G4ParticleHPNInelasticFS","level":"1.4.22.2.1","depth":4,"path":"class/G4ParticleHPNInelasticFS.md","ref":"class/G4ParticleHPNInelasticFS.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ParticleHPNXInelasticFS.md","mtime":"2018-09-02T01:49:34.400Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3109,6 +3118,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

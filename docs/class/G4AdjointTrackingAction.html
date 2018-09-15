@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4AdjointTrackingAction · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4AdjointTrackingAction · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,70 +3046,71 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4adjointtrackingaction">G4AdjointTrackingAction</h1>
+<p><strong>public G4UserTrackingAction</strong></p>
+<p>This class represents actions taken place at the the start/end point of processing one track during an adjoint simulation</p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"><span class="token comment">//--------</span>
+<span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+<span class="token comment">//--------</span>
+
+<span class="token comment">// Constructor &amp; Destructor</span>
+   <span class="token function">G4AdjointTrackingAction</span><span class="token punctuation">(</span>G4AdjointSteppingAction<span class="token operator">*</span> anAction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4AdjointTrackingAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Member functions</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">PreUserTrackingAction</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">PostUserTrackingAction</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">RegisterAtEndOfAdjointTrack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">void</span> <span class="token function">ClearEndOfAdjointTrackInfoVectors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//inline methods</span>
+   <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetUserForwardTrackingAction</span><span class="token punctuation">(</span>G4UserTrackingAction<span class="token operator">*</span> anAction<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                                 theUserFwdTrackingAction <span class="token operator">=</span> anAction<span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4ThreeVector <span class="token function">GetPositionAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> last_pos_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4ThreeVector <span class="token function">GetDirectionAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> last_direction_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4double <span class="token function">GetEkinAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> last_ekin_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4double <span class="token function">GetEkinNucAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> last_ekin_nuc_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4double <span class="token function">GetWeightAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> last_weight_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4double <span class="token function">GetCosthAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> last_cos_th_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">GetFwdParticleNameAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> last_fwd_part_name<span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4int <span class="token function">GetFwdParticlePDGEncodingAtEndOfLastAdjointTrack</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> last_fwd_part_PDGEncoding_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4bool <span class="token function">GetIsAdjointTrackingMode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> is_adjoint_tracking_mode<span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> G4int <span class="token function">GetLastFwdParticleIndex</span><span class="token punctuation">(</span>size_t i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+             <span class="token keyword">return</span> last_fwd_part_index_vec<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+   <span class="token keyword">inline</span> size_t <span class="token function">GetNbOfAdointTracksReachingTheExternalSurface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> last_pos_vec<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+   <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetListOfPrimaryFwdParticles</span><span class="token punctuation">(</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ParticleDefinition<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">*</span>
+            aListOfParticles<span class="token punctuation">)</span><span class="token punctuation">{</span>pListOfPrimaryFwdParticles<span class="token operator">=</span>aListOfParticles<span class="token punctuation">;</span><span class="token punctuation">}</span>
 
 
-<h1 id="g4adjointtrackingaction">G4AdjointTrackingAction</h1><p><strong>public G4UserTrackingAction</strong></p><p>This class represents actions taken place at the the start/end point of processing one track during an adjoint simulation</p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-comment">//--------</span>
-<span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
-<span class="hljs-comment">//--------</span>
-
-<span class="hljs-comment">// Constructor &amp; Destructor</span>
-   G4AdjointTrackingAction(G4AdjointSteppingAction* anAction);
-   <span class="hljs-keyword">virtual</span> ~G4AdjointTrackingAction();
-
-<span class="hljs-comment">// Member functions</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PreUserTrackingAction</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track*)</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PostUserTrackingAction</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track*)</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RegisterAtEndOfAdjointTrack</span><span class="hljs-params">()</span></span>;
-   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ClearEndOfAdjointTrackInfoVectors</span><span class="hljs-params">()</span></span>;
-
-<span class="hljs-comment">//inline methods</span>
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetUserForwardTrackingAction</span><span class="hljs-params">(G4UserTrackingAction* anAction)</span></span>{
-                                 theUserFwdTrackingAction = anAction;}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4ThreeVector <span class="hljs-title">GetPositionAtEndOfLastAdjointTrack</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{ <span class="hljs-keyword">return</span> last_pos_vec[i];}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4ThreeVector <span class="hljs-title">GetDirectionAtEndOfLastAdjointTrack</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{ <span class="hljs-keyword">return</span> last_direction_vec[i];}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetEkinAtEndOfLastAdjointTrack</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{ <span class="hljs-keyword">return</span> last_ekin_vec[i];}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetEkinNucAtEndOfLastAdjointTrack</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{ <span class="hljs-keyword">return</span> last_ekin_nuc_vec[i];}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetWeightAtEndOfLastAdjointTrack</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{<span class="hljs-keyword">return</span> last_weight_vec[i];}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetCosthAtEndOfLastAdjointTrack</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{<span class="hljs-keyword">return</span> last_cos_th_vec[i];}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetFwdParticleNameAtEndOfLastAdjointTrack</span><span class="hljs-params">()</span></span>{<span class="hljs-keyword">return</span> last_fwd_part_name;}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4int <span class="hljs-title">GetFwdParticlePDGEncodingAtEndOfLastAdjointTrack</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{<span class="hljs-keyword">return</span> last_fwd_part_PDGEncoding_vec[i];}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">GetIsAdjointTrackingMode</span><span class="hljs-params">()</span></span>{<span class="hljs-keyword">return</span> is_adjoint_tracking_mode;}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4int <span class="hljs-title">GetLastFwdParticleIndex</span><span class="hljs-params">(size_t i=<span class="hljs-number">0</span>)</span></span>{
-             <span class="hljs-keyword">return</span> last_fwd_part_index_vec[i];};
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> size_t <span class="hljs-title">GetNbOfAdointTracksReachingTheExternalSurface</span><span class="hljs-params">()</span></span>{<span class="hljs-keyword">return</span> last_pos_vec.size();}
-   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetListOfPrimaryFwdParticles</span><span class="hljs-params">( <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ParticleDefinition*&gt;*
-            aListOfParticles)</span></span>{pListOfPrimaryFwdParticles=aListOfParticles;}
+<span class="token keyword">private</span><span class="token operator">:</span>
+   G4AdjointSteppingAction<span class="token operator">*</span> theAdjointSteppingAction<span class="token punctuation">;</span>
+   G4UserTrackingAction<span class="token operator">*</span> theUserFwdTrackingAction<span class="token punctuation">;</span>
+   G4bool is_adjoint_tracking_mode<span class="token punctuation">;</span>
 
 
-<span class="hljs-keyword">private</span>:
-   G4AdjointSteppingAction* theAdjointSteppingAction;
-   G4UserTrackingAction* theUserFwdTrackingAction;
-   G4bool is_adjoint_tracking_mode;
+   <span class="token comment">//adjoint particle information on the external surface</span>
+   <span class="token comment">//-----------------------------</span>
+   G4ThreeVector last_pos<span class="token punctuation">;</span>
+   G4ThreeVector last_direction<span class="token punctuation">;</span>
+   G4double last_ekin<span class="token punctuation">,</span>last_ekin_nuc<span class="token punctuation">;</span> <span class="token comment">//last_ekin_nuc=last_ekin/nuc, nuc is 1 if not a nucleus</span>
+   G4double last_cos_th<span class="token punctuation">;</span>
+   G4String last_fwd_part_name<span class="token punctuation">;</span>
+   G4int  last_fwd_part_PDGEncoding<span class="token punctuation">;</span>
+   G4double last_weight<span class="token punctuation">;</span>
+   G4int  last_fwd_part_index<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ParticleDefinition<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">*</span> pListOfPrimaryFwdParticles<span class="token punctuation">;</span>
 
-
-   <span class="hljs-comment">//adjoint particle information on the external surface</span>
-   <span class="hljs-comment">//-----------------------------</span>
-   G4ThreeVector last_pos;
-   G4ThreeVector last_direction;
-   G4double last_ekin,last_ekin_nuc; <span class="hljs-comment">//last_ekin_nuc=last_ekin/nuc, nuc is 1 if not a nucleus</span>
-   G4double last_cos_th;
-   G4String last_fwd_part_name;
-   G4int  last_fwd_part_PDGEncoding;
-   G4double last_weight;
-   G4int  last_fwd_part_index;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ParticleDefinition*&gt;* pListOfPrimaryFwdParticles;
-
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ThreeVector&gt; last_pos_vec;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ThreeVector&gt; last_direction_vec;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt;  last_ekin_vec;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt;  last_ekin_nuc_vec;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt;  last_cos_th_vec;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; last_weight_vec;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4int&gt; last_fwd_part_PDGEncoding_vec;
-   <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4int&gt; last_fwd_part_index_vec;</code></pre>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ThreeVector<span class="token operator">&gt;</span> last_pos_vec<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ThreeVector<span class="token operator">&gt;</span> last_direction_vec<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span>  last_ekin_vec<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span>  last_ekin_nuc_vec<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span>  last_cos_th_vec<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> last_weight_vec<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4int<span class="token operator">&gt;</span> last_fwd_part_PDGEncoding_vec<span class="token punctuation">;</span>
+   std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4int<span class="token operator">&gt;</span> last_fwd_part_index_vec<span class="token punctuation">;</span>
+</code></pre>
 <!-- G4AdjointTrackingAction.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3145,7 +3154,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4AdjointTrackingAction","level":"1.4.43.1","depth":3,"next":{"title":"G4UserSteppingAction","level":"1.4.44","depth":2,"path":"class/G4UserSteppingAction.md","ref":"class/G4UserSteppingAction.md","articles":[{"title":"G4AdjointSteppingAction","level":"1.4.44.1","depth":3,"path":"class/G4AdjointSteppingAction.md","ref":"class/G4AdjointSteppingAction.md","articles":[]}]},"previous":{"title":"G4UserTrackingAction","level":"1.4.43","depth":2,"path":"class/G4UserTrackingAction.md","ref":"class/G4UserTrackingAction.md","articles":[{"title":"G4AdjointTrackingAction","level":"1.4.43.1","depth":3,"path":"class/G4AdjointTrackingAction.md","ref":"class/G4AdjointTrackingAction.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4AdjointTrackingAction.md","mtime":"2018-08-10T00:08:31.741Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4AdjointTrackingAction","level":"1.4.43.1","depth":3,"next":{"title":"G4UserSteppingAction","level":"1.4.44","depth":2,"path":"class/G4UserSteppingAction.md","ref":"class/G4UserSteppingAction.md","articles":[{"title":"G4AdjointSteppingAction","level":"1.4.44.1","depth":3,"path":"class/G4AdjointSteppingAction.md","ref":"class/G4AdjointSteppingAction.md","articles":[]}]},"previous":{"title":"G4UserTrackingAction","level":"1.4.43","depth":2,"path":"class/G4UserTrackingAction.md","ref":"class/G4UserTrackingAction.md","articles":[{"title":"G4AdjointTrackingAction","level":"1.4.43.1","depth":3,"path":"class/G4AdjointTrackingAction.md","ref":"class/G4AdjointTrackingAction.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4AdjointTrackingAction.md","mtime":"2018-08-10T00:08:31.741Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3153,6 +3162,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

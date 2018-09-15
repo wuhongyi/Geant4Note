@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4ParticleHPFSFissionFS · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4ParticleHPFSFissionFS · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,89 +3046,92 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
-
-
-<h1 id="g4particlehpfsfissionfs">G4ParticleHPFSFissionFS</h1><p><strong>public G4ParticleHPFinalState</strong></p><p>&#x8BFB;&#x53D6;&#x9AD8;&#x7CBE;&#x5EA6;&#x53C2;&#x6570;</p><pre><code class="lang-cpp">  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Init</span> <span class="hljs-params">(G4double A, G4double Z, G4int M, G4String &amp; dirName, G4String &amp; aFSType, G4ParticleDefinition*)</span></span>;</code></pre>
-<ul><li>&quot;/FS/&quot;
-</li></ul>
-<pre><code>  G4ParticleHPParticleYield theFinalStateNeutrons;
+<h1 id="g4particlehpfsfissionfs">G4ParticleHPFSFissionFS</h1>
+<p><strong>public G4ParticleHPFinalState</strong></p>
+<p>&#x8BFB;&#x53D6;&#x9AD8;&#x7CBE;&#x5EA6;&#x53C2;&#x6570;</p>
+<pre class="language-"><code class="lang-cpp">  <span class="token keyword">void</span> Init <span class="token punctuation">(</span>G4double A<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4int M<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> dirName<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> aFSType<span class="token punctuation">,</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>&quot;/FS/&quot;</li>
+</ul>
+<pre class="language-"><code>  G4ParticleHPParticleYield theFinalStateNeutrons;
   G4ParticleHPEnergyDistribution thePromptNeutronEnDis;
   G4ParticleHPEnergyDistribution theDelayedNeutronEnDis;
   G4ParticleHPAngular theNeutronAngularDis;
-  G4ParticleHPPhotonDist theFinalStatePhotons;
-  G4ParticleHPFissionERelease theEnergyRelease;</code></pre>
-<h2 id="class">class</h2><pre><code class="lang-cpp">   <span class="hljs-keyword">struct</span> toBeCached {
-      <span class="hljs-keyword">const</span> G4ReactionProduct* theNeutronRP;
-      <span class="hljs-keyword">const</span> G4ReactionProduct* theTarget;
-      toBeCached() : theNeutronRP(<span class="hljs-literal">NULL</span>),theTarget(<span class="hljs-literal">NULL</span>){};
-   };
-
-  <span class="hljs-keyword">public</span>:
-
-  G4ParticleHPFSFissionFS(){ hasXsec = <span class="hljs-literal">true</span>; }
-  ~G4ParticleHPFSFissionFS(){}
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Init</span> <span class="hljs-params">(G4double A, G4double Z, G4int M, G4String &amp; dirName, G4String &amp; aFSType, G4ParticleDefinition*)</span></span>;
-
-  <span class="hljs-function">G4DynamicParticleVector * <span class="hljs-title">ApplyYourself</span><span class="hljs-params">(G4int Prompt, G4int delayed, G4double *decayconst)</span></span>;
-
-  <span class="hljs-function">G4ParticleHPFinalState * <span class="hljs-title">New</span><span class="hljs-params">()</span> 
-  </span>{
-   G4ParticleHPFSFissionFS * theNew = <span class="hljs-keyword">new</span> G4ParticleHPFSFissionFS;
-   <span class="hljs-keyword">return</span> theNew;
-  }
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetMass</span><span class="hljs-params">()</span></span>{ <span class="hljs-keyword">return</span> theFinalStateNeutrons.GetTargetMass(); }
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SampleNeutronMult</span><span class="hljs-params">(G4int&amp;all, 
-               G4int&amp;Prompt, 
-             G4int&amp;delayed, 
-             G4double energy,
-             G4int off)</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetNeutronRP</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ReactionProduct &amp; aNeutron)</span>
-                        </span>{ 
-                          fCache.Get().theNeutronRP = &amp;aNeutron; 
-                          theNeutronAngularDis.SetProjectileRP(aNeutron);
-                        }
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetTarget</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ReactionProduct &amp; aTarget)</span>
-                        </span>{ 
-                          fCache.Get().theTarget = &amp;aTarget; 
-                          theNeutronAngularDis.SetTarget(aTarget);
-                        }
-
-  <span class="hljs-function">G4DynamicParticleVector * <span class="hljs-title">GetPhotons</span><span class="hljs-params">()</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4ParticleHPFissionERelease * <span class="hljs-title">GetEnergyRelease</span><span class="hljs-params">()</span>
-  </span>{
-    <span class="hljs-keyword">return</span> &amp;theEnergyRelease;
-  }
-
-  <span class="hljs-keyword">private</span>:
-
-  <span class="hljs-function">G4HadFinalState * <span class="hljs-title">ApplyYourself</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4HadProjectile &amp; )</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }  
-  <span class="hljs-comment">//G4double targetMass;</span>
-
-  G4ParticleHPParticleYield theFinalStateNeutrons;
-  G4ParticleHPEnergyDistribution thePromptNeutronEnDis;
-  G4ParticleHPEnergyDistribution theDelayedNeutronEnDis;
-  G4ParticleHPAngular theNeutronAngularDis;
-
   G4ParticleHPPhotonDist theFinalStatePhotons;
   G4ParticleHPFissionERelease theEnergyRelease;
+</code></pre><h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp">   <span class="token keyword">struct</span> toBeCached <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> G4ReactionProduct<span class="token operator">*</span> theNeutronRP<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> G4ReactionProduct<span class="token operator">*</span> theTarget<span class="token punctuation">;</span>
+      <span class="token function">toBeCached</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">theNeutronRP</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">theTarget</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">//G4ReactionProduct theNeutronRP;</span>
-  <span class="hljs-comment">//G4ReactionProduct theTarget;</span>
-   <span class="hljs-keyword">private</span>:
-      G4Cache&lt;toBeCached&gt; fCache;
+  <span class="token keyword">public</span><span class="token operator">:</span>
 
-  <span class="hljs-keyword">private</span>:
+  <span class="token function">G4ParticleHPFSFissionFS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> hasXsec <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token operator">~</span><span class="token function">G4ParticleHPFSFissionFS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-  G4ParticleHPNames theNames;</code></pre>
+  <span class="token keyword">void</span> Init <span class="token punctuation">(</span>G4double A<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4int M<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> dirName<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> aFSType<span class="token punctuation">,</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  G4DynamicParticleVector <span class="token operator">*</span> <span class="token function">ApplyYourself</span><span class="token punctuation">(</span>G4int Prompt<span class="token punctuation">,</span> G4int delayed<span class="token punctuation">,</span> G4double <span class="token operator">*</span>decayconst<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  G4ParticleHPFinalState <span class="token operator">*</span> <span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+  <span class="token punctuation">{</span>
+   G4ParticleHPFSFissionFS <span class="token operator">*</span> theNew <span class="token operator">=</span> <span class="token keyword">new</span> G4ParticleHPFSFissionFS<span class="token punctuation">;</span>
+   <span class="token keyword">return</span> theNew<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">inline</span> G4double <span class="token function">GetMass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> theFinalStateNeutrons<span class="token punctuation">.</span><span class="token function">GetTargetMass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+  <span class="token keyword">void</span> <span class="token function">SampleNeutronMult</span><span class="token punctuation">(</span>G4int<span class="token operator">&amp;</span>all<span class="token punctuation">,</span> 
+               G4int<span class="token operator">&amp;</span>Prompt<span class="token punctuation">,</span> 
+             G4int<span class="token operator">&amp;</span>delayed<span class="token punctuation">,</span> 
+             G4double energy<span class="token punctuation">,</span>
+             G4int off<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetNeutronRP</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ReactionProduct <span class="token operator">&amp;</span> aNeutron<span class="token punctuation">)</span>
+                        <span class="token punctuation">{</span> 
+                          fCache<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>theNeutronRP <span class="token operator">=</span> <span class="token operator">&amp;</span>aNeutron<span class="token punctuation">;</span> 
+                          theNeutronAngularDis<span class="token punctuation">.</span><span class="token function">SetProjectileRP</span><span class="token punctuation">(</span>aNeutron<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetTarget</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ReactionProduct <span class="token operator">&amp;</span> aTarget<span class="token punctuation">)</span>
+                        <span class="token punctuation">{</span> 
+                          fCache<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>theTarget <span class="token operator">=</span> <span class="token operator">&amp;</span>aTarget<span class="token punctuation">;</span> 
+                          theNeutronAngularDis<span class="token punctuation">.</span><span class="token function">SetTarget</span><span class="token punctuation">(</span>aTarget<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+
+  G4DynamicParticleVector <span class="token operator">*</span> <span class="token function">GetPhotons</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">inline</span> G4ParticleHPFissionERelease <span class="token operator">*</span> <span class="token function">GetEnergyRelease</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>theEnergyRelease<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">private</span><span class="token operator">:</span>
+
+  G4HadFinalState <span class="token operator">*</span> <span class="token function">ApplyYourself</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadProjectile <span class="token operator">&amp;</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>  
+  <span class="token comment">//G4double targetMass;</span>
+
+  G4ParticleHPParticleYield theFinalStateNeutrons<span class="token punctuation">;</span>
+  G4ParticleHPEnergyDistribution thePromptNeutronEnDis<span class="token punctuation">;</span>
+  G4ParticleHPEnergyDistribution theDelayedNeutronEnDis<span class="token punctuation">;</span>
+  G4ParticleHPAngular theNeutronAngularDis<span class="token punctuation">;</span>
+
+  G4ParticleHPPhotonDist theFinalStatePhotons<span class="token punctuation">;</span>
+  G4ParticleHPFissionERelease theEnergyRelease<span class="token punctuation">;</span>
+
+  <span class="token comment">//G4ReactionProduct theNeutronRP;</span>
+  <span class="token comment">//G4ReactionProduct theTarget;</span>
+   <span class="token keyword">private</span><span class="token operator">:</span>
+      G4Cache<span class="token operator">&lt;</span>toBeCached<span class="token operator">&gt;</span> fCache<span class="token punctuation">;</span>
+
+  <span class="token keyword">private</span><span class="token operator">:</span>
+
+  G4ParticleHPNames theNames<span class="token punctuation">;</span>
+</code></pre>
 <!-- G4ParticleHPFSFissionFS.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3164,7 +3175,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPFSFissionFS","level":"1.4.22.5","depth":3,"next":{"title":"G4ParticleHPFissionBaseFS","level":"1.4.22.6","depth":3,"path":"class/G4ParticleHPFissionBaseFS.md","ref":"class/G4ParticleHPFissionBaseFS.md","articles":[{"title":"G4ParticleHPFCFissionFS","level":"1.4.22.6.1","depth":4,"path":"class/G4ParticleHPFCFissionFS.md","ref":"class/G4ParticleHPFCFissionFS.md","articles":[]},{"title":"G4ParticleHPSCFissionFS","level":"1.4.22.6.2","depth":4,"path":"class/G4ParticleHPSCFissionFS.md","ref":"class/G4ParticleHPSCFissionFS.md","articles":[]},{"title":"G4ParticleHPTCFissionFS","level":"1.4.22.6.3","depth":4,"path":"class/G4ParticleHPTCFissionFS.md","ref":"class/G4ParticleHPTCFissionFS.md","articles":[]},{"title":"G4ParticleHPLCFissionFS","level":"1.4.22.6.4","depth":4,"path":"class/G4ParticleHPLCFissionFS.md","ref":"class/G4ParticleHPLCFissionFS.md","articles":[]},{"title":"G4ParticleHPFFFissionFS","level":"1.4.22.6.5","depth":4,"path":"class/G4ParticleHPFFFissionFS.md","ref":"class/G4ParticleHPFFFissionFS.md","articles":[]}]},"previous":{"title":"G4ParticleHPFissionFS","level":"1.4.22.4","depth":3,"path":"class/G4ParticleHPFissionFS.md","ref":"class/G4ParticleHPFissionFS.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4ParticleHPFSFissionFS.md","mtime":"2018-09-02T03:07:45.318Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPFSFissionFS","level":"1.4.22.5","depth":3,"next":{"title":"G4ParticleHPFissionBaseFS","level":"1.4.22.6","depth":3,"path":"class/G4ParticleHPFissionBaseFS.md","ref":"class/G4ParticleHPFissionBaseFS.md","articles":[{"title":"G4ParticleHPFCFissionFS","level":"1.4.22.6.1","depth":4,"path":"class/G4ParticleHPFCFissionFS.md","ref":"class/G4ParticleHPFCFissionFS.md","articles":[]},{"title":"G4ParticleHPSCFissionFS","level":"1.4.22.6.2","depth":4,"path":"class/G4ParticleHPSCFissionFS.md","ref":"class/G4ParticleHPSCFissionFS.md","articles":[]},{"title":"G4ParticleHPTCFissionFS","level":"1.4.22.6.3","depth":4,"path":"class/G4ParticleHPTCFissionFS.md","ref":"class/G4ParticleHPTCFissionFS.md","articles":[]},{"title":"G4ParticleHPLCFissionFS","level":"1.4.22.6.4","depth":4,"path":"class/G4ParticleHPLCFissionFS.md","ref":"class/G4ParticleHPLCFissionFS.md","articles":[]},{"title":"G4ParticleHPFFFissionFS","level":"1.4.22.6.5","depth":4,"path":"class/G4ParticleHPFFFissionFS.md","ref":"class/G4ParticleHPFFFissionFS.md","articles":[]}]},"previous":{"title":"G4ParticleHPFissionFS","level":"1.4.22.4","depth":3,"path":"class/G4ParticleHPFissionFS.md","ref":"class/G4ParticleHPFissionFS.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ParticleHPFSFissionFS.md","mtime":"2018-09-02T03:07:45.318Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3172,6 +3183,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

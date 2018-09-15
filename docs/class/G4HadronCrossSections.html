@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4HadronCrossSections · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4HadronCrossSections · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,37 +3046,38 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4hadroncrosssections">G4HadronCrossSections</h1>
+<ul>
+<li>This class encapsulates cross section data and interpolations from the Geant3/Gheisha routine GHESIG.</li>
+<li>The overloaded method MakePhysicsVector can be used to Generate Physics Tables for different processes.</li>
+<li>Note: this is implemented as a SINGLETON class</li>
+</ul>
+<p><strong>&#x622A;&#x9762;&#x6570;&#x636E;&#x53C2;&#x6570;&#x5728;cc&#x6587;&#x4EF6;&#x4E2D;</strong></p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"><span class="token keyword">enum</span> <span class="token punctuation">{</span> TSIZE<span class="token operator">=</span><span class="token number">41</span><span class="token punctuation">,</span> NPARTS<span class="token operator">=</span><span class="token number">35</span><span class="token punctuation">,</span> NELAB<span class="token operator">=</span><span class="token number">17</span><span class="token punctuation">,</span> NCNLW<span class="token operator">=</span><span class="token number">15</span><span class="token punctuation">,</span> NFISS<span class="token operator">=</span><span class="token number">21</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-cpp">  <span class="token keyword">public</span><span class="token operator">:</span>
 
+    <span class="token function">G4HadronCrossSections</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h1 id="g4hadroncrosssections">G4HadronCrossSections</h1><ul><li>This class encapsulates cross section data and interpolations from the Geant3/Gheisha routine GHESIG.
-</li>
-<li>The overloaded method MakePhysicsVector can be used to Generate Physics Tables for different processes.
-</li>
-<li>Note: this is implemented as a SINGLETON class
-</li></ul>
-<p><strong>&#x622A;&#x9762;&#x6570;&#x636E;&#x53C2;&#x6570;&#x5728;cc&#x6587;&#x4EF6;&#x4E2D;</strong></p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">enum</span> { TSIZE=<span class="hljs-number">41</span>, NPARTS=<span class="hljs-number">35</span>, NELAB=<span class="hljs-number">17</span>, NCNLW=<span class="hljs-number">15</span>, NFISS=<span class="hljs-number">21</span> };</code></pre>
-<pre><code class="lang-cpp">  <span class="hljs-keyword">public</span>:
+    <span class="token operator">~</span><span class="token function">G4HadronCrossSections</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    G4HadronCrossSections();
+    <span class="token keyword">static</span> G4HadronCrossSections<span class="token operator">*</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    ~G4HadronCrossSections();
+    G4bool <span class="token function">IsApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span> aParticle<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">static</span> G4HadronCrossSections* <span class="hljs-title">Instance</span><span class="hljs-params">()</span></span>;
+    G4double <span class="token function">GetElasticCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span>
+                                    G4int <span class="token comment">/*ZZ*/</span><span class="token punctuation">,</span> G4int <span class="token comment">/*AA*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function">G4bool <span class="hljs-title">IsApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle* aParticle)</span></span>;
+    G4double <span class="token function">GetInelasticCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span>
+                                      G4int <span class="token comment">/*ZZ*/</span><span class="token punctuation">,</span> G4int <span class="token comment">/*AA*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function">G4double <span class="hljs-title">GetElasticCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*,
-                                    G4int <span class="hljs-comment">/*ZZ*/</span>, G4int <span class="hljs-comment">/*AA*/</span>)</span></span>;
+    G4double <span class="token function">GetCaptureCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> G4int <span class="token comment">/*Z*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function">G4double <span class="hljs-title">GetInelasticCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*,
-                                      G4int <span class="hljs-comment">/*ZZ*/</span>, G4int <span class="hljs-comment">/*AA*/</span>)</span></span>;
+    G4double <span class="token function">GetFissionCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> G4int <span class="token comment">/*ZZ*/</span><span class="token punctuation">,</span>
+                                    G4int <span class="token comment">/*AA*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function">G4double <span class="hljs-title">GetCaptureCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, G4int <span class="hljs-comment">/*Z*/</span>)</span></span>;
-
-    <span class="hljs-function">G4double <span class="hljs-title">GetFissionCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, G4int <span class="hljs-comment">/*ZZ*/</span>,
-                                    G4int <span class="hljs-comment">/*AA*/</span>)</span></span>;
-
-  <span class="hljs-comment">/*
+  <span class="token comment">/*
     static void SetCorrectInelasticNearZero(G4bool value)
       {correctInelasticNearZero = value;}
 
@@ -3076,65 +3085,64 @@
       {return correctInelasticNearZero;}
   */</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">(G4int value)</span> </span>{verboseLevel = value;}
+    <span class="token keyword">void</span> <span class="token function">SetVerboseLevel</span><span class="token punctuation">(</span>G4int value<span class="token punctuation">)</span> <span class="token punctuation">{</span>verboseLevel <span class="token operator">=</span> value<span class="token punctuation">;</span><span class="token punctuation">}</span>
 
-    <span class="hljs-function">G4int <span class="hljs-title">GetVerboseLevel</span><span class="hljs-params">()</span> </span>{<span class="hljs-keyword">return</span> verboseLevel;}
+    G4int <span class="token function">GetVerboseLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> verboseLevel<span class="token punctuation">;</span><span class="token punctuation">}</span>
 
-  <span class="hljs-keyword">private</span>:
+  <span class="token keyword">private</span><span class="token operator">:</span>
 
-    <span class="hljs-function">G4int <span class="hljs-title">GetParticleCode</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*)</span></span>;
+    G4int <span class="token function">GetParticleCode</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CalcScatteringCrossSections</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, 
-                                     G4int <span class="hljs-comment">/*ZZ*/</span>, G4int <span class="hljs-comment">/*AA*/</span>)</span></span>;
+    <span class="token keyword">void</span> <span class="token function">CalcScatteringCrossSections</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> 
+                                     G4int <span class="token comment">/*ZZ*/</span><span class="token punctuation">,</span> G4int <span class="token comment">/*AA*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> G4ThreadLocal G4HadronCrossSections* theInstance;
+    <span class="token keyword">static</span> G4ThreadLocal G4HadronCrossSections<span class="token operator">*</span> theInstance<span class="token punctuation">;</span>
 
-    G4Pow* g4pow;
+    G4Pow<span class="token operator">*</span> g4pow<span class="token punctuation">;</span>
 
-    G4double sigelastic;
-    G4double siginelastic;
-    G4ParticleDefinition* prevParticleDefinition;
-<span class="hljs-comment">//    G4Element* prevElement;</span>
-    G4int prevZZ;
-    G4int prevAA;
-    G4double prevKineticEnergy;
-    G4double lastEkx, lastEkxPower;
+    G4double sigelastic<span class="token punctuation">;</span>
+    G4double siginelastic<span class="token punctuation">;</span>
+    G4ParticleDefinition<span class="token operator">*</span> prevParticleDefinition<span class="token punctuation">;</span>
+<span class="token comment">//    G4Element* prevElement;</span>
+    G4int prevZZ<span class="token punctuation">;</span>
+    G4int prevAA<span class="token punctuation">;</span>
+    G4double prevKineticEnergy<span class="token punctuation">;</span>
+    G4double lastEkx<span class="token punctuation">,</span> lastEkxPower<span class="token punctuation">;</span>
 
-    G4bool correctInelasticNearZero;
+    G4bool correctInelasticNearZero<span class="token punctuation">;</span>
 
-    G4int verboseLevel;
+    G4int verboseLevel<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">// The following arrays are declared static to allow the use of initializers.  </span>
-    <span class="hljs-comment">// They are initialized in G4HadronCrossSections.cc, thus providing some </span>
-    <span class="hljs-comment">// data hiding.</span>
+    <span class="token comment">// The following arrays are declared static to allow the use of initializers.  </span>
+    <span class="token comment">// They are initialized in G4HadronCrossSections.cc, thus providing some </span>
+    <span class="token comment">// data hiding.</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float plab[TSIZE];
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float csel[NPARTS][TSIZE];
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float csin[NPARTS][TSIZE];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float plab<span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float csel<span class="token punctuation">[</span>NPARTS<span class="token punctuation">]</span><span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float csin<span class="token punctuation">[</span>NPARTS<span class="token punctuation">]</span><span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float cspiel[<span class="hljs-number">3</span>][TSIZE];
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float cspiin[<span class="hljs-number">3</span>][TSIZE];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float cspiel<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float cspiin<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float cspnel[<span class="hljs-number">3</span>][TSIZE];
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float cspnin[<span class="hljs-number">3</span>][TSIZE];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float cspnel<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float cspnin<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float elab[NELAB];
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float cnlwat[NCNLW], cnlwel[NCNLW][NELAB], cnlwin[NCNLW][NELAB];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float elab<span class="token punctuation">[</span>NELAB<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float cnlwat<span class="token punctuation">[</span>NCNLW<span class="token punctuation">]</span><span class="token punctuation">,</span> cnlwel<span class="token punctuation">[</span>NCNLW<span class="token punctuation">]</span><span class="token punctuation">[</span>NELAB<span class="token punctuation">]</span><span class="token punctuation">,</span> cnlwin<span class="token punctuation">[</span>NCNLW<span class="token punctuation">]</span><span class="token punctuation">[</span>NELAB<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float cscap[<span class="hljs-number">100</span>];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float cscap<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float ekfiss[NFISS], csfiss[<span class="hljs-number">4</span>][NFISS];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float ekfiss<span class="token punctuation">[</span>NFISS<span class="token punctuation">]</span><span class="token punctuation">,</span> csfiss<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">[</span>NFISS<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float alpha[NPARTS], alphac[TSIZE];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float alpha<span class="token punctuation">[</span>NPARTS<span class="token punctuation">]</span><span class="token punctuation">,</span> alphac<span class="token punctuation">[</span>TSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float partel[<span class="hljs-number">35</span>], partin[<span class="hljs-number">35</span>];
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4int   icorr[<span class="hljs-number">35</span>], intrc[<span class="hljs-number">35</span>];
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float partel<span class="token punctuation">[</span><span class="token number">35</span><span class="token punctuation">]</span><span class="token punctuation">,</span> partin<span class="token punctuation">[</span><span class="token number">35</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4int   icorr<span class="token punctuation">[</span><span class="token number">35</span><span class="token punctuation">]</span><span class="token punctuation">,</span> intrc<span class="token punctuation">[</span><span class="token number">35</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4float csa[<span class="hljs-number">4</span>];
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4int ipart2[<span class="hljs-number">7</span>];</code></pre>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4float csa<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">const</span> G4int ipart2<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4HadronCrossSections.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3178,7 +3186,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4HadronCrossSections","level":"1.4.25","depth":2,"next":{"title":"G4HadronicDeveloperParameters","level":"1.4.26","depth":2,"path":"class/G4HadronicDeveloperParameters.md","ref":"class/G4HadronicDeveloperParameters.md","articles":[]},"previous":{"title":"G4ParticleHPFissionData","level":"1.4.24.10","depth":3,"path":"class/G4ParticleHPFissionData.md","ref":"class/G4ParticleHPFissionData.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4HadronCrossSections.md","mtime":"2018-09-01T01:22:30.882Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4HadronCrossSections","level":"1.4.25","depth":2,"next":{"title":"G4HadronicDeveloperParameters","level":"1.4.26","depth":2,"path":"class/G4HadronicDeveloperParameters.md","ref":"class/G4HadronicDeveloperParameters.md","articles":[]},"previous":{"title":"G4ParticleHPFissionData","level":"1.4.24.10","depth":3,"path":"class/G4ParticleHPFissionData.md","ref":"class/G4ParticleHPFissionData.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4HadronCrossSections.md","mtime":"2018-09-01T01:22:30.882Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3186,6 +3194,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

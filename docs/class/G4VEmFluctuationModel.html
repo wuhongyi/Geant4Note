@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4VEmFluctuationModel · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4VEmFluctuationModel · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,52 +3046,52 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4vemfluctuationmodel">G4VEmFluctuationModel</h1>
+<p>Abstract class for interface to simualtion of energy loss fluctuations</p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
 
+  <span class="token keyword">explicit</span> <span class="token function">G4VEmFluctuationModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> nam<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h1 id="g4vemfluctuationmodel">G4VEmFluctuationModel</h1><p>Abstract class for interface to simualtion of energy loss fluctuations</p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4VEmFluctuationModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4VEmFluctuationModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; nam)</span></span>;
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Virtual methods to be implemented for the concrete model</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-  <span class="hljs-keyword">virtual</span> ~G4VEmFluctuationModel();
+  <span class="token keyword">virtual</span> G4double <span class="token function">SampleFluctuations</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">,</span>
+                      <span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span>
+                      G4double tmax<span class="token punctuation">,</span>
+                      G4double length<span class="token punctuation">,</span>
+                      G4double meanLoss<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">//------------------------------------------------------------------------</span>
-  <span class="hljs-comment">// Virtual methods to be implemented for the concrete model</span>
-  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+  <span class="token keyword">virtual</span> G4double <span class="token function">Dispersion</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+                              <span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span>
+                  G4double tmax<span class="token punctuation">,</span>
+                  G4double length<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">SampleFluctuations</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
-                      <span class="hljs-keyword">const</span> G4DynamicParticle*,
-                      G4double tmax,
-                      G4double length,
-                      G4double meanLoss)</span> </span>= <span class="hljs-number">0</span>;
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Methods with standard implementation; may be overwritten if needed </span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">Dispersion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*,
-                              <span class="hljs-keyword">const</span> G4DynamicParticle*,
-                  G4double tmax,
-                  G4double length)</span> </span>= <span class="hljs-number">0</span>;
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">InitialiseMe</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">//------------------------------------------------------------------------</span>
-  <span class="hljs-comment">// Methods with standard implementation; may be overwritten if needed </span>
-  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">SetParticleAndCharge</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> G4double q2<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseMe</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Generic methods common to all models</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetParticleAndCharge</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, G4double q2)</span></span>;
+  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">//------------------------------------------------------------------------</span>
-  <span class="hljs-comment">// Generic methods common to all models</span>
-  <span class="hljs-comment">//------------------------------------------------------------------------</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetName</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-
-<span class="hljs-keyword">private</span>:
-
-  <span class="hljs-comment">// hide assignment operator</span>
-  G4VEmFluctuationModel &amp; 
-    <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span>  G4VEmFluctuationModel &amp;right) = <span class="hljs-keyword">delete</span>;
-  G4VEmFluctuationModel(<span class="hljs-keyword">const</span>  G4VEmFluctuationModel&amp;) = <span class="hljs-keyword">delete</span>;</code></pre>
+  <span class="token comment">// hide assignment operator</span>
+  G4VEmFluctuationModel <span class="token operator">&amp;</span> 
+    <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span>  G4VEmFluctuationModel <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+  <span class="token function">G4VEmFluctuationModel</span><span class="token punctuation">(</span><span class="token keyword">const</span>  G4VEmFluctuationModel<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4VEmFluctuationModel.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3127,7 +3135,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VEmFluctuationModel","level":"1.4.11","depth":2,"next":{"title":"G4IonFluctuations","level":"1.4.11.1","depth":3,"path":"class/G4IonFluctuations.md","ref":"class/G4IonFluctuations.md","articles":[]},"previous":{"title":"G4eeToTwoGammaModel","level":"1.4.10.23","depth":3,"path":"class/G4eeToTwoGammaModel.md","ref":"class/G4eeToTwoGammaModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VEmFluctuationModel.md","mtime":"2018-07-13T20:59:00.218Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VEmFluctuationModel","level":"1.4.11","depth":2,"next":{"title":"G4IonFluctuations","level":"1.4.11.1","depth":3,"path":"class/G4IonFluctuations.md","ref":"class/G4IonFluctuations.md","articles":[]},"previous":{"title":"G4eeToTwoGammaModel","level":"1.4.10.23","depth":3,"path":"class/G4eeToTwoGammaModel.md","ref":"class/G4eeToTwoGammaModel.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VEmFluctuationModel.md","mtime":"2018-07-13T20:59:00.218Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3135,6 +3143,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

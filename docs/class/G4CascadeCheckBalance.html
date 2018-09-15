@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4CascadeCheckBalance · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4CascadeCheckBalance · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,123 +3046,124 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4cascadecheckbalance">G4CascadeCheckBalance</h1>
+<p><strong>public G4VCascadeCollider</strong></p>
+<p>Verify and report four-momentum conservation for collision output; uses same interface as collision generators.</p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double tolerance<span class="token punctuation">;</span>    <span class="token comment">// Don&apos;t do floating zero!</span>
 
+  <span class="token keyword">explicit</span> <span class="token function">G4CascadeCheckBalance</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> owner<span class="token operator">=</span><span class="token string">&quot;G4CascadeCheckBalance&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h1 id="g4cascadecheckbalance">G4CascadeCheckBalance</h1><p><strong>public G4VCascadeCollider</strong></p><p>Verify and report four-momentum conservation for collision output; uses same interface as collision generators.</p><h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double tolerance;    <span class="hljs-comment">// Don&apos;t do floating zero!</span>
+  <span class="token function">G4CascadeCheckBalance</span><span class="token punctuation">(</span>G4double relative<span class="token punctuation">,</span> G4double absolute<span class="token punctuation">,</span>
+            <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> owner<span class="token operator">=</span><span class="token string">&quot;G4CascadeCheckBalance&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4CascadeCheckBalance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4CascadeCheckBalance</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; owner=<span class="hljs-string">&quot;G4CascadeCheckBalance&quot;</span>)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">setOwner</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> owner<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">setName</span><span class="token punctuation">(</span>owner<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 
-  G4CascadeCheckBalance(G4double relative, G4double absolute,
-            <span class="hljs-keyword">const</span> G4String&amp; owner=<span class="hljs-string">&quot;G4CascadeCheckBalance&quot;</span>);
-  <span class="hljs-keyword">virtual</span> ~G4CascadeCheckBalance() {};
+  <span class="token keyword">void</span> <span class="token function">setLimits</span><span class="token punctuation">(</span>G4double relative<span class="token punctuation">,</span> G4double absolute<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">setRelativeLimit</span><span class="token punctuation">(</span>relative<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">setAbsoluteLimit</span><span class="token punctuation">(</span>absolute<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setOwner</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; owner)</span> </span>{ setName(owner); }
+  <span class="token keyword">void</span> <span class="token function">setRelativeLimit</span><span class="token punctuation">(</span>G4double limit<span class="token punctuation">)</span> <span class="token punctuation">{</span> relativeLimit <span class="token operator">=</span> limit<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">void</span> <span class="token function">setAbsoluteLimit</span><span class="token punctuation">(</span>G4double limit<span class="token punctuation">)</span> <span class="token punctuation">{</span> absoluteLimit <span class="token operator">=</span> limit<span class="token punctuation">;</span> <span class="token punctuation">}</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setLimits</span><span class="hljs-params">(G4double relative, G4double absolute)</span> </span>{
-    setRelativeLimit(relative);
-    setAbsoluteLimit(absolute);
-  }
+  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span>
+           G4CollisionOutput<span class="token operator">&amp;</span> output<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setRelativeLimit</span><span class="hljs-params">(G4double limit)</span> </span>{ relativeLimit = limit; }
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setAbsoluteLimit</span><span class="hljs-params">(G4double limit)</span> </span>{ absoluteLimit = limit; }
+  <span class="token comment">// This is for use with G4VCascadeDeexcitation modules</span>
+  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Fragment<span class="token operator">&amp;</span> fragment<span class="token punctuation">,</span> G4CollisionOutput<span class="token operator">&amp;</span> output<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target,
-           G4CollisionOutput&amp; output)</span></span>;
+  <span class="token comment">// This is for use with G4EPCollider internal checks</span>
+  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4InuclElementaryParticle<span class="token operator">&gt;</span><span class="token operator">&amp;</span> particles<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// This is for use with G4VCascadeDeexcitation modules</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Fragment&amp; fragment, G4CollisionOutput&amp; output)</span></span>;
+  <span class="token comment">// This is for use with G4NucleiModel internal checks</span>
+  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4CascadParticle<span class="token operator">&gt;</span><span class="token operator">&amp;</span> particles<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// This is for use with G4EPCollider internal checks</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target,
-           <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4InuclElementaryParticle&gt;&amp; particles)</span></span>;
+  <span class="token comment">// This is for use with G4IntraNucleiCascader</span>
+  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span>
+           G4CollisionOutput<span class="token operator">&amp;</span> output<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4CascadParticle<span class="token operator">&gt;</span><span class="token operator">&amp;</span> cparticles<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// This is for use with G4NucleiModel internal checks</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target,
-           <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4CascadParticle&gt;&amp; particles)</span></span>;
+  <span class="token comment">// This is for use with G4BigBanger internal checks</span>
+  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Fragment<span class="token operator">&amp;</span> target<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4InuclElementaryParticle<span class="token operator">&gt;</span><span class="token operator">&amp;</span> particles<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// This is for use with G4IntraNucleiCascader</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target,
-           G4CollisionOutput&amp; output,
-           <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4CascadParticle&gt;&amp; cparticles)</span></span>;
+  <span class="token comment">// This is for use with G4Fissioner internal checks</span>
+  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Fragment<span class="token operator">&amp;</span> target<span class="token punctuation">,</span>
+           <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4InuclNuclei<span class="token operator">&gt;</span><span class="token operator">&amp;</span> fragments<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// This is for use with G4BigBanger internal checks</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Fragment&amp; target,
-           <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4InuclElementaryParticle&gt;&amp; particles)</span></span>;
+  <span class="token comment">// Checks on conservation laws (kinematics, baryon number, charge, hyperons)</span>
+  G4bool <span class="token function">energyOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  G4bool <span class="token function">ekinOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  G4bool <span class="token function">momentumOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  G4bool <span class="token function">baryonOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  G4bool <span class="token function">chargeOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  G4bool <span class="token function">strangeOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">// This is for use with G4Fissioner internal checks</span>
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Fragment&amp; target,
-           <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4InuclNuclei&gt;&amp; fragments)</span></span>;
+  <span class="token comment">// Global check, used by G4CascadeInterface validation loop</span>
+  <span class="token comment">// NOTE:  Strangeness is not required to be conserved in final state</span>
+  G4bool <span class="token function">okay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token function">energyOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">momentumOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                <span class="token function">baryonOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">chargeOkay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 
-  <span class="hljs-comment">// Checks on conservation laws (kinematics, baryon number, charge, hyperons)</span>
-  <span class="hljs-function">G4bool <span class="hljs-title">energyOkay</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-  <span class="hljs-function">G4bool <span class="hljs-title">ekinOkay</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-  <span class="hljs-function">G4bool <span class="hljs-title">momentumOkay</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-  <span class="hljs-function">G4bool <span class="hljs-title">baryonOkay</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-  <span class="hljs-function">G4bool <span class="hljs-title">chargeOkay</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-  <span class="hljs-function">G4bool <span class="hljs-title">strangeOkay</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+  <span class="token comment">// Calculations of conserved quantities from initial and final state</span>
+  <span class="token comment">// FIXME:  Relative comparisons don&apos;t work for zero!</span>
+  G4double <span class="token function">deltaE</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">(</span>final<span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> initial<span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  G4double <span class="token function">relativeE</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span><span class="token function">deltaE</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>tolerance<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0.</span> <span class="token operator">:</span> 
+         <span class="token punctuation">(</span>initial<span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>tolerance<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">1.</span> <span class="token operator">:</span> <span class="token function">deltaE</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span>initial<span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-comment">// Global check, used by G4CascadeInterface validation loop</span>
-  <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span>  Strangeness is not required to be conserved in final state</span>
-  <span class="hljs-function">G4bool <span class="hljs-title">okay</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> (energyOkay() &amp;&amp; momentumOkay() &amp;&amp;
-                baryonOkay() &amp;&amp; chargeOkay()); }
+  G4double <span class="token function">deltaKE</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token function">ekin</span><span class="token punctuation">(</span>final<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">ekin</span><span class="token punctuation">(</span>initial<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  G4double <span class="token function">relativeKE</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span><span class="token function">deltaKE</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>tolerance<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0.</span> <span class="token operator">:</span> 
+         <span class="token punctuation">(</span><span class="token function">ekin</span><span class="token punctuation">(</span>initial<span class="token punctuation">)</span><span class="token operator">&lt;</span>tolerance<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">1.</span> <span class="token operator">:</span> <span class="token function">deltaKE</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token function">ekin</span><span class="token punctuation">(</span>initial<span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-comment">// Calculations of conserved quantities from initial and final state</span>
-  <span class="hljs-comment">// <span class="hljs-doctag">FIXME:</span>  Relative comparisons don&apos;t work for zero!</span>
-  <span class="hljs-function">G4double <span class="hljs-title">deltaE</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> (final.e() - initial.e()); }
-  <span class="hljs-function">G4double <span class="hljs-title">relativeE</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-    <span class="hljs-keyword">return</span> ( (<span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(deltaE())&lt;tolerance) ? <span class="hljs-number">0.</span> : 
-         (initial.e()&lt;tolerance) ? <span class="hljs-number">1.</span> : deltaE()/initial.e() );
-  }
+  G4double <span class="token function">deltaP</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">deltaLV</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rho</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  G4double <span class="token function">relativeP</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span><span class="token function">deltaP</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>tolerance<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0.</span> <span class="token operator">:</span> 
+         <span class="token punctuation">(</span>initial<span class="token punctuation">.</span><span class="token function">rho</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>tolerance<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">1.</span> <span class="token operator">:</span> <span class="token function">deltaP</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span>initial<span class="token punctuation">.</span><span class="token function">rho</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">deltaKE</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> (ekin(final) - ekin(initial)); }
-  <span class="hljs-function">G4double <span class="hljs-title">relativeKE</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-    <span class="hljs-keyword">return</span> ( (<span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(deltaKE())&lt;tolerance) ? <span class="hljs-number">0.</span> : 
-         (ekin(initial)&lt;tolerance) ? <span class="hljs-number">1.</span> : deltaKE()/ekin(initial) );
-  }
+  G4LorentzVector <span class="token function">deltaLV</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> final <span class="token operator">-</span> initial<span class="token punctuation">;</span> <span class="token punctuation">}</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">deltaP</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> deltaLV().rho(); }
-  <span class="hljs-function">G4double <span class="hljs-title">relativeP</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{
-    <span class="hljs-keyword">return</span> ( (<span class="hljs-built_in">std</span>::<span class="hljs-built_in">abs</span>(deltaP())&lt;tolerance) ? <span class="hljs-number">0.</span> : 
-         (initial.rho()&lt;tolerance) ? <span class="hljs-number">1.</span> : deltaP()/initial.rho() );
-  }
+  <span class="token comment">// Baryon number, charge, S are discrete; no bounds and no &quot;relative&quot; scale</span>
+  G4int <span class="token function">deltaB</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">(</span>finalBaryon <span class="token operator">-</span> initialBaryon<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  G4int <span class="token function">deltaQ</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">(</span>finalCharge <span class="token operator">-</span> initialCharge<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  G4int <span class="token function">deltaS</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">(</span>finalStrange<span class="token operator">-</span> initialStrange<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 
-  <span class="hljs-function">G4LorentzVector <span class="hljs-title">deltaLV</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> final - initial; }
+<span class="token keyword">protected</span><span class="token operator">:</span>
+  <span class="token comment">// Utility function for kinetic energy</span>
+  G4double <span class="token function">ekin</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4LorentzVector<span class="token operator">&amp;</span> p<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">(</span>p<span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> p<span class="token punctuation">.</span><span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 
-  <span class="hljs-comment">// Baryon number, charge, S are discrete; no bounds and no &quot;relative&quot; scale</span>
-  <span class="hljs-function">G4int <span class="hljs-title">deltaB</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> (finalBaryon - initialBaryon); }
-  <span class="hljs-function">G4int <span class="hljs-title">deltaQ</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> (finalCharge - initialCharge); }
-  <span class="hljs-function">G4int <span class="hljs-title">deltaS</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> (finalStrange- initialStrange); }
+<span class="token keyword">private</span><span class="token operator">:</span>
+  G4double relativeLimit<span class="token punctuation">;</span>    <span class="token comment">// Fractional bound on conservation</span>
+  G4double absoluteLimit<span class="token punctuation">;</span>    <span class="token comment">// Absolute (GeV) bound on conservation</span>
 
-<span class="hljs-keyword">protected</span>:
-  <span class="hljs-comment">// Utility function for kinetic energy</span>
-  <span class="hljs-function">G4double <span class="hljs-title">ekin</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4LorentzVector&amp; p)</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> (p.e() - p.m()); }
+  G4LorentzVector initial<span class="token punctuation">;</span>    <span class="token comment">// Four-vectors for computing violations</span>
+  G4LorentzVector final<span class="token punctuation">;</span>
 
-<span class="hljs-keyword">private</span>:
-  G4double relativeLimit;    <span class="hljs-comment">// Fractional bound on conservation</span>
-  G4double absoluteLimit;    <span class="hljs-comment">// Absolute (GeV) bound on conservation</span>
+  G4int initialBaryon<span class="token punctuation">;</span>        <span class="token comment">// Total baryon number</span>
+  G4int finalBaryon<span class="token punctuation">;</span>
 
-  G4LorentzVector initial;    <span class="hljs-comment">// Four-vectors for computing violations</span>
-  G4LorentzVector final;
+  G4int initialCharge<span class="token punctuation">;</span>        <span class="token comment">// Total charge</span>
+  G4int finalCharge<span class="token punctuation">;</span>
 
-  G4int initialBaryon;        <span class="hljs-comment">// Total baryon number</span>
-  G4int finalBaryon;
+  G4int initialStrange<span class="token punctuation">;</span>        <span class="token comment">// Total strangeness (s-quark content)</span>
+  G4int finalStrange<span class="token punctuation">;</span>
 
-  G4int initialCharge;        <span class="hljs-comment">// Total charge</span>
-  G4int finalCharge;
+  G4CollisionOutput tempOutput<span class="token punctuation">;</span>        <span class="token comment">// Buffer for direct-list interfaces</span>
 
-  G4int initialStrange;        <span class="hljs-comment">// Total strangeness (s-quark content)</span>
-  G4int finalStrange;
-
-  G4CollisionOutput tempOutput;        <span class="hljs-comment">// Buffer for direct-list interfaces</span>
-
-<span class="hljs-keyword">private</span>:
-  <span class="hljs-comment">// Copying of modules is forbidden</span>
-  G4CascadeCheckBalance(<span class="hljs-keyword">const</span> G4CascadeCheckBalance&amp;);
-  G4CascadeCheckBalance&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4CascadeCheckBalance&amp;);</code></pre>
+<span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token comment">// Copying of modules is forbidden</span>
+  <span class="token function">G4CascadeCheckBalance</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadeCheckBalance<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  G4CascadeCheckBalance<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadeCheckBalance<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4CascadeCheckBalance.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3198,7 +3207,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4CascadeCheckBalance","level":"1.4.31.2","depth":3,"next":{"title":"G4VCascadeDeexcitation","level":"1.4.31.3","depth":3,"path":"class/G4VCascadeDeexcitation.md","ref":"class/G4VCascadeDeexcitation.md","articles":[{"title":"G4CascadeDeexciteBase","level":"1.4.31.3.1","depth":4,"path":"class/G4CascadeDeexciteBase.md","ref":"class/G4CascadeDeexciteBase.md","articles":[{"title":"G4PreCompoundDeexcitation","level":"1.4.31.3.1.1","depth":5,"path":"class/G4PreCompoundDeexcitation.md","ref":"class/G4PreCompoundDeexcitation.md","articles":[]},{"title":"G4CascadeDeexcitation","level":"1.4.31.3.1.2","depth":5,"path":"class/G4CascadeDeexcitation.md","ref":"class/G4CascadeDeexcitation.md","articles":[]}]}]},"previous":{"title":"G4IntraNucleiCascader","level":"1.4.31.1.3","depth":4,"path":"class/G4IntraNucleiCascader.md","ref":"class/G4IntraNucleiCascader.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4CascadeCheckBalance.md","mtime":"2018-09-01T03:33:21.100Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4CascadeCheckBalance","level":"1.4.31.2","depth":3,"next":{"title":"G4VCascadeDeexcitation","level":"1.4.31.3","depth":3,"path":"class/G4VCascadeDeexcitation.md","ref":"class/G4VCascadeDeexcitation.md","articles":[{"title":"G4CascadeDeexciteBase","level":"1.4.31.3.1","depth":4,"path":"class/G4CascadeDeexciteBase.md","ref":"class/G4CascadeDeexciteBase.md","articles":[{"title":"G4PreCompoundDeexcitation","level":"1.4.31.3.1.1","depth":5,"path":"class/G4PreCompoundDeexcitation.md","ref":"class/G4PreCompoundDeexcitation.md","articles":[]},{"title":"G4CascadeDeexcitation","level":"1.4.31.3.1.2","depth":5,"path":"class/G4CascadeDeexcitation.md","ref":"class/G4CascadeDeexcitation.md","articles":[]}]}]},"previous":{"title":"G4IntraNucleiCascader","level":"1.4.31.1.3","depth":4,"path":"class/G4IntraNucleiCascader.md","ref":"class/G4IntraNucleiCascader.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4CascadeCheckBalance.md","mtime":"2018-09-01T03:33:21.100Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3206,6 +3215,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4VParticleChange · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4VParticleChange · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,203 +3046,203 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4vparticlechange">G4VParticleChange</h1>
+<pre class="language-"><code class="lang-cpp"><span class="token comment">//  This class is the abstract class for ParticleChange.</span>
+<span class="token comment">//-</span>
+<span class="token comment">//  The ParticleChange class ontains the results after invocation </span>
+<span class="token comment">//  of a physics process. This includes final states of parent</span>
+<span class="token comment">//  particle (momentum, energy, etc) and secondary particles generated </span>
+<span class="token comment">//  by the interaction.</span>
+<span class="token comment">//  The tracking assumes that all the values of energy and</span>
+<span class="token comment">//  momentum are in global reference system, therefore all the</span>
+<span class="token comment">//  needed Lorentz transformations must have been already Done</span>
+<span class="token comment">//  when filling the data-members of this class.</span>
+<span class="token comment">//-</span>
+<span class="token comment">//-</span>
+<span class="token comment">//   This abstract class has following four virtual methods</span>
+<span class="token comment">//     virtual G4Step* UpdateStepForAtRest(G4Step* Step);</span>
+<span class="token comment">//     virtual G4Step* UpdateStepForAlongStep(G4Step* Step);</span>
+<span class="token comment">//     virtual G4Step* UpdateStepForPostStep(G4Step* Step);</span>
+<span class="token comment">//     virtual void Initialize(const G4Track&amp;);</span>
+<span class="token comment">//   The UpdateStep methods return the pointer to the G4Step </span>
+<span class="token comment">//   after updating the given Step information by using final state </span>
+<span class="token comment">//   information of the track given by a physics process.    </span>
+<span class="token comment">//   User must add methods to keep the final state information </span>
+<span class="token comment">//   in his derived class as well as implement UpdateStep methods </span>
+<span class="token comment">//   which he want to use.</span>
+<span class="token comment">//-</span>
+<span class="token comment">//   The Initialize methods is provided to refresh the final </span>
+<span class="token comment">//   state information and should be called by each process </span>
+<span class="token comment">//   at the beginning of DoIt.</span>
+</code></pre>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp">  <span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token comment">// default constructor</span>
+    <span class="token function">G4VParticleChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// destructor</span>
+    <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4VParticleChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// equal/unequal operator</span>
+    G4bool <span class="token keyword">operator</span><span class="token operator">==</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VParticleChange <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    G4bool <span class="token keyword">operator</span><span class="token operator">!=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VParticleChange <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token comment">// &quot;equal&quot; means that teo objects have the same pointer.</span>
+
+  <span class="token keyword">protected</span><span class="token operator">:</span>
+    <span class="token comment">// hide copy constructor and assignment operaor as protected</span>
+    <span class="token function">G4VParticleChange</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VParticleChange <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    G4VParticleChange <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VParticleChange <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+    <span class="token comment">// --- the following methods are for updating G4Step -----   </span>
+    <span class="token keyword">virtual</span> G4Step<span class="token operator">*</span> <span class="token function">UpdateStepForAtRest</span><span class="token punctuation">(</span>G4Step<span class="token operator">*</span> Step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">virtual</span> G4Step<span class="token operator">*</span> <span class="token function">UpdateStepForAlongStep</span><span class="token punctuation">(</span>G4Step<span class="token operator">*</span> Step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">virtual</span> G4Step<span class="token operator">*</span> <span class="token function">UpdateStepForPostStep</span><span class="token punctuation">(</span>G4Step<span class="token operator">*</span> Step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Return the pointer to the G4Step after updating the Step information</span>
+    <span class="token comment">// by using final state information of the track given by a physics</span>
+    <span class="token comment">// process    </span>
+
+  <span class="token keyword">protected</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+    G4Step<span class="token operator">*</span> <span class="token function">UpdateStepInfo</span><span class="token punctuation">(</span>G4Step<span class="token operator">*</span> Step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Update the G4Step specific attributes </span>
+    <span class="token comment">//  (i.e. SteppingControl, LocalEnergyDeposit, and TrueStepLength)</span>
 
 
-<h1 id="g4vparticlechange">G4VParticleChange</h1><pre><code class="lang-cpp"><span class="hljs-comment">//  This class is the abstract class for ParticleChange.</span>
-<span class="hljs-comment">//-</span>
-<span class="hljs-comment">//  The ParticleChange class ontains the results after invocation </span>
-<span class="hljs-comment">//  of a physics process. This includes final states of parent</span>
-<span class="hljs-comment">//  particle (momentum, energy, etc) and secondary particles generated </span>
-<span class="hljs-comment">//  by the interaction.</span>
-<span class="hljs-comment">//  The tracking assumes that all the values of energy and</span>
-<span class="hljs-comment">//  momentum are in global reference system, therefore all the</span>
-<span class="hljs-comment">//  needed Lorentz transformations must have been already Done</span>
-<span class="hljs-comment">//  when filling the data-members of this class.</span>
-<span class="hljs-comment">//-</span>
-<span class="hljs-comment">//-</span>
-<span class="hljs-comment">//   This abstract class has following four virtual methods</span>
-<span class="hljs-comment">//     virtual G4Step* UpdateStepForAtRest(G4Step* Step);</span>
-<span class="hljs-comment">//     virtual G4Step* UpdateStepForAlongStep(G4Step* Step);</span>
-<span class="hljs-comment">//     virtual G4Step* UpdateStepForPostStep(G4Step* Step);</span>
-<span class="hljs-comment">//     virtual void Initialize(const G4Track&amp;);</span>
-<span class="hljs-comment">//   The UpdateStep methods return the pointer to the G4Step </span>
-<span class="hljs-comment">//   after updating the given Step information by using final state </span>
-<span class="hljs-comment">//   information of the track given by a physics process.    </span>
-<span class="hljs-comment">//   User must add methods to keep the final state information </span>
-<span class="hljs-comment">//   in his derived class as well as implement UpdateStep methods </span>
-<span class="hljs-comment">//   which he want to use.</span>
-<span class="hljs-comment">//-</span>
-<span class="hljs-comment">//   The Initialize methods is provided to refresh the final </span>
-<span class="hljs-comment">//   state information and should be called by each process </span>
-<span class="hljs-comment">//   at the beginning of DoIt.</span></code></pre>
-<h2 id="class">class</h2><pre><code class="lang-cpp">  <span class="hljs-keyword">public</span>:
-    <span class="hljs-comment">// default constructor</span>
-    G4VParticleChange();
+  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">Initialize</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// This methods will be called by each process at the beginning of DoIt</span>
+    <span class="token comment">// if necessary.</span>
 
-    <span class="hljs-comment">// destructor</span>
-    <span class="hljs-keyword">virtual</span> ~G4VParticleChange();
+  <span class="token keyword">protected</span><span class="token operator">:</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeTrueStepLength</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeLocalEnergyDeposit</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeSteppingControl</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeParentWeight</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeParentGlobalTime</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">// equal/unequal operator</span>
-    G4bool <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> G4VParticleChange &amp;right) <span class="hljs-keyword">const</span>;
-    G4bool <span class="hljs-keyword">operator</span>!=(<span class="hljs-keyword">const</span> G4VParticleChange &amp;right) <span class="hljs-keyword">const</span>;
-    <span class="hljs-comment">// &quot;equal&quot; means that teo objects have the same pointer.</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeStatusChange</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeSecondaries</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">InitializeStepInVolumeFlags</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">// ------------------------------------------------------   </span>
 
-  <span class="hljs-keyword">protected</span>:
-    <span class="hljs-comment">// hide copy constructor and assignment operaor as protected</span>
-    G4VParticleChange(<span class="hljs-keyword">const</span> G4VParticleChange &amp;right);
-    G4VParticleChange &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4VParticleChange &amp;right);
+  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+    <span class="token comment">//---- the following methods are for TruePathLength ----</span>
+    G4double <span class="token function">GetTrueStepLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span>  <span class="token function">ProposeTrueStepLength</span><span class="token punctuation">(</span>G4double truePathLength<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Get/Propose theTrueStepLength</span>
 
-  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
-    <span class="hljs-comment">// --- the following methods are for updating G4Step -----   </span>
-    <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4Step* <span class="hljs-title">UpdateStepForAtRest</span><span class="hljs-params">(G4Step* Step)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4Step* <span class="hljs-title">UpdateStepForAlongStep</span><span class="hljs-params">(G4Step* Step)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4Step* <span class="hljs-title">UpdateStepForPostStep</span><span class="hljs-params">(G4Step* Step)</span></span>;
-    <span class="hljs-comment">// Return the pointer to the G4Step after updating the Step information</span>
-    <span class="hljs-comment">// by using final state information of the track given by a physics</span>
-    <span class="hljs-comment">// process    </span>
+    <span class="token comment">//---- the following methods are for LocalEnergyDeposit ----   </span>
+    G4double <span class="token function">GetLocalEnergyDeposit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">ProposeLocalEnergyDeposit</span><span class="token punctuation">(</span>G4double anEnergyPart<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Get/Propose the locally deposited energy </span>
 
-  <span class="hljs-keyword">protected</span>: <span class="hljs-comment">// with description</span>
-    <span class="hljs-function">G4Step* <span class="hljs-title">UpdateStepInfo</span><span class="hljs-params">(G4Step* Step)</span></span>;
-    <span class="hljs-comment">//  Update the G4Step specific attributes </span>
-    <span class="hljs-comment">//  (i.e. SteppingControl, LocalEnergyDeposit, and TrueStepLength)</span>
+    <span class="token comment">//---- the following methods are for nonIonizingEnergyDeposit  ----   </span>
+    G4double <span class="token function">GetNonIonizingEnergyDeposit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">ProposeNonIonizingEnergyDeposit</span><span class="token punctuation">(</span>G4double anEnergyPart<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Get/Propose the non-ionizing deposited energy </span>
 
+    <span class="token comment">//---- the following methods are for TrackStatus -----   </span>
+    G4TrackStatus <span class="token function">GetTrackStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">ProposeTrackStatus</span><span class="token punctuation">(</span>G4TrackStatus status<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token comment">//  Get/Propose the final TrackStatus of the current particle.</span>
+    <span class="token comment">// ------------------------------------------------------   </span>
 
-  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
-    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-    <span class="hljs-comment">// This methods will be called by each process at the beginning of DoIt</span>
-    <span class="hljs-comment">// if necessary.</span>
+    <span class="token comment">//---- the following methods are for managements of SteppingControl --</span>
+    G4SteppingControl <span class="token function">GetSteppingControl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">ProposeSteppingControl</span><span class="token punctuation">(</span>G4SteppingControl StepControlFlag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Set/Propose a flag to control stepping manager behavier </span>
+    <span class="token comment">// ------------------------------------------------------   </span>
 
-  <span class="hljs-keyword">protected</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeTrueStepLength</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeLocalEnergyDeposit</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeSteppingControl</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeParentWeight</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeParentGlobalTime</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
+    <span class="token comment">//---- the following methods are for managements of initial/last step</span>
+    G4bool <span class="token function">GetFirstStepInVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    G4bool <span class="token function">GetLastStepInVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span>   <span class="token function">ProposeFirstStepInVolume</span><span class="token punctuation">(</span>G4bool flag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span>   <span class="token function">ProposeLastStepInVolume</span><span class="token punctuation">(</span>G4bool flag<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeStatusChange</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeSecondaries</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitializeStepInVolumeFlags</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
-   <span class="hljs-comment">// ------------------------------------------------------   </span>
+    <span class="token comment">//---- the following methods are for managements of secondaries --</span>
+    <span class="token keyword">void</span> <span class="token function">Clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Clear the contents of this objects </span>
+    <span class="token comment">//  This method should be called after the Tracking(Stepping) </span>
+    <span class="token comment">//  manager removes all secondaries in theListOfSecondaries </span>
 
-  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
-    <span class="hljs-comment">//---- the following methods are for TruePathLength ----</span>
-    <span class="hljs-function">G4double <span class="hljs-title">GetTrueStepLength</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span>  <span class="hljs-title">ProposeTrueStepLength</span><span class="hljs-params">(G4double truePathLength)</span></span>;
-    <span class="hljs-comment">//  Get/Propose theTrueStepLength</span>
+    <span class="token keyword">void</span> <span class="token function">SetNumberOfSecondaries</span><span class="token punctuation">(</span>G4int totSecondaries<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  SetNumberOfSecondaries must be called just before AddSecondary()</span>
+    <span class="token comment">//  in order to secure memory space for theListOfSecondaries </span>
+    <span class="token comment">//  This method resets theNumberOfSecondaries to 0</span>
+    <span class="token comment">//  (that will be incremented at every AddSecondary() call).</span>
 
-    <span class="hljs-comment">//---- the following methods are for LocalEnergyDeposit ----   </span>
-    <span class="hljs-function">G4double <span class="hljs-title">GetLocalEnergyDeposit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProposeLocalEnergyDeposit</span><span class="hljs-params">(G4double anEnergyPart)</span></span>;
-    <span class="hljs-comment">//  Get/Propose the locally deposited energy </span>
+    G4int <span class="token function">GetNumberOfSecondaries</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Returns the number of secondaries current stored in</span>
+    <span class="token comment">//  G4TrackFastVector.</span>
 
-    <span class="hljs-comment">//---- the following methods are for nonIonizingEnergyDeposit  ----   </span>
-    <span class="hljs-function">G4double <span class="hljs-title">GetNonIonizingEnergyDeposit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProposeNonIonizingEnergyDeposit</span><span class="hljs-params">(G4double anEnergyPart)</span></span>;
-    <span class="hljs-comment">//  Get/Propose the non-ionizing deposited energy </span>
+    G4Track<span class="token operator">*</span> <span class="token function">GetSecondary</span><span class="token punctuation">(</span>G4int anIndex<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Returns the pointer to the generated secondary particle</span>
+    <span class="token comment">//  which is specified by an Index.</span>
 
-    <span class="hljs-comment">//---- the following methods are for TrackStatus -----   </span>
-    <span class="hljs-function">G4TrackStatus <span class="hljs-title">GetTrackStatus</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProposeTrackStatus</span><span class="hljs-params">(G4TrackStatus status)</span></span>; 
-    <span class="hljs-comment">//  Get/Propose the final TrackStatus of the current particle.</span>
-    <span class="hljs-comment">// ------------------------------------------------------   </span>
+    <span class="token keyword">void</span> <span class="token function">AddSecondary</span><span class="token punctuation">(</span>G4Track<span class="token operator">*</span> aSecondary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Add a secondary particle to theListOfSecondaries.</span>
+    <span class="token comment">// ------------------------------------------------------   </span>
 
-    <span class="hljs-comment">//---- the following methods are for managements of SteppingControl --</span>
-    <span class="hljs-function">G4SteppingControl <span class="hljs-title">GetSteppingControl</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProposeSteppingControl</span><span class="hljs-params">(G4SteppingControl StepControlFlag)</span></span>;
-    <span class="hljs-comment">//  Set/Propose a flag to control stepping manager behavier </span>
-    <span class="hljs-comment">// ------------------------------------------------------   </span>
+    G4double <span class="token function">GetWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    G4double <span class="token function">GetParentWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">;</span>
+    <span class="token comment">//  Get weight of the parent (i.e. current) track</span>
+    <span class="token keyword">void</span> <span class="token function">ProposeWeight</span><span class="token punctuation">(</span>G4double finalWeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">ProposeParentWeight</span><span class="token punctuation">(</span>G4double finalWeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Propse new weight of the parent (i.e. current) track</span>
+    <span class="token comment">//  As for AlongStepDoIt, the parent weight will be set </span>
+    <span class="token comment">//  in accumulated manner</span>
+    <span class="token comment">//  i.e.) If two processes propose weight of W1 and W2 respectively</span>
+    <span class="token comment">//  for the track with initial weight of W0 </span>
+    <span class="token comment">//  the final weight is set to</span>
+    <span class="token comment">//  (W1/W0) * (W2/W0) * W0  </span>
 
-    <span class="hljs-comment">//---- the following methods are for managements of initial/last step</span>
-    <span class="hljs-function">G4bool <span class="hljs-title">GetFirstStepInVolume</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function">G4bool <span class="hljs-title">GetLastStepInVolume</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span>   <span class="hljs-title">ProposeFirstStepInVolume</span><span class="hljs-params">(G4bool flag)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span>   <span class="hljs-title">ProposeLastStepInVolume</span><span class="hljs-params">(G4bool flag)</span></span>;
+    <span class="token keyword">void</span>     <span class="token function">SetSecondaryWeightByProcess</span><span class="token punctuation">(</span>G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    G4bool   <span class="token function">IsSecondaryWeightSetByProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>  
+    <span class="token comment">// In default (fSecondaryWeightByProcess flag is false), </span>
+    <span class="token comment">// the weight of secondary tracks will be set to </span>
+    <span class="token comment">// the parent weight</span>
+    <span class="token comment">// If fSecondaryWeightByProcess flag is true, </span>
+    <span class="token comment">// the weight of secondary tracks will not be changed </span>
+    <span class="token comment">// by the ParticleChange</span>
+    <span class="token comment">// (i.e. the process determine the secodary weight)</span>
+    <span class="token comment">// NOTE: </span>
+    <span class="token comment">// Make sure that only one processe in AlongStepDoIt </span>
+    <span class="token comment">// proposes the parent weight, </span>
+    <span class="token comment">// If several processes in AlongStepDoIt proposes </span>
+    <span class="token comment">// the parent weight and add secondaties with </span>
+    <span class="token comment">// fSecondaryWeightByProcess is set to false, </span>
+    <span class="token comment">// secondary weights may be wrong</span>
 
-    <span class="hljs-comment">//---- the following methods are for managements of secondaries --</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Clear</span><span class="hljs-params">()</span></span>;
-    <span class="hljs-comment">//  Clear the contents of this objects </span>
-    <span class="hljs-comment">//  This method should be called after the Tracking(Stepping) </span>
-    <span class="hljs-comment">//  manager removes all secondaries in theListOfSecondaries </span>
+    <span class="token keyword">void</span>   <span class="token function">SetParentWeightByProcess</span><span class="token punctuation">(</span>G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    G4bool   <span class="token function">IsParentWeightSetByProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>  
+    <span class="token comment">// Obsolete</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetNumberOfSecondaries</span><span class="hljs-params">(G4int totSecondaries)</span></span>;
-    <span class="hljs-comment">//  SetNumberOfSecondaries must be called just before AddSecondary()</span>
-    <span class="hljs-comment">//  in order to secure memory space for theListOfSecondaries </span>
-    <span class="hljs-comment">//  This method resets theNumberOfSecondaries to 0</span>
-    <span class="hljs-comment">//  (that will be incremented at every AddSecondary() call).</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">DumpInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    <span class="token comment">//  Print out information</span>
 
-    <span class="hljs-function">G4int <span class="hljs-title">GetNumberOfSecondaries</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-comment">//  Returns the number of secondaries current stored in</span>
-    <span class="hljs-comment">//  G4TrackFastVector.</span>
-
-    <span class="hljs-function">G4Track* <span class="hljs-title">GetSecondary</span><span class="hljs-params">(G4int anIndex)</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-comment">//  Returns the pointer to the generated secondary particle</span>
-    <span class="hljs-comment">//  which is specified by an Index.</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddSecondary</span><span class="hljs-params">(G4Track* aSecondary)</span></span>;
-    <span class="hljs-comment">//  Add a secondary particle to theListOfSecondaries.</span>
-    <span class="hljs-comment">// ------------------------------------------------------   </span>
-
-    <span class="hljs-function">G4double <span class="hljs-title">GetWeight</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function">G4double <span class="hljs-title">GetParentWeight</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>;
-    <span class="hljs-comment">//  Get weight of the parent (i.e. current) track</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProposeWeight</span><span class="hljs-params">(G4double finalWeight)</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProposeParentWeight</span><span class="hljs-params">(G4double finalWeight)</span></span>;
-    <span class="hljs-comment">//  Propse new weight of the parent (i.e. current) track</span>
-    <span class="hljs-comment">//  As for AlongStepDoIt, the parent weight will be set </span>
-    <span class="hljs-comment">//  in accumulated manner</span>
-    <span class="hljs-comment">//  i.e.) If two processes propose weight of W1 and W2 respectively</span>
-    <span class="hljs-comment">//  for the track with initial weight of W0 </span>
-    <span class="hljs-comment">//  the final weight is set to</span>
-    <span class="hljs-comment">//  (W1/W0) * (W2/W0) * W0  </span>
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span>     <span class="hljs-title">SetSecondaryWeightByProcess</span><span class="hljs-params">(G4bool)</span></span>;
-    <span class="hljs-function">G4bool   <span class="hljs-title">IsSecondaryWeightSetByProcess</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;  
-    <span class="hljs-comment">// In default (fSecondaryWeightByProcess flag is false), </span>
-    <span class="hljs-comment">// the weight of secondary tracks will be set to </span>
-    <span class="hljs-comment">// the parent weight</span>
-    <span class="hljs-comment">// If fSecondaryWeightByProcess flag is true, </span>
-    <span class="hljs-comment">// the weight of secondary tracks will not be changed </span>
-    <span class="hljs-comment">// by the ParticleChange</span>
-    <span class="hljs-comment">// (i.e. the process determine the secodary weight)</span>
-    <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> </span>
-    <span class="hljs-comment">// Make sure that only one processe in AlongStepDoIt </span>
-    <span class="hljs-comment">// proposes the parent weight, </span>
-    <span class="hljs-comment">// If several processes in AlongStepDoIt proposes </span>
-    <span class="hljs-comment">// the parent weight and add secondaties with </span>
-    <span class="hljs-comment">// fSecondaryWeightByProcess is set to false, </span>
-    <span class="hljs-comment">// secondary weights may be wrong</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span>   <span class="hljs-title">SetParentWeightByProcess</span><span class="hljs-params">(G4bool)</span></span>;
-    <span class="hljs-function">G4bool   <span class="hljs-title">IsParentWeightSetByProcess</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;  
-    <span class="hljs-comment">// Obsolete</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DumpInfo</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-comment">//  Print out information</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">(G4int vLevel)</span></span>;
-    <span class="hljs-function">G4int <span class="hljs-title">GetVerboseLevel</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+    <span class="token keyword">void</span> <span class="token function">SetVerboseLevel</span><span class="token punctuation">(</span>G4int vLevel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    G4int <span class="token function">GetVerboseLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
 
 
-  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
-    <span class="hljs-comment">// CheckIt method is provided for debug</span>
-    <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">CheckIt</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;)</span></span>;
+  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
+    <span class="token comment">// CheckIt method is provided for debug</span>
+    <span class="token keyword">virtual</span> G4bool <span class="token function">CheckIt</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">// CheckIt method is activated </span>
-    <span class="hljs-comment">// if debug flag is set and &apos;G4VERBOSE&apos; is defined </span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span>   <span class="hljs-title">ClearDebugFlag</span><span class="hljs-params">()</span></span>;
-    <span class="hljs-function"><span class="hljs-keyword">void</span>   <span class="hljs-title">SetDebugFlag</span><span class="hljs-params">()</span></span>;
-    <span class="hljs-function">G4bool <span class="hljs-title">GetDebugFlag</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>; 
+    <span class="token comment">// CheckIt method is activated </span>
+    <span class="token comment">// if debug flag is set and &apos;G4VERBOSE&apos; is defined </span>
+    <span class="token keyword">void</span>   <span class="token function">ClearDebugFlag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span>   <span class="token function">SetDebugFlag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    G4bool <span class="token function">GetDebugFlag</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span> 
 
-  <span class="hljs-keyword">protected</span>:
-    <span class="hljs-comment">// CheckSecondary method is provided for debug</span>
-    <span class="hljs-function">G4bool <span class="hljs-title">CheckSecondary</span><span class="hljs-params">(G4Track&amp;)</span></span>;
+  <span class="token keyword">protected</span><span class="token operator">:</span>
+    <span class="token comment">// CheckSecondary method is provided for debug</span>
+    G4bool <span class="token function">CheckSecondary</span><span class="token punctuation">(</span>G4Track<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function">G4double <span class="hljs-title">GetAccuracyForWarning</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-    <span class="hljs-function">G4double <span class="hljs-title">GetAccuracyForException</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;</code></pre>
+    G4double <span class="token function">GetAccuracyForWarning</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+    G4double <span class="token function">GetAccuracyForException</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4VParticleChange.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3278,7 +3286,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VParticleChange","level":"1.4.21","depth":2,"next":{"title":"G4ParticleChangeForLoss","level":"1.4.21.1","depth":3,"path":"class/G4ParticleChangeForLoss.md","ref":"class/G4ParticleChangeForLoss.md","articles":[]},"previous":{"title":"G4NistManager*","level":"1.4.20","depth":2,"path":"class/G4NistManager.md","ref":"class/G4NistManager.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VParticleChange.md","mtime":"2018-07-14T03:56:01.186Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VParticleChange","level":"1.4.21","depth":2,"next":{"title":"G4ParticleChangeForLoss","level":"1.4.21.1","depth":3,"path":"class/G4ParticleChangeForLoss.md","ref":"class/G4ParticleChangeForLoss.md","articles":[]},"previous":{"title":"G4NistManager*","level":"1.4.20","depth":2,"path":"class/G4NistManager.md","ref":"class/G4NistManager.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VParticleChange.md","mtime":"2018-07-14T03:56:01.186Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3286,6 +3294,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

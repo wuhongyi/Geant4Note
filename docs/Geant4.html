@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>修改源码 · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>修改源码 · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -69,7 +77,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2988,7 +2996,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3036,65 +3044,104 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 24
 ;; URL: http://wuhongyi.cn -->
-
-
-<h1 id="&#x4FEE;&#x6539;&#x6E90;&#x4EE3;&#x7801;">&#x4FEE;&#x6539;&#x6E90;&#x4EE3;&#x7801;</h1><h2 id="radioactivedecay">RadioactiveDecay</h2><p>&#x652F;&#x6301;&#x7C7B;&#x578B;</p><ul><li>IT   (isomeric transition)
-</li>
-<li>BetaMinus
-</li>
-<li>BetaPlus
-</li>
-<li>KshellEC
-</li>
-<li>MshellEC
-</li>
-<li>LshellEC
-</li>
-<li>Alpha
-</li>
-<li>SpFission
-</li></ul>
-<p>&#x60F3;&#x8981;&#x6A21;&#x62DF;&#x653E;&#x5C04;&#x6027;&#x8870;&#x53D8;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x786E;&#x8BA4; <strong>source/processes/decay/include/G4DecayProcessType.hh</strong> &#x4E2D;&#x8C03;&#x7528;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6838;&#x5B50;&#x6570;&#x8303;&#x56F4;&#xFF0C;&#x5982;&#x679C;&#x8D85;&#x51FA;&#x8303;&#x56F4;&#xFF0C;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x6E90;&#x4EE3;&#x7801;&#x3002;</p><h2 id="photonevaporation">PhotonEvaporation</h2><p>G4&#x6CA1;&#x6709;&#x6DFB;&#x52A0;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x81EA;&#x5DF1;&#x6DFB;&#x52A0;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x786E;&#x8BA4; <strong>G4NuclearLevelData.cc</strong> &#x4E2D;&#x8C03;&#x7528;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6838;&#x5B50;&#x6570;&#x8303;&#x56F4;&#xFF0C;&#x5982;&#x82E5;&#x8D85;&#x51FA;&#x8BE5;&#x8303;&#x56F4;&#xFF0C;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x5176;&#x6E90;&#x4EE3;&#x7801;&#x3002;&#x7136;&#x540E;&#x5728;&#x6570;&#x636E;&#x5E93;&#x6DFB;&#x52A0;&#x76F8;&#x5E94;&#x7684;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x3002;&#x5982;&#x679C;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x6CA1;&#x6709;&#x8BE5;&#x6587;&#x4EF6;&#x6216;&#x8005;&#x8D85;&#x51FA;&#x6570;&#x636E;&#x5E93;&#x5B9A;&#x4E49;&#x7684;&#x6838;&#x5B50;&#x6570;&#x8303;&#x56F4;&#xFF0C;&#x5E94;&#x8BE5;&#x662F;&#x91C7;&#x7528;&#x7ECF;&#x9A8C;&#x516C;&#x5F0F;&#x8BA1;&#x7B97;&#x3002;</p><hr><h2 id="g4particlehpnames">G4ParticleHPNames</h2><p>getenv(&quot;NeutronHPNames&quot;)
+<h1 id="&#x4FEE;&#x6539;&#x6E90;&#x4EE3;&#x7801;">&#x4FEE;&#x6539;&#x6E90;&#x4EE3;&#x7801;</h1>
+<h2 id="radioactivedecay">RadioactiveDecay</h2>
+<p>&#x652F;&#x6301;&#x7C7B;&#x578B;</p>
+<ul>
+<li>IT   (isomeric transition)</li>
+<li>BetaMinus</li>
+<li>BetaPlus</li>
+<li>KshellEC</li>
+<li>MshellEC</li>
+<li>LshellEC</li>
+<li>Alpha</li>
+<li>SpFission</li>
+</ul>
+<p>&#x60F3;&#x8981;&#x6A21;&#x62DF;&#x653E;&#x5C04;&#x6027;&#x8870;&#x53D8;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x786E;&#x8BA4; <strong>source/processes/decay/include/G4DecayProcessType.hh</strong> &#x4E2D;&#x8C03;&#x7528;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6838;&#x5B50;&#x6570;&#x8303;&#x56F4;&#xFF0C;&#x5982;&#x679C;&#x8D85;&#x51FA;&#x8303;&#x56F4;&#xFF0C;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x6E90;&#x4EE3;&#x7801;&#x3002;</p>
+<h2 id="photonevaporation">PhotonEvaporation</h2>
+<p>G4&#x6CA1;&#x6709;&#x6DFB;&#x52A0;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x81EA;&#x5DF1;&#x6DFB;&#x52A0;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x786E;&#x8BA4; <strong>G4NuclearLevelData.cc</strong> &#x4E2D;&#x8C03;&#x7528;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6838;&#x5B50;&#x6570;&#x8303;&#x56F4;&#xFF0C;&#x5982;&#x82E5;&#x8D85;&#x51FA;&#x8BE5;&#x8303;&#x56F4;&#xFF0C;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x5176;&#x6E90;&#x4EE3;&#x7801;&#x3002;&#x7136;&#x540E;&#x5728;&#x6570;&#x636E;&#x5E93;&#x6DFB;&#x52A0;&#x76F8;&#x5E94;&#x7684;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x3002;&#x5982;&#x679C;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x6CA1;&#x6709;&#x8BE5;&#x6587;&#x4EF6;&#x6216;&#x8005;&#x8D85;&#x51FA;&#x6570;&#x636E;&#x5E93;&#x5B9A;&#x4E49;&#x7684;&#x6838;&#x5B50;&#x6570;&#x8303;&#x56F4;&#xFF0C;&#x5E94;&#x8BE5;&#x662F;&#x91C7;&#x7528;&#x7ECF;&#x9A8C;&#x516C;&#x5F0F;&#x8BA1;&#x7B97;&#x3002; </p>
+<hr>
+<h2 id="g4particlehpnames">G4ParticleHPNames</h2>
+<p>getenv(&quot;NeutronHPNames&quot;)
 getenv(&quot;AllowForHeavyElements&quot;)
 getenv(&quot;NeutronHPNamesLogging&quot;)
-getenv(&quot;G4NEUTRONHPDATA&quot;)</p><p>G4ParticleHPNames::GetName(G4int A, G4int Z, G4int M, G4String base, G4String rest, G4bool &amp; aFlag)</p><ul><li><p>HPWD 1 (CrossSection): &#x5224;&#x65AD;&#x8BE5;&#x6838;&#x7D20;&#x622A;&#x9762;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;</p><ul><li>HPWD 2 : &#x5982;&#x679C;HPWD 1 &#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5B58;&#x5728; nat &#x6587;&#x4EF6;
+getenv(&quot;G4NEUTRONHPDATA&quot;)</p>
+<p>G4ParticleHPNames::GetName(G4int A, G4int Z, G4int M, G4String base, G4String rest, G4bool &amp; aFlag)  </p>
+<ul>
+<li>HPWD 1 (CrossSection): &#x5224;&#x65AD;&#x8BE5;&#x6838;&#x7D20;&#x622A;&#x9762;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;<ul>
+<li>HPWD 2 : &#x5982;&#x679C;HPWD 1 &#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5B58;&#x5728; nat &#x6587;&#x4EF6;</li>
+<li>HPWD 3 : &#x5982;&#x679C;HPWD 2 &#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5C06;&#x5176;&#x505A;SetNaturalAbundanceFlag()&#x6807;&#x8BB0;</li>
+</ul>
 </li>
-<li>HPWD 3 : &#x5982;&#x679C;HPWD 2 &#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5C06;&#x5176;&#x505A;SetNaturalAbundanceFlag()&#x6807;&#x8BB0;
-</li></ul>
+<li>HPWD 4a (CrossSection): &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;</li>
+<li>HPWD 4b1 (rest != &quot;/CrossSection&quot;): &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;&#xFF0C;&#x8BE5;&#x6838;&#x7D20; rest&#x7C7B;&#x578B;&#x6587;&#x4EF6;&#x5B58;&#x5728;</li>
+<li>HPWD 4b2a : &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;&#xFF0C;&#x8BE5;&#x6838;&#x7D20; rest&#x7C7B;&#x578B;&#x6587;&#x4EF6;&#x5B58;&#x5728; nat &#x6587;&#x4EF6;</li>
+<li>HPWD 4b2c : &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;&#xFF0C;&#x8BE5;&#x6838;&#x7D20; &#x4E0D;&#x5B58;&#x5728; rest&#x7C7B;&#x578B;&#x6587;&#x4EF6;</li>
+<li><p>&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5BFB;&#x627E;&#x63A5;&#x8FD1;&#x7684;&#x6838;&#x7D20;</p>
 </li>
-<li><p>HPWD 4a (CrossSection): &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;</p></li>
-<li>HPWD 4b1 (rest != &quot;/CrossSection&quot;): &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;&#xFF0C;&#x8BE5;&#x6838;&#x7D20; rest&#x7C7B;&#x578B;&#x6587;&#x4EF6;&#x5B58;&#x5728;
+<li><p>&#x7ED3;&#x675F;&#x4EE5;&#x4E0A;&#x5BFB;&#x627E;&#x4E4B;&#x540E;&#x7ED9;&#x51FA; Names::GetName: last theName proposal = &#x5EFA;&#x8BAE;&#x503C;&#x6765;&#x3002;</p>
 </li>
-<li>HPWD 4b2a : &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;&#xFF0C;&#x8BE5;&#x6838;&#x7D20; rest&#x7C7B;&#x578B;&#x6587;&#x4EF6;&#x5B58;&#x5728; nat &#x6587;&#x4EF6;
-</li>
-<li>HPWD 4b2c : &#x5982;&#x679C;HPWD 1 &#x5B58;&#x5728;&#xFF0C;&#x8BE5;&#x6838;&#x7D20; &#x4E0D;&#x5B58;&#x5728; rest&#x7C7B;&#x578B;&#x6587;&#x4EF6;
-</li>
-<li><p>&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5BFB;&#x627E;&#x63A5;&#x8FD1;&#x7684;&#x6838;&#x7D20;</p></li>
-<li><p>&#x7ED3;&#x675F;&#x4EE5;&#x4E0A;&#x5BFB;&#x627E;&#x4E4B;&#x540E;&#x7ED9;&#x51FA; Names::GetName: last theName proposal = &#x5EFA;&#x8BAE;&#x503C;&#x6765;&#x3002;</p></li></ul>
-<h2 id="g4particlehpmanager">G4ParticleHPManager</h2><p>if ( getenv( &quot;G4NEUTRONHP_DO_NOT_ADJUST_FINAL_STATE&quot; ) || getenv(&quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot;) ) DO_NOT_ADJUST_FINAL_STATE = true;
+</ul>
+<h2 id="g4particlehpmanager">G4ParticleHPManager</h2>
+<p>if ( getenv( &quot;G4NEUTRONHP_DO_NOT_ADJUST_FINAL_STATE&quot; ) || getenv(&quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot;) ) DO_NOT_ADJUST_FINAL_STATE = true;
 if ( getenv( &quot;G4NEUTRONHP_USE_ONLY_PHOTONEVAPORATION&quot; ) ) USE_ONLY_PHOTONEVAPORATION = true;
 if ( getenv( &quot;G4NEUTRONHP_NEGLECT_DOPPLER&quot; ) || getenv(&quot;G4PHP_NEGLECT_DOPPLER&quot;) ) NEGLECT_DOPPLER = true;
 if ( getenv( &quot;G4NEUTRONHP_SKIP_MISSING_ISOTOPES&quot; ) ) SKIP_MISSING_ISOTOPES = true;
-if ( getenv( &quot;G4NEUTRONHP_PRODUCE_FISSION_FRAGMENTS&quot; ) ) PRODUCE_FISSION_FRAGMENTS = true;</p><p>G4ParticleHPManager::GetDataStream &#x4E2D;&#x4F18;&#x5148;&#x7EA7;&#x522B;</p><ul><li>Use the compressed file 
-</li>
-<li>Use regular text file
-</li>
-<li>found no data file,set error bit to the stream
-</li></ul>
-<p>G4ParticleHPManager::GetDataStream2 &#x5224;&#x65AD;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;</p><h2 id="g4particlehpchannel">G4ParticleHPChannel</h2><p>getenv(&quot;G4NEUTRON_HP_USE_WENDT_FISSION_MODEL&quot;)</p><p>&#x8BA1;&#x7B97;&#x672B;&#x6001;</p><h2 id="g4particlehpchannellist">G4ParticleHPChannelList</h2><p>define G4PHPDEBUG
-getenv(&quot;G4ParticleHPDebug&quot;)</p><h2 id="g4particlehpfinalstate">G4ParticleHPFinalState</h2><p>getenv( &quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot; )</p><h2 id="g4particlehpelasticfs">G4ParticleHPElasticFS</h2><p>G4int repFlag;    // Legendre coeff(1), or probability array(2), or isotropic(0).
+if ( getenv( &quot;G4NEUTRONHP_PRODUCE_FISSION_FRAGMENTS&quot; ) ) PRODUCE_FISSION_FRAGMENTS = true;</p>
+<p>G4ParticleHPManager::GetDataStream &#x4E2D;&#x4F18;&#x5148;&#x7EA7;&#x522B;</p>
+<ul>
+<li>Use the compressed file </li>
+<li>Use regular text file</li>
+<li>found no data file,set error bit to the stream</li>
+</ul>
+<p>G4ParticleHPManager::GetDataStream2 &#x5224;&#x65AD;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;</p>
+<h2 id="g4particlehpchannel">G4ParticleHPChannel</h2>
+<p>getenv(&quot;G4NEUTRON_HP_USE_WENDT_FISSION_MODEL&quot;)</p>
+<p>&#x8BA1;&#x7B97;&#x672B;&#x6001;</p>
+<h2 id="g4particlehpchannellist">G4ParticleHPChannelList</h2>
+<p>define G4PHPDEBUG
+getenv(&quot;G4ParticleHPDebug&quot;)</p>
+<h2 id="g4particlehpfinalstate">G4ParticleHPFinalState</h2>
+<p>getenv( &quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot; )</p>
+<h2 id="g4particlehpelasticfs">G4ParticleHPElasticFS</h2>
+<p>G4int repFlag;    // Legendre coeff(1), or probability array(2), or isotropic(0).
                   // add 3: for Legendre (Low Energy) + Probability (High Energy)
 G4double targetMass; // in neutronmass units.
-G4int frameFlag;  // CMS or Lab system.  1=LAB, 2=CMS</p><h2 id="g4particlehpinelastic">G4ParticleHPInelastic</h2><p>getenv(&quot;G4PARTICLEHPDATA&quot;)
-getenv(&quot;G4PHPTEST&quot;)</p><p>define G4PHPDEBUG
-getenv(&quot;G4ParticleHPDebug&quot;)</p><p>F01-F36</p><h2 id="g4particlehpinelasticdata">G4ParticleHPInelasticData</h2><p>getenv( &quot;G4PARTICLEHPDATA&quot; )</p><h2 id="g4particlehpinelasticbasefs">G4ParticleHPInelasticBaseFS</h2><p>getenv( &quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot; )
-getenv(&quot;G4PHPTEST&quot;)</p><p>define G4PHPDEBUG
+G4int frameFlag;  // CMS or Lab system.  1=LAB, 2=CMS</p>
+<h2 id="g4particlehpinelastic">G4ParticleHPInelastic</h2>
+<p>getenv(&quot;G4PARTICLEHPDATA&quot;)
+getenv(&quot;G4PHPTEST&quot;)</p>
+<p>define G4PHPDEBUG
+getenv(&quot;G4ParticleHPDebug&quot;)</p>
+<p>F01-F36</p>
+<h2 id="g4particlehpinelasticdata">G4ParticleHPInelasticData</h2>
+<p>getenv( &quot;G4PARTICLEHPDATA&quot; )</p>
+<h2 id="g4particlehpinelasticbasefs">G4ParticleHPInelasticBaseFS</h2>
+<p>getenv( &quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot; )
+getenv(&quot;G4PHPTEST&quot;)</p>
+<p>define G4PHPDEBUG
 getenv(&quot;G4ParticleHPDebug&quot;)
-getenv(&quot;G4ParticleHPDebug_NamesLogging&quot;)</p><h2 id="g4particlehpinelasticcompfs">G4ParticleHPInelasticCompFS</h2><p>define G4PHPDEBUG
-getenv(&quot;G4ParticleHPDebug&quot;)</p><h2 id="g4particlehpcapture">G4ParticleHPCapture</h2><p>getenv(&quot;NeutronHPCapture&quot;)
-getenv(&quot;G4NEUTRONHPDATA&quot;)</p><h2 id="g4particlehpcapturedata">G4ParticleHPCaptureData</h2><p>getenv(&quot;CaptureDataIndexDebug&quot;)</p><h2 id="g4particlehpfission">G4ParticleHPFission</h2><p>getenv(&quot;G4NEUTRONHPDATA&quot;)</p><hr><p>DEBUG mode define in cmake</p><ul><li>G4ParticleHPInelasticBaseFS G4PHPDEBUG
-</li></ul>
-<hr><h2 id="&#x4FEE;&#x6539;&#x6E90;&#x7801;">&#x4FEE;&#x6539;&#x6E90;&#x7801;</h2><p>source/processes/hadronic/cross_sections/src/G4ElectroNuclearCrossSection.cc &#x4E2D;&#x51FD;&#x6570; G4int G4ElectroNuclearCrossSection::GetFunctions(G4double a, G4double<em> xx, G4double</em> yy, G4double* zz) &#x9650;&#x5236;&#x4E86;&#x8D28;&#x91CF;&#x6570; a&gt;238.49</p><h2 id="&#x5728;-bashrc&#x6216;&#x8005;geant4sh-&#x6700;&#x540E;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;">&#x5728; .bashrc&#x6216;&#x8005;geant4.sh &#x6700;&#x540E;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;</h2><pre><code class="lang-shell">
+getenv(&quot;G4ParticleHPDebug_NamesLogging&quot;)</p>
+<h2 id="g4particlehpinelasticcompfs">G4ParticleHPInelasticCompFS</h2>
+<p>define G4PHPDEBUG
+getenv(&quot;G4ParticleHPDebug&quot;)</p>
+<h2 id="g4particlehpcapture">G4ParticleHPCapture</h2>
+<p>getenv(&quot;NeutronHPCapture&quot;)
+getenv(&quot;G4NEUTRONHPDATA&quot;)</p>
+<h2 id="g4particlehpcapturedata">G4ParticleHPCaptureData</h2>
+<p>getenv(&quot;CaptureDataIndexDebug&quot;)</p>
+<h2 id="g4particlehpfission">G4ParticleHPFission</h2>
+<p>getenv(&quot;G4NEUTRONHPDATA&quot;)</p>
+<hr>
+<p>DEBUG mode define in cmake</p>
+<ul>
+<li>G4ParticleHPInelasticBaseFS G4PHPDEBUG</li>
+</ul>
+<hr>
+<h2 id="&#x4FEE;&#x6539;&#x6E90;&#x7801;">&#x4FEE;&#x6539;&#x6E90;&#x7801;</h2>
+<p>source/processes/hadronic/cross_sections/src/G4ElectroNuclearCrossSection.cc &#x4E2D;&#x51FD;&#x6570; G4int G4ElectroNuclearCrossSection::GetFunctions(G4double a, G4double<em> xx, G4double</em> yy, G4double* zz) &#x9650;&#x5236;&#x4E86;&#x8D28;&#x91CF;&#x6570; a&gt;238.49</p>
+<h2 id="&#x5728;-bashrc&#x6216;&#x8005;geant4sh-&#x6700;&#x540E;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;">&#x5728; .bashrc&#x6216;&#x8005;geant4.sh &#x6700;&#x540E;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;</h2>
+<pre class="language-"><code class="lang-shell">
 export NeutronHPNames=1
 export NeutronHPNamesLogging=1
 export G4ParticleHPDebug=1
@@ -3122,10 +3169,19 @@ export AllowForHeavyElements=1
 
 
 # export DO_NOT_SET_PHP_AS_HP=1
-# export G4PHP_DO_NOT_ADJUST_FINAL_STATE=1</code></pre>
-<hr><h2 id="cross-sections-for-low-energy-charged-particle-transport">Cross-sections for low-energy charged particle transport</h2><p>The cross-section data for low-energy charged particle transport are organized in a set of files that are read at initialization, similarly to the case of low-energy neutron transport. The &#x201C;root&#x201D; directory of the cross-section directory structure is accessed through an environment variable, G4PARTICLEHPDATA, which has to be set by the user. This variable has to point to the directory where the low-energy charged particle data have been installed, e.g. G4TENDL1.3 for the Geant4 release 10.3 (note that the download of this data library from the Geant4 web site is not done automatically, i.e. it must be done manually by the user):</p><p>export G4PARTICLEHPDATA=/your/path/G4TENDL1.3/.</p><p>It is expected that the directory $G4PARTICLEHPDATA has the following five subdirectories, corresponding to the charged particles that can be handled by the low-energy charged particle transport: Proton/, Deuteron/, Triton/, He3/, Alpha/. It is possible for the user to overwrite the default directory structure with individual environment variables pointing to custom data libraries for each particle type. This is considered an advanced/expert user feature. These directories are set by the following environment variables: G4PROTONHPDATA, for proton; G4DEUTERONHPDATA, for deuteron; G4TRITONHPDATA, for triton; G4HE3HPDATA, for He3; G4ALPHAHPDATA, for alpha. Note that if any of these variables is not defined explicitly, e.g. G4TRITONHPDATA, then the corresponding data library is expected to be a subdirectory of $G4PARTICLEHPDATA/, e.g. $G4PARTICLEHPDATA/Triton/. If instead all the above five environmental variables are set, then G4PARTICLEHPDATA does not need to be specified; even if it is set, then its value will be ignored (because the per-particle ones take precedence).</p><hr><h2 id="&#x4E00;&#x4E9B;&#x6709;&#x7528;&#x5DE5;&#x5177;">&#x4E00;&#x4E9B;&#x6709;&#x7528;&#x5DE5;&#x5177;</h2><p>g4tools  <a href="https://softinex.lal.in2p3.fr/" target="_blank">https://softinex.lal.in2p3.fr/</a></p><p><a href="https://softinex.lal.in2p3.fr/inexlib/1.8.0_1/index.html" target="_blank">https://softinex.lal.in2p3.fr/inexlib/1.8.0_1/index.html</a></p><p>LLNL fission  <a href="https://nuclear.llnl.gov/simulation/" target="_blank">https://nuclear.llnl.gov/simulation/</a></p><!-- Geant4.md ends here -->
-
-
+# export G4PHP_DO_NOT_ADJUST_FINAL_STATE=1
+</code></pre>
+<hr>
+<h2 id="cross-sections-for-low-energy-charged-particle-transport">Cross-sections for low-energy charged particle transport</h2>
+<p>The cross-section data for low-energy charged particle transport are organized in a set of files that are read at initialization, similarly to the case of low-energy neutron transport. The &#x201C;root&#x201D; directory of the cross-section directory structure is accessed through an environment variable, G4PARTICLEHPDATA, which has to be set by the user. This variable has to point to the directory where the low-energy charged particle data have been installed, e.g. G4TENDL1.3 for the Geant4 release 10.3 (note that the download of this data library from the Geant4 web site is not done automatically, i.e. it must be done manually by the user):</p>
+<p>export G4PARTICLEHPDATA=/your/path/G4TENDL1.3/.</p>
+<p>It is expected that the directory $G4PARTICLEHPDATA has the following five subdirectories, corresponding to the charged particles that can be handled by the low-energy charged particle transport: Proton/, Deuteron/, Triton/, He3/, Alpha/. It is possible for the user to overwrite the default directory structure with individual environment variables pointing to custom data libraries for each particle type. This is considered an advanced/expert user feature. These directories are set by the following environment variables: G4PROTONHPDATA, for proton; G4DEUTERONHPDATA, for deuteron; G4TRITONHPDATA, for triton; G4HE3HPDATA, for He3; G4ALPHAHPDATA, for alpha. Note that if any of these variables is not defined explicitly, e.g. G4TRITONHPDATA, then the corresponding data library is expected to be a subdirectory of $G4PARTICLEHPDATA/, e.g. $G4PARTICLEHPDATA/Triton/. If instead all the above five environmental variables are set, then G4PARTICLEHPDATA does not need to be specified; even if it is set, then its value will be ignored (because the per-particle ones take precedence).</p>
+<hr>
+<h2 id="&#x4E00;&#x4E9B;&#x6709;&#x7528;&#x5DE5;&#x5177;">&#x4E00;&#x4E9B;&#x6709;&#x7528;&#x5DE5;&#x5177;</h2>
+<p>g4tools  <a href="https://softinex.lal.in2p3.fr/" target="_blank">https://softinex.lal.in2p3.fr/</a></p>
+<p><a href="https://softinex.lal.in2p3.fr/inexlib/1.8.0_1/index.html" target="_blank">https://softinex.lal.in2p3.fr/inexlib/1.8.0_1/index.html</a></p>
+<p>LLNL fission  <a href="https://nuclear.llnl.gov/simulation/" target="_blank">https://nuclear.llnl.gov/simulation/</a></p>
+<!-- Geant4.md ends here -->
 
                                 
                                 </section>
@@ -3165,7 +3221,7 @@ export AllowForHeavyElements=1
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"修改源码","level":"1.5","depth":1,"previous":{"title":"G4AdjointSteppingAction","level":"1.4.44.1","depth":3,"path":"class/G4AdjointSteppingAction.md","ref":"class/G4AdjointSteppingAction.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Geant4.md","mtime":"2018-05-14T08:51:59.278Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"修改源码","level":"1.5","depth":1,"previous":{"title":"G4AdjointSteppingAction","level":"1.4.44.1","depth":3,"path":"class/G4AdjointSteppingAction.md","ref":"class/G4AdjointSteppingAction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"Geant4.md","mtime":"2018-05-14T08:51:59.278Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -3173,6 +3229,14 @@ export AllowForHeavyElements=1
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>

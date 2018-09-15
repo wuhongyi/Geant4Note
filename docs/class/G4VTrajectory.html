@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4VTrajectory · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4VTrajectory · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,74 +3046,73 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4vtrajectory">G4VTrajectory</h1>
+<p>This class is the abstract base class which represents a trajectory of a particle tracked.<br>Its concrete class includes information of </p>
+<ul>
+<li>1) List of trajectory points which compose the trajectory,</li>
+<li>2) static information of particle which generated the trajectory, </li>
+<li>3) trackID and parent particle ID of the trajectory,</li>
+</ul>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"> <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
 
+<span class="token comment">// Constructor/Destrcutor</span>
 
-<h1 id="g4vtrajectory">G4VTrajectory</h1><p>This class is the abstract base class which represents a trajectory of a particle tracked.</p><p>Its concrete class includes information of</p><ul><li>1) List of trajectory points which compose the trajectory,
-</li>
-<li>2) static information of particle which generated the trajectory, 
-</li>
-<li>3) trackID and parent particle ID of the trajectory,
-</li></ul>
-<h2 id="class">class</h2><pre><code class="lang-cpp"> <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+   <span class="token function">G4VTrajectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4VTrajectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">// Constructor/Destrcutor</span>
+<span class="token comment">// Operators</span>
+   G4bool <span class="token keyword">operator</span> <span class="token operator">==</span> <span class="token punctuation">(</span><span class="token keyword">const</span> G4VTrajectory<span class="token operator">&amp;</span> right<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-   G4VTrajectory();
-   <span class="hljs-keyword">virtual</span> ~G4VTrajectory();
+<span class="token comment">// Get/Set functions </span>
+   <span class="token keyword">virtual</span> G4int <span class="token function">GetTrackID</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">virtual</span> G4int <span class="token function">GetParentID</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">virtual</span> G4String <span class="token function">GetParticleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">virtual</span> G4double <span class="token function">GetCharge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token comment">// Charge is that of G4DynamicParticle</span>
+   <span class="token keyword">virtual</span> G4int <span class="token function">GetPDGEncoding</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token comment">// Zero will be returned if the particle does not have PDG code.</span>
+   <span class="token keyword">virtual</span> G4ThreeVector <span class="token function">GetInitialMomentum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token comment">// Momentum at the origin of the track in global coordinate system.</span>
 
-<span class="hljs-comment">// Operators</span>
-   G4bool <span class="hljs-keyword">operator</span> == (<span class="hljs-keyword">const</span> G4VTrajectory&amp; right) <span class="hljs-keyword">const</span>;
+<span class="token comment">// Other member functions</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">int</span> <span class="token function">GetPointEntries</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token comment">// Returns the number of trajectory points</span>
+   <span class="token keyword">virtual</span> G4VTrajectoryPoint<span class="token operator">*</span> <span class="token function">GetPoint</span><span class="token punctuation">(</span>G4int i<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token comment">// Returns i-th trajectory point.</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">ShowTrajectory</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> os<span class="token operator">=</span>G4cout<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token comment">// Convert attributes in trajectory (and trajectory point if</span>
+   <span class="token comment">// needed) to ostream.  A default implementation in this base class</span>
+   <span class="token comment">// may be used or may be overridden in the concrete class.  Note:</span>
+   <span class="token comment">// the user needs to follow with new-line or end-of-string,</span>
+   <span class="token comment">// depending on the nature of os.</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">DrawTrajectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+   <span class="token comment">// Draw the trajectory.  A default implementation in this base</span>
+   <span class="token comment">// class may be used or may be overridden in the concrete class.</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">const</span> std<span class="token operator">::</span>map<span class="token operator">&lt;</span>G4String<span class="token punctuation">,</span>G4AttDef<span class="token operator">&gt;</span><span class="token operator">*</span> <span class="token function">GetAttDefs</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+   <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+   <span class="token comment">// If implemented by a derived class, returns a pointer to a map of</span>
+   <span class="token comment">// attribute definitions for the attribute values below.  The user</span>
+   <span class="token comment">// must test the validity of this pointer.  See G4Trajectory for an</span>
+   <span class="token comment">// example of a concrete implementation of this method.</span>
+   <span class="token keyword">virtual</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4AttValue<span class="token operator">&gt;</span><span class="token operator">*</span> <span class="token function">CreateAttValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
+   <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+   <span class="token comment">// If implemented by a derived class, returns a pointer to a list</span>
+   <span class="token comment">// of attribute values suitable, e.g., for picking.  Each must</span>
+   <span class="token comment">// refer to an attribute definition in the above map; its name is</span>
+   <span class="token comment">// the key.  The user must test the validity of this pointer (it</span>
+   <span class="token comment">// must be non-zero and conform to the G4AttDefs, which may be</span>
+   <span class="token comment">// checked with G4AttCheck) and delete the list after use.  See</span>
+   <span class="token comment">// G4Trajectory for an example of a concrete implementation of this</span>
+   <span class="token comment">// method and G4VTrajectory::ShowTrajectory for an example of its</span>
+   <span class="token comment">// use.</span>
 
-<span class="hljs-comment">// Get/Set functions </span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4int <span class="hljs-title">GetTrackID</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4int <span class="hljs-title">GetParentID</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4String <span class="hljs-title">GetParticleName</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetCharge</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-comment">// Charge is that of G4DynamicParticle</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4int <span class="hljs-title">GetPDGEncoding</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-comment">// Zero will be returned if the particle does not have PDG code.</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4ThreeVector <span class="hljs-title">GetInitialMomentum</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-comment">// Momentum at the origin of the track in global coordinate system.</span>
-
-<span class="hljs-comment">// Other member functions</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">int</span> <span class="hljs-title">GetPointEntries</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-comment">// Returns the number of trajectory points</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VTrajectoryPoint* <span class="hljs-title">GetPoint</span><span class="hljs-params">(G4int i)</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-comment">// Returns i-th trajectory point.</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ShowTrajectory</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; os=G4cout)</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-comment">// Convert attributes in trajectory (and trajectory point if</span>
-   <span class="hljs-comment">// needed) to ostream.  A default implementation in this base class</span>
-   <span class="hljs-comment">// may be used or may be overridden in the concrete class.  Note:</span>
-   <span class="hljs-comment">// the user needs to follow with new-line or end-of-string,</span>
-   <span class="hljs-comment">// depending on the nature of os.</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DrawTrajectory</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
-   <span class="hljs-comment">// Draw the trajectory.  A default implementation in this base</span>
-   <span class="hljs-comment">// class may be used or may be overridden in the concrete class.</span>
-   <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">map</span>&lt;G4String,G4AttDef&gt;* GetAttDefs() <span class="hljs-keyword">const</span>
-   { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
-   <span class="hljs-comment">// If implemented by a derived class, returns a pointer to a map of</span>
-   <span class="hljs-comment">// attribute definitions for the attribute values below.  The user</span>
-   <span class="hljs-comment">// must test the validity of this pointer.  See G4Trajectory for an</span>
-   <span class="hljs-comment">// example of a concrete implementation of this method.</span>
-   <span class="hljs-keyword">virtual</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4AttValue&gt;* CreateAttValues() <span class="hljs-keyword">const</span>
-   { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
-   <span class="hljs-comment">// If implemented by a derived class, returns a pointer to a list</span>
-   <span class="hljs-comment">// of attribute values suitable, e.g., for picking.  Each must</span>
-   <span class="hljs-comment">// refer to an attribute definition in the above map; its name is</span>
-   <span class="hljs-comment">// the key.  The user must test the validity of this pointer (it</span>
-   <span class="hljs-comment">// must be non-zero and conform to the G4AttDefs, which may be</span>
-   <span class="hljs-comment">// checked with G4AttCheck) and delete the list after use.  See</span>
-   <span class="hljs-comment">// G4Trajectory for an example of a concrete implementation of this</span>
-   <span class="hljs-comment">// method and G4VTrajectory::ShowTrajectory for an example of its</span>
-   <span class="hljs-comment">// use.</span>
-
- <span class="hljs-keyword">public</span>:
-   <span class="hljs-comment">// Following methods MUST be invoked exclusively by G4TrackingManager</span>
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">AppendStep</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Step* aStep)</span> </span>= <span class="hljs-number">0</span>;
-   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MergeTrajectory</span><span class="hljs-params">(G4VTrajectory* secondTrajectory)</span> </span>= <span class="hljs-number">0</span>;</code></pre>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+   <span class="token comment">// Following methods MUST be invoked exclusively by G4TrackingManager</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">AppendStep</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Step<span class="token operator">*</span> aStep<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">MergeTrajectory</span><span class="token punctuation">(</span>G4VTrajectory<span class="token operator">*</span> secondTrajectory<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4VTrajectory.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3149,7 +3156,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VTrajectory","level":"1.4.36","depth":2,"next":{"title":"G4Trajectory","level":"1.4.36.1","depth":3,"path":"class/G4Trajectory.md","ref":"class/G4Trajectory.md","articles":[]},"previous":{"title":"G4SteppingManager","level":"1.4.35","depth":2,"path":"class/G4SteppingManager.md","ref":"class/G4SteppingManager.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VTrajectory.md","mtime":"2018-09-02T04:43:57.223Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VTrajectory","level":"1.4.36","depth":2,"next":{"title":"G4Trajectory","level":"1.4.36.1","depth":3,"path":"class/G4Trajectory.md","ref":"class/G4Trajectory.md","articles":[]},"previous":{"title":"G4SteppingManager","level":"1.4.35","depth":2,"path":"class/G4SteppingManager.md","ref":"class/G4SteppingManager.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VTrajectory.md","mtime":"2018-09-02T04:43:57.223Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3157,6 +3164,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

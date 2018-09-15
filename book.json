@@ -1,0 +1,21 @@
+{
+    "title": "Geant4 Note",
+    "description": "吴鸿毅笔记",
+    "author": "Hongyi Wu(吴鸿毅)",
+    "language": "zh",
+    "plugins": [
+	"github",
+	"prism",
+	"highlight",
+	"splitter",
+	"sitemap"
+    ],
+    "pluginsConfig": {
+	"github": {
+	    "url": "https://github.com/wuhongyi"
+	},
+	"sitemap": {
+            "hostname": "http://wuhongyi.cn/"
+	}
+    }
+}

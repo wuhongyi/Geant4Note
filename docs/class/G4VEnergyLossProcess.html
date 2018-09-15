@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4VEnergyLossProcess · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4VEnergyLossProcess · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,362 +3046,362 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 3
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4venergylossprocess">G4VEnergyLossProcess</h1>
+<p>It is the unified energy loss process it calculates the continuous energy loss for charged particles using a set of Energy Loss models valid for different energy regions. There are a possibility to create and access to dE/dx and range tables, or to calculate that information on fly.</p>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
 
+  <span class="token function">G4VEnergyLossProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> name <span class="token operator">=</span> <span class="token string">&quot;EnergyLoss&quot;</span><span class="token punctuation">,</span>
+                       G4ProcessType type <span class="token operator">=</span> fElectromagnetic<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h1 id="g4venergylossprocess">G4VEnergyLossProcess</h1><p>It is the unified energy loss process it calculates the continuous energy loss for charged particles using a set of Energy Loss models valid for different energy regions. There are a possibility to create and access to dE/dx and range tables, or to calculate that information on fly.</p><h2 id="class">class</h2><pre><code class="lang-cpp">public:
+  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4VEnergyLossProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  G4VEnergyLossProcess(const G4String&amp; name = &quot;EnergyLoss&quot;,
-                       G4ProcessType type = fElectromagnetic);
+<span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token comment">// clean vectors and arrays</span>
+  <span class="token keyword">void</span> <span class="token function">Clean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  virtual ~G4VEnergyLossProcess();
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Virtual methods to be implemented in concrete processes</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-private:
-  // clean vectors and arrays
-  void Clean();
+<span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">virtual</span> G4bool <span class="token function">IsApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span> p<span class="token punctuation">)</span> override <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-  //------------------------------------------------------------------------
-  // Virtual methods to be implemented in concrete processes
-  //------------------------------------------------------------------------
+  <span class="token comment">// obsolete to be removed</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">PrintInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-public:
-  virtual G4bool IsApplicable(const G4ParticleDefinition&amp; p) override = 0;
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">ProcessDescription</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> outFile<span class="token punctuation">)</span> <span class="token keyword">const</span> override<span class="token punctuation">;</span>
+
+<span class="token keyword">protected</span><span class="token operator">:</span>
 
-  // obsolete to be removed
-  virtual void PrintInfo() {};
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">StreamProcessInfo</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span><span class="token punctuation">,</span> G4String<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-  virtual void ProcessDescription(std::ostream&amp; outFile) const override;
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">InitialiseEnergyLossProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                                           <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-protected:
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Methods with standard implementation; may be overwritten if needed </span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-  virtual void StreamProcessInfo(std::ostream&amp;, G4String) const {};
+  <span class="token keyword">virtual</span> G4double <span class="token function">MinPrimaryEnergy</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                                    <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> G4double cut<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  virtual void InitialiseEnergyLossProcess(const G4ParticleDefinition*,
-                                           const G4ParticleDefinition*) = 0;
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Virtual methods implementation common to all EM ContinuousDiscrete </span>
+  <span class="token comment">// processes. Further inheritance is not assumed </span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-  //------------------------------------------------------------------------
-  // Methods with standard implementation; may be overwritten if needed 
-  //------------------------------------------------------------------------
+<span class="token keyword">public</span><span class="token operator">:</span>
 
-  virtual G4double MinPrimaryEnergy(const G4ParticleDefinition*,
-                                    const G4Material*, G4double cut);
+  <span class="token comment">// prepare all tables</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">PreparePhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-  //------------------------------------------------------------------------
-  // Virtual methods implementation common to all EM ContinuousDiscrete 
-  // processes. Further inheritance is not assumed 
-  //------------------------------------------------------------------------
+  <span class="token comment">// build all tables</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">BuildPhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-public:
+  <span class="token comment">// build a table</span>
+  G4PhysicsTable<span class="token operator">*</span> <span class="token function">BuildDEDXTable</span><span class="token punctuation">(</span>G4EmTableType tType <span class="token operator">=</span> fRestricted<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // prepare all tables
-  virtual void PreparePhysicsTable(const G4ParticleDefinition&amp;) override;
+  <span class="token comment">// build a table</span>
+  G4PhysicsTable<span class="token operator">*</span> <span class="token function">BuildLambdaTable</span><span class="token punctuation">(</span>G4EmTableType tType <span class="token operator">=</span> fRestricted<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Called before tracking of each new G4Track</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">StartTracking</span><span class="token punctuation">(</span>G4Track<span class="token operator">*</span><span class="token punctuation">)</span> override<span class="token punctuation">;</span>
+
+  <span class="token comment">// Step limit from AlongStep </span>
+  <span class="token keyword">virtual</span> G4double <span class="token function">AlongStepGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
+                                  <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">,</span>
+                                  G4double  previousStepSize<span class="token punctuation">,</span>
+                                  G4double  currentMinimumStep<span class="token punctuation">,</span>
+                                  G4double<span class="token operator">&amp;</span> currentSafety<span class="token punctuation">,</span>
+                                  G4GPILSelection<span class="token operator">*</span> selection<span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-  // build all tables
-  virtual void BuildPhysicsTable(const G4ParticleDefinition&amp;) override;
+  <span class="token comment">// Step limit from cross section</span>
+  <span class="token keyword">virtual</span> G4double <span class="token function">PostStepGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
+                                  <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
+                                  G4double   previousStepSize<span class="token punctuation">,</span>
+                                  G4ForceCondition<span class="token operator">*</span> condition<span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-  // build a table
-  G4PhysicsTable* BuildDEDXTable(G4EmTableType tType = fRestricted);
+  <span class="token comment">// AlongStep computations</span>
+  <span class="token keyword">virtual</span> G4VParticleChange<span class="token operator">*</span> <span class="token function">AlongStepDoIt</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">,</span> 
+                                           <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span><span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-  // build a table
-  G4PhysicsTable* BuildLambdaTable(G4EmTableType tType = fRestricted);
+  <span class="token comment">// Sampling of secondaries in vicinity of geometrical boundary</span>
+  <span class="token comment">// Return sum of secodaries energy </span>
+  G4double <span class="token function">SampleSubCutSecondaries</span><span class="token punctuation">(</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4Track<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span><span class="token punctuation">,</span> <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span><span class="token punctuation">,</span> 
+                                   G4VEmModel<span class="token operator">*</span> model<span class="token punctuation">,</span> G4int matIdx<span class="token punctuation">)</span><span class="token punctuation">;</span> 
 
-  // Called before tracking of each new G4Track
-  virtual void StartTracking(G4Track*) override;
+  <span class="token comment">// PostStep sampling of secondaries</span>
+  <span class="token keyword">virtual</span> G4VParticleChange<span class="token operator">*</span> <span class="token function">PostStepDoIt</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">,</span> 
+                                          <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span><span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-  // Step limit from AlongStep 
-  virtual G4double AlongStepGetPhysicalInteractionLength(
-                                  const G4Track&amp;,
-                                  G4double  previousStepSize,
-                                  G4double  currentMinimumStep,
-                                  G4double&amp; currentSafety,
-                                  G4GPILSelection* selection) override;
+  <span class="token comment">// Store all PhysicsTable in files.</span>
+  <span class="token comment">// Return false in case of any fatal failure at I/O  </span>
+  <span class="token keyword">virtual</span> G4bool <span class="token function">StorePhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> directory<span class="token punctuation">,</span>
+                                   G4bool ascii <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> override<span class="token punctuation">;</span>
+
+  <span class="token comment">// Retrieve all Physics from a files.</span>
+  <span class="token comment">// Return true if all the Physics Table are built.</span>
+  <span class="token comment">// Return false if any fatal failure. </span>
+  <span class="token keyword">virtual</span> G4bool <span class="token function">RetrievePhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                                      <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> directory<span class="token punctuation">,</span>
+                                      G4bool ascii<span class="token punctuation">)</span> override<span class="token punctuation">;</span>
+
+<span class="token keyword">private</span><span class="token operator">:</span>
 
-  // Step limit from cross section
-  virtual G4double PostStepGetPhysicalInteractionLength(
-                                  const G4Track&amp; track,
-                                  G4double   previousStepSize,
-                                  G4ForceCondition* condition) override;
+  <span class="token comment">// summary printout after initialisation</span>
+  <span class="token keyword">void</span> <span class="token function">StreamInfo</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> out<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span> part<span class="token punctuation">,</span>
+                  G4String endOfLine<span class="token operator">=</span><span class="token function">G4String</span><span class="token punctuation">(</span><span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  // AlongStep computations
-  virtual G4VParticleChange* AlongStepDoIt(const G4Track&amp;, 
-                                           const G4Step&amp;) override;
+  <span class="token comment">// store a table</span>
+  G4bool <span class="token function">StoreTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> p<span class="token punctuation">,</span> 
+                    G4PhysicsTable<span class="token operator">*</span><span class="token punctuation">,</span> G4bool ascii<span class="token punctuation">,</span>
+                    <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> directory<span class="token punctuation">,</span> 
+                    <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> tname<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // Sampling of secondaries in vicinity of geometrical boundary
-  // Return sum of secodaries energy 
-  G4double SampleSubCutSecondaries(std::vector&lt;G4Track*&gt;&amp;, const G4Step&amp;, 
-                                   G4VEmModel* model, G4int matIdx); 
+  <span class="token comment">// retrieve a table</span>
+  G4bool <span class="token function">RetrieveTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> p<span class="token punctuation">,</span> 
+                       G4PhysicsTable<span class="token operator">*</span><span class="token punctuation">,</span> G4bool ascii<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> directory<span class="token punctuation">,</span> 
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> tname<span class="token punctuation">,</span> 
+                       G4bool mandatory<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // PostStep sampling of secondaries
-  virtual G4VParticleChange* PostStepDoIt(const G4Track&amp;, 
-                                          const G4Step&amp;) override;
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Public interface to cross section, mfp and sampling of fluctuations</span>
+  <span class="token comment">// These methods are not used in run time</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
+
+<span class="token keyword">public</span><span class="token operator">:</span>
 
-  // Store all PhysicsTable in files.
-  // Return false in case of any fatal failure at I/O  
-  virtual G4bool StorePhysicsTable(const G4ParticleDefinition*,
-                                   const G4String&amp; directory,
-                                   G4bool ascii = false) override;
+  <span class="token comment">// access to dispersion of restricted energy loss</span>
+  G4double <span class="token function">GetDEDXDispersion</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4MaterialCutsCouple <span class="token operator">*</span>couple<span class="token punctuation">,</span>
+                             <span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span> dp<span class="token punctuation">,</span>
+                             G4double length<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // Retrieve all Physics from a files.
-  // Return true if all the Physics Table are built.
-  // Return false if any fatal failure. 
-  virtual G4bool RetrievePhysicsTable(const G4ParticleDefinition*,
-                                      const G4String&amp; directory,
-                                      G4bool ascii) override;
+  <span class="token comment">// Access to cross section table</span>
+  G4double <span class="token function">CrossSectionPerVolume</span><span class="token punctuation">(</span>G4double kineticEnergy<span class="token punctuation">,</span>
+                                 <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span> couple<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-private:
+  <span class="token comment">// access to cross section</span>
+  G4double <span class="token function">MeanFreePath</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // summary printout after initialisation
-  void StreamInfo(std::ostream&amp; out, const G4ParticleDefinition&amp; part,
-                  G4String endOfLine=G4String(&quot;\n&quot;)) const;
+  <span class="token comment">// access to step limit</span>
+  G4double <span class="token function">ContinuousStepLimit</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
+                               G4double previousStepSize<span class="token punctuation">,</span>
+                               G4double currentMinimumStep<span class="token punctuation">,</span>
+                               G4double<span class="token operator">&amp;</span> currentSafety<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // store a table
-  G4bool StoreTable(const G4ParticleDefinition* p, 
-                    G4PhysicsTable*, G4bool ascii,
-                    const G4String&amp; directory, 
-                    const G4String&amp; tname);
+<span class="token keyword">protected</span><span class="token operator">:</span>
 
-  // retrieve a table
-  G4bool RetrieveTable(const G4ParticleDefinition* p, 
-                       G4PhysicsTable*, G4bool ascii,
-                       const G4String&amp; directory, 
-                       const G4String&amp; tname, 
-                       G4bool mandatory);
+  <span class="token comment">// implementation of the pure virtual method</span>
+  <span class="token keyword">virtual</span> G4double <span class="token function">GetMeanFreePath</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
+                                   G4double previousStepSize<span class="token punctuation">,</span>
+                                   G4ForceCondition<span class="token operator">*</span> condition<span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-  //------------------------------------------------------------------------
-  // Public interface to cross section, mfp and sampling of fluctuations
-  // These methods are not used in run time
-  //------------------------------------------------------------------------
+  <span class="token comment">// implementation of the pure virtual method</span>
+  <span class="token keyword">virtual</span> G4double <span class="token function">GetContinuousStepLimit</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
+                                          G4double previousStepSize<span class="token punctuation">,</span>
+                                          G4double currentMinimumStep<span class="token punctuation">,</span>
+                                          G4double<span class="token operator">&amp;</span> currentSafety<span class="token punctuation">)</span> override<span class="token punctuation">;</span>
 
-public:
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Run time method which may be also used by derived processes</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-  // access to dispersion of restricted energy loss
-  G4double GetDEDXDispersion(const G4MaterialCutsCouple *couple,
-                             const G4DynamicParticle* dp,
-                             G4double length);
+  <span class="token comment">// creeation of an empty vector for cross section</span>
+  G4PhysicsVector<span class="token operator">*</span> <span class="token function">LambdaPhysicsVector</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">,</span> 
+                                       G4double cut<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // Access to cross section table
-  G4double CrossSectionPerVolume(G4double kineticEnergy,
-                                 const G4MaterialCutsCouple* couple);
+  <span class="token keyword">inline</span> size_t <span class="token function">CurrentMaterialCutsCoupleIndex</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  // access to cross section
-  G4double MeanFreePath(const G4Track&amp; track);
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Specific methods to set, access, modify models</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
 
-  // access to step limit
-  G4double ContinuousStepLimit(const G4Track&amp; track,
-                               G4double previousStepSize,
-                               G4double currentMinimumStep,
-                               G4double&amp; currentSafety);
+  <span class="token comment">// Select model in run time</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SelectModel</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-protected:
+<span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token comment">// Select model by energy and region index</span>
+  <span class="token keyword">inline</span> G4VEmModel<span class="token operator">*</span> <span class="token function">SelectModelForMaterial</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> 
+                                            size_t<span class="token operator">&amp;</span> idx<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  // implementation of the pure virtual method
-  virtual G4double GetMeanFreePath(const G4Track&amp; track,
-                                   G4double previousStepSize,
-                                   G4ForceCondition* condition) override;
+  <span class="token comment">// Add EM model coupled with fluctuation model for region, smaller value </span>
+  <span class="token comment">// of order defines which pair of models will be selected for a given </span>
+  <span class="token comment">// energy interval  </span>
+  <span class="token keyword">void</span> <span class="token function">AddEmModel</span><span class="token punctuation">(</span>G4int<span class="token punctuation">,</span> G4VEmModel<span class="token operator">*</span><span class="token punctuation">,</span> 
+                  G4VEmFluctuationModel<span class="token operator">*</span> fluc <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+                  <span class="token keyword">const</span> G4Region<span class="token operator">*</span> region <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // implementation of the pure virtual method
-  virtual G4double GetContinuousStepLimit(const G4Track&amp; track,
-                                          G4double previousStepSize,
-                                          G4double currentMinimumStep,
-                                          G4double&amp; currentSafety) override;
+  <span class="token comment">// Define new energy range for the model identified by the name</span>
+  <span class="token keyword">void</span> <span class="token function">UpdateEmModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">,</span> G4double<span class="token punctuation">,</span> G4double<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  //------------------------------------------------------------------------
-  // Run time method which may be also used by derived processes
-  //------------------------------------------------------------------------
+  <span class="token comment">// Assign a model to a process local list, to enable the list in run time </span>
+  <span class="token comment">// the derived process should execute AddEmModel(..) for all such models</span>
+  <span class="token keyword">void</span> <span class="token function">SetEmModel</span><span class="token punctuation">(</span>G4VEmModel<span class="token operator">*</span><span class="token punctuation">,</span> G4int index<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // creeation of an empty vector for cross section
-  G4PhysicsVector* LambdaPhysicsVector(const G4MaterialCutsCouple*, 
-                                       G4double cut);
-
-  inline size_t CurrentMaterialCutsCoupleIndex() const;
-
-  //------------------------------------------------------------------------
-  // Specific methods to set, access, modify models
-  //------------------------------------------------------------------------
-
-  // Select model in run time
-  inline void SelectModel(G4double kinEnergy);
-
-public:
-  // Select model by energy and region index
-  inline G4VEmModel* SelectModelForMaterial(G4double kinEnergy, 
-                                            size_t&amp; idx) const;
-
-  // Add EM model coupled with fluctuation model for region, smaller value 
-  // of order defines which pair of models will be selected for a given 
-  // energy interval  
-  void AddEmModel(G4int, G4VEmModel*, 
-                  G4VEmFluctuationModel* fluc = 0,
-                  const G4Region* region = nullptr);
-
-  // Define new energy range for the model identified by the name
-  void UpdateEmModel(const G4String&amp;, G4double, G4double);
-
-  // Assign a model to a process local list, to enable the list in run time 
-  // the derived process should execute AddEmModel(..) for all such models
-  void SetEmModel(G4VEmModel*, G4int index=0);
-
-  // return a model from the local list
-  G4VEmModel* EmModel(size_t index=0) const;
-
-  // Access to models
-  G4VEmModel* GetModelByIndex(G4int idx = 0, G4bool ver = false) const;
-
-  G4int NumberOfModels() const;
-
-  // Assign a fluctuation model to a process
-  inline void SetFluctModel(G4VEmFluctuationModel*);
-
-  // return the assigned fluctuation model
-  inline G4VEmFluctuationModel* FluctModel();
-
-  //------------------------------------------------------------------------
-  // Define and access particle type 
-  //------------------------------------------------------------------------
-
-protected:
-  inline void SetParticle(const G4ParticleDefinition* p);
-  inline void SetSecondaryParticle(const G4ParticleDefinition* p);
-
-public:
-  inline void SetBaseParticle(const G4ParticleDefinition* p);
-  inline const G4ParticleDefinition* Particle() const;
-  inline const G4ParticleDefinition* BaseParticle() const;
-  inline const G4ParticleDefinition* SecondaryParticle() const;
-
-  //------------------------------------------------------------------------
-  // Get/set parameters to configure the process at initialisation time
-  //------------------------------------------------------------------------
-
-  // Add subcutoff option for the region
-  void ActivateSubCutoff(G4bool val, const G4Region* region = nullptr);
-
-  // Activate biasing
-  void SetCrossSectionBiasingFactor(G4double f, G4bool flag = true);
-
-  void ActivateForcedInteraction(G4double length, 
-                                 const G4String&amp; region,
-                                 G4bool flag = true);
-
-  void ActivateSecondaryBiasing(const G4String&amp; region, G4double factor,
-                                G4double energyLimit);
-
-  // Add subcutoff process (bremsstrahlung) to sample secondary 
-  // particle production in vicinity of the geometry boundary
-  void AddCollaborativeProcess(G4VEnergyLossProcess*);
-
-  inline void SetLossFluctuations(G4bool val);
-
-  inline void SetIntegral(G4bool val);
-  inline G4bool IsIntegral() const;
-
-  // Set/Get flag &quot;isIonisation&quot;
-  void SetIonisation(G4bool val);
-  inline G4bool IsIonisationProcess() const;
-
-  // Redefine parameteters for stepping control
-  void SetLinearLossLimit(G4double val);
-  void SetStepFunction(G4double v1, G4double v2, G4bool lock=true);
-  void SetLowestEnergyLimit(G4double);
-
-  inline G4int NumberOfSubCutoffRegions() const;
-
-  //------------------------------------------------------------------------
-  // Specific methods to path Physics Tables to the process
-  //------------------------------------------------------------------------
-
-  void SetDEDXTable(G4PhysicsTable* p, G4EmTableType tType);
-  void SetCSDARangeTable(G4PhysicsTable* pRange);
-  void SetRangeTableForLoss(G4PhysicsTable* p);
-  void SetSecondaryRangeTable(G4PhysicsTable* p);
-  void SetInverseRangeTable(G4PhysicsTable* p);
-
-  void SetLambdaTable(G4PhysicsTable* p);
-  void SetSubLambdaTable(G4PhysicsTable* p);
-
-  // Binning for dEdx, range, inverse range and labda tables
-  void SetDEDXBinning(G4int nbins);
-
-  // Min kinetic energy for tables
-  void SetMinKinEnergy(G4double e);
-  inline G4double MinKinEnergy() const;
-
-  // Max kinetic energy for tables
-  void SetMaxKinEnergy(G4double e);
-  inline G4double MaxKinEnergy() const;
-
-  // Biasing parameters
-  inline G4double CrossSectionBiasingFactor() const;
-
-  // Return values for given G4MaterialCutsCouple
-  inline G4double GetDEDX(G4double&amp; kineticEnergy, 
-                          const G4MaterialCutsCouple*);
-  inline G4double GetDEDXForSubsec(G4double&amp; kineticEnergy, 
-                                   const G4MaterialCutsCouple*);
-  inline G4double GetRange(G4double&amp; kineticEnergy, 
-                           const G4MaterialCutsCouple*);
-  inline G4double GetCSDARange(G4double&amp; kineticEnergy, 
-                               const G4MaterialCutsCouple*);
-  inline G4double GetRangeForLoss(G4double&amp; kineticEnergy, 
-                                  const G4MaterialCutsCouple*);
-  inline G4double GetKineticEnergy(G4double&amp; range, 
-                                   const G4MaterialCutsCouple*);
-  inline G4double GetLambda(G4double&amp; kineticEnergy, 
-                            const G4MaterialCutsCouple*);
-
-  inline G4bool TablesAreBuilt() const;
-
-  // Access to specific tables
-  inline G4PhysicsTable* DEDXTable() const;
-  inline G4PhysicsTable* DEDXTableForSubsec() const;
-  inline G4PhysicsTable* DEDXunRestrictedTable() const;
-  inline G4PhysicsTable* IonisationTable() const;
-  inline G4PhysicsTable* IonisationTableForSubsec() const;
-  inline G4PhysicsTable* CSDARangeTable() const;
-  inline G4PhysicsTable* SecondaryRangeTable() const;
-  inline G4PhysicsTable* RangeTableForLoss() const;
-  inline G4PhysicsTable* InverseRangeTable() const;
-  inline G4PhysicsTable* LambdaTable() const;
-  inline G4PhysicsTable* SubLambdaTable() const;
-
-  //------------------------------------------------------------------------
-  // Run time method for simulation of ionisation
-  //------------------------------------------------------------------------
-
-  // access atom on which interaction happens
-  const G4Element* GetCurrentElement() const;
-
-  // Set scaling parameters for ions is needed to G4EmCalculator
-  inline void SetDynamicMassCharge(G4double massratio, G4double charge2ratio);
-
-private:
-
-  void FillSecondariesAlongStep(G4double&amp; eloss, G4double&amp; weight);
-
-  void PrintWarning(G4String, G4double val);
-
-  // define material and indexes
-  inline void DefineMaterial(const G4MaterialCutsCouple* couple);
-
-  //------------------------------------------------------------------------
-  // Compute values using scaling relation, mass and charge of based particle
-  //------------------------------------------------------------------------
-
-  inline G4double GetDEDXForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetSubDEDXForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetIonisationForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetSubIonisationForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetScaledRangeForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double GetLimitScaledRangeForScaledEnergy(G4double scaledKinEnergy);
-  inline G4double ScaledKinEnergyForLoss(G4double range);
-  inline G4double GetLambdaForScaledEnergy(G4double scaledKinEnergy);
-  inline void ComputeLambdaForScaledEnergy(G4double scaledKinEnergy);
-
-  // hide  assignment operator
-  G4VEnergyLossProcess(G4VEnergyLossProcess &amp;) = delete;
-  G4VEnergyLossProcess &amp; operator=(const G4VEnergyLossProcess &amp;right) = delete;</code></pre>
+  <span class="token comment">// return a model from the local list</span>
+  G4VEmModel<span class="token operator">*</span> <span class="token function">EmModel</span><span class="token punctuation">(</span>size_t index<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Access to models</span>
+  G4VEmModel<span class="token operator">*</span> <span class="token function">GetModelByIndex</span><span class="token punctuation">(</span>G4int idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> G4bool ver <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  G4int <span class="token function">NumberOfModels</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Assign a fluctuation model to a process</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetFluctModel</span><span class="token punctuation">(</span>G4VEmFluctuationModel<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// return the assigned fluctuation model</span>
+  <span class="token keyword">inline</span> G4VEmFluctuationModel<span class="token operator">*</span> <span class="token function">FluctModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Define and access particle type </span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
+
+<span class="token keyword">protected</span><span class="token operator">:</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetSecondaryParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetBaseParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token function">Particle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token function">BaseParticle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token function">SecondaryParticle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Get/set parameters to configure the process at initialisation time</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
+
+  <span class="token comment">// Add subcutoff option for the region</span>
+  <span class="token keyword">void</span> <span class="token function">ActivateSubCutoff</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">,</span> <span class="token keyword">const</span> G4Region<span class="token operator">*</span> region <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Activate biasing</span>
+  <span class="token keyword">void</span> <span class="token function">SetCrossSectionBiasingFactor</span><span class="token punctuation">(</span>G4double f<span class="token punctuation">,</span> G4bool flag <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">void</span> <span class="token function">ActivateForcedInteraction</span><span class="token punctuation">(</span>G4double length<span class="token punctuation">,</span> 
+                                 <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span>
+                                 G4bool flag <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">void</span> <span class="token function">ActivateSecondaryBiasing</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span> G4double factor<span class="token punctuation">,</span>
+                                G4double energyLimit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Add subcutoff process (bremsstrahlung) to sample secondary </span>
+  <span class="token comment">// particle production in vicinity of the geometry boundary</span>
+  <span class="token keyword">void</span> <span class="token function">AddCollaborativeProcess</span><span class="token punctuation">(</span>G4VEnergyLossProcess<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetLossFluctuations</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetIntegral</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4bool <span class="token function">IsIntegral</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Set/Get flag &quot;isIonisation&quot;</span>
+  <span class="token keyword">void</span> <span class="token function">SetIonisation</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4bool <span class="token function">IsIonisationProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Redefine parameteters for stepping control</span>
+  <span class="token keyword">void</span> <span class="token function">SetLinearLossLimit</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetStepFunction</span><span class="token punctuation">(</span>G4double v1<span class="token punctuation">,</span> G4double v2<span class="token punctuation">,</span> G4bool lock<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetLowestEnergyLimit</span><span class="token punctuation">(</span>G4double<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">inline</span> G4int <span class="token function">NumberOfSubCutoffRegions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Specific methods to path Physics Tables to the process</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
+
+  <span class="token keyword">void</span> <span class="token function">SetDEDXTable</span><span class="token punctuation">(</span>G4PhysicsTable<span class="token operator">*</span> p<span class="token punctuation">,</span> G4EmTableType tType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetCSDARangeTable</span><span class="token punctuation">(</span>G4PhysicsTable<span class="token operator">*</span> pRange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetRangeTableForLoss</span><span class="token punctuation">(</span>G4PhysicsTable<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetSecondaryRangeTable</span><span class="token punctuation">(</span>G4PhysicsTable<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetInverseRangeTable</span><span class="token punctuation">(</span>G4PhysicsTable<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">void</span> <span class="token function">SetLambdaTable</span><span class="token punctuation">(</span>G4PhysicsTable<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">SetSubLambdaTable</span><span class="token punctuation">(</span>G4PhysicsTable<span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Binning for dEdx, range, inverse range and labda tables</span>
+  <span class="token keyword">void</span> <span class="token function">SetDEDXBinning</span><span class="token punctuation">(</span>G4int nbins<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Min kinetic energy for tables</span>
+  <span class="token keyword">void</span> <span class="token function">SetMinKinEnergy</span><span class="token punctuation">(</span>G4double e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">MinKinEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Max kinetic energy for tables</span>
+  <span class="token keyword">void</span> <span class="token function">SetMaxKinEnergy</span><span class="token punctuation">(</span>G4double e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">MaxKinEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Biasing parameters</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">CrossSectionBiasingFactor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Return values for given G4MaterialCutsCouple</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetDEDX</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> kineticEnergy<span class="token punctuation">,</span> 
+                          <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetDEDXForSubsec</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> kineticEnergy<span class="token punctuation">,</span> 
+                                   <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetRange</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> kineticEnergy<span class="token punctuation">,</span> 
+                           <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetCSDARange</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> kineticEnergy<span class="token punctuation">,</span> 
+                               <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetRangeForLoss</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> kineticEnergy<span class="token punctuation">,</span> 
+                                  <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetKineticEnergy</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> range<span class="token punctuation">,</span> 
+                                   <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetLambda</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> kineticEnergy<span class="token punctuation">,</span> 
+                            <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">inline</span> G4bool <span class="token function">TablesAreBuilt</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Access to specific tables</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">DEDXTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">DEDXTableForSubsec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">DEDXunRestrictedTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">IonisationTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">IonisationTableForSubsec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">CSDARangeTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">SecondaryRangeTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">RangeTableForLoss</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">InverseRangeTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">LambdaTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4PhysicsTable<span class="token operator">*</span> <span class="token function">SubLambdaTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Run time method for simulation of ionisation</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
+
+  <span class="token comment">// access atom on which interaction happens</span>
+  <span class="token keyword">const</span> G4Element<span class="token operator">*</span> <span class="token function">GetCurrentElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Set scaling parameters for ions is needed to G4EmCalculator</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetDynamicMassCharge</span><span class="token punctuation">(</span>G4double massratio<span class="token punctuation">,</span> G4double charge2ratio<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">private</span><span class="token operator">:</span>
+
+  <span class="token keyword">void</span> <span class="token function">FillSecondariesAlongStep</span><span class="token punctuation">(</span>G4double<span class="token operator">&amp;</span> eloss<span class="token punctuation">,</span> G4double<span class="token operator">&amp;</span> weight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">void</span> <span class="token function">PrintWarning</span><span class="token punctuation">(</span>G4String<span class="token punctuation">,</span> G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// define material and indexes</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">DefineMaterial</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span> couple<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//------------------------------------------------------------------------</span>
+  <span class="token comment">// Compute values using scaling relation, mass and charge of based particle</span>
+  <span class="token comment">//------------------------------------------------------------------------</span>
+
+  <span class="token keyword">inline</span> G4double <span class="token function">GetDEDXForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetSubDEDXForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetIonisationForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetSubIonisationForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetScaledRangeForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetLimitScaledRangeForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ScaledKinEnergyForLoss</span><span class="token punctuation">(</span>G4double range<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetLambdaForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">ComputeLambdaForScaledEnergy</span><span class="token punctuation">(</span>G4double scaledKinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// hide  assignment operator</span>
+  <span class="token function">G4VEnergyLossProcess</span><span class="token punctuation">(</span>G4VEnergyLossProcess <span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+  G4VEnergyLossProcess <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VEnergyLossProcess <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4VEnergyLossProcess.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3437,7 +3445,7 @@ private:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VEnergyLossProcess","level":"1.4.17.1.1","depth":4,"next":{"title":"G4hIonisation","level":"1.4.17.1.1.1","depth":5,"path":"class/G4hIonisation.md","ref":"class/G4hIonisation.md","articles":[]},"previous":{"title":"G4VContinuousDiscreteProcess","level":"1.4.17.1","depth":3,"path":"class/G4VContinuousDiscreteProcess.md","ref":"class/G4VContinuousDiscreteProcess.md","articles":[{"title":"G4VEnergyLossProcess","level":"1.4.17.1.1","depth":4,"path":"class/G4VEnergyLossProcess.md","ref":"class/G4VEnergyLossProcess.md","articles":[{"title":"G4hIonisation","level":"1.4.17.1.1.1","depth":5,"path":"class/G4hIonisation.md","ref":"class/G4hIonisation.md","articles":[]},{"title":"G4ionIonisation","level":"1.4.17.1.1.2","depth":5,"path":"class/G4ionIonisation.md","ref":"class/G4ionIonisation.md","articles":[]},{"title":"G4eIonisation","level":"1.4.17.1.1.3","depth":5,"path":"class/G4eIonisation.md","ref":"class/G4eIonisation.md","articles":[]},{"title":"G4eBremsstrahlung","level":"1.4.17.1.1.4","depth":5,"path":"class/G4eBremsstrahlung.md","ref":"class/G4eBremsstrahlung.md","articles":[]},{"title":"G4ePairProduction","level":"1.4.17.1.1.5","depth":5,"path":"class/G4ePairProduction.md","ref":"class/G4ePairProduction.md","articles":[]}]},{"title":"G4VMultipleScattering","level":"1.4.17.1.2","depth":4,"path":"class/G4VMultipleScattering.md","ref":"class/G4VMultipleScattering.md","articles":[{"title":"G4eMultipleScattering","level":"1.4.17.1.2.1","depth":5,"path":"class/G4eMultipleScattering.md","ref":"class/G4eMultipleScattering.md","articles":[]},{"title":"G4hMultipleScattering","level":"1.4.17.1.2.2","depth":5,"path":"class/G4hMultipleScattering.md","ref":"class/G4hMultipleScattering.md","articles":[]}]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4VEnergyLossProcess.md","mtime":"2018-07-13T18:44:26.140Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VEnergyLossProcess","level":"1.4.17.1.1","depth":4,"next":{"title":"G4hIonisation","level":"1.4.17.1.1.1","depth":5,"path":"class/G4hIonisation.md","ref":"class/G4hIonisation.md","articles":[]},"previous":{"title":"G4VContinuousDiscreteProcess","level":"1.4.17.1","depth":3,"path":"class/G4VContinuousDiscreteProcess.md","ref":"class/G4VContinuousDiscreteProcess.md","articles":[{"title":"G4VEnergyLossProcess","level":"1.4.17.1.1","depth":4,"path":"class/G4VEnergyLossProcess.md","ref":"class/G4VEnergyLossProcess.md","articles":[{"title":"G4hIonisation","level":"1.4.17.1.1.1","depth":5,"path":"class/G4hIonisation.md","ref":"class/G4hIonisation.md","articles":[]},{"title":"G4ionIonisation","level":"1.4.17.1.1.2","depth":5,"path":"class/G4ionIonisation.md","ref":"class/G4ionIonisation.md","articles":[]},{"title":"G4eIonisation","level":"1.4.17.1.1.3","depth":5,"path":"class/G4eIonisation.md","ref":"class/G4eIonisation.md","articles":[]},{"title":"G4eBremsstrahlung","level":"1.4.17.1.1.4","depth":5,"path":"class/G4eBremsstrahlung.md","ref":"class/G4eBremsstrahlung.md","articles":[]},{"title":"G4ePairProduction","level":"1.4.17.1.1.5","depth":5,"path":"class/G4ePairProduction.md","ref":"class/G4ePairProduction.md","articles":[]}]},{"title":"G4VMultipleScattering","level":"1.4.17.1.2","depth":4,"path":"class/G4VMultipleScattering.md","ref":"class/G4VMultipleScattering.md","articles":[{"title":"G4eMultipleScattering","level":"1.4.17.1.2.1","depth":5,"path":"class/G4eMultipleScattering.md","ref":"class/G4eMultipleScattering.md","articles":[]},{"title":"G4hMultipleScattering","level":"1.4.17.1.2.2","depth":5,"path":"class/G4hMultipleScattering.md","ref":"class/G4hMultipleScattering.md","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VEnergyLossProcess.md","mtime":"2018-07-13T18:44:26.140Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3445,6 +3453,14 @@ private:
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

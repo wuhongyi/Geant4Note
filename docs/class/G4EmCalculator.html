@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>G4EmCalculator · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>G4EmCalculator · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,287 +3046,264 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 4
 ;; URL: http://wuhongyi.cn -->
+<h1 id="g4emcalculator">G4EmCalculator</h1>
+<p>Provide access to dE/dx and cross sections</p>
+<p>G4EmCalculator is a class which provides access to cross sections and stopping powers.<br>This class can be used anywhere in the user code provided the physics list has already been initialised (G4State_Idle).<br>G4EmCalculator has &#x201C;Get&#x201D; methods which can be applied to materials for which physics tables are already built, and &#x201C;Compute&#x201D; methods which can be applied to any material defined in the application or existing in the Geant4 internal database. </p>
+<p>The public methods of this class are:</p>
+<ul>
+<li>GetDEDX(kinEnergy,particle,material,G4Region region=0)</li>
+<li>GetRangeFromRestrictedDEDX(kinEnergy,particle,material,G4Region* region=0)</li>
+<li>GetCSDARange(kinEnergy,particle,material,G4Region* region=0)</li>
+<li>GetRange(kinEnergy,particle,material,G4Region* region=0)</li>
+<li>GetKinEnergy(range,particle,material,G4Region* region=0)</li>
+<li>GetCrossSectionPerVolume(kinEnergy,particle,material,G4Region* region=0)</li>
+<li>GetShellIonisationCrossSectionPerAtom(particle,Z,shell,kinEnergy)</li>
+<li>GetMeanFreePath(kinEnergy,particle,material,G4Region* region=0)</li>
+<li>PrintDEDXTable(particle)</li>
+<li>PrintRangeTable(particle)</li>
+<li>PrintInverseRangeTable(particle)</li>
+<li>ComputeDEDX(kinEnergy,particle,process,material,cut=DBL_MAX)</li>
+<li>ComputeElectronicDEDX(kinEnergy,particle,material,cut=DBL_MAX)</li>
+<li>ComputeNuclearDEDX(kinEnergy,particle,material,cut=DBL_MAX)</li>
+<li>ComputeTotalDEDX(kinEnergy,particle,material,cut=DBL_MAX)</li>
+<li>ComputeCrossSectionPerVolume(kinEnergy,particle,process,material,cut=0)</li>
+<li>ComputeCrossSectionPerAtom(kinEnergy,particle,process,Z,A,cut=0)</li>
+<li>ComputeGammaAttenuationLength(kinEnergy,material)</li>
+<li>ComputeShellIonisationCrossSectionPerAtom(particle,Z,shell,kinEnergy)</li>
+<li>ComputeMeanFreePath(kinEnergy,particle,process,material,cut=0)</li>
+<li>ComputeEnergyCutFromRangeCut(range,particle,material)</li>
+<li>FindParticle(const G4String&amp;)</li>
+<li>FindIon(G4int Z, G4int A)</li>
+<li>FindMaterial(const G4String&amp;)</li>
+<li>FindRegion(const G4String&amp;)</li>
+<li>FindCouple(const G4Material<em>, const G4Region</em> region=0)</li>
+<li>SetVerbose(G4int)</li>
+</ul>
+<h2 id="class">class</h2>
+<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
 
+  <span class="token function">G4EmCalculator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h1 id="g4emcalculator">G4EmCalculator</h1><p>Provide access to dE/dx and cross sections</p><p>G4EmCalculator is a class which provides access to cross sections and stopping powers.</p><p>This class can be used anywhere in the user code provided the physics list has already been initialised (G4State_Idle).</p><p>G4EmCalculator has &#x201C;Get&#x201D; methods which can be applied to materials for which physics tables are already built, and &#x201C;Compute&#x201D; methods which can be applied to any material defined in the application or existing in the Geant4 internal database.</p><p>The public methods of this class are:</p><ul><li>GetDEDX(kinEnergy,particle,material,G4Region region=0)
-</li>
-<li>GetRangeFromRestrictedDEDX(kinEnergy,particle,material,G4Region* region=0)
-</li>
-<li>GetCSDARange(kinEnergy,particle,material,G4Region* region=0)
-</li>
-<li>GetRange(kinEnergy,particle,material,G4Region* region=0)
-</li>
-<li>GetKinEnergy(range,particle,material,G4Region* region=0)
-</li>
-<li>GetCrossSectionPerVolume(kinEnergy,particle,material,G4Region* region=0)
-</li>
-<li>GetShellIonisationCrossSectionPerAtom(particle,Z,shell,kinEnergy)
-</li>
-<li>GetMeanFreePath(kinEnergy,particle,material,G4Region* region=0)
-</li>
-<li>PrintDEDXTable(particle)
-</li>
-<li>PrintRangeTable(particle)
-</li>
-<li>PrintInverseRangeTable(particle)
-</li>
-<li>ComputeDEDX(kinEnergy,particle,process,material,cut=DBL_MAX)
-</li>
-<li>ComputeElectronicDEDX(kinEnergy,particle,material,cut=DBL_MAX)
-</li>
-<li>ComputeNuclearDEDX(kinEnergy,particle,material,cut=DBL_MAX)
-</li>
-<li>ComputeTotalDEDX(kinEnergy,particle,material,cut=DBL_MAX)
-</li>
-<li>ComputeCrossSectionPerVolume(kinEnergy,particle,process,material,cut=0)
-</li>
-<li>ComputeCrossSectionPerAtom(kinEnergy,particle,process,Z,A,cut=0)
-</li>
-<li>ComputeGammaAttenuationLength(kinEnergy,material)
-</li>
-<li>ComputeShellIonisationCrossSectionPerAtom(particle,Z,shell,kinEnergy)
-</li>
-<li>ComputeMeanFreePath(kinEnergy,particle,process,material,cut=0)
-</li>
-<li>ComputeEnergyCutFromRangeCut(range,particle,material)
-</li>
-<li>FindParticle(const G4String&amp;)
-</li>
-<li>FindIon(G4int Z, G4int A)
-</li>
-<li>FindMaterial(const G4String&amp;)
-</li>
-<li>FindRegion(const G4String&amp;)
-</li>
-<li>FindCouple(const G4Material<em>, const G4Region</em> region=0)
-</li>
-<li>SetVerbose(G4int)
-</li></ul>
-<h2 id="class">class</h2><pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+  <span class="token operator">~</span><span class="token function">G4EmCalculator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  G4EmCalculator();
+  <span class="token comment">//===========================================================================</span>
+  <span class="token comment">// Methods to access precalculated dE/dx and cross sections</span>
+  <span class="token comment">// Materials should exist in the list of the G4MaterialCutsCouple</span>
+  <span class="token comment">//===========================================================================</span>
 
-  ~G4EmCalculator();
+  G4double <span class="token function">GetDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+           <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+                   <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+           <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span>
+                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> s <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">//===========================================================================</span>
-  <span class="hljs-comment">// Methods to access precalculated dE/dx and cross sections</span>
-  <span class="hljs-comment">// Materials should exist in the list of the G4MaterialCutsCouple</span>
-  <span class="hljs-comment">//===========================================================================</span>
+  G4double <span class="token function">GetRangeFromRestricteDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> 
+                     <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+                     <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+                     <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetRangeFromRestricteDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> 
+                        <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+                        <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span>
+                        <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> s <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-           <span class="hljs-keyword">const</span> G4Material*,
-                   <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-           <span class="hljs-keyword">const</span> G4String&amp; mat,
-                   <span class="hljs-keyword">const</span> G4String&amp; s = <span class="hljs-string">&quot;world&quot;</span>)</span></span>;
+  G4double <span class="token function">GetCSDARange</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+            <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+            <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetCSDARange</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+            <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span>
+            <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> s <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetRangeFromRestricteDEDX</span><span class="hljs-params">(G4double kinEnergy, 
-                     <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-                     <span class="hljs-keyword">const</span> G4Material*,
-                     <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetRangeFromRestricteDEDX</span><span class="hljs-params">(G4double kinEnergy, 
-                        <span class="hljs-keyword">const</span> G4String&amp; part, 
-                        <span class="hljs-keyword">const</span> G4String&amp; mat,
-                        <span class="hljs-keyword">const</span> G4String&amp; s = <span class="hljs-string">&quot;world&quot;</span>)</span></span>;
+  G4double <span class="token function">GetRange</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+            <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+            <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetRange</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+            <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span>
+            <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> s <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetCSDARange</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-            <span class="hljs-keyword">const</span> G4Material*,
-            <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetCSDARange</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-            <span class="hljs-keyword">const</span> G4String&amp; mat,
-            <span class="hljs-keyword">const</span> G4String&amp; s = <span class="hljs-string">&quot;world&quot;</span>)</span></span>;
+  G4double <span class="token function">GetKinEnergy</span><span class="token punctuation">(</span>G4double range<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+            <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+            <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetKinEnergy</span><span class="token punctuation">(</span>G4double range<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+            <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span>
+            <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> s <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetRange</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-            <span class="hljs-keyword">const</span> G4Material*,
-            <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetRange</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-            <span class="hljs-keyword">const</span> G4String&amp; mat,
-            <span class="hljs-keyword">const</span> G4String&amp; s = <span class="hljs-string">&quot;world&quot;</span>)</span></span>;
+  G4double <span class="token function">GetCrossSectionPerVolume</span><span class="token punctuation">(</span>
+                   G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span>  <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+           <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetCrossSectionPerVolume</span><span class="token punctuation">(</span>
+                   G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> proc<span class="token punctuation">,</span>
+                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> s <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetKinEnergy</span><span class="hljs-params">(G4double range, <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-            <span class="hljs-keyword">const</span> G4Material*,
-            <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetKinEnergy</span><span class="hljs-params">(G4double range, <span class="hljs-keyword">const</span> G4String&amp; part, 
-            <span class="hljs-keyword">const</span> G4String&amp; mat,
-            <span class="hljs-keyword">const</span> G4String&amp; s = <span class="hljs-string">&quot;world&quot;</span>)</span></span>;
+  G4double <span class="token function">GetShellIonisationCrossSectionPerAtom</span><span class="token punctuation">(</span>
+                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> 
+           G4AtomicShellEnumerator shell<span class="token punctuation">,</span>
+                   G4double kinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetCrossSectionPerVolume</span><span class="hljs-params">(
-                   G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                   <span class="hljs-keyword">const</span> G4String&amp; processName,  <span class="hljs-keyword">const</span> G4Material*,
-           <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetCrossSectionPerVolume</span><span class="hljs-params">(
-                   G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, <span class="hljs-keyword">const</span> G4String&amp; proc,
-                   <span class="hljs-keyword">const</span> G4String&amp; mat, <span class="hljs-keyword">const</span> G4String&amp; s = <span class="hljs-string">&quot;world&quot;</span>)</span></span>;
+  G4double <span class="token function">GetMeanFreePath</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+               <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span>  <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+               <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">GetMeanFreePath</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+                  <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> proc<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span> 
+                  <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> s <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetShellIonisationCrossSectionPerAtom</span><span class="hljs-params">(
-                   <span class="hljs-keyword">const</span> G4String&amp; part, G4int Z, 
-           G4AtomicShellEnumerator shell,
-                   G4double kinEnergy)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">PrintDEDXTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">GetMeanFreePath</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-               <span class="hljs-keyword">const</span> G4String&amp; processName,  <span class="hljs-keyword">const</span> G4Material*,
-               <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetMeanFreePath</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-                  <span class="hljs-keyword">const</span> G4String&amp; proc, <span class="hljs-keyword">const</span> G4String&amp; mat, 
-                  <span class="hljs-keyword">const</span> G4String&amp; s = <span class="hljs-string">&quot;world&quot;</span>)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">PrintRangeTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintDEDXTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">PrintInverseRangeTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintRangeTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;
+  <span class="token comment">//===========================================================================</span>
+  <span class="token comment">// Methods to calculate dE/dx and cross sections &quot;on fly&quot;</span>
+  <span class="token comment">// Existing tables and G4MaterialCutsCouples are not used</span>
+  <span class="token comment">//===========================================================================</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintInverseRangeTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;
+  G4double <span class="token function">ComputeDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span>  <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+               G4double cut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+               <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> proc<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span> G4double cut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">//===========================================================================</span>
-  <span class="hljs-comment">// Methods to calculate dE/dx and cross sections &quot;on fly&quot;</span>
-  <span class="hljs-comment">// Existing tables and G4MaterialCutsCouples are not used</span>
-  <span class="hljs-comment">//===========================================================================</span>
+  G4double <span class="token function">ComputeElectronicDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> 
+                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                 <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat<span class="token punctuation">,</span> G4double cut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeElectronicDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span>
+                 <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span> G4double cut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName,  <span class="hljs-keyword">const</span> G4Material*,
-               G4double cut = DBL_MAX)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-               <span class="hljs-keyword">const</span> G4String&amp; proc,
-                       <span class="hljs-keyword">const</span> G4String&amp; mat, G4double cut = DBL_MAX)</span></span>;
+  G4double <span class="token function">ComputeDEDXForCutInRange</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> 
+                    <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                    <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat<span class="token punctuation">,</span> G4double rangecut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeDEDXForCutInRange</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span> 
+                       G4double rangecut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeElectronicDEDX</span><span class="hljs-params">(G4double kinEnergy, 
-                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                 <span class="hljs-keyword">const</span> G4Material* mat, G4double cut = DBL_MAX)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeElectronicDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part,
-                 <span class="hljs-keyword">const</span> G4String&amp; mat, G4double cut = DBL_MAX)</span></span>;
+  G4double <span class="token function">ComputeNuclearDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+                  <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeNuclearDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+                  <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeDEDXForCutInRange</span><span class="hljs-params">(G4double kinEnergy, 
-                    <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                    <span class="hljs-keyword">const</span> G4Material* mat, G4double rangecut = DBL_MAX)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeDEDXForCutInRange</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part,
-                       <span class="hljs-keyword">const</span> G4String&amp; mat, 
-                       G4double rangecut = DBL_MAX)</span></span>;
+  G4double <span class="token function">ComputeTotalDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+                <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> G4double cut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeTotalDEDX</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+                <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span> G4double cut <span class="token operator">=</span> DBL_MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeNuclearDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-                  <span class="hljs-keyword">const</span> G4Material*)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeNuclearDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-                  <span class="hljs-keyword">const</span> G4String&amp; mat)</span></span>;
+  G4double <span class="token function">ComputeCrossSectionPerVolume</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span>  <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+               G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeCrossSectionPerVolume</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> 
+               <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> proc<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> mat<span class="token punctuation">,</span> G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeTotalDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-                <span class="hljs-keyword">const</span> G4Material*, G4double cut = DBL_MAX)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeTotalDEDX</span><span class="hljs-params">(G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-                <span class="hljs-keyword">const</span> G4String&amp; mat, G4double cut = DBL_MAX)</span></span>;
+  G4double <span class="token function">ComputeCrossSectionPerAtom</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4double A<span class="token punctuation">,</span>
+               G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeCrossSectionPerAtom</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span> <span class="token keyword">const</span> G4Element<span class="token operator">*</span><span class="token punctuation">,</span>
+               G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeCrossSectionPerVolume</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName,  <span class="hljs-keyword">const</span> G4Material*,
-               G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeCrossSectionPerVolume</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part, 
-               <span class="hljs-keyword">const</span> G4String&amp; proc,
-                       <span class="hljs-keyword">const</span> G4String&amp; mat, G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
+  G4double <span class="token function">ComputeCrossSectionPerShell</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> G4int shellIdx<span class="token punctuation">,</span>
+               G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeCrossSectionPerShell</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span> <span class="token keyword">const</span> G4Element<span class="token operator">*</span><span class="token punctuation">,</span>
+                       G4int shellIdx<span class="token punctuation">,</span>
+               G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName, G4double Z, G4double A,
-               G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName, <span class="hljs-keyword">const</span> G4Element*,
-               G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
+  G4double <span class="token function">ComputeGammaAttenuationLength</span><span class="token punctuation">(</span>G4double kinEnergy<span class="token punctuation">,</span> 
+                     <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeCrossSectionPerShell</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName, G4int Z, G4int shellIdx,
-               G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeCrossSectionPerShell</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp; part,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName, <span class="hljs-keyword">const</span> G4Element*,
-                       G4int shellIdx,
-               G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
+  G4double <span class="token function">ComputeShellIonisationCrossSectionPerAtom</span><span class="token punctuation">(</span>
+                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> part<span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> 
+           G4AtomicShellEnumerator shell<span class="token punctuation">,</span>
+                   G4double kinEnergy<span class="token punctuation">,</span>
+                   <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeGammaAttenuationLength</span><span class="hljs-params">(G4double kinEnergy, 
-                     <span class="hljs-keyword">const</span> G4Material*)</span></span>;
+  G4double <span class="token function">ComputeMeanFreePath</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span>  <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>
+               G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeMeanFreePath</span><span class="token punctuation">(</span>
+                       G4double kinEnergy<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">,</span>
+                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span> G4double cut <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeShellIonisationCrossSectionPerAtom</span><span class="hljs-params">(
-                   <span class="hljs-keyword">const</span> G4String&amp; part, G4int Z, 
-           G4AtomicShellEnumerator shell,
-                   G4double kinEnergy,
-                   <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-literal">nullptr</span>)</span></span>;
+  G4double <span class="token function">ComputeEnergyCutFromRangeCut</span><span class="token punctuation">(</span>
+                       G4double range<span class="token punctuation">,</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+               <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">inline</span> G4double <span class="token function">ComputeEnergyCutFromRangeCut</span><span class="token punctuation">(</span>
+                       G4double range<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">,</span>
+               <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeMeanFreePath</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName,  <span class="hljs-keyword">const</span> G4Material*,
-               G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeMeanFreePath</span><span class="hljs-params">(
-                       G4double kinEnergy, <span class="hljs-keyword">const</span> G4String&amp;, <span class="hljs-keyword">const</span> G4String&amp;,
-                       <span class="hljs-keyword">const</span> G4String&amp; processName, G4double cut = <span class="hljs-number">0.0</span>)</span></span>;
+  <span class="token comment">//===========================================================================</span>
+  <span class="token comment">// Methods to access particles, materials, regions, processes</span>
+  <span class="token comment">//===========================================================================</span>
 
-  <span class="hljs-function">G4double <span class="hljs-title">ComputeEnergyCutFromRangeCut</span><span class="hljs-params">(
-                       G4double range, <span class="hljs-keyword">const</span> G4ParticleDefinition*,
-               <span class="hljs-keyword">const</span> G4Material*)</span></span>;
-  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">ComputeEnergyCutFromRangeCut</span><span class="hljs-params">(
-                       G4double range, <span class="hljs-keyword">const</span> G4String&amp;,
-               <span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
+  <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token function">FindParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-comment">//===========================================================================</span>
-  <span class="hljs-comment">// Methods to access particles, materials, regions, processes</span>
-  <span class="hljs-comment">//===========================================================================</span>
+  <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token function">FindIon</span><span class="token punctuation">(</span>G4int Z<span class="token punctuation">,</span> G4int A<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">const</span> G4ParticleDefinition* <span class="hljs-title">FindParticle</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
+  <span class="token keyword">const</span> G4Material<span class="token operator">*</span> <span class="token function">FindMaterial</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">const</span> G4ParticleDefinition* <span class="hljs-title">FindIon</span><span class="hljs-params">(G4int Z, G4int A)</span></span>;
+  <span class="token keyword">const</span> G4Region<span class="token operator">*</span> <span class="token function">FindRegion</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">const</span> G4Material* <span class="hljs-title">FindMaterial</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
+  <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span> <span class="token function">FindCouple</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> 
+                     <span class="token keyword">const</span> G4Region<span class="token operator">*</span> r <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">const</span> G4Region* <span class="hljs-title">FindRegion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
+  G4VProcess<span class="token operator">*</span> <span class="token function">FindProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> part<span class="token punctuation">,</span>
+              <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">const</span> G4MaterialCutsCouple* <span class="hljs-title">FindCouple</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*, 
-                     <span class="hljs-keyword">const</span> G4Region* r = <span class="hljs-literal">nullptr</span>)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">SetupMaterial</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4VProcess* <span class="hljs-title">FindProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* part,
-              <span class="hljs-keyword">const</span> G4String&amp; processName)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">SetupMaterial</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetupMaterial</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">SetVerbose</span><span class="token punctuation">(</span>G4int val<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetupMaterial</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
+  <span class="token comment">//===========================================================================</span>
+  <span class="token comment">// Private methods </span>
+  <span class="token comment">//===========================================================================</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVerbose</span><span class="hljs-params">(G4int val)</span></span>;
+<span class="token keyword">private</span><span class="token operator">:</span>
 
-  <span class="hljs-comment">//===========================================================================</span>
-  <span class="hljs-comment">// Private methods </span>
-  <span class="hljs-comment">//===========================================================================</span>
+  G4bool <span class="token function">UpdateParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> G4double kinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">private</span>:
+  G4bool <span class="token function">UpdateCouple</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> G4double cut<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4bool <span class="hljs-title">UpdateParticle</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, G4double kinEnergy)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">FindLambdaTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+               <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span>
+               G4double kinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4bool <span class="hljs-title">UpdateCouple</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Material*, G4double cut)</span></span>;
+  G4bool <span class="token function">FindEmModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
+                     <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span>
+                           G4double kinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FindLambdaTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-               <span class="hljs-keyword">const</span> G4String&amp; processName,
-               G4double kinEnergy)</span></span>;
+  G4VEnergyLossProcess<span class="token operator">*</span> <span class="token function">FindEnergyLossProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4bool <span class="hljs-title">FindEmModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, 
-                     <span class="hljs-keyword">const</span> G4String&amp; processName,
-                           G4double kinEnergy)</span></span>;
+  G4VEnergyLossProcess<span class="token operator">*</span> <span class="token function">FindEnLossProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                      <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4VEnergyLossProcess* <span class="hljs-title">FindEnergyLossProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;
+  G4VEmProcess<span class="token operator">*</span> <span class="token function">FindDiscreteProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                    <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4VEnergyLossProcess* <span class="hljs-title">FindEnLossProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                      <span class="hljs-keyword">const</span> G4String&amp; processName)</span></span>;
+  G4VMultipleScattering<span class="token operator">*</span> <span class="token function">FindMscProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
+                    <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4VEmProcess* <span class="hljs-title">FindDiscreteProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                    <span class="hljs-keyword">const</span> G4String&amp; processName)</span></span>;
+  G4bool <span class="token function">ActiveForParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> part<span class="token punctuation">,</span>
+               G4VProcess<span class="token operator">*</span> proc<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4VMultipleScattering* <span class="hljs-title">FindMscProcess</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
-                    <span class="hljs-keyword">const</span> G4String&amp; processName)</span></span>;
+  <span class="token keyword">void</span> <span class="token function">CheckMaterial</span><span class="token punctuation">(</span>G4int Z<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-function">G4bool <span class="hljs-title">ActiveForParticle</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* part,
-               G4VProcess* proc)</span></span>;
-
-  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CheckMaterial</span><span class="hljs-params">(G4int Z)</span></span>;
-
-  <span class="hljs-comment">// hide copy and assign</span>
-  G4EmCalculator &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span>  G4EmCalculator &amp;right) = <span class="hljs-keyword">delete</span>;
-  G4EmCalculator(<span class="hljs-keyword">const</span>  G4EmCalculator&amp;) = <span class="hljs-keyword">delete</span>;</code></pre>
+  <span class="token comment">// hide copy and assign</span>
+  G4EmCalculator <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span>  G4EmCalculator <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+  <span class="token function">G4EmCalculator</span><span class="token punctuation">(</span><span class="token keyword">const</span>  G4EmCalculator<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+</code></pre>
 <!-- G4EmCalculator.md ends here -->
-
-
 
                                 
                                 </section>
@@ -3362,7 +3347,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4EmCalculator","level":"1.4.5","depth":2,"next":{"title":"G4EmParameters*","level":"1.4.6","depth":2,"path":"class/G4EmParameters.md","ref":"class/G4EmParameters.md","articles":[]},"previous":{"title":"G4EmCorrections","level":"1.4.4","depth":2,"path":"class/G4EmCorrections.md","ref":"class/G4EmCorrections.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"class/G4EmCalculator.md","mtime":"2018-07-13T18:51:35.185Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4EmCalculator","level":"1.4.5","depth":2,"next":{"title":"G4EmParameters*","level":"1.4.6","depth":2,"path":"class/G4EmParameters.md","ref":"class/G4EmParameters.md","articles":[]},"previous":{"title":"G4EmCorrections","level":"1.4.4","depth":2,"path":"class/G4EmCorrections.md","ref":"class/G4EmCorrections.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4EmCalculator.md","mtime":"2018-07-13T18:51:35.185Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3370,6 +3355,14 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>

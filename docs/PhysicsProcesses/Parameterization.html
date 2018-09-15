@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh" >
     <head>
-        <title>Parameterization · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Parameterization · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
-        
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
         
         
     
@@ -17,7 +17,15 @@
     
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
@@ -71,7 +79,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="輸入並搜尋" />
 </div>
 
             
@@ -2990,7 +2998,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本書使用 GitBook 釋出
         </a>
     </li>
 </ul>
@@ -3038,144 +3046,232 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 5
 ;; URL: http://wuhongyi.cn -->
+<h1 id="parameterization">Parameterization</h1>
+<blockquote>
+<p><a href="http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#parameterization" target="_blank">http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#parameterization</a></p>
+</blockquote>
+<p>In this section we describe how to use the parameterization or &#x201C;fast simulation&#x201D; facilities of Geant4. </p>
+<h2 id="generalities">Generalities</h2>
+<p>The Geant4 parameterization facilities allow you to shortcut the detailed tracking in a given volume and for given particle types in order for you to provide your own implementation of the physics and of the detector response.</p>
+<p>Parameterisations are bound to a <strong>G4Region</strong> object, which, in the case of fast simulation is also called an envelope. Prior to release 8.0, parameterisations were bound to a <strong>G4LogicalVolume</strong>, the root of a volume hierarchy. These root volumes are now attributes of the <strong>G4Region</strong>. Envelopes often correspond to the volumes of sub-detectors: electromagnetic calorimeters, tracking chambers, etc. With Geant4 it is also possible to define envelopes by overlaying a parallel or &#x201C;ghost&#x201D; geometry as discussed in Parameterisation Using Ghost Geometries.</p>
+<p>In Geant4, parameterisations have three main features. You must specify:</p>
+<ul>
+<li>the particle types for which your parameterisation is valid;</li>
+<li>the dynamics conditions for which your parameterisation is valid and must be triggered;</li>
+<li>the parameterisation itself: where the primary will be killed or moved, whether or not to create it or create secondaries, etc., and where the detector response will be computed.</li>
+</ul>
+<p>Geant4 will message your parameterisation code for each step starting in any root <strong>G4LogicalVolume</strong> (including daughters. sub-daughters, etc. of this volume) of the <strong>G4Region</strong>. It will proceed by first asking the available parameterisations for the current particle type if one of them (and only one) wants to issue a trigger. If so it will invoke its parameterisation. In this case, the tracking <strong>will not apply physics</strong> to the particle in the step. Instead, the UserSteppingAction will be invoked.</p>
+<p>Parameterisations look like a &#x201C;user stepping action&#x201D; but are more advanced because:</p>
+<ul>
+<li>parameterisation code is messaged only in the G4Region to which it is bound;</li>
+<li>parameterisation code is messaged anywhere in the G4Region , that is, any volume in which the track is located;</li>
+<li>Geant4 will provide information to your parameterisation code about the current root volume of the G4Region in which the track is travelling.</li>
+</ul>
+<h2 id="overview-of-parameterisation-components">Overview of Parameterisation Components</h2>
+<p>The Geant4 components which allow the implementation and control of parameterisations are:</p>
+<ul>
+<li>G4VFastSimulationModel<ul>
+<li>This is the abstract class for the implementation of parameterisations. You must inherit from it to implement your concrete parameterisation model.</li>
+</ul>
+</li>
+<li>G4FastSimulationManager<ul>
+<li>The G4VFastSimulationModel objects are attached to the G4Region through a G4FastSimulationManager. This object will manage the list of models and will message them at tracking time.</li>
+</ul>
+</li>
+<li>G4Region/Envelope<ul>
+<li>As mentioned before, an envelope in Geant4 is a G4Region. The parameterisation is bound to the G4Region by setting a G4FastSimulationManager pointer to it.</li>
+</ul>
+</li>
+</ul>
+<p><img src="../img/ComponentsWithRegion.jpg" alt="G4VFastSimulationModel and G4FastSimulationManager objects">
+Fig.  shows how the G4VFastSimulationModel and G4FastSimulationManager objects are bound to the G4Region. Then for all root G4LogicalVolume&#x2019;s held by the G4Region, the fast simulation code is active.</p>
+<ul>
+<li>G4FastSimulationManagerProcess<ul>
+<li>This is a G4VProcess. It provides the interface between the tracking and the parameterisation. It must be set in the process list of the particles you want to parameterise.</li>
+</ul>
+</li>
+<li>G4GlobalFastSimulationManager<ul>
+<li>This a singleton class which provides the management of the G4FastSimulationManager objects and some ghost facilities.</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-g4vfastsimulationmodel-abstract-class">The G4VFastSimulationModel Abstract Class</h2>
+<h3 id="constructors">Constructors</h3>
+<p>The G4VFastSimulationModel class has two constructors. The second one allows you to get started quickly:</p>
+<ul>
+<li>G4VFastSimulationModel(const G4String&amp; aName):<ul>
+<li>Here aName identifies the parameterisation model.</li>
+</ul>
+</li>
+<li>G4VFastSimulationModel(const G4String&amp; aName, G4Region*, G4bool IsUnique=false):<ul>
+<li>In addition to the model name, this constructor accepts a G4Region pointer. The needed G4FastSimulationManager object is constructed if necessary, passing to it the G4Region pointer and the Boolean value. If it already exists, the model is simply added to this manager. Note that the G4VFastSimulationModel object will not keep track of the G4Region passed in the constructor. The Boolean argument is there for optimization purposes: if you know that the G4Region has a unique root G4LogicalVolume, uniquely placed, you can set the Boolean value to &#x201C;true&#x201D;.</li>
+</ul>
+</li>
+</ul>
+<h2 id="virtual-methods">Virtual methods</h2>
+<p>The G4VFastSimulationModel has three pure virtual methods which must be overridden in your concrete class:</p>
+<ul>
+<li>G4VFastSimulationModel(const G4String&amp; aName):<ul>
+<li>Here aName identifies the parameterisation model.</li>
+</ul>
+</li>
+<li>G4bool ModelTrigger( const G4FastTrack&amp;):<ul>
+<li>You must return &#x201C;true&#x201D; when the dynamic conditions to trigger your parameterisation are fulfilled. G4FastTrack provides access to the current G4Track, gives simple access to the current root G4LogicalVolume related features (its G4VSolid, and G4AffineTransform references between the global and the root G4LogicalVolume local coordinates systems) and simple access to the position and momentum expressed in the root G4LogicalVolume coordinate system. Using these quantities and the G4VSolid methods, you can for example easily check how far you are from the root G4LogicalVolume boundary.</li>
+</ul>
+</li>
+<li>G4bool IsApplicable(const G4ParticleDefinition&amp;):<ul>
+<li>In your implementation, you must return &#x201C;true&#x201D; when your model is applicable to the G4ParticleDefinition passed to this method. The G4ParticleDefinition provides all intrinsic particle information (mass, charge, spin, name &#x2026;).</li>
+</ul>
+</li>
+</ul>
+<p>If you want to implement a model which is valid only for certain particle types, it is recommended for efficiency that you use the static pointer of the corresponding particle classes.</p>
+<p>As an example, in a model valid for gammas only, the IsApplicable() method should take the form:</p>
+<pre class="language-"><code class="lang-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;G4Gamma.hh&quot;</span></span>
 
-
-<h1 id="parameterization">Parameterization</h1><blockquote><p><a href="http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#parameterization" target="_blank">http://geant4-userdoc.web.cern.ch/geant4-userdoc/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html#parameterization</a></p></blockquote><p>In this section we describe how to use the parameterization or &#x201C;fast simulation&#x201D; facilities of Geant4.</p><h2 id="generalities">Generalities</h2><p>The Geant4 parameterization facilities allow you to shortcut the detailed tracking in a given volume and for given particle types in order for you to provide your own implementation of the physics and of the detector response.</p><p>Parameterisations are bound to a <strong>G4Region</strong> object, which, in the case of fast simulation is also called an envelope. Prior to release 8.0, parameterisations were bound to a <strong>G4LogicalVolume</strong>, the root of a volume hierarchy. These root volumes are now attributes of the <strong>G4Region</strong>. Envelopes often correspond to the volumes of sub-detectors: electromagnetic calorimeters, tracking chambers, etc. With Geant4 it is also possible to define envelopes by overlaying a parallel or &#x201C;ghost&#x201D; geometry as discussed in Parameterisation Using Ghost Geometries.</p><p>In Geant4, parameterisations have three main features. You must specify:</p><ul><li>the particle types for which your parameterisation is valid;
+G4bool MyGammaModel<span class="token operator">::</span><span class="token function">IsApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span> partDef<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token operator">&amp;</span>partDef <span class="token operator">==</span> G4Gamma<span class="token operator">::</span><span class="token function">GammaDefinition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>G4bool ModelTrigger(const G4FastTrack&amp;):<ul>
+<li>You must return &#x201C;true&#x201D; when the dynamic conditions to trigger your parameterisation are fulfilled. The G4FastTrack provides access to the current G4Track, gives simple access to envelope related features (G4LogicalVolume, G4VSolid, and G4AffineTransform references between the global and the envelope local coordinates systems) and simple access to the position and momentum expressed in the envelope coordinate system. Using these quantities and the G4VSolid methods, you can for example easily check how far you are from the envelope boundary.</li>
+</ul>
 </li>
-<li>the dynamics conditions for which your parameterisation is valid and must be triggered;
+<li>void DoIt(const G4FastTrack&amp;, G4FastStep&amp;):<ul>
+<li>The details of your parameterisation will be implemented in this method. The G4FastTrack reference provides the input information, and the final state of the particles after parameterisation must be returned through the G4FastStep reference. Tracking for the final state particles is requested after your parameterisation has been invoked.</li>
+</ul>
 </li>
-<li>the parameterisation itself: where the primary will be killed or moved, whether or not to create it or create secondaries, etc., and where the detector response will be computed.
-</li></ul>
-<p>Geant4 will message your parameterisation code for each step starting in any root <strong>G4LogicalVolume</strong> (including daughters. sub-daughters, etc. of this volume) of the <strong>G4Region</strong>. It will proceed by first asking the available parameterisations for the current particle type if one of them (and only one) wants to issue a trigger. If so it will invoke its parameterisation. In this case, the tracking <strong>will not apply physics</strong> to the particle in the step. Instead, the UserSteppingAction will be invoked.</p><p>Parameterisations look like a &#x201C;user stepping action&#x201D; but are more advanced because:</p><ul><li>parameterisation code is messaged only in the G4Region to which it is bound;
-</li>
-<li>parameterisation code is messaged anywhere in the G4Region , that is, any volume in which the track is located;
-</li>
-<li>Geant4 will provide information to your parameterisation code about the current root volume of the G4Region in which the track is travelling.
-</li></ul>
-<h2 id="overview-of-parameterisation-components">Overview of Parameterisation Components</h2><p>The Geant4 components which allow the implementation and control of parameterisations are:</p><ul><li><p>G4VFastSimulationModel</p><ul><li>This is the abstract class for the implementation of parameterisations. You must inherit from it to implement your concrete parameterisation model.
-</li></ul>
-</li>
-<li><p>G4FastSimulationManager</p><ul><li>The G4VFastSimulationModel objects are attached to the G4Region through a G4FastSimulationManager. This object will manage the list of models and will message them at tracking time.
-</li></ul>
-</li>
-<li><p>G4Region/Envelope</p><ul><li>As mentioned before, an envelope in Geant4 is a G4Region. The parameterisation is bound to the G4Region by setting a G4FastSimulationManager pointer to it.
-</li></ul>
-</li></ul>
-<p><img alt="G4VFastSimulationModel and G4FastSimulationManager objects" src="../img/ComponentsWithRegion.jpg">
-Fig.  shows how the G4VFastSimulationModel and G4FastSimulationManager objects are bound to the G4Region. Then for all root G4LogicalVolume&#x2019;s held by the G4Region, the fast simulation code is active.</p><ul><li><p>G4FastSimulationManagerProcess</p><ul><li>This is a G4VProcess. It provides the interface between the tracking and the parameterisation. It must be set in the process list of the particles you want to parameterise.
-</li></ul>
-</li>
-<li><p>G4GlobalFastSimulationManager</p><ul><li>This a singleton class which provides the management of the G4FastSimulationManager objects and some ghost facilities.
-</li></ul>
-</li></ul>
-<h2 id="the-g4vfastsimulationmodel-abstract-class">The G4VFastSimulationModel Abstract Class</h2><h3 id="constructors">Constructors</h3><p>The G4VFastSimulationModel class has two constructors. The second one allows you to get started quickly:</p><ul><li><p>G4VFastSimulationModel(const G4String&amp; aName):</p><ul><li>Here aName identifies the parameterisation model.
-</li></ul>
-</li>
-<li><p>G4VFastSimulationModel(const G4String&amp; aName, G4Region*, G4bool IsUnique=false):</p><ul><li>In addition to the model name, this constructor accepts a G4Region pointer. The needed G4FastSimulationManager object is constructed if necessary, passing to it the G4Region pointer and the Boolean value. If it already exists, the model is simply added to this manager. Note that the G4VFastSimulationModel object will not keep track of the G4Region passed in the constructor. The Boolean argument is there for optimization purposes: if you know that the G4Region has a unique root G4LogicalVolume, uniquely placed, you can set the Boolean value to &#x201C;true&#x201D;.
-</li></ul>
-</li></ul>
-<h2 id="virtual-methods">Virtual methods</h2><p>The G4VFastSimulationModel has three pure virtual methods which must be overridden in your concrete class:</p><ul><li><p>G4VFastSimulationModel(const G4String&amp; aName):</p><ul><li>Here aName identifies the parameterisation model.
-</li></ul>
-</li>
-<li><p>G4bool ModelTrigger( const G4FastTrack&amp;):</p><ul><li>You must return &#x201C;true&#x201D; when the dynamic conditions to trigger your parameterisation are fulfilled. G4FastTrack provides access to the current G4Track, gives simple access to the current root G4LogicalVolume related features (its G4VSolid, and G4AffineTransform references between the global and the root G4LogicalVolume local coordinates systems) and simple access to the position and momentum expressed in the root G4LogicalVolume coordinate system. Using these quantities and the G4VSolid methods, you can for example easily check how far you are from the root G4LogicalVolume boundary.
-</li></ul>
-</li>
-<li><p>G4bool IsApplicable(const G4ParticleDefinition&amp;):</p><ul><li>In your implementation, you must return &#x201C;true&#x201D; when your model is applicable to the G4ParticleDefinition passed to this method. The G4ParticleDefinition provides all intrinsic particle information (mass, charge, spin, name &#x2026;).
-</li></ul>
-</li></ul>
-<p>If you want to implement a model which is valid only for certain particle types, it is recommended for efficiency that you use the static pointer of the corresponding particle classes.</p><p>As an example, in a model valid for gammas only, the IsApplicable() method should take the form:</p><pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;G4Gamma.hh&quot;</span></span>
-
-G4bool MyGammaModel::IsApplicable(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp; partDef)
-{
-  <span class="hljs-keyword">return</span> &amp;partDef == G4Gamma::GammaDefinition();
-}</code></pre>
-<ul><li><p>G4bool ModelTrigger(const G4FastTrack&amp;):</p><ul><li>You must return &#x201C;true&#x201D; when the dynamic conditions to trigger your parameterisation are fulfilled. The G4FastTrack provides access to the current G4Track, gives simple access to envelope related features (G4LogicalVolume, G4VSolid, and G4AffineTransform references between the global and the envelope local coordinates systems) and simple access to the position and momentum expressed in the envelope coordinate system. Using these quantities and the G4VSolid methods, you can for example easily check how far you are from the envelope boundary.
-</li></ul>
-</li>
-<li><p>void DoIt(const G4FastTrack&amp;, G4FastStep&amp;):</p><ul><li>The details of your parameterisation will be implemented in this method. The G4FastTrack reference provides the input information, and the final state of the particles after parameterisation must be returned through the G4FastStep reference. Tracking for the final state particles is requested after your parameterisation has been invoked.
-</li></ul>
-</li></ul>
-<hr><h2 id="the-g4fastsimulationmanager-class">The G4FastSimulationManager Class:</h2><p>G4FastSimulationManager functionalities regarding the use of ghost volumes are explained in Parameterisation Using Ghost Geometries.</p><h3 id="constructor">Constructor</h3><pre><code class="lang-cpp">G4FastSimulationManager(G4Region *anEnvelope, G4bool IsUnique=<span class="hljs-literal">false</span>):</code></pre>
-<p>This is the only constructor. You specify the G4Region by providing its pointer. The G4FastSimulationManager object will bind itself to this G4Region. If you know that this G4Region has a single root G4LogicalVolume, placed only once, you can set the IsUnique boolean to &#x201C;true&#x201D; to allow some optimization.</p><p>Note that if you choose to use the <strong>G4VFastSimulationModel(const G4String&amp;, G4Region*, G4bool)</strong> constructor for your model, the G4FastSimulationManager will be constructed using the given G4Region* and G4bool values of the model constructor.</p><h3 id="g4vfastsimulationmodel-object-management">G4VFastSimulationModel object management</h3><p>The following two methods provide the usual management functions.</p><pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddFastSimulationModel</span><span class="hljs-params">( G4VFastSimulationModel*)</span>
-<span class="hljs-title">RemoveFastSimulationModel</span><span class="hljs-params">( G4VFastSimulationModel*)</span></span></code></pre>
-<hr><h2 id="the-g4fastsimulationmanagerprocess-class">The G4FastSimulationManagerProcess Class</h2><p>This G4VProcess serves as an interface between the tracking and the parameterisation. At tracking time, it collaborates with the G4FastSimulationManager of the current volume, if any, to allow the models to trigger. If no manager exists or if no model issues a trigger, the tracking goes on normally.</p><p>In the present implementation, you must set this process in the G4ProcessManager of the particles you parameterise to enable your parameterisation.</p><p>The processes ordering is:</p><pre><code>[n-3] ...
+</ul>
+<hr>
+<h2 id="the-g4fastsimulationmanager-class">The G4FastSimulationManager Class:</h2>
+<p>G4FastSimulationManager functionalities regarding the use of ghost volumes are explained in Parameterisation Using Ghost Geometries.</p>
+<h3 id="constructor">Constructor</h3>
+<pre class="language-"><code class="lang-cpp"><span class="token function">G4FastSimulationManager</span><span class="token punctuation">(</span>G4Region <span class="token operator">*</span>anEnvelope<span class="token punctuation">,</span> G4bool IsUnique<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">:</span>
+</code></pre>
+<p>This is the only constructor. You specify the G4Region by providing its pointer. The G4FastSimulationManager object will bind itself to this G4Region. If you know that this G4Region has a single root G4LogicalVolume, placed only once, you can set the IsUnique boolean to &#x201C;true&#x201D; to allow some optimization.</p>
+<p>Note that if you choose to use the <strong>G4VFastSimulationModel(const G4String&amp;, G4Region*, G4bool)</strong> constructor for your model, the G4FastSimulationManager will be constructed using the given G4Region* and G4bool values of the model constructor.</p>
+<h3 id="g4vfastsimulationmodel-object-management">G4VFastSimulationModel object management</h3>
+<p>The following two methods provide the usual management functions.</p>
+<pre class="language-"><code class="lang-cpp"><span class="token keyword">void</span> <span class="token function">AddFastSimulationModel</span><span class="token punctuation">(</span> G4VFastSimulationModel<span class="token operator">*</span><span class="token punctuation">)</span>
+<span class="token function">RemoveFastSimulationModel</span><span class="token punctuation">(</span> G4VFastSimulationModel<span class="token operator">*</span><span class="token punctuation">)</span>
+</code></pre>
+<hr>
+<h2 id="the-g4fastsimulationmanagerprocess-class">The G4FastSimulationManagerProcess Class</h2>
+<p>This G4VProcess serves as an interface between the tracking and the parameterisation. At tracking time, it collaborates with the G4FastSimulationManager of the current volume, if any, to allow the models to trigger. If no manager exists or if no model issues a trigger, the tracking goes on normally.</p>
+<p>In the present implementation, you must set this process in the G4ProcessManager of the particles you parameterise to enable your parameterisation.</p>
+<p>The processes ordering is:</p>
+<pre class="language-"><code>[n-3] ...
 [n-2] Multiple Scattering
 [n-1] G4FastSimulationManagerProcess
-[ n ] G4Transportation</code></pre>
-<p>This ordering is important if you use ghost geometries, since the G4FastSimulationManagerProcess will provide navigation in the ghost world to limit the step on ghost boundaries.</p><p>The G4FastSimulationManager must be added to the process list of a particle as a continuous and discrete process if you use ghost geometries for this particle. You can add it as a discrete process if you don&#x2019;t use ghosts.</p><p>The following code registers the G4FastSimulationManagerProcess with all the particles as a discrete and continuous process:</p><pre><code class="lang-cpp"><span class="hljs-keyword">void</span> MyPhysicsList::addParameterisation()
-{
-  G4FastSimulationManagerProcess*
-    theFastSimulationManagerProcess = <span class="hljs-keyword">new</span> G4FastSimulationManagerProcess();
-  theParticleIterator-&gt;reset();
-  <span class="hljs-keyword">while</span>( (*theParticleIterator)() )
-    {
-      G4ParticleDefinition* particle = theParticleIterator-&gt;value();
-      G4ProcessManager* pmanager = particle-&gt;GetProcessManager();
-      pmanager-&gt;AddProcess(theFastSimulationManagerProcess, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
-    }
-}</code></pre>
-<hr><h2 id="the-g4globalfastsimulationmanager-singleton-class">The G4GlobalFastSimulationManager Singleton Class</h2><p>This class is a singleton which can be accessed as follows:</p><pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;G4GlobalFastSimulationManager.hh&quot;</span></span>
-<span class="hljs-comment">//...</span>
-<span class="hljs-comment">//...</span>
-G4GlobalFastSimulationManager* globalFSM;
-globalFSM = G4GlobalFastSimulationManager::getGlobalFastSimulationManager();
-<span class="hljs-comment">//...</span>
-<span class="hljs-comment">//...</span>
+[ n ] G4Transportation
+</code></pre><p>This ordering is important if you use ghost geometries, since the G4FastSimulationManagerProcess will provide navigation in the ghost world to limit the step on ghost boundaries.</p>
+<p>The G4FastSimulationManager must be added to the process list of a particle as a continuous and discrete process if you use ghost geometries for this particle. You can add it as a discrete process if you don&#x2019;t use ghosts.</p>
+<p>The following code registers the G4FastSimulationManagerProcess with all the particles as a discrete and continuous process:</p>
+<pre class="language-"><code class="lang-cpp"><span class="token keyword">void</span> MyPhysicsList<span class="token operator">::</span><span class="token function">addParameterisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  G4FastSimulationManagerProcess<span class="token operator">*</span>
+    theFastSimulationManagerProcess <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">G4FastSimulationManagerProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token operator">*</span>theParticleIterator<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      G4ParticleDefinition<span class="token operator">*</span> particle <span class="token operator">=</span> theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      G4ProcessManager<span class="token operator">*</span> pmanager <span class="token operator">=</span> particle<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">GetProcessManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      pmanager<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">AddProcess</span><span class="token punctuation">(</span>theFastSimulationManagerProcess<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<p>Presently, you will mainly need to use the GlobalFastSimulationManager if you use ghost geometries.</p><h2 id="parameterisation-using-ghost-geometries">Parameterisation Using Ghost Geometries</h2><p>In some cases, volumes of the tracking geometry do not allow envelopes to be defined. This may be the case with a geometry coming from a CAD system. Since such a geometry is flat, a parallel geometry must be used to define the envelopes.</p><p>Another interesting case involves defining an envelope which groups the electromagnetic and hadronic calorimeters of a detector into one volume. This may be useful when parameterizing the interaction of charged pions. You will very likely not want electrons to see this envelope, which means that ghost geometries have to be organized by particle flavours.</p><p>Using ghost geometries implies some more overhead in the parameterisation mechanism for the particles sensitive to ghosts, since navigation is provided in the ghost geometry by the G4FastSimulationManagerProcess. Usually, however, only a few volumes will be placed in this ghost world, so that the geometry computations will remain rather cheap.</p><p>In the existing implementation (temporary implementation with G4Region but before parallel geometry implementation), you may only consider ghost G4Regions with just one root G4LogicalVolume. The G4GlobalFastSimulationManager provides the construction of the ghost geometry by making first an empty &#x201C;clone&#x201D; of the world for tracking provided by the construct() method of your G4VUserDetectorConstruction concrete class. You provide the placement of the G4Region root G4LogicalVolume relative to the ghost world coordinates in the G4FastSimulationManager objects. A ghost G4Region is recognized by the fact that its associated G4FastSimulationManager retains a non-empty list of placements.</p><p>The G4GlobalFastSimulationManager will then use both those placements and the IsApplicable() methods of the models attached to the G4FastSimulationManager objects to build the flavour-dependent ghost geometries.</p><p>Then at the beginning of the tracking of a particle, the appropriate ghost world, if any, will be selected.</p><p>The steps required to build one ghost G4Region are:</p><ul><li>built the ghost G4Region : myGhostRegion;
+<hr>
+<h2 id="the-g4globalfastsimulationmanager-singleton-class">The G4GlobalFastSimulationManager Singleton Class</h2>
+<p>This class is a singleton which can be accessed as follows:</p>
+<pre class="language-"><code class="lang-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;G4GlobalFastSimulationManager.hh&quot;</span></span>
+<span class="token comment">//...</span>
+<span class="token comment">//...</span>
+G4GlobalFastSimulationManager<span class="token operator">*</span> globalFSM<span class="token punctuation">;</span>
+globalFSM <span class="token operator">=</span> G4GlobalFastSimulationManager<span class="token operator">::</span><span class="token function">getGlobalFastSimulationManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//...</span>
+<span class="token comment">//...</span>
+</code></pre>
+<p>Presently, you will mainly need to use the GlobalFastSimulationManager if you use ghost geometries.</p>
+<h2 id="parameterisation-using-ghost-geometries">Parameterisation Using Ghost Geometries</h2>
+<p>In some cases, volumes of the tracking geometry do not allow envelopes to be defined. This may be the case with a geometry coming from a CAD system. Since such a geometry is flat, a parallel geometry must be used to define the envelopes.</p>
+<p>Another interesting case involves defining an envelope which groups the electromagnetic and hadronic calorimeters of a detector into one volume. This may be useful when parameterizing the interaction of charged pions. You will very likely not want electrons to see this envelope, which means that ghost geometries have to be organized by particle flavours.</p>
+<p>Using ghost geometries implies some more overhead in the parameterisation mechanism for the particles sensitive to ghosts, since navigation is provided in the ghost geometry by the G4FastSimulationManagerProcess. Usually, however, only a few volumes will be placed in this ghost world, so that the geometry computations will remain rather cheap.</p>
+<p>In the existing implementation (temporary implementation with G4Region but before parallel geometry implementation), you may only consider ghost G4Regions with just one root G4LogicalVolume. The G4GlobalFastSimulationManager provides the construction of the ghost geometry by making first an empty &#x201C;clone&#x201D; of the world for tracking provided by the construct() method of your G4VUserDetectorConstruction concrete class. You provide the placement of the G4Region root G4LogicalVolume relative to the ghost world coordinates in the G4FastSimulationManager objects. A ghost G4Region is recognized by the fact that its associated G4FastSimulationManager retains a non-empty list of placements.</p>
+<p>The G4GlobalFastSimulationManager will then use both those placements and the IsApplicable() methods of the models attached to the G4FastSimulationManager objects to build the flavour-dependent ghost geometries.</p>
+<p>Then at the beginning of the tracking of a particle, the appropriate ghost world, if any, will be selected.</p>
+<p>The steps required to build one ghost G4Region are:</p>
+<ul>
+<li>built the ghost G4Region : myGhostRegion;</li>
+<li>build the root G4LogicalVolume: myGhostLogical, set it to myGhostRegion;</li>
+<li>build a G4FastSimulationManager object, myGhostFSManager, giving myGhostRegion as argument of the constructor;</li>
+<li>give to the G4FastSimulationManager the placement of the myGhostLogical, by invoking for the G4FastSimulationManager method:<ul>
+<li>AddGhostPlacement(G4RotationMatrix*, const G4ThreeVector&amp;);</li>
+<li>or:</li>
+<li>AddGhostPlacement(G4Transform3D*);</li>
+<li>where the rotation matrix and translation vector of the 3-D transformation describe the placement relative to the ghost world coordinates.</li>
+</ul>
 </li>
-<li>build the root G4LogicalVolume: myGhostLogical, set it to myGhostRegion;
+<li>build your G4VFastSimulationModel objects and add them to the myGhostFSManager. The IsApplicable() methods of your models will be used by the G4GlobalFastSimulationManager to build the ghost geometries corresponding to a given particle type.</li>
+<li>Invoke the G4GlobalFastSimulationManager method:<ul>
+<li>G4GlobalFastSimulationManager::getGlobalFastSimulationManager()-&gt;CloseFastSimulation();</li>
+</ul>
 </li>
-<li>build a G4FastSimulationManager object, myGhostFSManager, giving myGhostRegion as argument of the constructor;
+</ul>
+<p>This last call will cause the G4GlobalFastSimulationManager to build the flavour-dependent ghost geometries. This call must be done before the RunManager closes the geometry. (It is foreseen that the run manager in the future will invoke the CloseFastSimulation() to synchronize properly with the closing of the geometry).</p>
+<p>Visualization facilities are provided for ghosts geometries. After the CloseFastSimulation() invocation, it is possible to ask for the drawing of ghosts in an interactive session. The basic commands are:</p>
+<pre class="language-"><code>/vis/draw/Ghosts particle_name
+</code></pre><ul>
+<li>which makes the drawing of the ghost geometry associated with the particle specified by name in the command line.<pre class="language-"><code>/vis/draw/Ghosts
+</code></pre></li>
+<li>which draws all the ghost geometries.</li>
+</ul>
+<h2 id="gflash-parameterization">Gflash Parameterization</h2>
+<p>This section describes how to use the Gflash library. Gflash is a concrete parameterization which is based on the equations and parameters of the original Gflash package from H1(hep-ex/0001020, Grindhammer &amp; Peters, see physics manual) and uses the &#x201C;fast simulation&#x201D; facilities of Geant4 described above. Briefly, whenever a e-/e+ particle enters the calorimeter, it is parameterized if it has a minimum energy and the shower is expected to be contained in the calorimeter (or &#x201D; parameterization envelope&#x201D;). If this is fulfilled the particle is killed, as well as all secondaries, and the energy is deposited according to the Gflash equations. An example, provided in examples/extended/parametrisation/gflash/, shows how to interface Gflash to your application. The simulation time is measured, so the user can immediately see the speed increase resulting from the use of Gflash.</p>
+<h2 id="using-the-gflash-parameterisation">Using the Gflash Parameterisation</h2>
+<p>To use Gflash &#x201C;out of the box&#x201D; the following steps are necessary:</p>
+<ul>
+<li>The user must add the fast simulation process to his process manager:<pre class="language-"><code class="lang-cpp"><span class="token keyword">void</span> MyPhysicsList<span class="token operator">::</span><span class="token function">addParameterisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+G4FastSimulationManagerProcess<span class="token operator">*</span>
+theFastSimulationManagerProcess <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">G4FastSimulationManagerProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token operator">*</span>theParticleIterator<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+G4ParticleDefinition<span class="token operator">*</span> particle <span class="token operator">=</span> theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+G4ProcessManager<span class="token operator">*</span> pmanager <span class="token operator">=</span> particle<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">GetProcessManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pmanager<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">AddProcess</span><span class="token punctuation">(</span>theFastSimulationManagerProcess<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 </li>
-<li><p>give to the G4FastSimulationManager the placement of the myGhostLogical, by invoking for the G4FastSimulationManager method:</p><ul><li>AddGhostPlacement(G4RotationMatrix*, const G4ThreeVector&amp;);
-</li>
-<li>or:
-</li>
-<li>AddGhostPlacement(G4Transform3D*);
-</li>
-<li>where the rotation matrix and translation vector of the 3-D transformation describe the placement relative to the ghost world coordinates.
-</li></ul>
-</li>
-<li><p>build your G4VFastSimulationModel objects and add them to the myGhostFSManager. The IsApplicable() methods of your models will be used by the G4GlobalFastSimulationManager to build the ghost geometries corresponding to a given particle type.</p></li>
-<li>Invoke the G4GlobalFastSimulationManager method:
-<ul><li>G4GlobalFastSimulationManager::getGlobalFastSimulationManager()-&gt;CloseFastSimulation();
-</li></ul>
-</li></ul>
-<p>This last call will cause the G4GlobalFastSimulationManager to build the flavour-dependent ghost geometries. This call must be done before the RunManager closes the geometry. (It is foreseen that the run manager in the future will invoke the CloseFastSimulation() to synchronize properly with the closing of the geometry).</p><p>Visualization facilities are provided for ghosts geometries. After the CloseFastSimulation() invocation, it is possible to ask for the drawing of ghosts in an interactive session. The basic commands are:</p><pre><code>/vis/draw/Ghosts particle_name</code></pre>
-<ul><li><p>which makes the drawing of the ghost geometry associated with the particle specified by name in the command line.</p><pre><code>/vis/draw/Ghosts</code></pre>
-<ul><li>which draws all the ghost geometries.
-</li></ul>
-</li></ul>
-<h2 id="gflash-parameterization">Gflash Parameterization</h2><p>This section describes how to use the Gflash library. Gflash is a concrete parameterization which is based on the equations and parameters of the original Gflash package from H1(hep-ex/0001020, Grindhammer &amp; Peters, see physics manual) and uses the &#x201C;fast simulation&#x201D; facilities of Geant4 described above. Briefly, whenever a e-/e+ particle enters the calorimeter, it is parameterized if it has a minimum energy and the shower is expected to be contained in the calorimeter (or &#x201D; parameterization envelope&#x201D;). If this is fulfilled the particle is killed, as well as all secondaries, and the energy is deposited according to the Gflash equations. An example, provided in examples/extended/parametrisation/gflash/, shows how to interface Gflash to your application. The simulation time is measured, so the user can immediately see the speed increase resulting from the use of Gflash.</p><h2 id="using-the-gflash-parameterisation">Using the Gflash Parameterisation</h2><p>To use Gflash &#x201C;out of the box&#x201D; the following steps are necessary:</p><ul><li><p>The user must add the fast simulation process to his process manager:</p><pre><code class="lang-cpp"><span class="hljs-keyword">void</span> MyPhysicsList::addParameterisation()
-{
-G4FastSimulationManagerProcess*
-theFastSimulationManagerProcess = <span class="hljs-keyword">new</span> G4FastSimulationManagerProcess();
-theParticleIterator-&gt;reset();
-<span class="hljs-keyword">while</span>( (*theParticleIterator)() )
-{
-G4ParticleDefinition* particle = theParticleIterator-&gt;value();
-G4ProcessManager* pmanager = particle-&gt;GetProcessManager();
-pmanager-&gt;AddProcess(theFastSimulationManagerProcess, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
-}
-}</code></pre>
-<ul><li><p>The envelope in which the parameterization should be performed must be specified (below: G4Region m_calo_region) and the GFlashShowerModel must be assigned to this region. Furthermore, the classes GFlashParticleBounds (which provides thresholds for the parameterization like minimal energy etc.), GflashHitMaker(a helper class to generate hits in the sensitive detector) and GFlashHomoShowerParamterisation (which does the computations) must be constructed (by the user at the moment) and assigned to the GFlashShowerModel. Please note that at the moment only homogeneous calorimeters are supported.</p><pre><code class="lang-cpp">m_theFastShowerModel = <span class="hljs-keyword">new</span> GFlashShowerModel(<span class="hljs-string">&quot;fastShowerModel&quot;</span>,m_calo_region);
-m_theParametrisation = <span class="hljs-keyword">new</span> GFlashHomoShowerParamterisation(matManager-&gt;getMaterial(mat));
-m_theParticleBounds  = <span class="hljs-keyword">new</span> GFlashParticleBounds();
-m_theHMaker          = <span class="hljs-keyword">new</span> GFlashHitMaker();
-m_theFastShowerModel-&gt;SetParametrisation(*m_theParametrisation);
-m_theFastShowerModel-&gt;SetParticleBounds(*m_theParticleBounds) ;
-m_theFastShowerModel-&gt;SetHitMaker(*m_theHMaker);</code></pre>
-<p>The user must also set the material of the calorimeter, since the computation depends on the material.</p></li></ul>
-</li>
-<li><p>It is mandatory to use G4VGFlashSensitiveDetector as (additional) base class for the sensitive detector.</p><pre><code class="lang-cpp"><span class="hljs-keyword">class</span> ExGflashSensitiveDetector: <span class="hljs-keyword">public</span> G4VSensitiveDetector ,<span class="hljs-keyword">public</span> G4VGFlashSensitiveDetector</code></pre>
-<p>Here it is necessary to implement a separate interface, where the GFlash spots are processed.</p><pre><code class="lang-cpp">(ProcessHits(G4GFlashSpot*aSpot ,G4TouchableHistory* ROhist))</code></pre>
-<p>A separate interface is used, because the Gflash spots naturally contain less information than the full simulation.</p></li></ul>
-<p>Since the parameters in the Gflash package are taken from fits to full simulations with Geant3, some retuning might be necessary for good agreement with Geant4 showers. For experiment-specific geometries some retuning might be necessary anyway. The tuning is quite complicated since there are many parameters (some correlated) and cannot be described here (see again hep-ex/0001020). For brave users the Gflash framework already foresees the possibility of passing a class with the (users) parameters,GVFlashHomoShowerTuning, to the GFlashHomoShowerParamterisation constructor. The default parameters are the original Gflash parameters:</p><pre><code class="lang-cpp">GFlashHomoShowerParameterisation(G4Material * aMat, GVFlashHomoShowerTuning * aPar = <span class="hljs-number">0</span>);</code></pre>
-<p>Now there is also a preliminary implementation of a parameterization for sampling calorimeters.</p><p>The user must specify the active and passive material, as well as the thickness of the active and passive layer.</p><p>The sampling structure of the calorimeter is taken into account by using an &#x201C;effective medium&#x201D; to compute the shower shape.</p><p>All material properties needed are calculated automatically. If tuning is required, the user can pass his own parameter set in the class GFlashSamplingShowerTuning. Here the user can also set his calorimeter resolution.</p><p>All in all the constructor looks the following:</p><pre><code class="lang-cpp">GFlashSamplingShowerParamterisation(G4Material * Mat1, G4Material * Mat2,G4double d1,G4double d2, GVFlashSamplingShowerTuning * aPar = <span class="hljs-number">0</span>);</code></pre>
-<p>An implementation of some tools that should help the user to tune the parameterization is foreseen.</p><!-- Parameterization.md ends here -->
-
-
+<li>The envelope in which the parameterization should be performed must be specified (below: G4Region m_calo_region) and the GFlashShowerModel must be assigned to this region. Furthermore, the classes GFlashParticleBounds (which provides thresholds for the parameterization like minimal energy etc.), GflashHitMaker(a helper class to generate hits in the sensitive detector) and GFlashHomoShowerParamterisation (which does the computations) must be constructed (by the user at the moment) and assigned to the GFlashShowerModel. Please note that at the moment only homogeneous calorimeters are supported.<pre class="language-"><code class="lang-cpp">  m_theFastShowerModel <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashShowerModel</span><span class="token punctuation">(</span><span class="token string">&quot;fastShowerModel&quot;</span><span class="token punctuation">,</span>m_calo_region<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  m_theParametrisation <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashHomoShowerParamterisation</span><span class="token punctuation">(</span>matManager<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">getMaterial</span><span class="token punctuation">(</span>mat<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  m_theParticleBounds  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashParticleBounds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  m_theHMaker          <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashHitMaker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  m_theFastShowerModel<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">SetParametrisation</span><span class="token punctuation">(</span><span class="token operator">*</span>m_theParametrisation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  m_theFastShowerModel<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">SetParticleBounds</span><span class="token punctuation">(</span><span class="token operator">*</span>m_theParticleBounds<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+  m_theFastShowerModel<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">SetHitMaker</span><span class="token punctuation">(</span><span class="token operator">*</span>m_theHMaker<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+  The user must also set the material of the calorimeter, since the computation depends on the material.</li>
+<li>It is mandatory to use G4VGFlashSensitiveDetector as (additional) base class for the sensitive detector.<pre class="language-"><code class="lang-cpp"><span class="token keyword">class</span> <span class="token class-name">ExGflashSensitiveDetector</span><span class="token operator">:</span> <span class="token keyword">public</span> G4VSensitiveDetector <span class="token punctuation">,</span><span class="token keyword">public</span> G4VGFlashSensitiveDetector
+</code></pre>
+Here it is necessary to implement a separate interface, where the GFlash spots are processed.<pre class="language-"><code class="lang-cpp"><span class="token punctuation">(</span><span class="token function">ProcessHits</span><span class="token punctuation">(</span>G4GFlashSpot<span class="token operator">*</span>aSpot <span class="token punctuation">,</span>G4TouchableHistory<span class="token operator">*</span> ROhist<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+A separate interface is used, because the Gflash spots naturally contain less information than the full simulation.</li>
+</ul>
+<p>Since the parameters in the Gflash package are taken from fits to full simulations with Geant3, some retuning might be necessary for good agreement with Geant4 showers. For experiment-specific geometries some retuning might be necessary anyway. The tuning is quite complicated since there are many parameters (some correlated) and cannot be described here (see again hep-ex/0001020). For brave users the Gflash framework already foresees the possibility of passing a class with the (users) parameters,GVFlashHomoShowerTuning, to the GFlashHomoShowerParamterisation constructor. The default parameters are the original Gflash parameters:</p>
+<pre class="language-"><code class="lang-cpp"><span class="token function">GFlashHomoShowerParameterisation</span><span class="token punctuation">(</span>G4Material <span class="token operator">*</span> aMat<span class="token punctuation">,</span> GVFlashHomoShowerTuning <span class="token operator">*</span> aPar <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Now there is also a preliminary implementation of a parameterization for sampling calorimeters.</p>
+<p>The user must specify the active and passive material, as well as the thickness of the active and passive layer.</p>
+<p>The sampling structure of the calorimeter is taken into account by using an &#x201C;effective medium&#x201D; to compute the shower shape.</p>
+<p>All material properties needed are calculated automatically. If tuning is required, the user can pass his own parameter set in the class GFlashSamplingShowerTuning. Here the user can also set his calorimeter resolution.</p>
+<p>All in all the constructor looks the following:</p>
+<pre class="language-"><code class="lang-cpp"><span class="token function">GFlashSamplingShowerParamterisation</span><span class="token punctuation">(</span>G4Material <span class="token operator">*</span> Mat1<span class="token punctuation">,</span> G4Material <span class="token operator">*</span> Mat2<span class="token punctuation">,</span>G4double d1<span class="token punctuation">,</span>G4double d2<span class="token punctuation">,</span> GVFlashSamplingShowerTuning <span class="token operator">*</span> aPar <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>An implementation of some tools that should help the user to tune the parameterization is foreseen.</p>
+<!-- Parameterization.md ends here -->
 
                                 
                                 </section>
@@ -3219,7 +3315,7 @@ m_theFastShowerModel-&gt;SetHitMaker(*m_theHMaker);</code></pre>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Parameterization","level":"1.3.6","depth":2,"next":{"title":"Transportation","level":"1.3.7","depth":2,"path":"PhysicsProcesses/Transportation.md","ref":"PhysicsProcesses/Transportation.md","articles":[]},"previous":{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"PhysicsProcesses/Parameterization.md","mtime":"2018-05-21T01:12:35.117Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-09-03T22:04:20.637Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Parameterization","level":"1.3.6","depth":2,"next":{"title":"Transportation","level":"1.3.7","depth":2,"path":"PhysicsProcesses/Transportation.md","ref":"PhysicsProcesses/Transportation.md","articles":[]},"previous":{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"PhysicsProcesses/Parameterization.md","mtime":"2018-05-21T01:12:35.117Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -3227,6 +3323,14 @@ m_theFastShowerModel-&gt;SetHitMaker(*m_theHMaker);</code></pre>
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
