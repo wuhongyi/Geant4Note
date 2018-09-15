@@ -1,6 +1,6 @@
 
 <!DOCTYPE HTML>
-<html lang="zh" >
+<html lang="zh-ch" >
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -17,11 +17,15 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
                 
             
                 
@@ -29,11 +33,63 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-latex-codecogs/latex-codecogs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-sectionx/sectionx.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mcqx/mcqx.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fbqx/fbqx.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-spoiler/spoiler.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-youtubex/player.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
                 
             
         
@@ -74,6 +130,13 @@
     </head>
     <body>
         
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  </script>
+  
 <div class="book">
     <div class="book-summary">
         
@@ -3046,12 +3109,12 @@
 ;;           By: Hongyi Wu(吴鸿毅)
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
-<h1 id="g4particlehpninelasticfs">G4ParticleHPNInelasticFS</h1>
+<h1 id="g4particlehpninelasticfs"><a name="g4particlehpninelasticfs" class="plugin-anchor" href="#g4particlehpninelasticfs"><i class="fa fa-link" aria-hidden="true"></i></a>G4ParticleHPNInelasticFS</h1>
 <p><strong>public G4ParticleHPInelasticCompFS</strong></p>
 <pre class="language-"><code class="lang-cpp">  <span class="token keyword">void</span> Init <span class="token punctuation">(</span>G4double A<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4int M<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> dirName<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> aFSType<span class="token punctuation">,</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   G4HadFinalState <span class="token operator">*</span> <span class="token function">ApplyYourself</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadProjectile <span class="token operator">&amp;</span> theTrack<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="class">class</h2>
+<h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
 <pre class="language-"><code class="lang-cpp">  <span class="token keyword">public</span><span class="token operator">:</span>
 
   <span class="token function">G4ParticleHPNInelasticFS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -3067,7 +3130,9 @@
   <span class="token keyword">private</span><span class="token operator">:</span>
 </code></pre>
 <!-- G4ParticleHPNInelasticFS.md ends here -->
-
+<footer class="page-footer"><span class="copyright">&amp;Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
+2018-09-02 00:07:02
+</span></footer>
                                 
                                 </section>
                             
@@ -3110,22 +3175,15 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPNInelasticFS","level":"1.4.22.2.1","depth":4,"next":{"title":"G4ParticleHPNXInelasticFS","level":"1.4.22.2.2","depth":4,"path":"class/G4ParticleHPNXInelasticFS.md","ref":"class/G4ParticleHPNXInelasticFS.md","articles":[]},"previous":{"title":"G4ParticleHPInelasticCompFS","level":"1.4.22.2","depth":3,"path":"class/G4ParticleHPInelasticCompFS.md","ref":"class/G4ParticleHPInelasticCompFS.md","articles":[{"title":"G4ParticleHPNInelasticFS","level":"1.4.22.2.1","depth":4,"path":"class/G4ParticleHPNInelasticFS.md","ref":"class/G4ParticleHPNInelasticFS.md","articles":[]},{"title":"G4ParticleHPNXInelasticFS","level":"1.4.22.2.2","depth":4,"path":"class/G4ParticleHPNXInelasticFS.md","ref":"class/G4ParticleHPNXInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NDInelasticFS","level":"1.4.22.2.3","depth":4,"path":"class/G4ParticleHP2NDInelasticFS.md","ref":"class/G4ParticleHP2NDInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NInelasticFS","level":"1.4.22.2.4","depth":4,"path":"class/G4ParticleHP2NInelasticFS.md","ref":"class/G4ParticleHP2NInelasticFS.md","articles":[]},{"title":"G4ParticleHP3NInelasticFS","level":"1.4.22.2.5","depth":4,"path":"class/G4ParticleHP3NInelasticFS.md","ref":"class/G4ParticleHP3NInelasticFS.md","articles":[]},{"title":"G4ParticleHPNAInelasticFS","level":"1.4.22.2.6","depth":4,"path":"class/G4ParticleHPNAInelasticFS.md","ref":"class/G4ParticleHPNAInelasticFS.md","articles":[]},{"title":"G4ParticleHPN3AInelasticFS","level":"1.4.22.2.7","depth":4,"path":"class/G4ParticleHPN3AInelasticFS.md","ref":"class/G4ParticleHPN3AInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NAInelasticFS","level":"1.4.22.2.8","depth":4,"path":"class/G4ParticleHP2NAInelasticFS.md","ref":"class/G4ParticleHP2NAInelasticFS.md","articles":[]},{"title":"G4ParticleHP3NAInelasticFS","level":"1.4.22.2.9","depth":4,"path":"class/G4ParticleHP3NAInelasticFS.md","ref":"class/G4ParticleHP3NAInelasticFS.md","articles":[]},{"title":"G4ParticleHPNPInelasticFS","level":"1.4.22.2.10","depth":4,"path":"class/G4ParticleHPNPInelasticFS.md","ref":"class/G4ParticleHPNPInelasticFS.md","articles":[]},{"title":"G4ParticleHPN2AInelasticFS","level":"1.4.22.2.11","depth":4,"path":"class/G4ParticleHPN2AInelasticFS.md","ref":"class/G4ParticleHPN2AInelasticFS.md","articles":[]},{"title":"G4ParticleHP2N2AInelasticFS","level":"1.4.22.2.12","depth":4,"path":"class/G4ParticleHP2N2AInelasticFS.md","ref":"class/G4ParticleHP2N2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPNDInelasticFS","level":"1.4.22.2.13","depth":4,"path":"class/G4ParticleHPNDInelasticFS.md","ref":"class/G4ParticleHPNDInelasticFS.md","articles":[]},{"title":"G4ParticleHPNTInelasticFS","level":"1.4.22.2.14","depth":4,"path":"class/G4ParticleHPNTInelasticFS.md","ref":"class/G4ParticleHPNTInelasticFS.md","articles":[]},{"title":"G4ParticleHPNHe3InelasticFS","level":"1.4.22.2.15","depth":4,"path":"class/G4ParticleHPNHe3InelasticFS.md","ref":"class/G4ParticleHPNHe3InelasticFS.md","articles":[]},{"title":"G4ParticleHPND2AInelasticFS","level":"1.4.22.2.16","depth":4,"path":"class/G4ParticleHPND2AInelasticFS.md","ref":"class/G4ParticleHPND2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPNT2AInelasticFS","level":"1.4.22.2.17","depth":4,"path":"class/G4ParticleHPNT2AInelasticFS.md","ref":"class/G4ParticleHPNT2AInelasticFS.md","articles":[]},{"title":"G4ParticleHP4NInelasticFS","level":"1.4.22.2.18","depth":4,"path":"class/G4ParticleHP4NInelasticFS.md","ref":"class/G4ParticleHP4NInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NPInelasticFS","level":"1.4.22.2.19","depth":4,"path":"class/G4ParticleHP2NPInelasticFS.md","ref":"class/G4ParticleHP2NPInelasticFS.md","articles":[]},{"title":"G4ParticleHP3NPInelasticFS","level":"1.4.22.2.20","depth":4,"path":"class/G4ParticleHP3NPInelasticFS.md","ref":"class/G4ParticleHP3NPInelasticFS.md","articles":[]},{"title":"G4ParticleHPN2PInelasticFS","level":"1.4.22.2.21","depth":4,"path":"class/G4ParticleHPN2PInelasticFS.md","ref":"class/G4ParticleHPN2PInelasticFS.md","articles":[]},{"title":"G4ParticleHPNPAInelasticFS","level":"1.4.22.2.22","depth":4,"path":"class/G4ParticleHPNPAInelasticFS.md","ref":"class/G4ParticleHPNPAInelasticFS.md","articles":[]},{"title":"G4ParticleHPPInelasticFS","level":"1.4.22.2.23","depth":4,"path":"class/G4ParticleHPPInelasticFS.md","ref":"class/G4ParticleHPPInelasticFS.md","articles":[]},{"title":"G4ParticleHPDInelasticFS","level":"1.4.22.2.24","depth":4,"path":"class/G4ParticleHPDInelasticFS.md","ref":"class/G4ParticleHPDInelasticFS.md","articles":[]},{"title":"G4ParticleHPTInelasticFS","level":"1.4.22.2.25","depth":4,"path":"class/G4ParticleHPTInelasticFS.md","ref":"class/G4ParticleHPTInelasticFS.md","articles":[]},{"title":"G4ParticleHPHe3InelasticFS","level":"1.4.22.2.26","depth":4,"path":"class/G4ParticleHPHe3InelasticFS.md","ref":"class/G4ParticleHPHe3InelasticFS.md","articles":[]},{"title":"G4ParticleHPAInelasticFS","level":"1.4.22.2.27","depth":4,"path":"class/G4ParticleHPAInelasticFS.md","ref":"class/G4ParticleHPAInelasticFS.md","articles":[]},{"title":"G4ParticleHP2AInelasticFS","level":"1.4.22.2.28","depth":4,"path":"class/G4ParticleHP2AInelasticFS.md","ref":"class/G4ParticleHP2AInelasticFS.md","articles":[]},{"title":"G4ParticleHP3AInelasticFS","level":"1.4.22.2.29","depth":4,"path":"class/G4ParticleHP3AInelasticFS.md","ref":"class/G4ParticleHP3AInelasticFS.md","articles":[]},{"title":"G4ParticleHP2PInelasticFS","level":"1.4.22.2.30","depth":4,"path":"class/G4ParticleHP2PInelasticFS.md","ref":"class/G4ParticleHP2PInelasticFS.md","articles":[]},{"title":"G4ParticleHPPAInelasticFS","level":"1.4.22.2.31","depth":4,"path":"class/4ParticleHPPAInelasticFS.md","ref":"class/4ParticleHPPAInelasticFS.md","articles":[]},{"title":"G4ParticleHPD2AInelasticFS","level":"1.4.22.2.32","depth":4,"path":"class/4ParticleHPD2AInelasticFS.md","ref":"class/4ParticleHPD2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPT2AInelasticFS","level":"1.4.22.2.33","depth":4,"path":"class/G4ParticleHPT2AInelasticFS.md","ref":"class/G4ParticleHPT2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPPDInelasticFS","level":"1.4.22.2.34","depth":4,"path":"class/G4ParticleHPPDInelasticFS.md","ref":"class/G4ParticleHPPDInelasticFS.md","articles":[]},{"title":"G4ParticleHPPTInelasticFS","level":"1.4.22.2.35","depth":4,"path":"class/G4ParticleHPPTInelasticFS.md","ref":"class/G4ParticleHPPTInelasticFS.md","articles":[]},{"title":"G4ParticleHPDAInelasticFS","level":"1.4.22.2.36","depth":4,"path":"class/G4ParticleHPDAInelasticFS.md","ref":"class/G4ParticleHPDAInelasticFS.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","prism","highlight","splitter","sitemap"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/wuhongyi"},"splitter":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Geant4 Note","language":"zh","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ParticleHPNInelasticFS.md","mtime":"2018-09-01T16:07:02.809Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:07:15.355Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPNInelasticFS","level":"1.4.22.2.1","depth":4,"next":{"title":"G4ParticleHPNXInelasticFS","level":"1.4.22.2.2","depth":4,"path":"class/G4ParticleHPNXInelasticFS.md","ref":"class/G4ParticleHPNXInelasticFS.md","articles":[]},"previous":{"title":"G4ParticleHPInelasticCompFS","level":"1.4.22.2","depth":3,"path":"class/G4ParticleHPInelasticCompFS.md","ref":"class/G4ParticleHPInelasticCompFS.md","articles":[{"title":"G4ParticleHPNInelasticFS","level":"1.4.22.2.1","depth":4,"path":"class/G4ParticleHPNInelasticFS.md","ref":"class/G4ParticleHPNInelasticFS.md","articles":[]},{"title":"G4ParticleHPNXInelasticFS","level":"1.4.22.2.2","depth":4,"path":"class/G4ParticleHPNXInelasticFS.md","ref":"class/G4ParticleHPNXInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NDInelasticFS","level":"1.4.22.2.3","depth":4,"path":"class/G4ParticleHP2NDInelasticFS.md","ref":"class/G4ParticleHP2NDInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NInelasticFS","level":"1.4.22.2.4","depth":4,"path":"class/G4ParticleHP2NInelasticFS.md","ref":"class/G4ParticleHP2NInelasticFS.md","articles":[]},{"title":"G4ParticleHP3NInelasticFS","level":"1.4.22.2.5","depth":4,"path":"class/G4ParticleHP3NInelasticFS.md","ref":"class/G4ParticleHP3NInelasticFS.md","articles":[]},{"title":"G4ParticleHPNAInelasticFS","level":"1.4.22.2.6","depth":4,"path":"class/G4ParticleHPNAInelasticFS.md","ref":"class/G4ParticleHPNAInelasticFS.md","articles":[]},{"title":"G4ParticleHPN3AInelasticFS","level":"1.4.22.2.7","depth":4,"path":"class/G4ParticleHPN3AInelasticFS.md","ref":"class/G4ParticleHPN3AInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NAInelasticFS","level":"1.4.22.2.8","depth":4,"path":"class/G4ParticleHP2NAInelasticFS.md","ref":"class/G4ParticleHP2NAInelasticFS.md","articles":[]},{"title":"G4ParticleHP3NAInelasticFS","level":"1.4.22.2.9","depth":4,"path":"class/G4ParticleHP3NAInelasticFS.md","ref":"class/G4ParticleHP3NAInelasticFS.md","articles":[]},{"title":"G4ParticleHPNPInelasticFS","level":"1.4.22.2.10","depth":4,"path":"class/G4ParticleHPNPInelasticFS.md","ref":"class/G4ParticleHPNPInelasticFS.md","articles":[]},{"title":"G4ParticleHPN2AInelasticFS","level":"1.4.22.2.11","depth":4,"path":"class/G4ParticleHPN2AInelasticFS.md","ref":"class/G4ParticleHPN2AInelasticFS.md","articles":[]},{"title":"G4ParticleHP2N2AInelasticFS","level":"1.4.22.2.12","depth":4,"path":"class/G4ParticleHP2N2AInelasticFS.md","ref":"class/G4ParticleHP2N2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPNDInelasticFS","level":"1.4.22.2.13","depth":4,"path":"class/G4ParticleHPNDInelasticFS.md","ref":"class/G4ParticleHPNDInelasticFS.md","articles":[]},{"title":"G4ParticleHPNTInelasticFS","level":"1.4.22.2.14","depth":4,"path":"class/G4ParticleHPNTInelasticFS.md","ref":"class/G4ParticleHPNTInelasticFS.md","articles":[]},{"title":"G4ParticleHPNHe3InelasticFS","level":"1.4.22.2.15","depth":4,"path":"class/G4ParticleHPNHe3InelasticFS.md","ref":"class/G4ParticleHPNHe3InelasticFS.md","articles":[]},{"title":"G4ParticleHPND2AInelasticFS","level":"1.4.22.2.16","depth":4,"path":"class/G4ParticleHPND2AInelasticFS.md","ref":"class/G4ParticleHPND2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPNT2AInelasticFS","level":"1.4.22.2.17","depth":4,"path":"class/G4ParticleHPNT2AInelasticFS.md","ref":"class/G4ParticleHPNT2AInelasticFS.md","articles":[]},{"title":"G4ParticleHP4NInelasticFS","level":"1.4.22.2.18","depth":4,"path":"class/G4ParticleHP4NInelasticFS.md","ref":"class/G4ParticleHP4NInelasticFS.md","articles":[]},{"title":"G4ParticleHP2NPInelasticFS","level":"1.4.22.2.19","depth":4,"path":"class/G4ParticleHP2NPInelasticFS.md","ref":"class/G4ParticleHP2NPInelasticFS.md","articles":[]},{"title":"G4ParticleHP3NPInelasticFS","level":"1.4.22.2.20","depth":4,"path":"class/G4ParticleHP3NPInelasticFS.md","ref":"class/G4ParticleHP3NPInelasticFS.md","articles":[]},{"title":"G4ParticleHPN2PInelasticFS","level":"1.4.22.2.21","depth":4,"path":"class/G4ParticleHPN2PInelasticFS.md","ref":"class/G4ParticleHPN2PInelasticFS.md","articles":[]},{"title":"G4ParticleHPNPAInelasticFS","level":"1.4.22.2.22","depth":4,"path":"class/G4ParticleHPNPAInelasticFS.md","ref":"class/G4ParticleHPNPAInelasticFS.md","articles":[]},{"title":"G4ParticleHPPInelasticFS","level":"1.4.22.2.23","depth":4,"path":"class/G4ParticleHPPInelasticFS.md","ref":"class/G4ParticleHPPInelasticFS.md","articles":[]},{"title":"G4ParticleHPDInelasticFS","level":"1.4.22.2.24","depth":4,"path":"class/G4ParticleHPDInelasticFS.md","ref":"class/G4ParticleHPDInelasticFS.md","articles":[]},{"title":"G4ParticleHPTInelasticFS","level":"1.4.22.2.25","depth":4,"path":"class/G4ParticleHPTInelasticFS.md","ref":"class/G4ParticleHPTInelasticFS.md","articles":[]},{"title":"G4ParticleHPHe3InelasticFS","level":"1.4.22.2.26","depth":4,"path":"class/G4ParticleHPHe3InelasticFS.md","ref":"class/G4ParticleHPHe3InelasticFS.md","articles":[]},{"title":"G4ParticleHPAInelasticFS","level":"1.4.22.2.27","depth":4,"path":"class/G4ParticleHPAInelasticFS.md","ref":"class/G4ParticleHPAInelasticFS.md","articles":[]},{"title":"G4ParticleHP2AInelasticFS","level":"1.4.22.2.28","depth":4,"path":"class/G4ParticleHP2AInelasticFS.md","ref":"class/G4ParticleHP2AInelasticFS.md","articles":[]},{"title":"G4ParticleHP3AInelasticFS","level":"1.4.22.2.29","depth":4,"path":"class/G4ParticleHP3AInelasticFS.md","ref":"class/G4ParticleHP3AInelasticFS.md","articles":[]},{"title":"G4ParticleHP2PInelasticFS","level":"1.4.22.2.30","depth":4,"path":"class/G4ParticleHP2PInelasticFS.md","ref":"class/G4ParticleHP2PInelasticFS.md","articles":[]},{"title":"G4ParticleHPPAInelasticFS","level":"1.4.22.2.31","depth":4,"path":"class/4ParticleHPPAInelasticFS.md","ref":"class/4ParticleHPPAInelasticFS.md","articles":[]},{"title":"G4ParticleHPD2AInelasticFS","level":"1.4.22.2.32","depth":4,"path":"class/4ParticleHPD2AInelasticFS.md","ref":"class/4ParticleHPD2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPT2AInelasticFS","level":"1.4.22.2.33","depth":4,"path":"class/G4ParticleHPT2AInelasticFS.md","ref":"class/G4ParticleHPT2AInelasticFS.md","articles":[]},{"title":"G4ParticleHPPDInelasticFS","level":"1.4.22.2.34","depth":4,"path":"class/G4ParticleHPPDInelasticFS.md","ref":"class/G4ParticleHPPDInelasticFS.md","articles":[]},{"title":"G4ParticleHPPTInelasticFS","level":"1.4.22.2.35","depth":4,"path":"class/G4ParticleHPPTInelasticFS.md","ref":"class/G4ParticleHPPTInelasticFS.md","articles":[]},{"title":"G4ParticleHPDAInelasticFS","level":"1.4.22.2.36","depth":4,"path":"class/G4ParticleHPDAInelasticFS.md","ref":"class/G4ParticleHPDAInelasticFS.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"spoiler":{},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","language":"zh-ch","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ParticleHPNInelasticFS.md","mtime":"2018-09-01T16:07:02.809Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T04:56:37.977Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
 
+
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
-    
-        
-        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
-        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
@@ -3136,19 +3194,79 @@
         
     
         
-        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
-        
-    
-        
         <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
         
     
         
         <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ace/ace/ace.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ace/ace.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sectionx/sectionx.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mcqx/js.cookie.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mcqx/mcqx.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fbqx/fbqx.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-spoiler/spoiler.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-youtubex/player.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
         
     
 

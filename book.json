@@ -2,13 +2,31 @@
     "title": "Geant4 Note",
     "description": "吴鸿毅笔记",
     "author": "Hongyi Wu(吴鸿毅)",
-    "language": "zh",
+    "language": "zh-ch",
     "plugins": [
+	"search",
+	"sharing",
+	"fontsettings",
+	"livereload",
+	"-highlight",
 	"github",
 	"prism",
-	"highlight",
 	"splitter",
-	"sitemap"
+	"sitemap",
+	"image-captions",
+	"anchors",
+	"latex-codecogs",
+	"mermaid",
+	"tbfed-pagefooter",
+	"ace",
+	"sectionx",
+	"mcqx",
+	"fbqx",
+	"spoiler",
+	"anchor-navigation",
+	"youtubex",
+	"redirect",
+	"expandable-chapters"
     ],
     "pluginsConfig": {
 	"github": {
@@ -16,6 +34,14 @@
 	},
 	"sitemap": {
             "hostname": "http://wuhongyi.cn/"
+	},
+	"tbfed-pagefooter": {
+	    "copyright":"&Hongyi Wu",
+	    "modify_label": "Last-Modified：",
+	    "modify_format": "YYYY-MM-DD HH:mm:ss"
+	},
+	"expandable-chapters":{
+
 	}
     }
 }
