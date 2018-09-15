@@ -1,0 +1,3341 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-ch" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Hadronic · Geant4 Note</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Hongyi Wu(吴鸿毅)">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-latex-codecogs/latex-codecogs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-sectionx/sectionx.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mcqx/mcqx.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fbqx/fbqx.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-spoiler/spoiler.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-youtubex/player.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Decay.html" />
+    
+    
+    <link rel="prev" href="Electromagnetic.html" />
+    
+
+    </head>
+    <body>
+        
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  </script>
+  
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Guide/">
+            
+                <a href="../Guide/">
+            
+                    
+                    说明文档
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Physics Processes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="Electromagnetic.html">
+            
+                <a href="Electromagnetic.html">
+            
+                    
+                    Electromagnetic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.2" data-path="Hadronic.html">
+            
+                <a href="Hadronic.html">
+            
+                    
+                    Hadronic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="Decay.html">
+            
+                <a href="Decay.html">
+            
+                    
+                    Decay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="photoleptonhadron.html">
+            
+                <a href="photoleptonhadron.html">
+            
+                    
+                    photolepton-hadron
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="OpticalPhoton.html">
+            
+                <a href="OpticalPhoton.html">
+            
+                    
+                    Optical Photon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="Parameterization.html">
+            
+                <a href="Parameterization.html">
+            
+                    
+                    Parameterization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="Transportation.html">
+            
+                <a href="Transportation.html">
+            
+                    
+                    Transportation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../class/">
+            
+                <a href="../class/">
+            
+                    
+                    Class
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../class/G4LossTableManager.html">
+            
+                <a href="../class/G4LossTableManager.html">
+            
+                    
+                    G4LossTableManager*
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../class/G4ParticleHPManager.html">
+            
+                <a href="../class/G4ParticleHPManager.html">
+            
+                    
+                    G4ParticleHPManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../class/G4EmModelActivator.html">
+            
+                <a href="../class/G4EmModelActivator.html">
+            
+                    
+                    G4EmModelActivator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../class/G4EmCorrections.html">
+            
+                <a href="../class/G4EmCorrections.html">
+            
+                    
+                    G4EmCorrections
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../class/G4EmCalculator.html">
+            
+                <a href="../class/G4EmCalculator.html">
+            
+                    
+                    G4EmCalculator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../class/G4EmParameters.html">
+            
+                <a href="../class/G4EmParameters.html">
+            
+                    
+                    G4EmParameters*
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../class/G4VAtomDeexcitation.html">
+            
+                <a href="../class/G4VAtomDeexcitation.html">
+            
+                    
+                    G4VAtomDeexcitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../class/G4VIonDEDXScalingAlgorithm.html">
+            
+                <a href="../class/G4VIonDEDXScalingAlgorithm.html">
+            
+                    
+                    G4VIonDEDXScalingAlgorithm
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.8.1" data-path="../class/G4IonDEDXScalingICRU73.html">
+            
+                <a href="../class/G4IonDEDXScalingICRU73.html">
+            
+                    
+                    G4IonDEDXScalingICRU73
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../class/G4VIonDEDXTable.html">
+            
+                <a href="../class/G4VIonDEDXTable.html">
+            
+                    
+                    G4VIonDEDXTable
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.9.1" data-path="../class/G4IonStoppingData.html">
+            
+                <a href="../class/G4IonStoppingData.html">
+            
+                    
+                    G4IonStoppingData
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../class/G4VEmModel.html">
+            
+                <a href="../class/G4VEmModel.html">
+            
+                    
+                    G4VEmModel
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.10.1" data-path="../class/G4BraggModel.html">
+            
+                <a href="../class/G4BraggModel.html">
+            
+                    
+                    G4BraggModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.2" data-path="../class/G4BetheBlochModel.html">
+            
+                <a href="../class/G4BetheBlochModel.html">
+            
+                    
+                    G4BetheBlochModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.3" data-path="../class/G4IonParametrisedLossModel.html">
+            
+                <a href="../class/G4IonParametrisedLossModel.html">
+            
+                    
+                    G4IonParametrisedLossModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.4" data-path="../class/G4ICRU49NuclearStoppingModel.html">
+            
+                <a href="../class/G4ICRU49NuclearStoppingModel.html">
+            
+                    
+                    G4ICRU49NuclearStoppingModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.5" data-path="../class/G4KleinNishinaCompton.html">
+            
+                <a href="../class/G4KleinNishinaCompton.html">
+            
+                    
+                    G4KleinNishinaCompton
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.6" data-path="../class/G4KleinNishinaModel.html">
+            
+                <a href="../class/G4KleinNishinaModel.html">
+            
+                    
+                    G4KleinNishinaModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.7" data-path="../class/G4LowEPComptonModel.html">
+            
+                <a href="../class/G4LowEPComptonModel.html">
+            
+                    
+                    G4LowEPComptonModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.8" data-path="../class/G4LivermoreComptonModel.html">
+            
+                <a href="../class/G4LivermoreComptonModel.html">
+            
+                    
+                    G4LivermoreComptonModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.9" data-path="../class/G4PEEffectFluoModel.html">
+            
+                <a href="../class/G4PEEffectFluoModel.html">
+            
+                    
+                    G4PEEffectFluoModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.10" data-path="../class/G4LivermorePhotoElectricModel.html">
+            
+                <a href="../class/G4LivermorePhotoElectricModel.html">
+            
+                    
+                    G4LivermorePhotoElectricModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.11" data-path="../class/G4BetheHeitlerModel.html">
+            
+                <a href="../class/G4BetheHeitlerModel.html">
+            
+                    
+                    G4BetheHeitlerModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.12" data-path="../class/G4PairProductionRelModel.html">
+            
+                <a href="../class/G4PairProductionRelModel.html">
+            
+                    
+                    G4PairProductionRelModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.13" data-path="../class/G4PenelopeGammaConversionModel.html">
+            
+                <a href="../class/G4PenelopeGammaConversionModel.html">
+            
+                    
+                    G4PenelopeGammaConversionModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.14" data-path="../class/G4LivermoreGammaConversionModel.html">
+            
+                <a href="../class/G4LivermoreGammaConversionModel.html">
+            
+                    
+                    G4LivermoreGammaConversionModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.15" data-path="../class/G4LivermoreRayleighModel.html">
+            
+                <a href="../class/G4LivermoreRayleighModel.html">
+            
+                    
+                    G4LivermoreRayleighModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.16" data-path="../class/G4VMscModel.html">
+            
+                <a href="../class/G4VMscModel.html">
+            
+                    
+                    G4VMscModel
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.10.16.1" data-path="../class/G4GoudsmitSaundersonMscModel.html">
+            
+                <a href="../class/G4GoudsmitSaundersonMscModel.html">
+            
+                    
+                    G4GoudsmitSaundersonMscModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.16.2" data-path="../class/G4WentzelVIModel.html">
+            
+                <a href="../class/G4WentzelVIModel.html">
+            
+                    
+                    G4WentzelVIModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.16.3" data-path="../class/G4UrbanMscModel.html">
+            
+                <a href="../class/G4UrbanMscModel.html">
+            
+                    
+                    G4UrbanMscModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.17" data-path="../class/G4eCoulombScatteringModel.html">
+            
+                <a href="../class/G4eCoulombScatteringModel.html">
+            
+                    
+                    G4eCoulombScatteringModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.18" data-path="../class/G4IonCoulombScatteringModel.html">
+            
+                <a href="../class/G4IonCoulombScatteringModel.html">
+            
+                    
+                    G4IonCoulombScatteringModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.19" data-path="../class/G4MollerBhabhaModel.html">
+            
+                <a href="../class/G4MollerBhabhaModel.html">
+            
+                    
+                    G4MollerBhabhaModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.20" data-path="../class/G4PenelopeIonisationModel.html">
+            
+                <a href="../class/G4PenelopeIonisationModel.html">
+            
+                    
+                    G4PenelopeIonisationModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.21" data-path="../class/G4eBremsstrahlungRelModel.html">
+            
+                <a href="../class/G4eBremsstrahlungRelModel.html">
+            
+                    
+                    G4eBremsstrahlungRelModel
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.10.21.1" data-path="../class/G4SeltzerBergerModel.html">
+            
+                <a href="../class/G4SeltzerBergerModel.html">
+            
+                    
+                    G4SeltzerBergerModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.22" data-path="../class/G4MuPairProductionModel.html">
+            
+                <a href="../class/G4MuPairProductionModel.html">
+            
+                    
+                    G4MuPairProductionModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10.23" data-path="../class/G4eeToTwoGammaModel.html">
+            
+                <a href="../class/G4eeToTwoGammaModel.html">
+            
+                    
+                    G4eeToTwoGammaModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../class/G4VEmFluctuationModel.html">
+            
+                <a href="../class/G4VEmFluctuationModel.html">
+            
+                    
+                    G4VEmFluctuationModel
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.11.1" data-path="../class/G4IonFluctuations.html">
+            
+                <a href="../class/G4IonFluctuations.html">
+            
+                    
+                    G4IonFluctuations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11.2" data-path="../class/G4UniversalFluctuation.html">
+            
+                <a href="../class/G4UniversalFluctuation.html">
+            
+                    
+                    G4UniversalFluctuation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../class/G4NucleiModel.html">
+            
+                <a href="../class/G4NucleiModel.html">
+            
+                    
+                    G4NucleiModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="../class/G4HadronicInteraction.html">
+            
+                <a href="../class/G4HadronicInteraction.html">
+            
+                    
+                    G4HadronicInteraction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.13.1" data-path="../class/G4HadronElastic.html">
+            
+                <a href="../class/G4HadronElastic.html">
+            
+                    
+                    G4HadronElastic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.2" data-path="../class/G4ParticleHPElastic.html">
+            
+                <a href="../class/G4ParticleHPElastic.html">
+            
+                    
+                    G4ParticleHPElastic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.3" data-path="../class/G4VIntraNuclearTransportModel.html">
+            
+                <a href="../class/G4VIntraNuclearTransportModel.html">
+            
+                    
+                    G4VIntraNuclearTransportModel
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.13.3.1" data-path="../class/G4CascadeInterface.html">
+            
+                <a href="../class/G4CascadeInterface.html">
+            
+                    
+                    G4CascadeInterface
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.3.2" data-path="../class/G4BinaryCascade.html">
+            
+                <a href="../class/G4BinaryCascade.html">
+            
+                    
+                    G4BinaryCascade
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.4" data-path="../class/G4ParticleHPInelastic.html">
+            
+                <a href="../class/G4ParticleHPInelastic.html">
+            
+                    
+                    G4ParticleHPInelastic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.5" data-path="../class/G4NeutronRadCapture.html">
+            
+                <a href="../class/G4NeutronRadCapture.html">
+            
+                    
+                    G4NeutronRadCapture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.6" data-path="../class/G4ParticleHPCapture.html">
+            
+                <a href="../class/G4ParticleHPCapture.html">
+            
+                    
+                    G4ParticleHPCapture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.7" data-path="../class/G4LFission.html">
+            
+                <a href="../class/G4LFission.html">
+            
+                    
+                    G4LFission
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.8" data-path="../class/G4ParticleHPFission.html">
+            
+                <a href="../class/G4ParticleHPFission.html">
+            
+                    
+                    G4ParticleHPFission
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13.9" data-path="../class/G4VPreCompoundModel.html">
+            
+                <a href="../class/G4VPreCompoundModel.html">
+            
+                    
+                    G4VPreCompoundModel
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.13.9.1" data-path="../class/G4PreCompoundModel.html">
+            
+                <a href="../class/G4PreCompoundModel.html">
+            
+                    
+                    G4PreCompoundModel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="../class/G4VEvaporation.html">
+            
+                <a href="../class/G4VEvaporation.html">
+            
+                    
+                    G4VEvaporation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.14.1" data-path="../class/G4Evaporation.html">
+            
+                <a href="../class/G4Evaporation.html">
+            
+                    
+                    G4Evaporation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="../class/G4VFermiBreakUp.html">
+            
+                <a href="../class/G4VFermiBreakUp.html">
+            
+                    
+                    G4VFermiBreakUp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.15.1" data-path="../class/G4FermiBreakUpVI.html">
+            
+                <a href="../class/G4FermiBreakUpVI.html">
+            
+                    
+                    G4FermiBreakUpVI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="../class/G4VMultiFragmentation.html">
+            
+                <a href="../class/G4VMultiFragmentation.html">
+            
+                    
+                    G4VMultiFragmentation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.16.1" data-path="../class/G4StatMF.html">
+            
+                <a href="../class/G4StatMF.html">
+            
+                    
+                    G4StatMF
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="../class/G4VProcess.html">
+            
+                <a href="../class/G4VProcess.html">
+            
+                    
+                    G4VProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.1" data-path="../class/G4VContinuousDiscreteProcess.html">
+            
+                <a href="../class/G4VContinuousDiscreteProcess.html">
+            
+                    
+                    G4VContinuousDiscreteProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.1.1" data-path="../class/G4VEnergyLossProcess.html">
+            
+                <a href="../class/G4VEnergyLossProcess.html">
+            
+                    
+                    G4VEnergyLossProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.1.1.1" data-path="../class/G4hIonisation.html">
+            
+                <a href="../class/G4hIonisation.html">
+            
+                    
+                    G4hIonisation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.1.1.2" data-path="../class/G4ionIonisation.html">
+            
+                <a href="../class/G4ionIonisation.html">
+            
+                    
+                    G4ionIonisation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.1.1.3" data-path="../class/G4eIonisation.html">
+            
+                <a href="../class/G4eIonisation.html">
+            
+                    
+                    G4eIonisation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.1.1.4" data-path="../class/G4eBremsstrahlung.html">
+            
+                <a href="../class/G4eBremsstrahlung.html">
+            
+                    
+                    G4eBremsstrahlung
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.1.1.5" data-path="../class/G4ePairProduction.html">
+            
+                <a href="../class/G4ePairProduction.html">
+            
+                    
+                    G4ePairProduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.1.2" data-path="../class/G4VMultipleScattering.html">
+            
+                <a href="../class/G4VMultipleScattering.html">
+            
+                    
+                    G4VMultipleScattering
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.1.2.1" data-path="../class/G4eMultipleScattering.html">
+            
+                <a href="../class/G4eMultipleScattering.html">
+            
+                    
+                    G4eMultipleScattering
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.1.2.2" data-path="../class/G4hMultipleScattering.html">
+            
+                <a href="../class/G4hMultipleScattering.html">
+            
+                    
+                    G4hMultipleScattering
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.2" data-path="../class/G4VContinuousProcess.html">
+            
+                <a href="../class/G4VContinuousProcess.html">
+            
+                    
+                    G4VContinuousProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3" data-path="../class/G4VDiscreteProcess.html">
+            
+                <a href="../class/G4VDiscreteProcess.html">
+            
+                    
+                    G4VDiscreteProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.3.1" data-path="../class/G4VEmProcess.html">
+            
+                <a href="../class/G4VEmProcess.html">
+            
+                    
+                    G4VEmProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.3.1.1" data-path="../class/G4NuclearStopping.html">
+            
+                <a href="../class/G4NuclearStopping.html">
+            
+                    
+                    G4NuclearStopping
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.1.2" data-path="../class/G4ComptonScattering.html">
+            
+                <a href="../class/G4ComptonScattering.html">
+            
+                    
+                    G4ComptonScattering
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.1.3" data-path="../class/G4PhotoElectricEffect.html">
+            
+                <a href="../class/G4PhotoElectricEffect.html">
+            
+                    
+                    G4PhotoElectricEffect
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.1.4" data-path="../class/G4GammaConversion.html">
+            
+                <a href="../class/G4GammaConversion.html">
+            
+                    
+                    G4GammaConversion
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.1.5" data-path="../class/G4RayleighScattering.html">
+            
+                <a href="../class/G4RayleighScattering.html">
+            
+                    
+                    G4RayleighScattering
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.1.6" data-path="../class/G4CoulombScattering.html">
+            
+                <a href="../class/G4CoulombScattering.html">
+            
+                    
+                    G4CoulombScattering
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.1.7" data-path="../class/G4eplusAnnihilation.html">
+            
+                <a href="../class/G4eplusAnnihilation.html">
+            
+                    
+                    G4eplusAnnihilation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.2" data-path="../class/G4HadronicProcess.html">
+            
+                <a href="../class/G4HadronicProcess.html">
+            
+                    
+                    G4HadronicProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.3.2.1" data-path="../class/G4HadronElasticProcess.html">
+            
+                <a href="../class/G4HadronElasticProcess.html">
+            
+                    
+                    G4HadronElasticProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.2.2" data-path="../class/G4HadronInelasticProcess.html">
+            
+                <a href="../class/G4HadronInelasticProcess.html">
+            
+                    
+                    G4HadronInelasticProcess
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.17.3.2.2.1" data-path="../class/G4NeutronInelasticProcess.html">
+            
+                <a href="../class/G4NeutronInelasticProcess.html">
+            
+                    
+                    G4NeutronInelasticProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.2.3" data-path="../class/G4HadronCaptureProcess.html">
+            
+                <a href="../class/G4HadronCaptureProcess.html">
+            
+                    
+                    G4HadronCaptureProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.3.2.4" data-path="../class/G4HadronFissionProcess.html">
+            
+                <a href="../class/G4HadronFissionProcess.html">
+            
+                    
+                     G4HadronFissionProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.4" data-path="../class/G4VRestContinuousDiscreteProcess.html">
+            
+                <a href="../class/G4VRestContinuousDiscreteProcess.html">
+            
+                    
+                    G4VRestContinuousDiscreteProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.5" data-path="../class/G4VRestContinuousProcess.html">
+            
+                <a href="../class/G4VRestContinuousProcess.html">
+            
+                    
+                    G4VRestContinuousProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.6" data-path="../class/G4VRestDiscreteProcess.html">
+            
+                <a href="../class/G4VRestDiscreteProcess.html">
+            
+                    
+                    G4VRestDiscreteProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.7" data-path="../class/G4VRestProcess.html">
+            
+                <a href="../class/G4VRestProcess.html">
+            
+                    
+                    G4VRestProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17.8" data-path="../class/G4WrapperProcess.html">
+            
+                <a href="../class/G4WrapperProcess.html">
+            
+                    
+                    G4WrapperProcess
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="../class/G4PhysicsListHelper.html">
+            
+                <a href="../class/G4PhysicsListHelper.html">
+            
+                    
+                    G4PhysicsListHelper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.19" data-path="../class/G4ProcessManager.html">
+            
+                <a href="../class/G4ProcessManager.html">
+            
+                    
+                    G4ProcessManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.20" data-path="../class/G4NistManager.html">
+            
+                <a href="../class/G4NistManager.html">
+            
+                    
+                    G4NistManager*
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.21" data-path="../class/G4VParticleChange.html">
+            
+                <a href="../class/G4VParticleChange.html">
+            
+                    
+                    G4VParticleChange
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.21.1" data-path="../class/G4ParticleChangeForLoss.html">
+            
+                <a href="../class/G4ParticleChangeForLoss.html">
+            
+                    
+                    G4ParticleChangeForLoss
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22" data-path="../class/G4ParticleHPFinalState.html">
+            
+                <a href="../class/G4ParticleHPFinalState.html">
+            
+                    
+                    G4ParticleHPFinalState
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.22.1" data-path="../class/G4ParticleHPElasticFS.html">
+            
+                <a href="../class/G4ParticleHPElasticFS.html">
+            
+                    
+                    G4ParticleHPElasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2" data-path="../class/G4ParticleHPInelasticCompFS.html">
+            
+                <a href="../class/G4ParticleHPInelasticCompFS.html">
+            
+                    
+                    G4ParticleHPInelasticCompFS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.22.2.1" data-path="../class/G4ParticleHPNInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNInelasticFS.html">
+            
+                    
+                    G4ParticleHPNInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.2" data-path="../class/G4ParticleHPNXInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNXInelasticFS.html">
+            
+                    
+                    G4ParticleHPNXInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.3" data-path="../class/G4ParticleHP2NDInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP2NDInelasticFS.html">
+            
+                    
+                    G4ParticleHP2NDInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.4" data-path="../class/G4ParticleHP2NInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP2NInelasticFS.html">
+            
+                    
+                    G4ParticleHP2NInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.5" data-path="../class/G4ParticleHP3NInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP3NInelasticFS.html">
+            
+                    
+                    G4ParticleHP3NInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.6" data-path="../class/G4ParticleHPNAInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNAInelasticFS.html">
+            
+                    
+                    G4ParticleHPNAInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.7" data-path="../class/G4ParticleHPN3AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPN3AInelasticFS.html">
+            
+                    
+                    G4ParticleHPN3AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.8" data-path="../class/G4ParticleHP2NAInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP2NAInelasticFS.html">
+            
+                    
+                    G4ParticleHP2NAInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.9" data-path="../class/G4ParticleHP3NAInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP3NAInelasticFS.html">
+            
+                    
+                    G4ParticleHP3NAInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.10" data-path="../class/G4ParticleHPNPInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNPInelasticFS.html">
+            
+                    
+                    G4ParticleHPNPInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.11" data-path="../class/G4ParticleHPN2AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPN2AInelasticFS.html">
+            
+                    
+                    G4ParticleHPN2AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.12" data-path="../class/G4ParticleHP2N2AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP2N2AInelasticFS.html">
+            
+                    
+                    G4ParticleHP2N2AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.13" data-path="../class/G4ParticleHPNDInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNDInelasticFS.html">
+            
+                    
+                    G4ParticleHPNDInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.14" data-path="../class/G4ParticleHPNTInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNTInelasticFS.html">
+            
+                    
+                    G4ParticleHPNTInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.15" data-path="../class/G4ParticleHPNHe3InelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNHe3InelasticFS.html">
+            
+                    
+                    G4ParticleHPNHe3InelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.16" data-path="../class/G4ParticleHPND2AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPND2AInelasticFS.html">
+            
+                    
+                    G4ParticleHPND2AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.17" data-path="../class/G4ParticleHPNT2AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNT2AInelasticFS.html">
+            
+                    
+                    G4ParticleHPNT2AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.18" data-path="../class/G4ParticleHP4NInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP4NInelasticFS.html">
+            
+                    
+                    G4ParticleHP4NInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.19" data-path="../class/G4ParticleHP2NPInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP2NPInelasticFS.html">
+            
+                    
+                    G4ParticleHP2NPInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.20" data-path="../class/G4ParticleHP3NPInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP3NPInelasticFS.html">
+            
+                    
+                    G4ParticleHP3NPInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.21" data-path="../class/G4ParticleHPN2PInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPN2PInelasticFS.html">
+            
+                    
+                    G4ParticleHPN2PInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.22" data-path="../class/G4ParticleHPNPAInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPNPAInelasticFS.html">
+            
+                    
+                    G4ParticleHPNPAInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.23" data-path="../class/G4ParticleHPPInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPPInelasticFS.html">
+            
+                    
+                    G4ParticleHPPInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.24" data-path="../class/G4ParticleHPDInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPDInelasticFS.html">
+            
+                    
+                    G4ParticleHPDInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.25" data-path="../class/G4ParticleHPTInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPTInelasticFS.html">
+            
+                    
+                    G4ParticleHPTInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.26" data-path="../class/G4ParticleHPHe3InelasticFS.html">
+            
+                <a href="../class/G4ParticleHPHe3InelasticFS.html">
+            
+                    
+                    G4ParticleHPHe3InelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.27" data-path="../class/G4ParticleHPAInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPAInelasticFS.html">
+            
+                    
+                    G4ParticleHPAInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.28" data-path="../class/G4ParticleHP2AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP2AInelasticFS.html">
+            
+                    
+                    G4ParticleHP2AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.29" data-path="../class/G4ParticleHP3AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP3AInelasticFS.html">
+            
+                    
+                    G4ParticleHP3AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.30" data-path="../class/G4ParticleHP2PInelasticFS.html">
+            
+                <a href="../class/G4ParticleHP2PInelasticFS.html">
+            
+                    
+                    G4ParticleHP2PInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.31" data-path="../class/4ParticleHPPAInelasticFS.html">
+            
+                <a href="../class/4ParticleHPPAInelasticFS.html">
+            
+                    
+                    G4ParticleHPPAInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.32" data-path="../class/4ParticleHPD2AInelasticFS.html">
+            
+                <a href="../class/4ParticleHPD2AInelasticFS.html">
+            
+                    
+                    G4ParticleHPD2AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.33" data-path="../class/G4ParticleHPT2AInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPT2AInelasticFS.html">
+            
+                    
+                    G4ParticleHPT2AInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.34" data-path="../class/G4ParticleHPPDInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPPDInelasticFS.html">
+            
+                    
+                    G4ParticleHPPDInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.35" data-path="../class/G4ParticleHPPTInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPPTInelasticFS.html">
+            
+                    
+                    G4ParticleHPPTInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.2.36" data-path="../class/G4ParticleHPDAInelasticFS.html">
+            
+                <a href="../class/G4ParticleHPDAInelasticFS.html">
+            
+                    
+                    G4ParticleHPDAInelasticFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.3" data-path="../class/G4ParticleHPCaptureFS.html">
+            
+                <a href="../class/G4ParticleHPCaptureFS.html">
+            
+                    
+                    G4ParticleHPCaptureFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.4" data-path="../class/G4ParticleHPFissionFS.html">
+            
+                <a href="../class/G4ParticleHPFissionFS.html">
+            
+                    
+                    G4ParticleHPFissionFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.5" data-path="../class/G4ParticleHPFSFissionFS.html">
+            
+                <a href="../class/G4ParticleHPFSFissionFS.html">
+            
+                    
+                    G4ParticleHPFSFissionFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.6" data-path="../class/G4ParticleHPFissionBaseFS.html">
+            
+                <a href="../class/G4ParticleHPFissionBaseFS.html">
+            
+                    
+                    G4ParticleHPFissionBaseFS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.22.6.1" data-path="../class/G4ParticleHPFCFissionFS.html">
+            
+                <a href="../class/G4ParticleHPFCFissionFS.html">
+            
+                    
+                    G4ParticleHPFCFissionFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.6.2" data-path="../class/G4ParticleHPSCFissionFS.html">
+            
+                <a href="../class/G4ParticleHPSCFissionFS.html">
+            
+                    
+                    G4ParticleHPSCFissionFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.6.3" data-path="../class/G4ParticleHPTCFissionFS.html">
+            
+                <a href="../class/G4ParticleHPTCFissionFS.html">
+            
+                    
+                    G4ParticleHPTCFissionFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.6.4" data-path="../class/G4ParticleHPLCFissionFS.html">
+            
+                <a href="../class/G4ParticleHPLCFissionFS.html">
+            
+                    
+                    G4ParticleHPLCFissionFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22.6.5" data-path="../class/G4ParticleHPFFFissionFS.html">
+            
+                <a href="../class/G4ParticleHPFFFissionFS.html">
+            
+                    
+                    G4ParticleHPFFFissionFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.23" data-path="../class/G4CrossSectionDataSetRegistry.html">
+            
+                <a href="../class/G4CrossSectionDataSetRegistry.html">
+            
+                    
+                    G4CrossSectionDataSetRegistry
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24" data-path="../class/G4VCrossSectionDataSet.html">
+            
+                <a href="../class/G4VCrossSectionDataSet.html">
+            
+                    
+                    G4VCrossSectionDataSet
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.24.1" data-path="../class/G4HadronInelasticDataSet.html">
+            
+                <a href="../class/G4HadronInelasticDataSet.html">
+            
+                    
+                    G4HadronInelasticDataSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.2" data-path="../class/G4ParticleHPJENDLHEData.html">
+            
+                <a href="../class/G4ParticleHPJENDLHEData.html">
+            
+                    
+                    G4ParticleHPJENDLHEData
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.24.2.1" data-path="../class/G4ParticleHPJENDLHEElasticData.html">
+            
+                <a href="../class/G4ParticleHPJENDLHEElasticData.html">
+            
+                    
+                    G4ParticleHPJENDLHEElasticData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.2.2" data-path="../class/G4ParticleHPJENDLHEInelasticData.html">
+            
+                <a href="../class/G4ParticleHPJENDLHEInelasticData.html">
+            
+                    
+                    G4ParticleHPJENDLHEInelasticData
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.3" data-path="../class/G4BGGNucleonElasticXS.html">
+            
+                <a href="../class/G4BGGNucleonElasticXS.html">
+            
+                    
+                    G4BGGNucleonElasticXS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.4" data-path="../class/G4BGGNucleonInelasticXS.html">
+            
+                <a href="../class/G4BGGNucleonInelasticXS.html">
+            
+                    
+                    G4BGGNucleonInelasticXS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.5" data-path="../class/G4ChipsNeutronElasticXS.html">
+            
+                <a href="../class/G4ChipsNeutronElasticXS.html">
+            
+                    
+                    G4ChipsNeutronElasticXS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.6" data-path="../class/G4NeutronCaptureXS.html">
+            
+                <a href="../class/G4NeutronCaptureXS.html">
+            
+                    
+                    G4NeutronCaptureXS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.7" data-path="../class/G4ParticleHPElasticData.html">
+            
+                <a href="../class/G4ParticleHPElasticData.html">
+            
+                    
+                    G4ParticleHPElasticData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.8" data-path="../class/G4ParticleHPInelasticData.html">
+            
+                <a href="../class/G4ParticleHPInelasticData.html">
+            
+                    
+                    G4ParticleHPInelasticData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.9" data-path="../class/G4ParticleHPCaptureData.html">
+            
+                <a href="../class/G4ParticleHPCaptureData.html">
+            
+                    
+                    G4ParticleHPCaptureData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24.10" data-path="../class/G4ParticleHPFissionData.html">
+            
+                <a href="../class/G4ParticleHPFissionData.html">
+            
+                    
+                    G4ParticleHPFissionData
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.25" data-path="../class/G4HadronCrossSections.html">
+            
+                <a href="../class/G4HadronCrossSections.html">
+            
+                    
+                    G4HadronCrossSections
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.26" data-path="../class/G4HadronicDeveloperParameters.html">
+            
+                <a href="../class/G4HadronicDeveloperParameters.html">
+            
+                    
+                    G4HadronicDeveloperParameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.27" data-path="../class/G4CascadeParameters.html">
+            
+                <a href="../class/G4CascadeParameters.html">
+            
+                    
+                    G4CascadeParameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.28" data-path="../class/G4DeexPrecoParameters.html">
+            
+                <a href="../class/G4DeexPrecoParameters.html">
+            
+                    
+                    G4DeexPrecoParameters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.29" data-path="../class/G4NuclearLevelData.html">
+            
+                <a href="../class/G4NuclearLevelData.html">
+            
+                    
+                    G4NuclearLevelData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.30" data-path="../class/G4LevelReader.html">
+            
+                <a href="../class/G4LevelReader.html">
+            
+                    
+                    G4LevelReader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.31" data-path="../class/G4VCascadeCollider.html">
+            
+                <a href="../class/G4VCascadeCollider.html">
+            
+                    
+                    G4VCascadeCollider
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.31.1" data-path="../class/G4CascadeColliderBase.html">
+            
+                <a href="../class/G4CascadeColliderBase.html">
+            
+                    
+                    G4CascadeColliderBase
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.31.1.1" data-path="../class/G4InuclCollider.html">
+            
+                <a href="../class/G4InuclCollider.html">
+            
+                    
+                    G4InuclCollider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.31.1.2" data-path="../class/G4ElementaryParticleCollider.html">
+            
+                <a href="../class/G4ElementaryParticleCollider.html">
+            
+                    
+                    G4ElementaryParticleCollider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.31.1.3" data-path="../class/G4IntraNucleiCascader.html">
+            
+                <a href="../class/G4IntraNucleiCascader.html">
+            
+                    
+                    G4IntraNucleiCascader
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.31.2" data-path="../class/G4CascadeCheckBalance.html">
+            
+                <a href="../class/G4CascadeCheckBalance.html">
+            
+                    
+                    G4CascadeCheckBalance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.31.3" data-path="../class/G4VCascadeDeexcitation.html">
+            
+                <a href="../class/G4VCascadeDeexcitation.html">
+            
+                    
+                    G4VCascadeDeexcitation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.31.3.1" data-path="../class/G4CascadeDeexciteBase.html">
+            
+                <a href="../class/G4CascadeDeexciteBase.html">
+            
+                    
+                    G4CascadeDeexciteBase
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.31.3.1.1" data-path="../class/G4PreCompoundDeexcitation.html">
+            
+                <a href="../class/G4PreCompoundDeexcitation.html">
+            
+                    
+                    G4PreCompoundDeexcitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.31.3.1.2" data-path="../class/G4CascadeDeexcitation.html">
+            
+                <a href="../class/G4CascadeDeexcitation.html">
+            
+                    
+                    G4CascadeDeexcitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.32" data-path="../class/G4ExcitationHandler.html">
+            
+                <a href="../class/G4ExcitationHandler.html">
+            
+                    
+                    G4ExcitationHandler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.33" data-path="../class/G4HadronicInteractionRegistry.html">
+            
+                <a href="../class/G4HadronicInteractionRegistry.html">
+            
+                    
+                    G4HadronicInteractionRegistry
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.34" data-path="../class/G4TrackingManager.html">
+            
+                <a href="../class/G4TrackingManager.html">
+            
+                    
+                    G4TrackingManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.35" data-path="../class/G4SteppingManager.html">
+            
+                <a href="../class/G4SteppingManager.html">
+            
+                    
+                    G4SteppingManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.36" data-path="../class/G4VTrajectory.html">
+            
+                <a href="../class/G4VTrajectory.html">
+            
+                    
+                    G4VTrajectory
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.36.1" data-path="../class/G4Trajectory.html">
+            
+                <a href="../class/G4Trajectory.html">
+            
+                    
+                    G4Trajectory
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.37" data-path="../class/G4VTrajectoryPoint.html">
+            
+                <a href="../class/G4VTrajectoryPoint.html">
+            
+                    
+                    G4VTrajectoryPoint
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.37.1" data-path="../class/G4TrajectoryPoint.html">
+            
+                <a href="../class/G4TrajectoryPoint.html">
+            
+                    
+                    G4TrajectoryPoint
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.38" data-path="../class/G4Track.html">
+            
+                <a href="../class/G4Track.html">
+            
+                    
+                    G4Track
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.39" data-path="../class/G4Step.html">
+            
+                <a href="../class/G4Step.html">
+            
+                    
+                    G4Step
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.40" data-path="../class/G4StepPoint.html">
+            
+                <a href="../class/G4StepPoint.html">
+            
+                    
+                    G4StepPoint
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.41" data-path="../class/G4UserStackingAction.html">
+            
+                <a href="../class/G4UserStackingAction.html">
+            
+                    
+                    G4UserStackingAction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.42" data-path="../class/G4VUserTrackInformation.html">
+            
+                <a href="../class/G4VUserTrackInformation.html">
+            
+                    
+                    G4VUserTrackInformation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.43" data-path="../class/G4UserTrackingAction.html">
+            
+                <a href="../class/G4UserTrackingAction.html">
+            
+                    
+                    G4UserTrackingAction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.43.1" data-path="../class/G4AdjointTrackingAction.html">
+            
+                <a href="../class/G4AdjointTrackingAction.html">
+            
+                    
+                    G4AdjointTrackingAction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.44" data-path="../class/G4UserSteppingAction.html">
+            
+                <a href="../class/G4UserSteppingAction.html">
+            
+                    
+                    G4UserSteppingAction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.44.1" data-path="../class/G4AdjointSteppingAction.html">
+            
+                <a href="../class/G4AdjointSteppingAction.html">
+            
+                    
+                    G4AdjointSteppingAction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Geant4.html">
+            
+                <a href="../Geant4.html">
+            
+                    
+                    修改源码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Hadronic</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <!-- Hadronic.md --- 
+;; 
+;; Description: 
+;; Author: Hongyi Wu(吴鸿毅)
+;; Email: wuhongyi@qq.com 
+;; Created: 六 12月 23 22:18:51 2017 (+0800)
+;; Last-Updated: 日 9月  2 12:37:38 2018 (+0800)
+;;           By: Hongyi Wu(吴鸿毅)
+;;     Update #: 11
+;; URL: http://wuhongyi.cn -->
+<h1 id="hadronic"><a name="hadronic" class="plugin-anchor" href="#hadronic"><i class="fa fa-link" aria-hidden="true"></i></a>Hadronic</h1>
+<figure id="fig1.3.2.1"><img src="../img/HadronicModelInventory.png" alt="Hadronic Model Inventory"><figcaption>Figure: Hadronic Model Inventory</figcaption></figure>
+<hr>
+<h2 id="&#x7535;&#x5B50;&#x5728;-si-&#x4E0A;"><a name="&#x7535;&#x5B50;&#x5728;-si-&#x4E0A;" class="plugin-anchor" href="#&#x7535;&#x5B50;&#x5728;-si-&#x4E0A;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7535;&#x5B50;&#x5728; Si &#x4E0A;</h2>
+<p>&#x622A;&#x9762;&#x6570;&#x636E; G4EMLOW7.3/microelec</p>
+<ul>
+<li>G4MicroElecCrossSectionDataSet.hh</li>
+<li>G4MicroElecElastic.hh</li>
+<li>G4MicroElecElasticModel.hh<ul>
+<li>Geant4 physics processes for microdosimetry simulation: very low energy electromagnetic models for electrons in Si, NIM B, vol. 288, pp. 66 - 73, 2012.</li>
+</ul>
+</li>
+<li>G4MicroElecInelastic.hh</li>
+<li>G4MicroElecInelasticModel.hh<ul>
+<li>Inelastic cross-sections of low energy electrons in silicon for the simulation of heavy ion tracks with theGeant4-DNA toolkit, NSS Conf. Record 2010, pp. 80-85</li>
+<li>Geant4 physics processes for microdosimetry simulation: very low energy electromagnetic models for electrons in Si, NIM B, vol. 288, pp. 66-73, 2012.</li>
+<li>Geant4 physics processes for microdosimetry simulation: very low energy electromagnetic models for protons and heavy ions in Si, NIM B, vol. 287, pp. 124-129, 2012.</li>
+</ul>
+</li>
+</ul>
+<h2 id="neutron"><a name="neutron" class="plugin-anchor" href="#neutron"><i class="fa fa-link" aria-hidden="true"></i></a>neutron</h2>
+<ul>
+<li>G4ChipsProtonElasticXS.hh</li>
+<li>G4ChipsNeutronElasticXS.hh<ul>
+<li>Short description: Interaction cross-sections for the elastic process. Class extracted from CHIPS and integrated in Geant4 by W.Pokorski</li>
+</ul>
+</li>
+<li>G4ChipsProtonInelasticXS.hh<ul>
+<li>Short description: Cross-sections extracted (by W.Pokorski) from the CHIPS package for proton-nuclear interactions. Original author: M. Kossov</li>
+</ul>
+</li>
+<li>G4ChipsNeutronInelasticXS.hh<ul>
+<li>Short description: Cross-sections extracted (by W.Pokorski) from the CHIPS package for neutron-nuclear interactions. Original author: M. Kossov</li>
+</ul>
+</li>
+</ul>
+<p><strong>Model  -- G4HadronicInteraction</strong></p>
+<ul>
+<li>G4HadronElastic.hh<ul>
+<li>Default model for elastic scattering; GHEISHA algorithm is used Class Description</li>
+</ul>
+</li>
+<li>G4ChipsElasticModel.hh<ul>
+<li>Default model for elastic scattering; GHEISHA algorithm is used Class Description</li>
+<li>CHIPS model of hadron elastic scattering</li>
+</ul>
+</li>
+<li>G4DiffuseElastic.hh<ul>
+<li>G4 Model: optical diffuse elastic scattering with 4-momentum balance</li>
+<li>Final state production model for hadron nuclear elastic scattering; </li>
+<li>0.01 MeV - 1. TeV</li>
+</ul>
+</li>
+<li>G4ParticleHPElastic.hh<ul>
+<li>Final state production model for a high precision (based on evaluated data libraries) description of neutron elastic scattering below 20 MeV; </li>
+<li>A prototype of the low energy neutron transport model.</li>
+<li><ol>
+<li>eV - 20. MeV</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>G4LENDElastic.hh<ul>
+<li>LEND is Geant4 interface for GIDI (General Interaction Data Interface) which gives a discription of nuclear and atomic reactions, such as Binary collision cross sections / Particle number multiplicity distributions of reaction products / Energy and angular distributions of reaction products / Derived calculational constants</li>
+<li>GIDI is developped at Lawrence Livermore National Laboratory</li>
+</ul>
+</li>
+</ul>
+<p><strong>Cross section</strong></p>
+<ul>
+<li>G4HadronElasticDataSet.hh(G4HadronCrossSections.hh) &#x8FD9;&#x4E2A;&#x53EF;&#x80FD;&#x5C31;&#x662F;&#x81EA;&#x5E26;&#x7684;&#x622A;&#x9762;&#x6765;&#x6E90;&#xFF1F;&#xFF1F;&#xFF1F;<ul>
+<li>Baseline data-set for hadron nucleaus elastic cross-section. This does not need to be registered, but provides part of the general cross-section baseline</li>
+<li>This class encapsulates cross section data and interpolations from the Geant3/Gheisha routine GHESIG.</li>
+</ul>
+</li>
+<li>G4LENDElasticCrossSection.hh</li>
+<li>G4NeutronElasticXS.hh<ul>
+<li>This is a base class for neutron elastic hadronic cross section based on data files from G4NEUTRONXSDATA data set </li>
+<li>G4NEUTRONXS1.4  &#x6587;&#x4EF6;&#x4E2D;&#x7B2C;&#x4E00;&#x5217;&#x4E3A;&#x80FD;&#x91CF; MeV&#xFF0C;&#x7B2C;&#x4E8C;&#x5217;&#x4E3A;&#x622A;&#x9762;</li>
+</ul>
+</li>
+<li>G4ParticleHPElasticData.hh<ul>
+<li>&#x9AD8;&#x7CBE;&#x5EA6;&#x6570;&#x636E; &lt; 20 MeV</li>
+</ul>
+</li>
+</ul>
+<!-- Hadronic.md ends here -->
+<footer class="page-footer"><span class="copyright">&amp;Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
+2018-09-02 12:37:38
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Electromagnetic.html" class="navigation navigation-prev " aria-label="Previous page: Electromagnetic">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Decay.html" class="navigation navigation-next " aria-label="Next page: Decay">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Hadronic","level":"1.3.2","depth":2,"next":{"title":"Decay","level":"1.3.3","depth":2,"path":"PhysicsProcesses/Decay.md","ref":"PhysicsProcesses/Decay.md","articles":[]},"previous":{"title":"Electromagnetic","level":"1.3.1","depth":2,"path":"PhysicsProcesses/Electromagnetic.md","ref":"PhysicsProcesses/Electromagnetic.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"spoiler":{},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","language":"zh-ch","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"PhysicsProcesses/Hadronic.md","mtime":"2018-09-02T04:37:38.924Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-15T05:07:56.722Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ace/ace/ace.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ace/ace.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sectionx/sectionx.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mcqx/js.cookie.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mcqx/mcqx.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fbqx/fbqx.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-spoiler/spoiler.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-youtubex/player.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+
+    </body>
+</html>
+

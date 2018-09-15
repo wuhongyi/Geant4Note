@@ -11,3 +11,5 @@ git commit -m ""
 git push -u origin master
 
 rm -r docs
+
+# gitbook install .
