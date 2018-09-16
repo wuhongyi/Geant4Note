@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 日 9月 16 11:08:10 2018 (+0800)
-;; Last-Updated: 日 9月 16 11:49:35 2018 (+0800)
+;; Last-Updated: 日 9月 16 12:18:48 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 2
+;;     Update #: 4
 ;; URL: http://wuhongyi.cn -->
 
 # gitbook test
@@ -17,6 +17,16 @@
 
 
 ## 这是第三部分
+
+### katex
+
+Inline math: $$\int_{-\infty}^\infty g(x) dx$$
+
+Block math:
+
+$$
+\int_{-\infty}^\infty g(x) dx
+$$
 
 ### alerts
 
@@ -40,7 +50,7 @@ Danger styling
 
 Success styling
 
-> **[success] For info**
+> **[success] For success**
 >
 > Use this for success messages.
 

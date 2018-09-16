@@ -48,6 +48,13 @@
 	},
 	"expandable-chapters":{
 
+	},
+	"styles": {
+	    "website": "website.css",
+	    "ebook": "ebook.css",
+	    "pdf":  "pdf.css",
+	    "mobi": "ebook.css",
+	    "epub": "ebook.css"
 	}
     }
 }
