@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 日 9月 16 11:08:10 2018 (+0800)
-;; Last-Updated: 日 9月 16 13:17:51 2018 (+0800)
+;; Last-Updated: 日 9月 16 14:17:59 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 6
+;;     Update #: 7
 ;; URL: http://wuhongyi.cn -->
 
 # gitbook test
@@ -17,6 +17,18 @@
 ## 这是第一部分
 
 ## 这是第二部分
+
+### ace
+
+{%ace edit=true, lang='c_cpp'%}
+// This is a hello world program for C.
+#include <stdio.h>
+
+int main(){
+  printf("Hello World!");
+  return 1;
+}
+{%endace%}
 
 ### mermaid
 

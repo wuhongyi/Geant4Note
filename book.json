@@ -56,7 +56,7 @@
 	"page-footer-ex": {
             "copyright": "[© Hongyi Wu](http://wuhongyi.cn/)",
             "markdown": true,
-            "update_label": "<i>updated</i>",
+            "update_label": "<i>updated:</i>",
             "update_format": "YYYY-MM-DD HH:mm:ss"
 	},
 	"expandable-chapters":{
