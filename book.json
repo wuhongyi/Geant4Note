@@ -13,6 +13,7 @@
 	"prism",
 	"ad",
 	"alerts",
+	"atoc",
 	"splitter",
 	"sitemap",
 	"image-captions",
@@ -48,6 +49,10 @@
 	},
 	"expandable-chapters":{
 
+	},
+	"atoc": {
+            "addClass": true,
+            "className": "atoc"
 	},
 	"styles": {
 	    "website": "website.css",
