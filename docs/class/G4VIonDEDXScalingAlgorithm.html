@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3137,40 +3137,38 @@
 <h1 id="g4viondedxscalingalgorithm"><a name="g4viondedxscalingalgorithm" class="plugin-anchor" href="#g4viondedxscalingalgorithm"><i class="fa fa-link" aria-hidden="true"></i></a>G4VIonDEDXScalingAlgorithm</h1>
 <p>Base class for dE/dx scaling algorithms, used by G4IonDEDXHandler</p>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"> <span class="token keyword">public</span><span class="token operator">:</span>
-   <span class="token function">G4VIonDEDXScalingAlgorithm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4VIonDEDXScalingAlgorithm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp"> <span class="hljs-keyword">public</span>:
+   G4VIonDEDXScalingAlgorithm();
+   <span class="hljs-keyword">virtual</span> ~G4VIonDEDXScalingAlgorithm();
 
-   <span class="token comment">// Function for scaling the kinetic energy (no scaling by default).</span>
-   <span class="token comment">// Returns scaling factor for a given ion.</span>
-   <span class="token keyword">virtual</span> G4double <span class="token function">ScalingFactorEnergy</span><span class="token punctuation">(</span>
-             <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>     <span class="token comment">// Projectile (ion) </span>
-             <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">)</span>               <span class="token comment">// Target material</span>
-                 <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token number">1.0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+   <span class="hljs-comment">// Function for scaling the kinetic energy (no scaling by default).</span>
+   <span class="hljs-comment">// Returns scaling factor for a given ion.</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ScalingFactorEnergy</span><span class="hljs-params">(
+             <span class="hljs-keyword">const</span> G4ParticleDefinition*,     <span class="hljs-comment">// Projectile (ion) </span>
+             <span class="hljs-keyword">const</span> G4Material*)</span>               <span class="hljs-comment">// Target material</span>
+                 </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span>; }
 
-   <span class="token comment">// Function for scaling the dE/dx value (no scaling by default).</span>
-   <span class="token comment">// Returns scaling factor for a given ion-material couple and</span>
-   <span class="token comment">// a given kinetic energy.</span>
-   <span class="token keyword">virtual</span> G4double <span class="token function">ScalingFactorDEDX</span><span class="token punctuation">(</span>
-             <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>     <span class="token comment">// Projectile (ion) </span>
-             <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>               <span class="token comment">// Target material</span>
-             G4double<span class="token punctuation">)</span>                        <span class="token comment">// Kinetic energy of projectile </span>
-                 <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token number">1.0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+   <span class="hljs-comment">// Function for scaling the dE/dx value (no scaling by default).</span>
+   <span class="hljs-comment">// Returns scaling factor for a given ion-material couple and</span>
+   <span class="hljs-comment">// a given kinetic energy.</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ScalingFactorDEDX</span><span class="hljs-params">(
+             <span class="hljs-keyword">const</span> G4ParticleDefinition*,     <span class="hljs-comment">// Projectile (ion) </span>
+             <span class="hljs-keyword">const</span> G4Material*,               <span class="hljs-comment">// Target material</span>
+             G4double)</span>                        <span class="hljs-comment">// Kinetic energy of projectile </span>
+                 </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span>; }
 
-   <span class="token comment">// Function for defining a base particle for dE/dx calculation.</span>
-   <span class="token comment">// (no base particle by default). Returns atomic number of base</span>
-   <span class="token comment">// particle.</span>
-   <span class="token keyword">virtual</span> G4int <span class="token function">AtomicNumberBaseIon</span><span class="token punctuation">(</span>
-             G4int atomicNumberIon<span class="token punctuation">,</span>           <span class="token comment">// Atomic number of ion </span>
-             <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">)</span>               <span class="token comment">// Target material</span>
-                 <span class="token punctuation">{</span> <span class="token keyword">return</span> atomicNumberIon<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+   <span class="hljs-comment">// Function for defining a base particle for dE/dx calculation.</span>
+   <span class="hljs-comment">// (no base particle by default). Returns atomic number of base</span>
+   <span class="hljs-comment">// particle.</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4int <span class="hljs-title">AtomicNumberBaseIon</span><span class="hljs-params">(
+             G4int atomicNumberIon,           <span class="hljs-comment">// Atomic number of ion </span>
+             <span class="hljs-keyword">const</span> G4Material*)</span>               <span class="hljs-comment">// Target material</span>
+                 </span>{ <span class="hljs-keyword">return</span> atomicNumberIon; }
 </code></pre>
 <!-- G4VIonDEDXScalingAlgorithm.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-07-14 08:12:32
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-07-14 08:12:32 </span> </footer>
                                 
                                 </section>
                             
@@ -3213,7 +3211,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VIonDEDXScalingAlgorithm","level":"1.4.8","depth":2,"next":{"title":"G4IonDEDXScalingICRU73","level":"1.4.8.1","depth":3,"path":"class/G4IonDEDXScalingICRU73.md","ref":"class/G4IonDEDXScalingICRU73.md","articles":[]},"previous":{"title":"G4VAtomDeexcitation","level":"1.4.7","depth":2,"path":"class/G4VAtomDeexcitation.md","ref":"class/G4VAtomDeexcitation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VIonDEDXScalingAlgorithm.md","mtime":"2018-07-14T00:12:32.245Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VIonDEDXScalingAlgorithm","level":"1.4.8","depth":2,"next":{"title":"G4IonDEDXScalingICRU73","level":"1.4.8.1","depth":3,"path":"class/G4IonDEDXScalingICRU73.md","ref":"class/G4IonDEDXScalingICRU73.md","articles":[]},"previous":{"title":"G4VAtomDeexcitation","level":"1.4.7","depth":2,"path":"class/G4VAtomDeexcitation.md","ref":"class/G4VAtomDeexcitation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VIonDEDXScalingAlgorithm.md","mtime":"2018-07-14T00:12:32.245Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

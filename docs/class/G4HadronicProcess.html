@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3139,196 +3139,194 @@
 <p>This is the top level Hadronic Process class</p>
 <p>The inelastic, elastic, capture, and fission processes should derive from this class</p>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
-  <span class="token function">G4HadronicProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token operator">=</span><span class="token string">&quot;Hadronic&quot;</span><span class="token punctuation">,</span>
-            G4ProcessType procType<span class="token operator">=</span>fHadronic<span class="token punctuation">)</span><span class="token punctuation">;</span>    
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+  G4HadronicProcess(<span class="hljs-keyword">const</span> G4String&amp; processName=<span class="hljs-string">&quot;Hadronic&quot;</span>,
+            G4ProcessType procType=fHadronic);    
 
-  <span class="token comment">// Preferred signature for subclasses, specifying their subtype here</span>
-  <span class="token function">G4HadronicProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> processName<span class="token punctuation">,</span> 
-            G4HadronicProcessType subType<span class="token punctuation">)</span><span class="token punctuation">;</span>    
+  <span class="hljs-comment">// Preferred signature for subclasses, specifying their subtype here</span>
+  G4HadronicProcess(<span class="hljs-keyword">const</span> G4String&amp; processName, 
+            G4HadronicProcessType subType);    
 
-  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4HadronicProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">virtual</span> ~G4HadronicProcess();
 
-  <span class="token comment">// register generator of secondaries</span>
-  <span class="token keyword">void</span> <span class="token function">RegisterMe</span><span class="token punctuation">(</span>G4HadronicInteraction<span class="token operator">*</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// register generator of secondaries</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RegisterMe</span><span class="hljs-params">(G4HadronicInteraction* a)</span></span>;
 
-  <span class="token comment">// get cross section per element</span>
-  G4double <span class="token function">GetElementCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle <span class="token operator">*</span> part<span class="token punctuation">,</span> 
-                  <span class="token keyword">const</span> G4Element <span class="token operator">*</span> elm<span class="token punctuation">,</span> 
-                  <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// get cross section per element</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetElementCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle * part, 
+                  <span class="hljs-keyword">const</span> G4Element * elm, 
+                  <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-literal">nullptr</span>)</span></span>;
 
-  <span class="token comment">// obsolete method to get cross section per element</span>
-  <span class="token keyword">inline</span>
-  G4double <span class="token function">GetMicroscopicCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle <span class="token operator">*</span> part<span class="token punctuation">,</span> 
-                      <span class="token keyword">const</span> G4Element <span class="token operator">*</span> elm<span class="token punctuation">,</span> 
-                      <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">GetElementCrossSection</span><span class="token punctuation">(</span>part<span class="token punctuation">,</span> elm<span class="token punctuation">,</span> mat<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// obsolete method to get cross section per element</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span>
+  G4double <span class="hljs-title">GetMicroscopicCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle * part, 
+                      <span class="hljs-keyword">const</span> G4Element * elm, 
+                      <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-literal">nullptr</span>)</span>
+  </span>{ <span class="hljs-keyword">return</span> GetElementCrossSection(part, elm, mat); }
 
-  <span class="token comment">// generic PostStepDoIt recommended for all derived classes</span>
-  <span class="token keyword">virtual</span> G4VParticleChange<span class="token operator">*</span> <span class="token function">PostStepDoIt</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> aTrack<span class="token punctuation">,</span> 
-                      <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span> aStep<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// generic PostStepDoIt recommended for all derived classes</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VParticleChange* <span class="hljs-title">PostStepDoIt</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp; aTrack, 
+                      <span class="hljs-keyword">const</span> G4Step&amp; aStep)</span></span>;
 
-  <span class="token comment">// initialisation of physics tables and G4HadronicProcessStore</span>
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">PreparePhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// initialisation of physics tables and G4HadronicProcessStore</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PreparePhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
 
-  <span class="token comment">// build physics tables and print out the configuration of the process</span>
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">BuildPhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// build physics tables and print out the configuration of the process</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BuildPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
 
-  <span class="token comment">// dump physics tables </span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">DumpPhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span> p<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> theCrossSectionDataStore<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">DumpPhysicsTable</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// dump physics tables </span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DumpPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp; p)</span>
+  </span>{ theCrossSectionDataStore-&gt;DumpPhysicsTable(p); }
 
-  <span class="token comment">// add cross section data set</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">AddDataSet</span><span class="token punctuation">(</span>G4VCrossSectionDataSet <span class="token operator">*</span> aDataSet<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> theCrossSectionDataStore<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">AddDataSet</span><span class="token punctuation">(</span>aDataSet<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+  <span class="hljs-comment">// add cross section data set</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">AddDataSet</span><span class="hljs-params">(G4VCrossSectionDataSet * aDataSet)</span>
+  </span>{ theCrossSectionDataStore-&gt;AddDataSet(aDataSet);}
 
-  <span class="token comment">// access to the list of hadronic interactions</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4HadronicInteraction<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">GetHadronicInteractionList</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> theEnergyRangeManager<span class="token punctuation">.</span><span class="token function">GetHadronicInteractionList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// access to the list of hadronic interactions</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4HadronicInteraction*&gt;&amp; GetHadronicInteractionList()
+  { <span class="hljs-keyword">return</span> theEnergyRangeManager.GetHadronicInteractionList(); }
 
-  <span class="token comment">// get inverse cross section per volume</span>
-  G4double <span class="token function">GetMeanFreePath</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track <span class="token operator">&amp;</span>aTrack<span class="token punctuation">,</span> G4double<span class="token punctuation">,</span> 
-               G4ForceCondition <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// get inverse cross section per volume</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetMeanFreePath</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track &amp;aTrack, G4double, 
+               G4ForceCondition *)</span></span>;
 
-  <span class="token comment">// access to the target nucleus</span>
-  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4Nucleus<span class="token operator">*</span> <span class="token function">GetTargetNucleus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token operator">&amp;</span>targetNucleus<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// access to the target nucleus</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4Nucleus* <span class="hljs-title">GetTargetNucleus</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span>
+  </span>{ <span class="hljs-keyword">return</span> &amp;targetNucleus; }
 
-  <span class="token comment">//  G4ParticleDefinition* GetTargetDefinition();</span>
-  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4Isotope<span class="token operator">*</span> <span class="token function">GetTargetIsotope</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> targetNucleus<span class="token punctuation">.</span><span class="token function">GetIsotope</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">//  G4ParticleDefinition* GetTargetDefinition();</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4Isotope* <span class="hljs-title">GetTargetIsotope</span><span class="hljs-params">()</span>
+  </span>{ <span class="hljs-keyword">return</span> targetNucleus.GetIsotope(); }
 
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">ProcessDescription</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> outFile<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; outFile)</span> <span class="hljs-keyword">const</span></span>;
 
-<span class="token keyword">protected</span><span class="token operator">:</span>    
+<span class="hljs-keyword">protected</span>:    
 
-  <span class="token comment">// generic method to choose secondary generator </span>
-  <span class="token comment">// recommended for all derived classes</span>
-  <span class="token keyword">inline</span> G4HadronicInteraction<span class="token operator">*</span> <span class="token function">ChooseHadronicInteraction</span><span class="token punctuation">(</span>
-      <span class="token keyword">const</span> G4HadProjectile <span class="token operator">&amp;</span> aHadProjectile<span class="token punctuation">,</span> G4Nucleus <span class="token operator">&amp;</span> aTargetNucleus<span class="token punctuation">,</span>
-      G4Material<span class="token operator">*</span> aMaterial<span class="token punctuation">,</span> G4Element<span class="token operator">*</span> anElement<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> theEnergyRangeManager<span class="token punctuation">.</span><span class="token function">GetHadronicInteraction</span><span class="token punctuation">(</span>aHadProjectile<span class="token punctuation">,</span> 
-                                                        aTargetNucleus<span class="token punctuation">,</span>
-                            aMaterial<span class="token punctuation">,</span>anElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-comment">// generic method to choose secondary generator </span>
+  <span class="hljs-comment">// recommended for all derived classes</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4HadronicInteraction* <span class="hljs-title">ChooseHadronicInteraction</span><span class="hljs-params">(
+      <span class="hljs-keyword">const</span> G4HadProjectile &amp; aHadProjectile, G4Nucleus &amp; aTargetNucleus,
+      G4Material* aMaterial, G4Element* anElement)</span>
+  </span>{ <span class="hljs-keyword">return</span> theEnergyRangeManager.GetHadronicInteraction(aHadProjectile, 
+                                                        aTargetNucleus,
+                            aMaterial,anElement);
+  }
 
-  <span class="token comment">// access to the target nucleus</span>
-  <span class="token keyword">inline</span> G4Nucleus<span class="token operator">*</span> <span class="token function">GetTargetNucleusPointer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token operator">&amp;</span>targetNucleus<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// access to the target nucleus</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4Nucleus* <span class="hljs-title">GetTargetNucleusPointer</span><span class="hljs-params">()</span> 
+  </span>{ <span class="hljs-keyword">return</span> &amp;targetNucleus; }
 
-<span class="token keyword">public</span><span class="token operator">:</span>
+<span class="hljs-keyword">public</span>:
 
-  <span class="token keyword">void</span> <span class="token function">BiasCrossSectionByFactor</span><span class="token punctuation">(</span>G4double aScale<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BiasCrossSectionByFactor</span><span class="hljs-params">(G4double aScale)</span></span>;
 
-  <span class="token comment">// Integral option </span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetIntegral</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> useIntegralXS <span class="token operator">=</span> val<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// Integral option </span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetIntegral</span><span class="hljs-params">(G4bool val)</span>
+  </span>{ useIntegralXS = val; }
 
-  <span class="token comment">// Energy-momentum non-conservation limits and reporting</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetEpReportLevel</span><span class="token punctuation">(</span>G4int level<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> epReportLevel <span class="token operator">=</span> level<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// Energy-momentum non-conservation limits and reporting</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEpReportLevel</span><span class="hljs-params">(G4int level)</span>
+  </span>{ epReportLevel = level; }
 
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetEnergyMomentumCheckLevels</span><span class="token punctuation">(</span>G4double relativeLevel<span class="token punctuation">,</span> G4double absoluteLevel<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> epCheckLevels<span class="token punctuation">.</span>first <span class="token operator">=</span> relativeLevel<span class="token punctuation">;</span>
-    epCheckLevels<span class="token punctuation">.</span>second <span class="token operator">=</span> absoluteLevel<span class="token punctuation">;</span>
-    levelsSetByProcess <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEnergyMomentumCheckLevels</span><span class="hljs-params">(G4double relativeLevel, G4double absoluteLevel)</span>
+  </span>{ epCheckLevels.first = relativeLevel;
+    epCheckLevels.second = absoluteLevel;
+    levelsSetByProcess = <span class="hljs-literal">true</span>;
+  }
 
-  <span class="token keyword">inline</span> std<span class="token operator">::</span>pair<span class="token operator">&lt;</span>G4double<span class="token punctuation">,</span> G4double<span class="token operator">&gt;</span> <span class="token function">GetEnergyMomentumCheckLevels</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> epCheckLevels<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-keyword">inline</span> <span class="hljs-built_in">std</span>::pair&lt;G4double, G4double&gt; GetEnergyMomentumCheckLevels() <span class="hljs-keyword">const</span>
+  { <span class="hljs-keyword">return</span> epCheckLevels; }
 
-  <span class="token comment">// access to the cross section data store</span>
-  <span class="token keyword">inline</span> G4CrossSectionDataStore<span class="token operator">*</span> <span class="token function">GetCrossSectionDataStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span><span class="token keyword">return</span> theCrossSectionDataStore<span class="token punctuation">;</span><span class="token punctuation">}</span>
+  <span class="hljs-comment">// access to the cross section data store</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4CrossSectionDataStore* <span class="hljs-title">GetCrossSectionDataStore</span><span class="hljs-params">()</span>
+    </span>{<span class="hljs-keyword">return</span> theCrossSectionDataStore;}
 
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">MultiplyCrossSectionBy</span><span class="token punctuation">(</span>G4double factor<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> aScaleFactor <span class="token operator">=</span> factor<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MultiplyCrossSectionBy</span><span class="hljs-params">(G4double factor)</span>
+  </span>{ aScaleFactor = factor; }
 
-<span class="token keyword">protected</span><span class="token operator">:</span>
+<span class="hljs-keyword">protected</span>:
 
-  <span class="token keyword">void</span> <span class="token function">DumpState</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">,</span> G4ExceptionDescription<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DumpState</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;, <span class="hljs-keyword">const</span> G4String&amp;, G4ExceptionDescription&amp;)</span></span>;
 
-  <span class="token comment">// access to the chosen generator</span>
-  <span class="token keyword">inline</span> G4HadronicInteraction<span class="token operator">*</span> <span class="token function">GetHadronicInteraction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> theInteraction<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// access to the chosen generator</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4HadronicInteraction* <span class="hljs-title">GetHadronicInteraction</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span>
+  </span>{ <span class="hljs-keyword">return</span> theInteraction; }
 
-  <span class="token comment">// access to the cross section data set</span>
-  <span class="token keyword">inline</span> G4double <span class="token function">GetLastCrossSection</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
-  <span class="token punctuation">{</span> <span class="token keyword">return</span> theLastCrossSection<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// access to the cross section data set</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetLastCrossSection</span><span class="hljs-params">()</span> 
+  </span>{ <span class="hljs-keyword">return</span> theLastCrossSection; }
 
-  <span class="token comment">// fill result</span>
-  <span class="token keyword">void</span> <span class="token function">FillResult</span><span class="token punctuation">(</span>G4HadFinalState<span class="token operator">*</span> aR<span class="token punctuation">,</span> <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> aT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// fill result</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FillResult</span><span class="hljs-params">(G4HadFinalState* aR, <span class="hljs-keyword">const</span> G4Track&amp; aT)</span></span>;
 
-  <span class="token comment">// Check the result for catastrophic energy non-conservation</span>
-  G4HadFinalState<span class="token operator">*</span> <span class="token function">CheckResult</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadProjectile<span class="token operator">&amp;</span> thePro<span class="token punctuation">,</span>
-                   <span class="token keyword">const</span> G4Nucleus<span class="token operator">&amp;</span> targetNucleus<span class="token punctuation">,</span> 
-                   G4HadFinalState<span class="token operator">*</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Check the result for catastrophic energy non-conservation</span>
+  <span class="hljs-function">G4HadFinalState* <span class="hljs-title">CheckResult</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4HadProjectile&amp; thePro,
+                   <span class="hljs-keyword">const</span> G4Nucleus&amp; targetNucleus, 
+                   G4HadFinalState* result)</span></span>;
 
-  <span class="token comment">// Check 4-momentum balance</span>
-  <span class="token keyword">void</span> <span class="token function">CheckEnergyMomentumConservation</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span><span class="token punctuation">,</span> <span class="token keyword">const</span> G4Nucleus<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Check 4-momentum balance</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CheckEnergyMomentumConservation</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track&amp;, <span class="hljs-keyword">const</span> G4Nucleus&amp;)</span></span>;
 
-<span class="token keyword">private</span><span class="token operator">:</span>
+<span class="hljs-keyword">private</span>:
 
-  <span class="token keyword">void</span> <span class="token function">InitialiseLocal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseLocal</span><span class="hljs-params">()</span></span>;
 
-  G4double <span class="token function">XBiasSurvivalProbability</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">XBiasSecondaryWeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4double <span class="hljs-title">XBiasSurvivalProbability</span><span class="hljs-params">()</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">XBiasSecondaryWeight</span><span class="hljs-params">()</span></span>;
 
-  <span class="token comment">// hide assignment operator as private </span>
-  G4HadronicProcess<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadronicProcess<span class="token operator">&amp;</span> right<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
-  <span class="token function">G4HadronicProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadronicProcess<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// hide assignment operator as private </span>
+  G4HadronicProcess&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4HadronicProcess&amp; right) = <span class="hljs-keyword">delete</span>;
+  G4HadronicProcess(<span class="hljs-keyword">const</span> G4HadronicProcess&amp;) = <span class="hljs-keyword">delete</span>;
 
-  <span class="token comment">// Set E/p conservation check levels from environment variables</span>
-  <span class="token keyword">void</span> <span class="token function">GetEnergyMomentumCheckEnvvars</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Set E/p conservation check levels from environment variables</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">GetEnergyMomentumCheckEnvvars</span><span class="hljs-params">()</span></span>;
 
-<span class="token keyword">protected</span><span class="token operator">:</span>
+<span class="hljs-keyword">protected</span>:
 
-  G4HadProjectile thePro<span class="token punctuation">;</span>
+  G4HadProjectile thePro;
 
-  G4ParticleChange<span class="token operator">*</span> theTotalResult<span class="token punctuation">;</span> 
+  G4ParticleChange* theTotalResult; 
 
-  G4int epReportLevel<span class="token punctuation">;</span>
+  G4int epReportLevel;
 
-<span class="token keyword">private</span><span class="token operator">:</span>
+<span class="hljs-keyword">private</span>:
 
-  G4EnergyRangeManager theEnergyRangeManager<span class="token punctuation">;</span>
+  G4EnergyRangeManager theEnergyRangeManager;
 
-  G4HadronicInteraction<span class="token operator">*</span> theInteraction<span class="token punctuation">;</span>
+  G4HadronicInteraction* theInteraction;
 
-  G4CrossSectionDataStore<span class="token operator">*</span> theCrossSectionDataStore<span class="token punctuation">;</span>
+  G4CrossSectionDataStore* theCrossSectionDataStore;
 
-  G4HadronicProcessStore<span class="token operator">*</span> theProcessStore<span class="token punctuation">;</span>
+  G4HadronicProcessStore* theProcessStore;
 
-  G4Nucleus targetNucleus<span class="token punctuation">;</span>
+  G4Nucleus targetNucleus;
 
-  <span class="token keyword">bool</span> G4HadronicProcess_debug_flag<span class="token punctuation">;</span>
+  <span class="hljs-keyword">bool</span> G4HadronicProcess_debug_flag;
 
-  <span class="token keyword">bool</span> useIntegralXS<span class="token punctuation">;</span>
+  <span class="hljs-keyword">bool</span> useIntegralXS;
 
-  G4int nMatWarn<span class="token punctuation">;</span>
+  G4int nMatWarn;
 
-  G4int nICelectrons<span class="token punctuation">;</span>
+  G4int nICelectrons;
 
-  G4int idxIC<span class="token punctuation">;</span>
+  G4int idxIC;
 
-  <span class="token comment">// Energy-momentum checking</span>
-  std<span class="token operator">::</span>pair<span class="token operator">&lt;</span>G4double<span class="token punctuation">,</span> G4double<span class="token operator">&gt;</span> epCheckLevels<span class="token punctuation">;</span>
-  G4bool levelsSetByProcess<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Energy-momentum checking</span>
+  <span class="hljs-built_in">std</span>::pair&lt;G4double, G4double&gt; epCheckLevels;
+  G4bool levelsSetByProcess;
 
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4VLeadingParticleBiasing <span class="token operator">*</span><span class="token operator">&gt;</span> theBias<span class="token punctuation">;</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4VLeadingParticleBiasing *&gt; theBias;
 
-  G4double theInitialNumberOfInteractionLength<span class="token punctuation">;</span>   
+  G4double theInitialNumberOfInteractionLength;   
 
-  G4double aScaleFactor<span class="token punctuation">;</span>
-  G4bool   xBiasOn<span class="token punctuation">;</span>
-  G4double theLastCrossSection<span class="token punctuation">;</span>
+  G4double aScaleFactor;
+  G4bool   xBiasOn;
+  G4double theLastCrossSection;
 </code></pre>
 <!-- G4HadronicProcess.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-08-10 06:49:44
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-08-10 06:49:44 </span> </footer>
                                 
                                 </section>
                             
@@ -3371,7 +3369,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4HadronicProcess","level":"1.4.17.3.2","depth":4,"next":{"title":"G4HadronElasticProcess","level":"1.4.17.3.2.1","depth":5,"path":"class/G4HadronElasticProcess.md","ref":"class/G4HadronElasticProcess.md","articles":[]},"previous":{"title":"G4eplusAnnihilation","level":"1.4.17.3.1.7","depth":5,"path":"class/G4eplusAnnihilation.md","ref":"class/G4eplusAnnihilation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4HadronicProcess.md","mtime":"2018-08-09T22:49:44.195Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4HadronicProcess","level":"1.4.17.3.2","depth":4,"next":{"title":"G4HadronElasticProcess","level":"1.4.17.3.2.1","depth":5,"path":"class/G4HadronElasticProcess.md","ref":"class/G4HadronElasticProcess.md","articles":[]},"previous":{"title":"G4eplusAnnihilation","level":"1.4.17.3.1.7","depth":5,"path":"class/G4eplusAnnihilation.md","ref":"class/G4eplusAnnihilation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4HadronicProcess.md","mtime":"2018-08-09T22:49:44.195Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

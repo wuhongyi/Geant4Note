@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3214,12 +3214,12 @@ Fig.  shows how the G4VFastSimulationModel and G4FastSimulationManager objects a
 </ul>
 <p>If you want to implement a model which is valid only for certain particle types, it is recommended for efficiency that you use the static pointer of the corresponding particle classes.</p>
 <p>As an example, in a model valid for gammas only, the IsApplicable() method should take the form:</p>
-<pre class="language-"><code class="lang-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;G4Gamma.hh&quot;</span></span>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;G4Gamma.hh&quot;</span></span>
 
-G4bool MyGammaModel<span class="token operator">::</span><span class="token function">IsApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span> partDef<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token operator">&amp;</span>partDef <span class="token operator">==</span> G4Gamma<span class="token operator">::</span><span class="token function">GammaDefinition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+G4bool MyGammaModel::IsApplicable(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp; partDef)
+{
+  <span class="hljs-keyword">return</span> &amp;partDef == G4Gamma::GammaDefinition();
+}
 </code></pre>
 <ul>
 <li>G4bool ModelTrigger(const G4FastTrack&amp;):<ul>
@@ -3235,50 +3235,50 @@ G4bool MyGammaModel<span class="token operator">::</span><span class="token func
 <h2 id="the-g4fastsimulationmanager-class"><a name="the-g4fastsimulationmanager-class" class="plugin-anchor" href="#the-g4fastsimulationmanager-class"><i class="fa fa-link" aria-hidden="true"></i></a>The G4FastSimulationManager Class:</h2>
 <p>G4FastSimulationManager functionalities regarding the use of ghost volumes are explained in Parameterisation Using Ghost Geometries.</p>
 <h3 id="constructor"><a name="constructor" class="plugin-anchor" href="#constructor"><i class="fa fa-link" aria-hidden="true"></i></a>Constructor</h3>
-<pre class="language-"><code class="lang-cpp"><span class="token function">G4FastSimulationManager</span><span class="token punctuation">(</span>G4Region <span class="token operator">*</span>anEnvelope<span class="token punctuation">,</span> G4bool IsUnique<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">:</span>
+<pre><code class="lang-cpp">G4FastSimulationManager(G4Region *anEnvelope, G4bool IsUnique=<span class="hljs-literal">false</span>):
 </code></pre>
 <p>This is the only constructor. You specify the G4Region by providing its pointer. The G4FastSimulationManager object will bind itself to this G4Region. If you know that this G4Region has a single root G4LogicalVolume, placed only once, you can set the IsUnique boolean to &#x201C;true&#x201D; to allow some optimization.</p>
 <p>Note that if you choose to use the <strong>G4VFastSimulationModel(const G4String&amp;, G4Region*, G4bool)</strong> constructor for your model, the G4FastSimulationManager will be constructed using the given G4Region* and G4bool values of the model constructor.</p>
 <h3 id="g4vfastsimulationmodel-object-management"><a name="g4vfastsimulationmodel-object-management" class="plugin-anchor" href="#g4vfastsimulationmodel-object-management"><i class="fa fa-link" aria-hidden="true"></i></a>G4VFastSimulationModel object management</h3>
 <p>The following two methods provide the usual management functions.</p>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">void</span> <span class="token function">AddFastSimulationModel</span><span class="token punctuation">(</span> G4VFastSimulationModel<span class="token operator">*</span><span class="token punctuation">)</span>
-<span class="token function">RemoveFastSimulationModel</span><span class="token punctuation">(</span> G4VFastSimulationModel<span class="token operator">*</span><span class="token punctuation">)</span>
-</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddFastSimulationModel</span><span class="hljs-params">( G4VFastSimulationModel*)</span>
+<span class="hljs-title">RemoveFastSimulationModel</span><span class="hljs-params">( G4VFastSimulationModel*)</span>
+</span></code></pre>
 <hr>
 <h2 id="the-g4fastsimulationmanagerprocess-class"><a name="the-g4fastsimulationmanagerprocess-class" class="plugin-anchor" href="#the-g4fastsimulationmanagerprocess-class"><i class="fa fa-link" aria-hidden="true"></i></a>The G4FastSimulationManagerProcess Class</h2>
 <p>This G4VProcess serves as an interface between the tracking and the parameterisation. At tracking time, it collaborates with the G4FastSimulationManager of the current volume, if any, to allow the models to trigger. If no manager exists or if no model issues a trigger, the tracking goes on normally.</p>
 <p>In the present implementation, you must set this process in the G4ProcessManager of the particles you parameterise to enable your parameterisation.</p>
 <p>The processes ordering is:</p>
-<pre class="language-"><code>[n-3] ...
+<pre><code>[n-3] ...
 [n-2] Multiple Scattering
 [n-1] G4FastSimulationManagerProcess
 [ n ] G4Transportation
 </code></pre><p>This ordering is important if you use ghost geometries, since the G4FastSimulationManagerProcess will provide navigation in the ghost world to limit the step on ghost boundaries.</p>
 <p>The G4FastSimulationManager must be added to the process list of a particle as a continuous and discrete process if you use ghost geometries for this particle. You can add it as a discrete process if you don&#x2019;t use ghosts.</p>
 <p>The following code registers the G4FastSimulationManagerProcess with all the particles as a discrete and continuous process:</p>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">void</span> MyPhysicsList<span class="token operator">::</span><span class="token function">addParameterisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  G4FastSimulationManagerProcess<span class="token operator">*</span>
-    theFastSimulationManagerProcess <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">G4FastSimulationManagerProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token operator">*</span>theParticleIterator<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-      G4ParticleDefinition<span class="token operator">*</span> particle <span class="token operator">=</span> theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      G4ProcessManager<span class="token operator">*</span> pmanager <span class="token operator">=</span> particle<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">GetProcessManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      pmanager<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">AddProcess</span><span class="token punctuation">(</span>theFastSimulationManagerProcess<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">void</span> MyPhysicsList::addParameterisation()
+{
+  G4FastSimulationManagerProcess*
+    theFastSimulationManagerProcess = <span class="hljs-keyword">new</span> G4FastSimulationManagerProcess();
+  theParticleIterator-&gt;reset();
+  <span class="hljs-keyword">while</span>( (*theParticleIterator)() )
+    {
+      G4ParticleDefinition* particle = theParticleIterator-&gt;value();
+      G4ProcessManager* pmanager = particle-&gt;GetProcessManager();
+      pmanager-&gt;AddProcess(theFastSimulationManagerProcess, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+    }
+}
 </code></pre>
 <hr>
 <h2 id="the-g4globalfastsimulationmanager-singleton-class"><a name="the-g4globalfastsimulationmanager-singleton-class" class="plugin-anchor" href="#the-g4globalfastsimulationmanager-singleton-class"><i class="fa fa-link" aria-hidden="true"></i></a>The G4GlobalFastSimulationManager Singleton Class</h2>
 <p>This class is a singleton which can be accessed as follows:</p>
-<pre class="language-"><code class="lang-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;G4GlobalFastSimulationManager.hh&quot;</span></span>
-<span class="token comment">//...</span>
-<span class="token comment">//...</span>
-G4GlobalFastSimulationManager<span class="token operator">*</span> globalFSM<span class="token punctuation">;</span>
-globalFSM <span class="token operator">=</span> G4GlobalFastSimulationManager<span class="token operator">::</span><span class="token function">getGlobalFastSimulationManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//...</span>
-<span class="token comment">//...</span>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">&quot;G4GlobalFastSimulationManager.hh&quot;</span></span>
+<span class="hljs-comment">//...</span>
+<span class="hljs-comment">//...</span>
+G4GlobalFastSimulationManager* globalFSM;
+globalFSM = G4GlobalFastSimulationManager::getGlobalFastSimulationManager();
+<span class="hljs-comment">//...</span>
+<span class="hljs-comment">//...</span>
 </code></pre>
 <p>Presently, you will mainly need to use the GlobalFastSimulationManager if you use ghost geometries.</p>
 <h2 id="parameterisation-using-ghost-geometries"><a name="parameterisation-using-ghost-geometries" class="plugin-anchor" href="#parameterisation-using-ghost-geometries"><i class="fa fa-link" aria-hidden="true"></i></a>Parameterisation Using Ghost Geometries</h2>
@@ -3308,9 +3308,9 @@ globalFSM <span class="token operator">=</span> G4GlobalFastSimulationManager<sp
 </ul>
 <p>This last call will cause the G4GlobalFastSimulationManager to build the flavour-dependent ghost geometries. This call must be done before the RunManager closes the geometry. (It is foreseen that the run manager in the future will invoke the CloseFastSimulation() to synchronize properly with the closing of the geometry).</p>
 <p>Visualization facilities are provided for ghosts geometries. After the CloseFastSimulation() invocation, it is possible to ask for the drawing of ghosts in an interactive session. The basic commands are:</p>
-<pre class="language-"><code>/vis/draw/Ghosts particle_name
+<pre><code>/vis/draw/Ghosts particle_name
 </code></pre><ul>
-<li>which makes the drawing of the ghost geometry associated with the particle specified by name in the command line.<pre class="language-"><code>/vis/draw/Ghosts
+<li>which makes the drawing of the ghost geometry associated with the particle specified by name in the command line.<pre><code>/vis/draw/Ghosts
 </code></pre></li>
 <li>which draws all the ghost geometries.</li>
 </ul>
@@ -3319,52 +3319,50 @@ globalFSM <span class="token operator">=</span> G4GlobalFastSimulationManager<sp
 <h2 id="using-the-gflash-parameterisation"><a name="using-the-gflash-parameterisation" class="plugin-anchor" href="#using-the-gflash-parameterisation"><i class="fa fa-link" aria-hidden="true"></i></a>Using the Gflash Parameterisation</h2>
 <p>To use Gflash &#x201C;out of the box&#x201D; the following steps are necessary:</p>
 <ul>
-<li>The user must add the fast simulation process to his process manager:<pre class="language-"><code class="lang-cpp"><span class="token keyword">void</span> MyPhysicsList<span class="token operator">::</span><span class="token function">addParameterisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-G4FastSimulationManagerProcess<span class="token operator">*</span>
-theFastSimulationManagerProcess <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">G4FastSimulationManagerProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token operator">*</span>theParticleIterator<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-G4ParticleDefinition<span class="token operator">*</span> particle <span class="token operator">=</span> theParticleIterator<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-G4ProcessManager<span class="token operator">*</span> pmanager <span class="token operator">=</span> particle<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">GetProcessManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-pmanager<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">AddProcess</span><span class="token punctuation">(</span>theFastSimulationManagerProcess<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<li>The user must add the fast simulation process to his process manager:<pre><code class="lang-cpp"><span class="hljs-keyword">void</span> MyPhysicsList::addParameterisation()
+{
+G4FastSimulationManagerProcess*
+theFastSimulationManagerProcess = <span class="hljs-keyword">new</span> G4FastSimulationManagerProcess();
+theParticleIterator-&gt;reset();
+<span class="hljs-keyword">while</span>( (*theParticleIterator)() )
+{
+G4ParticleDefinition* particle = theParticleIterator-&gt;value();
+G4ProcessManager* pmanager = particle-&gt;GetProcessManager();
+pmanager-&gt;AddProcess(theFastSimulationManagerProcess, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+}
+}
 </code></pre>
 </li>
-<li>The envelope in which the parameterization should be performed must be specified (below: G4Region m_calo_region) and the GFlashShowerModel must be assigned to this region. Furthermore, the classes GFlashParticleBounds (which provides thresholds for the parameterization like minimal energy etc.), GflashHitMaker(a helper class to generate hits in the sensitive detector) and GFlashHomoShowerParamterisation (which does the computations) must be constructed (by the user at the moment) and assigned to the GFlashShowerModel. Please note that at the moment only homogeneous calorimeters are supported.<pre class="language-"><code class="lang-cpp">  m_theFastShowerModel <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashShowerModel</span><span class="token punctuation">(</span><span class="token string">&quot;fastShowerModel&quot;</span><span class="token punctuation">,</span>m_calo_region<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  m_theParametrisation <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashHomoShowerParamterisation</span><span class="token punctuation">(</span>matManager<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">getMaterial</span><span class="token punctuation">(</span>mat<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  m_theParticleBounds  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashParticleBounds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  m_theHMaker          <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">GFlashHitMaker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  m_theFastShowerModel<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">SetParametrisation</span><span class="token punctuation">(</span><span class="token operator">*</span>m_theParametrisation<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  m_theFastShowerModel<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">SetParticleBounds</span><span class="token punctuation">(</span><span class="token operator">*</span>m_theParticleBounds<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-  m_theFastShowerModel<span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">SetHitMaker</span><span class="token punctuation">(</span><span class="token operator">*</span>m_theHMaker<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<li>The envelope in which the parameterization should be performed must be specified (below: G4Region m_calo_region) and the GFlashShowerModel must be assigned to this region. Furthermore, the classes GFlashParticleBounds (which provides thresholds for the parameterization like minimal energy etc.), GflashHitMaker(a helper class to generate hits in the sensitive detector) and GFlashHomoShowerParamterisation (which does the computations) must be constructed (by the user at the moment) and assigned to the GFlashShowerModel. Please note that at the moment only homogeneous calorimeters are supported.<pre><code class="lang-cpp">  m_theFastShowerModel = <span class="hljs-keyword">new</span> GFlashShowerModel(<span class="hljs-string">&quot;fastShowerModel&quot;</span>,m_calo_region);
+  m_theParametrisation = <span class="hljs-keyword">new</span> GFlashHomoShowerParamterisation(matManager-&gt;getMaterial(mat));
+  m_theParticleBounds  = <span class="hljs-keyword">new</span> GFlashParticleBounds();
+  m_theHMaker          = <span class="hljs-keyword">new</span> GFlashHitMaker();
+  m_theFastShowerModel-&gt;SetParametrisation(*m_theParametrisation);
+  m_theFastShowerModel-&gt;SetParticleBounds(*m_theParticleBounds) ;
+  m_theFastShowerModel-&gt;SetHitMaker(*m_theHMaker);
 </code></pre>
   The user must also set the material of the calorimeter, since the computation depends on the material.</li>
-<li>It is mandatory to use G4VGFlashSensitiveDetector as (additional) base class for the sensitive detector.<pre class="language-"><code class="lang-cpp"><span class="token keyword">class</span> <span class="token class-name">ExGflashSensitiveDetector</span><span class="token operator">:</span> <span class="token keyword">public</span> G4VSensitiveDetector <span class="token punctuation">,</span><span class="token keyword">public</span> G4VGFlashSensitiveDetector
+<li>It is mandatory to use G4VGFlashSensitiveDetector as (additional) base class for the sensitive detector.<pre><code class="lang-cpp"><span class="hljs-keyword">class</span> ExGflashSensitiveDetector: <span class="hljs-keyword">public</span> G4VSensitiveDetector ,<span class="hljs-keyword">public</span> G4VGFlashSensitiveDetector
 </code></pre>
-Here it is necessary to implement a separate interface, where the GFlash spots are processed.<pre class="language-"><code class="lang-cpp"><span class="token punctuation">(</span><span class="token function">ProcessHits</span><span class="token punctuation">(</span>G4GFlashSpot<span class="token operator">*</span>aSpot <span class="token punctuation">,</span>G4TouchableHistory<span class="token operator">*</span> ROhist<span class="token punctuation">)</span><span class="token punctuation">)</span>
+Here it is necessary to implement a separate interface, where the GFlash spots are processed.<pre><code class="lang-cpp">(ProcessHits(G4GFlashSpot*aSpot ,G4TouchableHistory* ROhist))
 </code></pre>
 A separate interface is used, because the Gflash spots naturally contain less information than the full simulation.</li>
 </ul>
 <p>Since the parameters in the Gflash package are taken from fits to full simulations with Geant3, some retuning might be necessary for good agreement with Geant4 showers. For experiment-specific geometries some retuning might be necessary anyway. The tuning is quite complicated since there are many parameters (some correlated) and cannot be described here (see again hep-ex/0001020). For brave users the Gflash framework already foresees the possibility of passing a class with the (users) parameters,GVFlashHomoShowerTuning, to the GFlashHomoShowerParamterisation constructor. The default parameters are the original Gflash parameters:</p>
-<pre class="language-"><code class="lang-cpp"><span class="token function">GFlashHomoShowerParameterisation</span><span class="token punctuation">(</span>G4Material <span class="token operator">*</span> aMat<span class="token punctuation">,</span> GVFlashHomoShowerTuning <span class="token operator">*</span> aPar <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp">GFlashHomoShowerParameterisation(G4Material * aMat, GVFlashHomoShowerTuning * aPar = <span class="hljs-number">0</span>);
 </code></pre>
 <p>Now there is also a preliminary implementation of a parameterization for sampling calorimeters.</p>
 <p>The user must specify the active and passive material, as well as the thickness of the active and passive layer.</p>
 <p>The sampling structure of the calorimeter is taken into account by using an &#x201C;effective medium&#x201D; to compute the shower shape.</p>
 <p>All material properties needed are calculated automatically. If tuning is required, the user can pass his own parameter set in the class GFlashSamplingShowerTuning. Here the user can also set his calorimeter resolution.</p>
 <p>All in all the constructor looks the following:</p>
-<pre class="language-"><code class="lang-cpp"><span class="token function">GFlashSamplingShowerParamterisation</span><span class="token punctuation">(</span>G4Material <span class="token operator">*</span> Mat1<span class="token punctuation">,</span> G4Material <span class="token operator">*</span> Mat2<span class="token punctuation">,</span>G4double d1<span class="token punctuation">,</span>G4double d2<span class="token punctuation">,</span> GVFlashSamplingShowerTuning <span class="token operator">*</span> aPar <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp">GFlashSamplingShowerParamterisation(G4Material * Mat1, G4Material * Mat2,G4double d1,G4double d2, GVFlashSamplingShowerTuning * aPar = <span class="hljs-number">0</span>);
 </code></pre>
 <p>An implementation of some tools that should help the user to tune the parameterization is foreseen.</p>
 <!-- Parameterization.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-05-21 09:12:35
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-05-21 09:12:35 </span> </footer>
                                 
                                 </section>
                             
@@ -3407,7 +3405,7 @@ A separate interface is used, because the Gflash spots naturally contain less in
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Parameterization","level":"1.3.6","depth":2,"next":{"title":"Transportation","level":"1.3.7","depth":2,"path":"PhysicsProcesses/Transportation.md","ref":"PhysicsProcesses/Transportation.md","articles":[]},"previous":{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"PhysicsProcesses/Parameterization.md","mtime":"2018-05-21T01:12:35.117Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Parameterization","level":"1.3.6","depth":2,"next":{"title":"Transportation","level":"1.3.7","depth":2,"path":"PhysicsProcesses/Transportation.md","ref":"PhysicsProcesses/Transportation.md","articles":[]},"previous":{"title":"Optical Photon","level":"1.3.5","depth":2,"path":"PhysicsProcesses/OpticalPhoton.md","ref":"PhysicsProcesses/OpticalPhoton.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"PhysicsProcesses/Parameterization.md","mtime":"2018-05-21T01:12:35.117Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

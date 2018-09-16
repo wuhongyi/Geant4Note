@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 日 9月 16 11:08:10 2018 (+0800)
-;; Last-Updated: 日 9月 16 12:46:10 2018 (+0800)
+;; Last-Updated: 日 9月 16 13:17:51 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 5
+;;     Update #: 6
 ;; URL: http://wuhongyi.cn -->
 
 # gitbook test
@@ -18,6 +18,15 @@
 
 ## 这是第二部分
 
+### mermaid
+
+{% mermaid %}
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+{% endmermaid %}
 
 ## 这是第三部分
 

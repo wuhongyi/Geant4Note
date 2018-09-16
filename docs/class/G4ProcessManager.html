@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3148,289 +3148,287 @@ These vectors are </p>
 <p>It will message the corresponding DoIt() to apply the selected processes. In addition, the Tracking will limit the Step and select the occurence of the processes according to the shortest physical interaction length computed (except for processes at rest, for which the Tracking will select the occurence of the process which returns the shortest mean life-time from the GetPhysicalInteractionLength()).</p>
 <hr>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token comment">//  Indexes for ProcessVector</span>
-<span class="token keyword">enum</span> G4ProcessVectorTypeIndex
-<span class="token punctuation">{</span> 
-      typeGPIL <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>    <span class="token comment">// for GetPhysicalInteractionLength </span>
-    typeDoIt <span class="token operator">=</span><span class="token number">1</span>        <span class="token comment">// for DoIt</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">enum</span> G4ProcessVectorDoItIndex
-<span class="token punctuation">{</span>
-      idxAll <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>        <span class="token comment">// for all DoIt/GPIL </span>
-      idxAtRest <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>         <span class="token comment">// for AtRestDoIt/GPIL</span>
-    idxAlongStep <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>     <span class="token comment">// for AlongStepDoIt/GPIL</span>
-    idxPostStep <span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>        <span class="token comment">// for AlongSTepDoIt/GPIL</span>
-    NDoit <span class="token operator">=</span><span class="token number">3</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp"><span class="hljs-comment">//  Indexes for ProcessVector</span>
+<span class="hljs-keyword">enum</span> G4ProcessVectorTypeIndex
+{ 
+      typeGPIL = <span class="hljs-number">0</span>,    <span class="hljs-comment">// for GetPhysicalInteractionLength </span>
+    typeDoIt =<span class="hljs-number">1</span>        <span class="hljs-comment">// for DoIt</span>
+};
+<span class="hljs-keyword">enum</span> G4ProcessVectorDoItIndex
+{
+      idxAll = <span class="hljs-number">-1</span>,        <span class="hljs-comment">// for all DoIt/GPIL </span>
+      idxAtRest = <span class="hljs-number">0</span>,         <span class="hljs-comment">// for AtRestDoIt/GPIL</span>
+    idxAlongStep = <span class="hljs-number">1</span>,     <span class="hljs-comment">// for AlongStepDoIt/GPIL</span>
+    idxPostStep =<span class="hljs-number">2</span>,        <span class="hljs-comment">// for AlongSTepDoIt/GPIL</span>
+    NDoit =<span class="hljs-number">3</span>
+};
 
-<span class="token comment">//  enumeration for Ordering Parameter      </span>
-<span class="token keyword">enum</span> G4ProcessVectorOrdering
-<span class="token punctuation">{</span> 
-       ordInActive <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>    <span class="token comment">// ordering parameter to indicate InActive DoIt</span>
-       ordDefault <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">,</span>    <span class="token comment">// default ordering parameter</span>
-       ordLast    <span class="token operator">=</span> <span class="token number">9999</span>     <span class="token comment">// ordering parameter to indicate the last DoIt</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="hljs-comment">//  enumeration for Ordering Parameter      </span>
+<span class="hljs-keyword">enum</span> G4ProcessVectorOrdering
+{ 
+       ordInActive = <span class="hljs-number">-1</span>,    <span class="hljs-comment">// ordering parameter to indicate InActive DoIt</span>
+       ordDefault = <span class="hljs-number">1000</span>,    <span class="hljs-comment">// default ordering parameter</span>
+       ordLast    = <span class="hljs-number">9999</span>     <span class="hljs-comment">// ordering parameter to indicate the last DoIt</span>
+};
 </code></pre>
 <p> G4ProcessManager</p>
-<pre class="language-"><code class="lang-cpp">  <span class="token keyword">public</span><span class="token operator">:</span> 
-      <span class="token comment">// copy constructor</span>
-      <span class="token function">G4ProcessManager</span><span class="token punctuation">(</span>G4ProcessManager <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">public</span>: 
+      <span class="hljs-comment">// copy constructor</span>
+      G4ProcessManager(G4ProcessManager &amp;right);
 
-  <span class="token keyword">private</span><span class="token operator">:</span>
-      <span class="token comment">// hide default constructor and assignment operator</span>
-      G4ProcessManager <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ProcessManager <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token function">G4ProcessManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">private</span>:
+      <span class="hljs-comment">// hide default constructor and assignment operator</span>
+      G4ProcessManager &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4ProcessManager &amp;right);
+      G4ProcessManager();
 
-  <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="hljs-keyword">public</span>:
 
-      <span class="token function">G4ProcessManager</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> aParticleType<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Constructor</span>
+      G4ProcessManager(<span class="hljs-keyword">const</span> G4ParticleDefinition* aParticleType);
+      <span class="hljs-comment">//  Constructor</span>
 
-      <span class="token operator">~</span><span class="token function">G4ProcessManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Destructor</span>
+      ~G4ProcessManager();
+      <span class="hljs-comment">//  Destructor</span>
 
-      G4int <span class="token keyword">operator</span><span class="token operator">==</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ProcessManager <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      G4int <span class="token keyword">operator</span><span class="token operator">!=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ProcessManager <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+      G4int <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> G4ProcessManager &amp;right) <span class="hljs-keyword">const</span>;
+      G4int <span class="hljs-keyword">operator</span>!=(<span class="hljs-keyword">const</span> G4ProcessManager &amp;right) <span class="hljs-keyword">const</span>;
 
- <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">//  with description</span>
-      G4ProcessVector<span class="token operator">*</span> <span class="token function">GetProcessList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Returns the address of the vector of all processes </span>
+ <span class="hljs-keyword">public</span>: <span class="hljs-comment">//  with description</span>
+      <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetProcessList</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the address of the vector of all processes </span>
 
-      G4int  <span class="token function">GetProcessListLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Returns the number of process in the ProcessVector </span>
+      <span class="hljs-function">G4int  <span class="hljs-title">GetProcessListLength</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the number of process in the ProcessVector </span>
 
-      G4int <span class="token function">GetProcessIndex</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Returns the index of the process in the process List</span>
+      <span class="hljs-function">G4int <span class="hljs-title">GetProcessIndex</span><span class="hljs-params">(G4VProcess *)</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the index of the process in the process List</span>
 
-      <span class="token comment">// --------------------------------------</span>
+      <span class="hljs-comment">// --------------------------------------</span>
 
-      G4ProcessVector<span class="token operator">*</span> <span class="token function">GetProcessVector</span><span class="token punctuation">(</span> 
-                   G4ProcessVectorDoItIndex idx<span class="token punctuation">,</span>
-                   G4ProcessVectorTypeIndex typ <span class="token operator">=</span> typeGPIL
-                  <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Returns the address of the vector of processes </span>
+      <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetProcessVector</span><span class="hljs-params">( 
+                   G4ProcessVectorDoItIndex idx,
+                   G4ProcessVectorTypeIndex typ = typeGPIL
+                  )</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the address of the vector of processes </span>
 
-      G4ProcessVector<span class="token operator">*</span> <span class="token function">GetAtRestProcessVector</span><span class="token punctuation">(</span>
-                   G4ProcessVectorTypeIndex typ <span class="token operator">=</span> typeGPIL
-                              <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span> 
-      <span class="token comment">//  Returns the address of the vector of processes for</span>
-      <span class="token comment">//    AtRestGetPhysicalInteractionLength      idx =0</span>
-      <span class="token comment">//    AtRestGetPhysicalDoIt                   idx =1</span>
-      G4ProcessVector<span class="token operator">*</span> <span class="token function">GetAlongStepProcessVector</span><span class="token punctuation">(</span>
-                   G4ProcessVectorTypeIndex typ <span class="token operator">=</span> typeGPIL
-                              <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Returns the address of the vector of processes for</span>
-      <span class="token comment">//    AlongStepGetPhysicalInteractionLength      idx =0</span>
-      <span class="token comment">//    AlongStepGetPhysicalDoIt                   idx =1</span>
+      <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetAtRestProcessVector</span><span class="hljs-params">(
+                   G4ProcessVectorTypeIndex typ = typeGPIL
+                              )</span> <span class="hljs-keyword">const</span></span>; 
+      <span class="hljs-comment">//  Returns the address of the vector of processes for</span>
+      <span class="hljs-comment">//    AtRestGetPhysicalInteractionLength      idx =0</span>
+      <span class="hljs-comment">//    AtRestGetPhysicalDoIt                   idx =1</span>
+      <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetAlongStepProcessVector</span><span class="hljs-params">(
+                   G4ProcessVectorTypeIndex typ = typeGPIL
+                              )</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the address of the vector of processes for</span>
+      <span class="hljs-comment">//    AlongStepGetPhysicalInteractionLength      idx =0</span>
+      <span class="hljs-comment">//    AlongStepGetPhysicalDoIt                   idx =1</span>
 
-      G4ProcessVector<span class="token operator">*</span> <span class="token function">GetPostStepProcessVector</span><span class="token punctuation">(</span>
-                   G4ProcessVectorTypeIndex typ <span class="token operator">=</span> typeGPIL
-                              <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Returns the address of the vector of processes for</span>
-      <span class="token comment">//    PostStepGetPhysicalInteractionLength      idx =0</span>
-      <span class="token comment">//    PostStepGetPhysicalDoIt                   idx =1</span>
+      <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetPostStepProcessVector</span><span class="hljs-params">(
+                   G4ProcessVectorTypeIndex typ = typeGPIL
+                              )</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the address of the vector of processes for</span>
+      <span class="hljs-comment">//    PostStepGetPhysicalInteractionLength      idx =0</span>
+      <span class="hljs-comment">//    PostStepGetPhysicalDoIt                   idx =1</span>
 
-      G4int <span class="token function">GetProcessVectorIndex</span><span class="token punctuation">(</span>
-                           G4VProcess<span class="token operator">*</span> aProcess<span class="token punctuation">,</span>
-               G4ProcessVectorDoItIndex idx<span class="token punctuation">,</span>
-               G4ProcessVectorTypeIndex typ  <span class="token operator">=</span> typeGPIL
-               <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      G4int <span class="token function">GetAtRestIndex</span><span class="token punctuation">(</span>
-                           G4VProcess<span class="token operator">*</span> aProcess<span class="token punctuation">,</span>
-               G4ProcessVectorTypeIndex typ  <span class="token operator">=</span> typeGPIL
-               <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      G4int <span class="token function">GetAlongStepIndex</span><span class="token punctuation">(</span>
-                           G4VProcess<span class="token operator">*</span> aProcess<span class="token punctuation">,</span>
-               G4ProcessVectorTypeIndex typ  <span class="token operator">=</span> typeGPIL
-               <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      G4int <span class="token function">GetPostStepIndex</span><span class="token punctuation">(</span>
-               G4VProcess<span class="token operator">*</span> aProcess<span class="token punctuation">,</span>
-               G4ProcessVectorTypeIndex typ <span class="token operator">=</span> typeGPIL
-               <span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Returns the index for GPIL/DoIt process vector of the process  </span>
+      <span class="hljs-function">G4int <span class="hljs-title">GetProcessVectorIndex</span><span class="hljs-params">(
+                           G4VProcess* aProcess,
+               G4ProcessVectorDoItIndex idx,
+               G4ProcessVectorTypeIndex typ  = typeGPIL
+               )</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-function">G4int <span class="hljs-title">GetAtRestIndex</span><span class="hljs-params">(
+                           G4VProcess* aProcess,
+               G4ProcessVectorTypeIndex typ  = typeGPIL
+               )</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-function">G4int <span class="hljs-title">GetAlongStepIndex</span><span class="hljs-params">(
+                           G4VProcess* aProcess,
+               G4ProcessVectorTypeIndex typ  = typeGPIL
+               )</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-function">G4int <span class="hljs-title">GetPostStepIndex</span><span class="hljs-params">(
+               G4VProcess* aProcess,
+               G4ProcessVectorTypeIndex typ = typeGPIL
+               )</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Returns the index for GPIL/DoIt process vector of the process  </span>
 
-      G4int <span class="token function">AddProcess</span><span class="token punctuation">(</span>
-             G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span>
-             G4int      ordAtRestDoIt <span class="token operator">=</span> ordInActive<span class="token punctuation">,</span>
-             G4int      ordAlongSteptDoIt <span class="token operator">=</span> ordInActive<span class="token punctuation">,</span>
-             G4int      ordPostStepDoIt <span class="token operator">=</span> ordInActive
-            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Add a process to the process List</span>
-      <span class="token comment">//  return values are index to the List. Negative return value </span>
-      <span class="token comment">//  indicates that the process has not be added due to some errors</span>
-      <span class="token comment">//  The first argument is a pointer to process.</span>
-      <span class="token comment">//  Following arguments are ordering parameters of the process in </span>
-      <span class="token comment">//  process vectors. If value is negative, the process is</span>
-      <span class="token comment">//  not added to the corresponding process vector. </span>
+      <span class="hljs-function">G4int <span class="hljs-title">AddProcess</span><span class="hljs-params">(
+             G4VProcess *aProcess,
+             G4int      ordAtRestDoIt = ordInActive,
+             G4int      ordAlongSteptDoIt = ordInActive,
+             G4int      ordPostStepDoIt = ordInActive
+            )</span></span>;
+      <span class="hljs-comment">//  Add a process to the process List</span>
+      <span class="hljs-comment">//  return values are index to the List. Negative return value </span>
+      <span class="hljs-comment">//  indicates that the process has not be added due to some errors</span>
+      <span class="hljs-comment">//  The first argument is a pointer to process.</span>
+      <span class="hljs-comment">//  Following arguments are ordering parameters of the process in </span>
+      <span class="hljs-comment">//  process vectors. If value is negative, the process is</span>
+      <span class="hljs-comment">//  not added to the corresponding process vector. </span>
 
-      <span class="token comment">//  following methods are provided for simple processes  </span>
-      <span class="token comment">//   AtRestProcess has only AtRestDoIt</span>
-      <span class="token comment">//   ContinuousProcess has only AlongStepDoIt</span>
-      <span class="token comment">//   DiscreteProcess has only PostStepDoIt</span>
-      <span class="token comment">//  If the ording parameter is not specified, the process is</span>
-      <span class="token comment">//  added at the end of List of process vectors </span>
-      <span class="token comment">//  If a process with same ordering parameter exists, </span>
-      <span class="token comment">//   this new process will be added just after processes </span>
-      <span class="token comment">//   with same ordering parameter  </span>
-      <span class="token comment">//  (except for processes assigned to LAST explicitly )</span>
-      <span class="token comment">//  for both DoIt and GetPhysicalInteractionLength</span>
-      <span class="token comment">//  </span>
+      <span class="hljs-comment">//  following methods are provided for simple processes  </span>
+      <span class="hljs-comment">//   AtRestProcess has only AtRestDoIt</span>
+      <span class="hljs-comment">//   ContinuousProcess has only AlongStepDoIt</span>
+      <span class="hljs-comment">//   DiscreteProcess has only PostStepDoIt</span>
+      <span class="hljs-comment">//  If the ording parameter is not specified, the process is</span>
+      <span class="hljs-comment">//  added at the end of List of process vectors </span>
+      <span class="hljs-comment">//  If a process with same ordering parameter exists, </span>
+      <span class="hljs-comment">//   this new process will be added just after processes </span>
+      <span class="hljs-comment">//   with same ordering parameter  </span>
+      <span class="hljs-comment">//  (except for processes assigned to LAST explicitly )</span>
+      <span class="hljs-comment">//  for both DoIt and GetPhysicalInteractionLength</span>
+      <span class="hljs-comment">//  </span>
 
-      G4int <span class="token function">AddRestProcess</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span> G4int ord <span class="token operator">=</span> ordDefault<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      G4int <span class="token function">AddDiscreteProcess</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span> G4int ord <span class="token operator">=</span> ordDefault<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      G4int <span class="token function">AddContinuousProcess</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span> G4int ord <span class="token operator">=</span> ordDefault<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="hljs-function">G4int <span class="hljs-title">AddRestProcess</span><span class="hljs-params">(G4VProcess *aProcess, G4int ord = ordDefault)</span></span>;
+      <span class="hljs-function">G4int <span class="hljs-title">AddDiscreteProcess</span><span class="hljs-params">(G4VProcess *aProcess, G4int ord = ordDefault)</span></span>;
+      <span class="hljs-function">G4int <span class="hljs-title">AddContinuousProcess</span><span class="hljs-params">(G4VProcess *aProcess, G4int ord = ordDefault)</span></span>;
 
 
-       <span class="token comment">/////////////////////////////////////////////// </span>
-      <span class="token comment">// Methods for setting ordering parameters</span>
-      <span class="token comment">// Altanative methods for setting ordering parameters </span>
-      <span class="token comment">//   Note: AddProcess method should precede these methods</span>
+       <span class="hljs-comment">/////////////////////////////////////////////// </span>
+      <span class="hljs-comment">// Methods for setting ordering parameters</span>
+      <span class="hljs-comment">// Altanative methods for setting ordering parameters </span>
+      <span class="hljs-comment">//   Note: AddProcess method should precede these methods</span>
 
-      G4int <span class="token function">GetProcessOrdering</span><span class="token punctuation">(</span>
-                   G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span>
+      <span class="hljs-function">G4int <span class="hljs-title">GetProcessOrdering</span><span class="hljs-params">(
+                   G4VProcess *aProcess,
                    G4ProcessVectorDoItIndex idDoIt
-                               <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                               )</span></span>;
 
-      <span class="token keyword">void</span> <span class="token function">SetProcessOrdering</span><span class="token punctuation">(</span>
-                   G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span>
-                   G4ProcessVectorDoItIndex idDoIt<span class="token punctuation">,</span>
-                   G4int      ordDoIt <span class="token operator">=</span> ordDefault
-                               <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Set ordering parameter for DoIt specified by typeDoIt.</span>
-      <span class="token comment">// If a process with same ordering parameter exists, </span>
-      <span class="token comment">// this new process will be added just after processes </span>
-      <span class="token comment">// with same ordering parameter  </span>
-      <span class="token comment">// Note: Ordering parameter will bet set to non-zero </span>
-      <span class="token comment">//       even if you set  ordDoIt = 0</span>
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessOrdering</span><span class="hljs-params">(
+                   G4VProcess *aProcess,
+                   G4ProcessVectorDoItIndex idDoIt,
+                   G4int      ordDoIt = ordDefault
+                               )</span></span>;
+      <span class="hljs-comment">// Set ordering parameter for DoIt specified by typeDoIt.</span>
+      <span class="hljs-comment">// If a process with same ordering parameter exists, </span>
+      <span class="hljs-comment">// this new process will be added just after processes </span>
+      <span class="hljs-comment">// with same ordering parameter  </span>
+      <span class="hljs-comment">// Note: Ordering parameter will bet set to non-zero </span>
+      <span class="hljs-comment">//       even if you set  ordDoIt = 0</span>
 
-     <span class="token keyword">void</span> <span class="token function">SetProcessOrderingToFirst</span><span class="token punctuation">(</span>
-                   G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span>
+     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessOrderingToFirst</span><span class="hljs-params">(
+                   G4VProcess *aProcess,
                    G4ProcessVectorDoItIndex idDoIt
-                   <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Set ordering parameter to the first of all processes </span>
-      <span class="token comment">// for DoIt specified by idDoIt.</span>
-      <span class="token comment">//  Note: If you use this method for two processes,</span>
-      <span class="token comment">//        a process called later will be first.</span>
+                   )</span></span>;
+      <span class="hljs-comment">// Set ordering parameter to the first of all processes </span>
+      <span class="hljs-comment">// for DoIt specified by idDoIt.</span>
+      <span class="hljs-comment">//  Note: If you use this method for two processes,</span>
+      <span class="hljs-comment">//        a process called later will be first.</span>
 
-      <span class="token keyword">void</span> <span class="token function">SetProcessOrderingToSecond</span><span class="token punctuation">(</span>
-                   G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span>
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessOrderingToSecond</span><span class="hljs-params">(
+                   G4VProcess *aProcess,
                    G4ProcessVectorDoItIndex idDoIt
-                   <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Set ordering parameter to 1 for DoIt specified by idDoIt</span>
-      <span class="token comment">// and the rpocess will be added just after </span>
-      <span class="token comment">// the processes with ordering parameter equal to zero</span>
-      <span class="token comment">//  Note: If you use this method for two processes,</span>
-      <span class="token comment">//        a process called later will be .</span>
+                   )</span></span>;
+      <span class="hljs-comment">// Set ordering parameter to 1 for DoIt specified by idDoIt</span>
+      <span class="hljs-comment">// and the rpocess will be added just after </span>
+      <span class="hljs-comment">// the processes with ordering parameter equal to zero</span>
+      <span class="hljs-comment">//  Note: If you use this method for two processes,</span>
+      <span class="hljs-comment">//        a process called later will be .</span>
 
-        <span class="token keyword">void</span> <span class="token function">SetProcessOrderingToLast</span><span class="token punctuation">(</span>
-                   G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span>
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessOrderingToLast</span><span class="hljs-params">(
+                   G4VProcess *aProcess,
                    G4ProcessVectorDoItIndex idDoIt
-                   <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Set ordering parameter to the last of all processes </span>
-      <span class="token comment">// for DoIt specified by idDoIt.</span>
-      <span class="token comment">//  Note: If you use this method for two processes,</span>
-      <span class="token comment">//        a process called later will precede.</span>
+                   )</span></span>;
+      <span class="hljs-comment">// Set ordering parameter to the last of all processes </span>
+      <span class="hljs-comment">// for DoIt specified by idDoIt.</span>
+      <span class="hljs-comment">//  Note: If you use this method for two processes,</span>
+      <span class="hljs-comment">//        a process called later will precede.</span>
 
-      G4VProcess<span class="token operator">*</span>  <span class="token function">RemoveProcess</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      G4VProcess<span class="token operator">*</span>  <span class="token function">RemoveProcess</span><span class="token punctuation">(</span>G4int      index<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Removes a process from the process List.</span>
-      <span class="token comment">//  return value is pointer to the removed process.</span>
-      <span class="token comment">//  (0 value will be returned in case of errors)</span>
+      <span class="hljs-function">G4VProcess*  <span class="hljs-title">RemoveProcess</span><span class="hljs-params">(G4VProcess *aProcess)</span></span>;
+      <span class="hljs-function">G4VProcess*  <span class="hljs-title">RemoveProcess</span><span class="hljs-params">(G4int      index)</span></span>;
+      <span class="hljs-comment">//  Removes a process from the process List.</span>
+      <span class="hljs-comment">//  return value is pointer to the removed process.</span>
+      <span class="hljs-comment">//  (0 value will be returned in case of errors)</span>
 
-      G4VProcess<span class="token operator">*</span> <span class="token function">SetProcessActivation</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">,</span> G4bool fActive<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      G4VProcess<span class="token operator">*</span> <span class="token function">SetProcessActivation</span><span class="token punctuation">(</span>G4int      index<span class="token punctuation">,</span> G4bool fActive<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Set activation flag. </span>
-      <span class="token comment">//  return value is pointer to the applied process.</span>
-      <span class="token comment">//  (0 value will be returned in case of errors)</span>
+      <span class="hljs-function">G4VProcess* <span class="hljs-title">SetProcessActivation</span><span class="hljs-params">(G4VProcess *aProcess, G4bool fActive)</span></span>;
+      <span class="hljs-function">G4VProcess* <span class="hljs-title">SetProcessActivation</span><span class="hljs-params">(G4int      index, G4bool fActive)</span></span>;
+      <span class="hljs-comment">//  Set activation flag. </span>
+      <span class="hljs-comment">//  return value is pointer to the applied process.</span>
+      <span class="hljs-comment">//  (0 value will be returned in case of errors)</span>
 
-      G4bool <span class="token function">GetProcessActivation</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      G4bool <span class="token function">GetProcessActivation</span><span class="token punctuation">(</span>G4int      index<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//  Get activation flag. </span>
+      <span class="hljs-function">G4bool <span class="hljs-title">GetProcessActivation</span><span class="hljs-params">(G4VProcess *aProcess)</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-function">G4bool <span class="hljs-title">GetProcessActivation</span><span class="hljs-params">(G4int      index)</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">//  Get activation flag. </span>
 
-      G4ParticleDefinition<span class="token operator">*</span>  <span class="token function">GetParticleType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">// get the particle type </span>
-      <span class="token keyword">void</span> <span class="token function">SetParticleType</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// set the particle type</span>
+      <span class="hljs-function">G4ParticleDefinition*  <span class="hljs-title">GetParticleType</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">// get the particle type </span>
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetParticleType</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;
+      <span class="hljs-comment">// set the particle type</span>
 
-      G4VProcess<span class="token operator">*</span> GetProcess <span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">// get process by process name</span>
+      <span class="hljs-function">G4VProcess* <span class="hljs-title">GetProcess</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">// get process by process name</span>
 
-      <span class="token keyword">void</span> <span class="token function">StartTracking</span><span class="token punctuation">(</span>G4Track<span class="token operator">*</span> aTrack<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">void</span> <span class="token function">EndTracking</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// these two methods are used by G4TrackingManager </span>
-      <span class="token comment">// in order to inform Start/End of tracking for each track</span>
-      <span class="token comment">// to the process manager and all physics processes </span>
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">StartTracking</span><span class="hljs-params">(G4Track* aTrack=<span class="hljs-number">0</span>)</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">EndTracking</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-comment">// these two methods are used by G4TrackingManager </span>
+      <span class="hljs-comment">// in order to inform Start/End of tracking for each track</span>
+      <span class="hljs-comment">// to the process manager and all physics processes </span>
 
 
-  <span class="token keyword">public</span><span class="token operator">:</span>
-      <span class="token keyword">enum</span> <span class="token punctuation">{</span>SizeOfProcVectorArray <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword">private</span><span class="token operator">:</span>
-      G4ProcessVector<span class="token operator">*</span> theProcVector<span class="token punctuation">[</span>SizeOfProcVectorArray<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token comment">// vector for processes with GetPhysicalInteractionLength/DoIt</span>
+  <span class="hljs-keyword">public</span>:
+      <span class="hljs-keyword">enum</span> {SizeOfProcVectorArray = <span class="hljs-number">6</span>};
+  <span class="hljs-keyword">private</span>:
+      G4ProcessVector* theProcVector[SizeOfProcVectorArray];
+      <span class="hljs-comment">// vector for processes with GetPhysicalInteractionLength/DoIt</span>
 
-      <span class="token keyword">typedef</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ProcessAttribute<span class="token operator">*</span><span class="token operator">&gt;</span> G4ProcessAttrVector<span class="token punctuation">;</span> 
-      G4ProcessAttrVector<span class="token operator">*</span>  theAttrVector<span class="token punctuation">;</span>
-      <span class="token comment">// vector for process attribute  </span>
+      <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ProcessAttribute*&gt; G4ProcessAttrVector; 
+      G4ProcessAttrVector*  theAttrVector;
+      <span class="hljs-comment">// vector for process attribute  </span>
 
-  <span class="token keyword">protected</span><span class="token operator">:</span> <span class="token comment">// with description</span>
-      G4int <span class="token function">InsertAt</span><span class="token punctuation">(</span>G4int position<span class="token punctuation">,</span> G4VProcess<span class="token operator">*</span> process<span class="token punctuation">,</span> G4int ivec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// insert process at position in theProcVector[ivec]</span>
+  <span class="hljs-keyword">protected</span>: <span class="hljs-comment">// with description</span>
+      <span class="hljs-function">G4int <span class="hljs-title">InsertAt</span><span class="hljs-params">(G4int position, G4VProcess* process, G4int ivec)</span></span>;
+      <span class="hljs-comment">// insert process at position in theProcVector[ivec]</span>
 
-      G4int <span class="token function">RemoveAt</span><span class="token punctuation">(</span>G4int position<span class="token punctuation">,</span> G4VProcess<span class="token operator">*</span> process<span class="token punctuation">,</span> G4int ivec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// remove process at position in theProcVector[ivec]</span>
+      <span class="hljs-function">G4int <span class="hljs-title">RemoveAt</span><span class="hljs-params">(G4int position, G4VProcess* process, G4int ivec)</span></span>;
+      <span class="hljs-comment">// remove process at position in theProcVector[ivec]</span>
 
-      G4int <span class="token function">FindInsertPosition</span><span class="token punctuation">(</span>G4int ord<span class="token punctuation">,</span> G4int ivec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// find insert position according to ordering parameter </span>
-      <span class="token comment">// in theProcVector[ivec]</span>
+      <span class="hljs-function">G4int <span class="hljs-title">FindInsertPosition</span><span class="hljs-params">(G4int ord, G4int ivec)</span></span>;
+      <span class="hljs-comment">// find insert position according to ordering parameter </span>
+      <span class="hljs-comment">// in theProcVector[ivec]</span>
 
-      G4int <span class="token function">GetProcessVectorId</span><span class="token punctuation">(</span>G4ProcessVectorDoItIndex idx<span class="token punctuation">,</span>
-                   G4ProcessVectorTypeIndex typ  <span class="token operator">=</span> typeGPIL<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+      <span class="hljs-function">G4int <span class="hljs-title">GetProcessVectorId</span><span class="hljs-params">(G4ProcessVectorDoItIndex idx,
+                   G4ProcessVectorTypeIndex typ  = typeGPIL)</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">CheckOrderingParameters</span><span class="token punctuation">(</span>G4VProcess<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-       <span class="token comment">// check consistencies between ordering parameters and </span>
-       <span class="token comment">// validity of DoIt of the Process </span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CheckOrderingParameters</span><span class="hljs-params">(G4VProcess*)</span> <span class="hljs-keyword">const</span></span>;
+       <span class="hljs-comment">// check consistencies between ordering parameters and </span>
+       <span class="hljs-comment">// validity of DoIt of the Process </span>
 
-  <span class="token keyword">private</span><span class="token operator">:</span>     
-      G4ProcessAttribute<span class="token operator">*</span> <span class="token function">GetAttribute</span><span class="token punctuation">(</span>G4int      index<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      G4ProcessAttribute<span class="token operator">*</span> <span class="token function">GetAttribute</span><span class="token punctuation">(</span>G4VProcess <span class="token operator">*</span>aProcess<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">// get Pointer to ProcessAttribute</span>
+  <span class="hljs-keyword">private</span>:     
+      <span class="hljs-function">G4ProcessAttribute* <span class="hljs-title">GetAttribute</span><span class="hljs-params">(G4int      index)</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-function">G4ProcessAttribute* <span class="hljs-title">GetAttribute</span><span class="hljs-params">(G4VProcess *aProcess)</span> <span class="hljs-keyword">const</span></span>;
+      <span class="hljs-comment">// get Pointer to ProcessAttribute</span>
 
-      G4VProcess<span class="token operator">*</span> <span class="token function">ActivateProcess</span><span class="token punctuation">(</span>G4int   index<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      G4VProcess<span class="token operator">*</span> <span class="token function">InActivateProcess</span><span class="token punctuation">(</span>G4int  index<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Activate/InActivateProcess   Process</span>
+      <span class="hljs-function">G4VProcess* <span class="hljs-title">ActivateProcess</span><span class="hljs-params">(G4int   index)</span></span>;
+      <span class="hljs-function">G4VProcess* <span class="hljs-title">InActivateProcess</span><span class="hljs-params">(G4int  index)</span></span>;
+      <span class="hljs-comment">// Activate/InActivateProcess   Process</span>
 
-  <span class="token keyword">private</span><span class="token operator">:</span>     
-      <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span>   theParticleType<span class="token punctuation">;</span>
-      <span class="token comment">//  particle which has this process manager object     </span>
+  <span class="hljs-keyword">private</span>:     
+      <span class="hljs-keyword">const</span> G4ParticleDefinition*   theParticleType;
+      <span class="hljs-comment">//  particle which has this process manager object     </span>
 
-      G4int             numberOfProcesses<span class="token punctuation">;</span>
-      G4ProcessVector<span class="token operator">*</span>  theProcessList<span class="token punctuation">;</span>
-      <span class="token comment">// vector for all processes (called as &quot;process List&quot;)</span>
+      G4int             numberOfProcesses;
+      G4ProcessVector*  theProcessList;
+      <span class="hljs-comment">// vector for all processes (called as &quot;process List&quot;)</span>
 
- <span class="token keyword">private</span><span class="token operator">:</span>
-      G4bool  duringTracking<span class="token punctuation">;</span>
-      <span class="token keyword">void</span>    <span class="token function">CreateGPILvectors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">void</span>    <span class="token function">SetIndexToProcessVector</span><span class="token punctuation">(</span>G4int ivec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="hljs-keyword">private</span>:
+      G4bool  duringTracking;
+      <span class="hljs-function"><span class="hljs-keyword">void</span>    <span class="hljs-title">CreateGPILvectors</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">void</span>    <span class="hljs-title">SetIndexToProcessVector</span><span class="hljs-params">(G4int ivec)</span></span>;
 
-      G4bool  isSetOrderingFirstInvoked<span class="token punctuation">[</span>NDoit<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      G4bool  isSetOrderingLastInvoked<span class="token punctuation">[</span>NDoit<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      G4bool  isSetOrderingFirstInvoked[NDoit];
+      G4bool  isSetOrderingLastInvoked[NDoit];
 
- <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
-   <span class="token keyword">void</span>  <span class="token function">DumpInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span>  <span class="hljs-title">DumpInfo</span><span class="hljs-params">()</span></span>;
 
-   <span class="token keyword">void</span>  <span class="token function">SetVerboseLevel</span><span class="token punctuation">(</span>G4int value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4int <span class="token function">GetVerboseLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-   <span class="token comment">// controle flag for output message</span>
-   <span class="token comment">//  0: Silent</span>
-   <span class="token comment">//  1: Warning message</span>
-   <span class="token comment">//  2: More</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span>  <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">(G4int value)</span></span>;
+   <span class="hljs-function">G4int <span class="hljs-title">GetVerboseLevel</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-comment">// controle flag for output message</span>
+   <span class="hljs-comment">//  0: Silent</span>
+   <span class="hljs-comment">//  1: Warning message</span>
+   <span class="hljs-comment">//  2: More</span>
 </code></pre>
 <!-- G4ProcessManager.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-07-14 02:41:26
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-07-14 02:41:26 </span> </footer>
                                 
                                 </section>
                             
@@ -3473,7 +3471,7 @@ These vectors are </p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4ProcessManager","level":"1.4.19","depth":2,"next":{"title":"G4NistManager*","level":"1.4.20","depth":2,"path":"class/G4NistManager.md","ref":"class/G4NistManager.md","articles":[]},"previous":{"title":"G4PhysicsListHelper","level":"1.4.18","depth":2,"path":"class/G4PhysicsListHelper.md","ref":"class/G4PhysicsListHelper.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ProcessManager.md","mtime":"2018-07-13T18:41:26.208Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4ProcessManager","level":"1.4.19","depth":2,"next":{"title":"G4NistManager*","level":"1.4.20","depth":2,"path":"class/G4NistManager.md","ref":"class/G4NistManager.md","articles":[]},"previous":{"title":"G4PhysicsListHelper","level":"1.4.18","depth":2,"path":"class/G4PhysicsListHelper.md","ref":"class/G4PhysicsListHelper.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ProcessManager.md","mtime":"2018-07-13T18:41:26.208Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

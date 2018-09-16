@@ -7,9 +7,9 @@
 	"sharing",
 	"fontsettings",
 	"livereload",
-	"-highlight",
+	"highlight",
 	"github",
-	"prism",
+	"-prism",	
 	"ad",
 	"alerts",
 	"atoc",
@@ -18,9 +18,11 @@
 	"image-captions",
 	"anchors",
 	"latex-codecogs",
+	"-katex",
 	"mermaid",
-	"tbfed-pagefooter",
 	"ace",
+	"-tbfed-pagefooter",
+	"page-footer-ex",
 	"sectionx",
 	"mcqx",
 	"fbqx",
@@ -31,6 +33,11 @@
 	"expandable-chapters"
     ],
     "pluginsConfig": {
+	"fontsettings": {
+            "theme": "sepia",
+            "family": "serif", 
+            "size": 2 
+	},
 	"ad": {
 	    "contentTop": "",
 	    "contentBottom": ""
@@ -46,19 +53,18 @@
 	    "modify_label": "Last-Modified：",
 	    "modify_format": "YYYY-MM-DD HH:mm:ss"
 	},
+	"page-footer-ex": {
+            "copyright": "[© Hongyi Wu](http://wuhongyi.cn/)",
+            "markdown": true,
+            "update_label": "<i>updated</i>",
+            "update_format": "YYYY-MM-DD HH:mm:ss"
+	},
 	"expandable-chapters":{
 
 	},
 	"atoc": {
             "addClass": true,
             "className": "atoc"
-	},
-	"styles": {
-	    "website": "website.css",
-	    "ebook": "ebook.css",
-	    "pdf":  "pdf.css",
-	    "mobi": "ebook.css",
-	    "epub": "ebook.css"
 	}
     }
 }

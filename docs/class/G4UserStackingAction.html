@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3137,89 +3137,87 @@
 <h1 id="g4userstackingaction"><a name="g4userstackingaction" class="plugin-anchor" href="#g4userstackingaction"><i class="fa fa-link" aria-hidden="true"></i></a>G4UserStackingAction</h1>
 <p>This is the base class of one of the user&apos;s optional action classes.<br>This class gives the hooks for G4StackManager which controls the stacks of G4Track objects.</p>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp">  <span class="token keyword">public</span><span class="token operator">:</span>
-      <span class="token function">G4UserStackingAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4UserStackingAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">protected</span><span class="token operator">:</span>
-      G4StackManager <span class="token operator">*</span> stackManager<span class="token punctuation">;</span>
-  <span class="token keyword">public</span><span class="token operator">:</span>
-      <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetStackManager</span><span class="token punctuation">(</span>G4StackManager <span class="token operator">*</span> value<span class="token punctuation">)</span>
-      <span class="token punctuation">{</span> stackManager <span class="token operator">=</span> value<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">public</span>:
+      G4UserStackingAction();
+      <span class="hljs-keyword">virtual</span> ~G4UserStackingAction();
+  <span class="hljs-keyword">protected</span>:
+      G4StackManager * stackManager;
+  <span class="hljs-keyword">public</span>:
+      <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetStackManager</span><span class="hljs-params">(G4StackManager * value)</span>
+      </span>{ stackManager = value; }
 
-  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
-<span class="token comment">//---------------------------------------------------------------</span>
-<span class="token comment">// vitual methods to be implemented by user</span>
-<span class="token comment">//---------------------------------------------------------------</span>
-<span class="token comment">//</span>
-      <span class="token keyword">virtual</span> G4ClassificationOfNewTrack 
-        <span class="token function">ClassifyNewTrack</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Track<span class="token operator">*</span> aTrack<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//</span>
-<span class="token comment">//    Reply G4ClassificationOfNewTrack determined by the</span>
-<span class="token comment">//  newly coming G4Track.</span>
-<span class="token comment">//</span>
-<span class="token comment">//    enum G4ClassificationOfNewTrack</span>
-<span class="token comment">//    {</span>
-<span class="token comment">//      fUrgent,    // put into the urgent stack</span>
-<span class="token comment">//      fWaiting,   // put into the waiting stack</span>
-<span class="token comment">//      fPostpone,  // postpone to the next event</span>
-<span class="token comment">//      fKill       // kill without stacking</span>
-<span class="token comment">//    };</span>
-<span class="token comment">//</span>
-<span class="token comment">//    The parent_ID of the track indicates the origin of it.</span>
-<span class="token comment">//                </span>
-<span class="token comment">//    G4int parent_ID = aTrack-&gt;get_parentID();</span>
-<span class="token comment">//   </span>
-<span class="token comment">//      parent_ID = 0 : primary particle</span>
-<span class="token comment">//                &gt; 0 : secondary particle</span>
-<span class="token comment">//                &lt; 0 : postponed from the previous event</span>
-<span class="token comment">//</span>
-<span class="token comment">//---------------------------------------------------------------</span>
-<span class="token comment">//</span>
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">NewStage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//</span>
-<span class="token comment">//    This method is called by G4StackManager when the urgentStack</span>
-<span class="token comment">//  becomes empty and contents in the waitingStack are transtered</span>
-<span class="token comment">//  to the urgentStack.</span>
-<span class="token comment">//    Note that this method is not called at the begining of each</span>
-<span class="token comment">//  event, but &quot;PrepareNewEvent&quot; is called.</span>
-<span class="token comment">//</span>
-<span class="token comment">//    In case re-classification of the stacked tracks is needed,</span>
-<span class="token comment">//  use the following method to request to G4StackManager.</span>
-<span class="token comment">//</span>
-<span class="token comment">//    stackManager-&gt;ReClassify();</span>
-<span class="token comment">//</span>
-<span class="token comment">//  All of the stacked tracks in the waitingStack will be re-classified </span>
-<span class="token comment">//  by &quot;ClassifyNewTrack&quot; method.</span>
-<span class="token comment">//    To abort current event, use the following method.</span>
-<span class="token comment">//</span>
-<span class="token comment">//    stackManager-&gt;clear();</span>
-<span class="token comment">//</span>
-<span class="token comment">//  Note that this way is valid and safe only for the case it is called</span>
-<span class="token comment">//  from this user class. The more global way of event abortion is</span>
-<span class="token comment">//</span>
-<span class="token comment">//    G4UImanager * UImanager = G4UImanager::GetUIpointer();</span>
-<span class="token comment">//    UImanager-&gt;ApplyCommand(&quot;/event/abort&quot;);</span>
-<span class="token comment">//</span>
-<span class="token comment">//---------------------------------------------------------------</span>
-<span class="token comment">//</span>
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">PrepareNewEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//</span>
-<span class="token comment">//    This method is called by G4StackManager at the begining of</span>
-<span class="token comment">//  each event.</span>
-<span class="token comment">//    Be careful that the urgentStack and the waitingStack of </span>
-<span class="token comment">//  G4StackManager are empty at this moment, because this method</span>
-<span class="token comment">//  is called before accepting primary particles. Also, note that</span>
-<span class="token comment">//  the postponeStack of G4StackManager may have some postponed</span>
-<span class="token comment">//  tracks.</span>
-<span class="token comment">//</span>
-<span class="token comment">//---------------------------------------------------------------</span>
+  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+<span class="hljs-comment">//---------------------------------------------------------------</span>
+<span class="hljs-comment">// vitual methods to be implemented by user</span>
+<span class="hljs-comment">//---------------------------------------------------------------</span>
+<span class="hljs-comment">//</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4ClassificationOfNewTrack 
+        <span class="hljs-title">ClassifyNewTrack</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Track* aTrack)</span></span>;
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    Reply G4ClassificationOfNewTrack determined by the</span>
+<span class="hljs-comment">//  newly coming G4Track.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    enum G4ClassificationOfNewTrack</span>
+<span class="hljs-comment">//    {</span>
+<span class="hljs-comment">//      fUrgent,    // put into the urgent stack</span>
+<span class="hljs-comment">//      fWaiting,   // put into the waiting stack</span>
+<span class="hljs-comment">//      fPostpone,  // postpone to the next event</span>
+<span class="hljs-comment">//      fKill       // kill without stacking</span>
+<span class="hljs-comment">//    };</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    The parent_ID of the track indicates the origin of it.</span>
+<span class="hljs-comment">//                </span>
+<span class="hljs-comment">//    G4int parent_ID = aTrack-&gt;get_parentID();</span>
+<span class="hljs-comment">//   </span>
+<span class="hljs-comment">//      parent_ID = 0 : primary particle</span>
+<span class="hljs-comment">//                &gt; 0 : secondary particle</span>
+<span class="hljs-comment">//                &lt; 0 : postponed from the previous event</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//---------------------------------------------------------------</span>
+<span class="hljs-comment">//</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">NewStage</span><span class="hljs-params">()</span></span>;
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    This method is called by G4StackManager when the urgentStack</span>
+<span class="hljs-comment">//  becomes empty and contents in the waitingStack are transtered</span>
+<span class="hljs-comment">//  to the urgentStack.</span>
+<span class="hljs-comment">//    Note that this method is not called at the begining of each</span>
+<span class="hljs-comment">//  event, but &quot;PrepareNewEvent&quot; is called.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    In case re-classification of the stacked tracks is needed,</span>
+<span class="hljs-comment">//  use the following method to request to G4StackManager.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    stackManager-&gt;ReClassify();</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//  All of the stacked tracks in the waitingStack will be re-classified </span>
+<span class="hljs-comment">//  by &quot;ClassifyNewTrack&quot; method.</span>
+<span class="hljs-comment">//    To abort current event, use the following method.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    stackManager-&gt;clear();</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//  Note that this way is valid and safe only for the case it is called</span>
+<span class="hljs-comment">//  from this user class. The more global way of event abortion is</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    G4UImanager * UImanager = G4UImanager::GetUIpointer();</span>
+<span class="hljs-comment">//    UImanager-&gt;ApplyCommand(&quot;/event/abort&quot;);</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//---------------------------------------------------------------</span>
+<span class="hljs-comment">//</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PrepareNewEvent</span><span class="hljs-params">()</span></span>;
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//    This method is called by G4StackManager at the begining of</span>
+<span class="hljs-comment">//  each event.</span>
+<span class="hljs-comment">//    Be careful that the urgentStack and the waitingStack of </span>
+<span class="hljs-comment">//  G4StackManager are empty at this moment, because this method</span>
+<span class="hljs-comment">//  is called before accepting primary particles. Also, note that</span>
+<span class="hljs-comment">//  the postponeStack of G4StackManager may have some postponed</span>
+<span class="hljs-comment">//  tracks.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//---------------------------------------------------------------</span>
 </code></pre>
 <!-- G4UserStackingAction.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-09-02 12:56:58
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-09-02 12:56:58 </span> </footer>
                                 
                                 </section>
                             
@@ -3262,7 +3260,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4UserStackingAction","level":"1.4.41","depth":2,"next":{"title":"G4VUserTrackInformation","level":"1.4.42","depth":2,"path":"class/G4VUserTrackInformation.md","ref":"class/G4VUserTrackInformation.md","articles":[]},"previous":{"title":"G4StepPoint","level":"1.4.40","depth":2,"path":"class/G4StepPoint.md","ref":"class/G4StepPoint.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4UserStackingAction.md","mtime":"2018-09-02T04:56:58.648Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4UserStackingAction","level":"1.4.41","depth":2,"next":{"title":"G4VUserTrackInformation","level":"1.4.42","depth":2,"path":"class/G4VUserTrackInformation.md","ref":"class/G4VUserTrackInformation.md","articles":[]},"previous":{"title":"G4StepPoint","level":"1.4.40","depth":2,"path":"class/G4StepPoint.md","ref":"class/G4StepPoint.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4UserStackingAction.md","mtime":"2018-09-02T04:56:58.648Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3135,10 +3135,10 @@
 ;;     Update #: 2
 ;; URL: http://wuhongyi.cn -->
 <h1 id="g4emparameters"><a name="g4emparameters" class="plugin-anchor" href="#g4emparameters"><i class="fa fa-link" aria-hidden="true"></i></a>G4EmParameters</h1>
-<pre class="language-"><code>The old interface class G4EmProcessOptions is still available but but is strongly recommended not to be used.
+<pre><code>The old interface class G4EmProcessOptions is still available but but is strongly recommended not to be used.
 </code></pre><p>A utility static class, responsable for keeping parameters for all EM physics processes and models.<br>It is initialized by the master thread but can be updated at any moment. Parameters may be used in run time or at initialisation  </p>
 <p>Options are available for steering of electromagnetic processes.<br>These options may be invoked either by UI commands or by the new C++ interface class G4EmParameters.<br>The interface G4EmParameters::Instance() is thread safe, EM parameters are shared between threads, and parameters are shared between all EM processes.<br>Parameters may be modified at <strong>G4State_PreInit</strong> or <strong>G4State_Idle states</strong> of Geant4.  </p>
-<pre class="language-"><code>Note, that when any of EM physics constructor is instantiated a default set of EM parameters for this EM physics configuration is defined. So, parameters modification should be applied only after.
+<pre><code>Note, that when any of EM physics constructor is instantiated a default set of EM parameters for this EM physics configuration is defined. So, parameters modification should be applied only after.
 </code></pre><p>This class has the following public methods:</p>
 <ul>
 <li>Dump()</li>
@@ -3209,247 +3209,245 @@
 </ul>
 <hr>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp">  <span class="token keyword">static</span> G4EmParameters<span class="token operator">*</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp">  <span class="hljs-function"><span class="hljs-keyword">static</span> G4EmParameters* <span class="hljs-title">Instance</span><span class="hljs-params">()</span></span>;
 
-  <span class="token operator">~</span><span class="token function">G4EmParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  ~G4EmParameters();
 
-  <span class="token keyword">void</span> <span class="token function">SetDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetDefaults</span><span class="hljs-params">()</span></span>;
 
-  <span class="token comment">// printing</span>
-  std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> <span class="token function">StreamInfo</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> os<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">Dump</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">friend</span> std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> os<span class="token punctuation">,</span> <span class="token keyword">const</span> G4EmParameters<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// printing</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-function">ostream&amp; <span class="hljs-title">StreamInfo</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; os)</span> <span class="hljs-keyword">const</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Dump</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+  <span class="hljs-keyword">friend</span> <span class="hljs-built_in">std</span>::ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt; (<span class="hljs-built_in">std</span>::ostream&amp; os, <span class="hljs-keyword">const</span> G4EmParameters&amp;);
 
-  <span class="token comment">// boolean flags</span>
-  <span class="token keyword">void</span> <span class="token function">SetLossFluctuations</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">LossFluctuation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// boolean flags</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLossFluctuations</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">LossFluctuation</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetBuildCSDARange</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">BuildCSDARange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetBuildCSDARange</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">BuildCSDARange</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLPM</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">LPM</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLPM</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">LPM</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetSpline</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">Spline</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetSpline</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">Spline</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetUseCutAsFinalRange</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">UseCutAsFinalRange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetUseCutAsFinalRange</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">UseCutAsFinalRange</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetApplyCuts</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">ApplyCuts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetApplyCuts</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">ApplyCuts</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetFluo</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">Fluo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetFluo</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">Fluo</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetBeardenFluoDir</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">BeardenFluoDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetBeardenFluoDir</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">BeardenFluoDir</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetAuger</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">Auger</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetAuger</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">Auger</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetAugerCascade</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">AugerCascade</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetAugerCascade</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">AugerCascade</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetPixe</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">Pixe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetPixe</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">Pixe</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetDeexcitationIgnoreCut</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">DeexcitationIgnoreCut</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetDeexcitationIgnoreCut</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">DeexcitationIgnoreCut</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLateralDisplacement</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">LateralDisplacement</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLateralDisplacement</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">LateralDisplacement</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLateralDisplacementAlg96</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">LateralDisplacementAlg96</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLateralDisplacementAlg96</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">LateralDisplacementAlg96</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMuHadLateralDisplacement</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">MuHadLateralDisplacement</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMuHadLateralDisplacement</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">MuHadLateralDisplacement</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLatDisplacementBeyondSafety</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">LatDisplacementBeyondSafety</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLatDisplacementBeyondSafety</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">LatDisplacementBeyondSafety</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">ActivateAngularGeneratorForIonisation</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">UseAngularGeneratorForIonisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ActivateAngularGeneratorForIonisation</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">UseAngularGeneratorForIonisation</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetUseMottCorrection</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">UseMottCorrection</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetUseMottCorrection</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">UseMottCorrection</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetIntegral</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">Integral</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetIntegral</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">Integral</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetBirksActive</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">BirksActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetBirksActive</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">BirksActive</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetDNAFast</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">DNAFast</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetDNAFast</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">DNAFast</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetDNAStationary</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">DNAStationary</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetDNAStationary</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">DNAStationary</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetDNAElectronMsc</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">DNAElectronMsc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetDNAElectronMsc</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">DNAElectronMsc</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetGammaSharkActive</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">GammaSharkActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetGammaSharkActive</span><span class="hljs-params">(G4bool val)</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">GammaSharkActive</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetEmSaturation</span><span class="token punctuation">(</span>G4EmSaturation<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4EmSaturation<span class="token operator">*</span> <span class="token function">GetEmSaturation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetEmSaturation</span><span class="hljs-params">(G4EmSaturation*)</span></span>;
+  <span class="hljs-function">G4EmSaturation* <span class="hljs-title">GetEmSaturation</span><span class="hljs-params">()</span></span>;
 
-  <span class="token comment">// double parameters with values</span>
-  <span class="token keyword">void</span> <span class="token function">SetMinSubRange</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MinSubRange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// double parameters with values</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMinSubRange</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MinSubRange</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMinEnergy</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MinKinEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMinEnergy</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MinKinEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMaxEnergy</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MaxKinEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMaxEnergy</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MaxKinEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMaxEnergyForCSDARange</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MaxEnergyForCSDARange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMaxEnergyForCSDARange</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MaxEnergyForCSDARange</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLowestElectronEnergy</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">LowestElectronEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLowestElectronEnergy</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">LowestElectronEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLowestMuHadEnergy</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">LowestMuHadEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLowestMuHadEnergy</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">LowestMuHadEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLowestTripletEnergy</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">LowestTripletEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLowestTripletEnergy</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">LowestTripletEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLinearLossLimit</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">LinearLossLimit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLinearLossLimit</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">LinearLossLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetBremsstrahlungTh</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">BremsstrahlungTh</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetBremsstrahlungTh</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">BremsstrahlungTh</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetLambdaFactor</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">LambdaFactor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetLambdaFactor</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">LambdaFactor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetFactorForAngleLimit</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">FactorForAngleLimit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetFactorForAngleLimit</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">FactorForAngleLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMscThetaLimit</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MscThetaLimit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMscThetaLimit</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MscThetaLimit</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMscRangeFactor</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MscRangeFactor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMscRangeFactor</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MscRangeFactor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMscMuHadRangeFactor</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MscMuHadRangeFactor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMscMuHadRangeFactor</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MscMuHadRangeFactor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMscGeomFactor</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MscGeomFactor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMscGeomFactor</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MscGeomFactor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMscSkin</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">MscSkin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMscSkin</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">MscSkin</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetScreeningFactor</span><span class="token punctuation">(</span>G4double val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4double <span class="token function">ScreeningFactor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetScreeningFactor</span><span class="hljs-params">(G4double val)</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">ScreeningFactor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetStepFunction</span><span class="token punctuation">(</span>G4double v1<span class="token punctuation">,</span> G4double v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetStepFunction</span><span class="hljs-params">(G4double v1, G4double v2)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetStepFunctionMuHad</span><span class="token punctuation">(</span>G4double v1<span class="token punctuation">,</span> G4double v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetStepFunctionMuHad</span><span class="hljs-params">(G4double v1, G4double v2)</span></span>;
 
-  <span class="token comment">// integer parameters </span>
-  <span class="token keyword">void</span> <span class="token function">SetNumberOfBins</span><span class="token punctuation">(</span>G4int val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4int <span class="token function">NumberOfBins</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// integer parameters </span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetNumberOfBins</span><span class="hljs-params">(G4int val)</span></span>;
+  <span class="hljs-function">G4int <span class="hljs-title">NumberOfBins</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetNumberOfBinsPerDecade</span><span class="token punctuation">(</span>G4int val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4int <span class="token function">NumberOfBinsPerDecade</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetNumberOfBinsPerDecade</span><span class="hljs-params">(G4int val)</span></span>;
+  <span class="hljs-function">G4int <span class="hljs-title">NumberOfBinsPerDecade</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetVerbose</span><span class="token punctuation">(</span>G4int val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4int <span class="token function">Verbose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVerbose</span><span class="hljs-params">(G4int val)</span></span>;
+  <span class="hljs-function">G4int <span class="hljs-title">Verbose</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetWorkerVerbose</span><span class="token punctuation">(</span>G4int val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4int <span class="token function">WorkerVerbose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetWorkerVerbose</span><span class="hljs-params">(G4int val)</span></span>;
+  <span class="hljs-function">G4int <span class="hljs-title">WorkerVerbose</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMscStepLimitType</span><span class="token punctuation">(</span>G4MscStepLimitType val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4MscStepLimitType <span class="token function">MscStepLimitType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMscStepLimitType</span><span class="hljs-params">(G4MscStepLimitType val)</span></span>;
+  <span class="hljs-function">G4MscStepLimitType <span class="hljs-title">MscStepLimitType</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetMscMuHadStepLimitType</span><span class="token punctuation">(</span>G4MscStepLimitType val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4MscStepLimitType <span class="token function">MscMuHadStepLimitType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetMscMuHadStepLimitType</span><span class="hljs-params">(G4MscStepLimitType val)</span></span>;
+  <span class="hljs-function">G4MscStepLimitType <span class="hljs-title">MscMuHadStepLimitType</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetNuclearFormfactorType</span><span class="token punctuation">(</span>G4NuclearFormfactorType val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4NuclearFormfactorType <span class="token function">NuclearFormfactorType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetNuclearFormfactorType</span><span class="hljs-params">(G4NuclearFormfactorType val)</span></span>;
+  <span class="hljs-function">G4NuclearFormfactorType <span class="hljs-title">NuclearFormfactorType</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">// string parameters </span>
-  <span class="token keyword">void</span> <span class="token function">SetPIXECrossSectionModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">PIXECrossSectionModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// string parameters </span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetPIXECrossSectionModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">PIXECrossSectionModel</span><span class="hljs-params">()</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetPIXEElectronCrossSectionModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">PIXEElectronCrossSectionModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetPIXEElectronCrossSectionModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">PIXEElectronCrossSectionModel</span><span class="hljs-params">()</span></span>;
 
-  <span class="token comment">// parameters per region or per process </span>
-  <span class="token keyword">void</span> <span class="token function">AddPAIModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> particle<span class="token punctuation">,</span>
-                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span>
-                   <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> type<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">ParticlesPAI</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">RegionsPAI</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">TypesPAI</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// parameters per region or per process </span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddPAIModel</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; particle,
+                   <span class="hljs-keyword">const</span> G4String&amp; region,
+                   <span class="hljs-keyword">const</span> G4String&amp; type)</span></span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; ParticlesPAI() <span class="hljs-keyword">const</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; RegionsPAI() <span class="hljs-keyword">const</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; TypesPAI() <span class="hljs-keyword">const</span>;
 
-  <span class="token keyword">void</span> <span class="token function">AddMicroElec</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">RegionsMicroElec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddMicroElec</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; region)</span></span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; RegionsMicroElec() <span class="hljs-keyword">const</span>;
 
-  <span class="token keyword">void</span> <span class="token function">AddDNA</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> type<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">RegionsDNA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">TypesDNA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddDNA</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; region, <span class="hljs-keyword">const</span> G4String&amp; type)</span></span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; RegionsDNA() <span class="hljs-keyword">const</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; TypesDNA() <span class="hljs-keyword">const</span>;
 
-  <span class="token keyword">void</span> <span class="token function">AddMsc</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> type<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">RegionsMsc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">TypesMsc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddMsc</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; region, <span class="hljs-keyword">const</span> G4String&amp; type)</span></span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; RegionsMsc() <span class="hljs-keyword">const</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; TypesMsc() <span class="hljs-keyword">const</span>;
 
-  <span class="token keyword">void</span> <span class="token function">AddPhysics</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> type<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">RegionsPhysics</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">TypesPhysics</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddPhysics</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; region, <span class="hljs-keyword">const</span> G4String&amp; type)</span></span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; RegionsPhysics() <span class="hljs-keyword">const</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt;&amp; TypesPhysics() <span class="hljs-keyword">const</span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetSubCutoff</span><span class="token punctuation">(</span>G4bool val<span class="token punctuation">,</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region <span class="token operator">=</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetSubCutoff</span><span class="hljs-params">(G4bool val, <span class="hljs-keyword">const</span> G4String&amp; region = <span class="hljs-string">&quot;&quot;</span>)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetDeexActiveRegion</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span> G4bool fdeex<span class="token punctuation">,</span>
-               G4bool fauger<span class="token punctuation">,</span> G4bool fpixe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetDeexActiveRegion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; region, G4bool fdeex,
+               G4bool fauger, G4bool fpixe)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetProcessBiasingFactor</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> procname<span class="token punctuation">,</span> 
-                               G4double val<span class="token punctuation">,</span> G4bool wflag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessBiasingFactor</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; procname, 
+                               G4double val, G4bool wflag)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">ActivateForcedInteraction</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> procname<span class="token punctuation">,</span> 
-                                 <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span>
-                                 G4double length<span class="token punctuation">,</span> 
-                                 G4bool wflag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ActivateForcedInteraction</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; procname, 
+                                 <span class="hljs-keyword">const</span> G4String&amp; region,
+                                 G4double length, 
+                                 G4bool wflag)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">ActivateSecondaryBiasing</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> name<span class="token punctuation">,</span>
-                <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> region<span class="token punctuation">,</span> 
-                G4double factor<span class="token punctuation">,</span>
-                G4double energyLimit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ActivateSecondaryBiasing</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; name,
+                <span class="hljs-keyword">const</span> G4String&amp; region, 
+                G4double factor,
+                G4double energyLimit)</span></span>;
 
-  <span class="token comment">// initialisation methods</span>
-  <span class="token keyword">void</span> <span class="token function">DefineRegParamForLoss</span><span class="token punctuation">(</span>G4VEnergyLossProcess<span class="token operator">*</span><span class="token punctuation">,</span> 
-                             G4bool isElectron<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">DefineRegParamForEM</span><span class="token punctuation">(</span>G4VEmProcess<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">DefineRegParamForDeex</span><span class="token punctuation">(</span>G4VAtomDeexcitation<span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// initialisation methods</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DefineRegParamForLoss</span><span class="hljs-params">(G4VEnergyLossProcess*, 
+                             G4bool isElectron)</span> <span class="hljs-keyword">const</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DefineRegParamForEM</span><span class="hljs-params">(G4VEmProcess*)</span> <span class="hljs-keyword">const</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DefineRegParamForDeex</span><span class="hljs-params">(G4VAtomDeexcitation*)</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token function">G4EmParameters</span><span class="token punctuation">(</span>G4EmParameters <span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
-  G4EmParameters <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4EmParameters <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>  
+  G4EmParameters(G4EmParameters &amp;) = <span class="hljs-keyword">delete</span>;
+  G4EmParameters &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4EmParameters &amp;right) = <span class="hljs-keyword">delete</span>;  
 
 
-<span class="token keyword">private</span><span class="token operator">:</span>
+<span class="hljs-keyword">private</span>:
 
-  <span class="token function">G4EmParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  G4EmParameters();
 
-  <span class="token keyword">void</span> <span class="token function">Initialise</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">()</span></span>;
 
-  G4bool <span class="token function">IsLocked</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">IsLocked</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  G4String <span class="token function">CheckRegion</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4String <span class="hljs-title">CheckRegion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">PrintWarning</span><span class="token punctuation">(</span>G4ExceptionDescription<span class="token operator">&amp;</span> ed<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintWarning</span><span class="hljs-params">(G4ExceptionDescription&amp; ed)</span> <span class="hljs-keyword">const</span></span>;
 </code></pre>
 <!-- G4EmParameters.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-07-14 02:50:37
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-07-14 02:50:37 </span> </footer>
                                 
                                 </section>
                             
@@ -3492,7 +3490,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4EmParameters*","level":"1.4.6","depth":2,"next":{"title":"G4VAtomDeexcitation","level":"1.4.7","depth":2,"path":"class/G4VAtomDeexcitation.md","ref":"class/G4VAtomDeexcitation.md","articles":[]},"previous":{"title":"G4EmCalculator","level":"1.4.5","depth":2,"path":"class/G4EmCalculator.md","ref":"class/G4EmCalculator.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4EmParameters.md","mtime":"2018-07-13T18:50:37.639Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4EmParameters*","level":"1.4.6","depth":2,"next":{"title":"G4VAtomDeexcitation","level":"1.4.7","depth":2,"path":"class/G4VAtomDeexcitation.md","ref":"class/G4VAtomDeexcitation.md","articles":[]},"previous":{"title":"G4EmCalculator","level":"1.4.5","depth":2,"path":"class/G4EmCalculator.md","ref":"class/G4EmCalculator.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4EmParameters.md","mtime":"2018-07-13T18:50:37.639Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

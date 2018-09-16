@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3138,146 +3138,144 @@
 <p><strong>public G4VProcess</strong></p>
 <p>This class is the virtual class for wrapper process objects. </p>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp">  <span class="token comment">//  A virtual class for wrapper process objects.</span>
+<pre><code class="lang-cpp">  <span class="hljs-comment">//  A virtual class for wrapper process objects.</span>
 
-  <span class="token keyword">private</span><span class="token operator">:</span>
-  <span class="token comment">// hide default constructor and assignment operator as private </span>
-  <span class="token comment">//  do not hide default constructor for alpha version </span>
-      <span class="token keyword">inline</span> G4WrapperProcess <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4WrapperProcess <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">private</span>:
+  <span class="hljs-comment">// hide default constructor and assignment operator as private </span>
+  <span class="hljs-comment">//  do not hide default constructor for alpha version </span>
+      <span class="hljs-keyword">inline</span> G4WrapperProcess &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4WrapperProcess &amp;right);
 
-  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
-  <span class="token comment">//  constructor requires the process name and type</span>
-      <span class="token function">G4WrapperProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> aName <span class="token operator">=</span>  <span class="token string">&quot;Wrapped&quot;</span><span class="token punctuation">,</span>
-                 G4ProcessType   aType <span class="token operator">=</span> fNotDefined <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+  <span class="hljs-comment">//  constructor requires the process name and type</span>
+      G4WrapperProcess(<span class="hljs-keyword">const</span> G4String&amp; aName =  <span class="hljs-string">&quot;Wrapped&quot;</span>,
+                 G4ProcessType   aType = fNotDefined );
 
-  <span class="token comment">//  copy constructor copys the name but does not copy the </span>
-  <span class="token comment">//  physics table (0 pointer is assigned)</span>
-      <span class="token function">G4WrapperProcess</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4WrapperProcess <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">//  copy constructor copys the name but does not copy the </span>
+  <span class="hljs-comment">//  physics table (0 pointer is assigned)</span>
+      G4WrapperProcess(<span class="hljs-keyword">const</span> G4WrapperProcess &amp;right);
 
-  <span class="token keyword">public</span><span class="token operator">:</span> 
-  <span class="token comment">//  destructor </span>
-      <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4WrapperProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">public</span>: 
+  <span class="hljs-comment">//  destructor </span>
+      <span class="hljs-keyword">virtual</span> ~G4WrapperProcess();
 
-  <span class="token comment">// equality opperators</span>
-      <span class="token keyword">inline</span> G4int <span class="token keyword">operator</span><span class="token operator">==</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4WrapperProcess <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token keyword">inline</span> G4int <span class="token keyword">operator</span><span class="token operator">!=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4WrapperProcess <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// equality opperators</span>
+      <span class="hljs-keyword">inline</span> G4int <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> G4WrapperProcess &amp;right) <span class="hljs-keyword">const</span>;
+      <span class="hljs-keyword">inline</span> G4int <span class="hljs-keyword">operator</span>!=(<span class="hljs-keyword">const</span> G4WrapperProcess &amp;right) <span class="hljs-keyword">const</span>;
 
-  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
-    <span class="token keyword">virtual</span> <span class="token keyword">void</span>              <span class="token function">RegisterProcess</span><span class="token punctuation">(</span>G4VProcess<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">virtual</span> <span class="token keyword">const</span> G4VProcess<span class="token operator">*</span> <span class="token function">GetRegisteredProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span>              <span class="hljs-title">RegisterProcess</span><span class="hljs-params">(G4VProcess*)</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">const</span> G4VProcess* <span class="hljs-title">GetRegisteredProcess</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">protected</span><span class="token operator">:</span>
-    G4VProcess<span class="token operator">*</span> pRegProcess<span class="token punctuation">;</span>
+  <span class="hljs-keyword">protected</span>:
+    G4VProcess* pRegProcess;
 
-  <span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// with description</span>
-  <span class="token comment">////////////////////////////</span>
-  <span class="token comment">// DoIt    /////////////////</span>
-  <span class="token comment">///////////////////////////</span>
-      <span class="token keyword">virtual</span> G4VParticleChange<span class="token operator">*</span> <span class="token function">PostStepDoIt</span><span class="token punctuation">(</span>
-                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
-                             <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span>  stepData
-                            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">public</span>: <span class="hljs-comment">// with description</span>
+  <span class="hljs-comment">////////////////////////////</span>
+  <span class="hljs-comment">// DoIt    /////////////////</span>
+  <span class="hljs-comment">///////////////////////////</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VParticleChange* <span class="hljs-title">PostStepDoIt</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                             <span class="hljs-keyword">const</span> G4Step&amp;  stepData
+                            )</span></span>;
 
-      <span class="token keyword">virtual</span> G4VParticleChange<span class="token operator">*</span> <span class="token function">AlongStepDoIt</span><span class="token punctuation">(</span>
-                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
-                             <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span> stepData
-                            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">virtual</span> G4VParticleChange<span class="token operator">*</span> <span class="token function">AtRestDoIt</span><span class="token punctuation">(</span>
-                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
-                             <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span> stepData
-                            <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token comment">//////////////////////////</span>
-  <span class="token comment">// GPIL    //////////////</span>
-  <span class="token comment">/////////////////////////  </span>
-      <span class="token keyword">virtual</span> G4double <span class="token function">AlongStepGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
-                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
-                             G4double  previousStepSize<span class="token punctuation">,</span>
-                             G4double  currentMinimumStep<span class="token punctuation">,</span>
-                             G4double<span class="token operator">&amp;</span> proposedSafety<span class="token punctuation">,</span>
-                             G4GPILSelection<span class="token operator">*</span> selection<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VParticleChange* <span class="hljs-title">AlongStepDoIt</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                             <span class="hljs-keyword">const</span> G4Step&amp; stepData
+                            )</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4VParticleChange* <span class="hljs-title">AtRestDoIt</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                             <span class="hljs-keyword">const</span> G4Step&amp; stepData
+                            )</span></span>;
+  <span class="hljs-comment">//////////////////////////</span>
+  <span class="hljs-comment">// GPIL    //////////////</span>
+  <span class="hljs-comment">/////////////////////////  </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">AlongStepGetPhysicalInteractionLength</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                             G4double  previousStepSize,
+                             G4double  currentMinimumStep,
+                             G4double&amp; proposedSafety,
+                             G4GPILSelection* selection)</span></span>;
 
-      <span class="token keyword">virtual</span> G4double <span class="token function">AtRestGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
-                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
-                             G4ForceCondition<span class="token operator">*</span> condition
-                            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">AtRestGetPhysicalInteractionLength</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                             G4ForceCondition* condition
+                            )</span></span>;
 
-      <span class="token keyword">virtual</span> G4double <span class="token function">PostStepGetPhysicalInteractionLength</span><span class="token punctuation">(</span>
-                             <span class="token keyword">const</span> G4Track<span class="token operator">&amp;</span> track<span class="token punctuation">,</span>
-                             G4double   previousStepSize<span class="token punctuation">,</span>
-                             G4ForceCondition<span class="token operator">*</span> condition
-                            <span class="token punctuation">)</span> <span class="token punctuation">;</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">PostStepGetPhysicalInteractionLength</span><span class="hljs-params">(
+                             <span class="hljs-keyword">const</span> G4Track&amp; track,
+                             G4double   previousStepSize,
+                             G4ForceCondition* condition
+                            )</span> </span>;
 
-  <span class="token comment">////////////////////// </span>
-      <span class="token keyword">virtual</span> G4bool <span class="token function">IsApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Returns true if this process object is applicable to</span>
-      <span class="token comment">// the particle type</span>
-      <span class="token comment">// Process will not be registered to a particle if IsApplicable is false   </span>
+  <span class="hljs-comment">////////////////////// </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">IsApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
+      <span class="hljs-comment">// Returns true if this process object is applicable to</span>
+      <span class="hljs-comment">// the particle type</span>
+      <span class="hljs-comment">// Process will not be registered to a particle if IsApplicable is false   </span>
 
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">BuildPhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Messaged by the Particle definition (via the Process manager)</span>
-      <span class="token comment">// whenever cross section tables have to be rebuilt (i.e. if new</span>
-      <span class="token comment">// materials have been defined). </span>
-      <span class="token comment">// It is overloaded by individual processes when they need physics</span>
-      <span class="token comment">// tables. </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BuildPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
+      <span class="hljs-comment">// Messaged by the Particle definition (via the Process manager)</span>
+      <span class="hljs-comment">// whenever cross section tables have to be rebuilt (i.e. if new</span>
+      <span class="hljs-comment">// materials have been defined). </span>
+      <span class="hljs-comment">// It is overloaded by individual processes when they need physics</span>
+      <span class="hljs-comment">// tables. </span>
 
-      <span class="token comment">// Processes which Build (for example in their</span>
-      <span class="token comment">// constructors) physics tables independent of cuts</span>
-      <span class="token comment">// should preferably use a</span>
-      <span class="token comment">// private void BuildThePhysicsTable()</span>
-      <span class="token comment">// function. Not another BuildPhysicsTable, please.</span>
+      <span class="hljs-comment">// Processes which Build (for example in their</span>
+      <span class="hljs-comment">// constructors) physics tables independent of cuts</span>
+      <span class="hljs-comment">// should preferably use a</span>
+      <span class="hljs-comment">// private void BuildThePhysicsTable()</span>
+      <span class="hljs-comment">// function. Not another BuildPhysicsTable, please.</span>
 
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">PreparePhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Messaged by the Particle definition (via the Process manager)</span>
-      <span class="token comment">// whenever cross section tables have to be prepare for rebuilt </span>
-      <span class="token comment">// (i.e. if new materials have been defined). </span>
-      <span class="token comment">// It is overloaded by individual processes when they need physics</span>
-      <span class="token comment">// tables. </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PreparePhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
+      <span class="hljs-comment">// Messaged by the Particle definition (via the Process manager)</span>
+      <span class="hljs-comment">// whenever cross section tables have to be prepare for rebuilt </span>
+      <span class="hljs-comment">// (i.e. if new materials have been defined). </span>
+      <span class="hljs-comment">// It is overloaded by individual processes when they need physics</span>
+      <span class="hljs-comment">// tables. </span>
 
-      <span class="token comment">// Processes which Build physics tables independent of cuts</span>
-      <span class="token comment">// (for example in their constructors)</span>
-      <span class="token comment">// should preferably use private </span>
-      <span class="token comment">// void BuildThePhysicsTable() and void PreparePhysicsTable().</span>
-      <span class="token comment">// Not another BuildPhysicsTable, please.</span>
+      <span class="hljs-comment">// Processes which Build physics tables independent of cuts</span>
+      <span class="hljs-comment">// (for example in their constructors)</span>
+      <span class="hljs-comment">// should preferably use private </span>
+      <span class="hljs-comment">// void BuildThePhysicsTable() and void PreparePhysicsTable().</span>
+      <span class="hljs-comment">// Not another BuildPhysicsTable, please.</span>
 
 
-      <span class="token keyword">virtual</span> G4bool <span class="token function">StorePhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token punctuation">,</span>
-                                       <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> directory<span class="token punctuation">,</span> 
-                                       G4bool          ascii <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-      <span class="token comment">// Store PhysicsTable in a file. </span>
-      <span class="token comment">// (return false in case of failure at I/O ) </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">StorePhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition* ,
+                                       <span class="hljs-keyword">const</span> G4String&amp; directory, 
+                                       G4bool          ascii = <span class="hljs-literal">false</span>)</span></span>; 
+      <span class="hljs-comment">// Store PhysicsTable in a file. </span>
+      <span class="hljs-comment">// (return false in case of failure at I/O ) </span>
 
-      <span class="token keyword">virtual</span> G4bool <span class="token function">RetrievePhysicsTable</span><span class="token punctuation">(</span> <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token punctuation">,</span>
-                                           <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> directory<span class="token punctuation">,</span> 
-                                           G4bool          ascii <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Retrieve Physics from a file. </span>
-      <span class="token comment">// (return true if the Physics Table can be build by using file)</span>
-      <span class="token comment">// (return false if the process has no functionality or in case of failure)</span>
-      <span class="token comment">// File name should be defined by each process </span>
-      <span class="token comment">// and the file should be placed under the directory specifed by the argument. </span>
-  <span class="token comment">////////////////////////////</span>
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">StartTracking</span><span class="token punctuation">(</span>G4Track<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">EndTracking</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// inform Start/End of tracking for each track to the physics process </span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">RetrievePhysicsTable</span><span class="hljs-params">( <span class="hljs-keyword">const</span> G4ParticleDefinition* ,
+                                           <span class="hljs-keyword">const</span> G4String&amp; directory, 
+                                           G4bool          ascii = <span class="hljs-literal">false</span>)</span></span>;
+      <span class="hljs-comment">// Retrieve Physics from a file. </span>
+      <span class="hljs-comment">// (return true if the Physics Table can be build by using file)</span>
+      <span class="hljs-comment">// (return false if the process has no functionality or in case of failure)</span>
+      <span class="hljs-comment">// File name should be defined by each process </span>
+      <span class="hljs-comment">// and the file should be placed under the directory specifed by the argument. </span>
+  <span class="hljs-comment">////////////////////////////</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">StartTracking</span><span class="hljs-params">(G4Track*)</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EndTracking</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-comment">// inform Start/End of tracking for each track to the physics process </span>
 
-  <span class="token keyword">public</span><span class="token operator">:</span>
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">SetProcessManager</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ProcessManager<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-      <span class="token comment">// A process manager set its own pointer when the process is registered</span>
-      <span class="token comment">// the process Manager</span>
-      <span class="token keyword">virtual</span>  <span class="token keyword">const</span> G4ProcessManager<span class="token operator">*</span> <span class="token function">GetProcessManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-      <span class="token comment">// Get the process manager which the process belongs to</span>
+  <span class="hljs-keyword">public</span>:
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetProcessManager</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ProcessManager*)</span></span>; 
+      <span class="hljs-comment">// A process manager set its own pointer when the process is registered</span>
+      <span class="hljs-comment">// the process Manager</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span>  <span class="hljs-keyword">const</span> G4ProcessManager* <span class="hljs-title">GetProcessManager</span><span class="hljs-params">()</span></span>; 
+      <span class="hljs-comment">// Get the process manager which the process belongs to</span>
 
-   <span class="token keyword">public</span><span class="token operator">:</span>
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span>      <span class="token function">ResetNumberOfInteractionLengthLeft</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// reset (determine the value of)NumberOfInteractionLengthLeft</span>
-      <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">SetMasterProcess</span><span class="token punctuation">(</span>G4VProcess<span class="token operator">*</span> masterP<span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token comment">// Needed for MT, forward call to underlying process</span>
+   <span class="hljs-keyword">public</span>:
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span>      <span class="hljs-title">ResetNumberOfInteractionLengthLeft</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-comment">// reset (determine the value of)NumberOfInteractionLengthLeft</span>
+      <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetMasterProcess</span><span class="hljs-params">(G4VProcess* masterP)</span></span>;
+     <span class="hljs-comment">// Needed for MT, forward call to underlying process</span>
 </code></pre>
 <!-- G4WrapperProcess.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-08-07 05:18:33
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-08-07 05:18:33 </span> </footer>
                                 
                                 </section>
                             
@@ -3320,7 +3318,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4WrapperProcess","level":"1.4.17.8","depth":3,"next":{"title":"G4PhysicsListHelper","level":"1.4.18","depth":2,"path":"class/G4PhysicsListHelper.md","ref":"class/G4PhysicsListHelper.md","articles":[]},"previous":{"title":"G4VRestProcess","level":"1.4.17.7","depth":3,"path":"class/G4VRestProcess.md","ref":"class/G4VRestProcess.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4WrapperProcess.md","mtime":"2018-08-06T21:18:33.743Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4WrapperProcess","level":"1.4.17.8","depth":3,"next":{"title":"G4PhysicsListHelper","level":"1.4.18","depth":2,"path":"class/G4PhysicsListHelper.md","ref":"class/G4PhysicsListHelper.md","articles":[]},"previous":{"title":"G4VRestProcess","level":"1.4.17.7","depth":3,"path":"class/G4VRestProcess.md","ref":"class/G4VRestProcess.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4WrapperProcess.md","mtime":"2018-08-06T21:18:33.743Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3137,7 +3137,7 @@
 <h1 id="g4cascadeparameters"><a name="g4cascadeparameters" class="plugin-anchor" href="#g4cascadeparameters"><i class="fa fa-link" aria-hidden="true"></i></a>G4CascadeParameters</h1>
 <p><strong>&#x9759;&#x6001;&#x7C7B;</strong></p>
 <p>Encapsulate all user-configurable parameters with associated envvars</p>
-<pre class="language-"><code>G4CASCADE_VERBOSE(getenv(&quot;G4CASCADE_VERBOSE&quot;)),&quot;Enable information messages&quot;
+<pre><code>G4CASCADE_VERBOSE(getenv(&quot;G4CASCADE_VERBOSE&quot;)),&quot;Enable information messages&quot;
 G4CASCADE_CHECK_ECONS(getenv(&quot;G4CASCADE_CHECK_ECONS&quot;)),&quot;Enable internal conservation checking&quot;
 G4CASCADE_USE_PRECOMPOUND(getenv(&quot;G4CASCADE_USE_PRECOMPOUND&quot;)),&quot;Use PreCompoundModel for nuclear de-excitation&quot;
 G4CASCADE_DO_COALESCENCE(getenv(&quot;G4CASCADE_DO_COALESCENCE&quot;)),&quot;Apply final-state nucleon clustering&quot;
@@ -3159,106 +3159,104 @@ DPMAX_2CLUSTER(getenv(&quot;DPMAX_2CLUSTER&quot;)),&quot;Maximum momentum for p-
 DPMAX_3CLUSTER(getenv(&quot;DPMAX_3CLUSTER&quot;)),&quot;Maximum momentum for ppn/pnn clusters&quot;
 DPMAX_4CLUSTER(getenv(&quot;DPMAX_4CLUSTER&quot;)),&quot;Maximum momentum for alpha clusters&quot;
 </code></pre><h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4CascadeParameters<span class="token operator">*</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Singleton</span>
-  <span class="token operator">~</span><span class="token function">G4CascadeParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4CascadeParameters* <span class="hljs-title">Instance</span><span class="hljs-params">()</span></span>;        <span class="hljs-comment">// Singleton</span>
+  ~G4CascadeParameters();
 
-  <span class="token comment">// Top-level configuration flags</span>
-  <span class="token keyword">static</span> G4int <span class="token function">verbose</span><span class="token punctuation">(</span><span class="token punctuation">)</span>              <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>VERBOSE_LEVEL<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">checkConservation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>CHECK_ECONS<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">usePreCompound</span><span class="token punctuation">(</span><span class="token punctuation">)</span>      <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>USE_PRECOMPOUND<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">doCoalescence</span><span class="token punctuation">(</span><span class="token punctuation">)</span>       <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>DO_COALESCENCE<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">showHistory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>         <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>SHOW_HISTORY<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">use3BodyMom</span><span class="token punctuation">(</span><span class="token punctuation">)</span>          <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>USE_3BODYMOM<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">usePhaseSpace</span><span class="token punctuation">(</span><span class="token punctuation">)</span>       <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>USE_PHASESPACE<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">piNAbsorption</span><span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>PIN_ABSORPTION<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">randomFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>RANDOM_FILE<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// Top-level configuration flags</span>
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4int <span class="hljs-title">verbose</span><span class="hljs-params">()</span>              </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;VERBOSE_LEVEL; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">checkConservation</span><span class="hljs-params">()</span>   </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;CHECK_ECONS; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">usePreCompound</span><span class="hljs-params">()</span>      </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;USE_PRECOMPOUND; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">doCoalescence</span><span class="hljs-params">()</span>       </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;DO_COALESCENCE; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">showHistory</span><span class="hljs-params">()</span>         </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;SHOW_HISTORY; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">use3BodyMom</span><span class="hljs-params">()</span>          </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;USE_3BODYMOM; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">usePhaseSpace</span><span class="hljs-params">()</span>       </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;USE_PHASESPACE; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">piNAbsorption</span><span class="hljs-params">()</span>     </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;PIN_ABSORPTION; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">randomFile</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;RANDOM_FILE; }
 
-  <span class="token comment">// Nuclear structure parameters</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">useTwoParam</span><span class="token punctuation">(</span><span class="token punctuation">)</span>      <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>TWOPARAM_RADIUS<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">radiusScale</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>RADIUS_SCALE<span class="token punctuation">;</span> <span class="token punctuation">}</span>    
-  <span class="token keyword">static</span> G4double <span class="token function">radiusSmall</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>RADIUS_SMALL<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">radiusAlpha</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>RADIUS_ALPHA<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">radiusTrailing</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>RADIUS_TRAILING<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">fermiScale</span><span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>FERMI_SCALE<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">xsecScale</span><span class="token punctuation">(</span><span class="token punctuation">)</span>      <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>XSEC_SCALE<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">gammaQDScale</span><span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>GAMMAQD_SCALE<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// Nuclear structure parameters</span>
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">useTwoParam</span><span class="hljs-params">()</span>      </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;TWOPARAM_RADIUS; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">radiusScale</span><span class="hljs-params">()</span>    </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;RADIUS_SCALE; }    
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">radiusSmall</span><span class="hljs-params">()</span>    </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;RADIUS_SMALL; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">radiusAlpha</span><span class="hljs-params">()</span>    </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;RADIUS_ALPHA; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">radiusTrailing</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;RADIUS_TRAILING; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">fermiScale</span><span class="hljs-params">()</span>     </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;FERMI_SCALE; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">xsecScale</span><span class="hljs-params">()</span>      </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;XSEC_SCALE; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">gammaQDScale</span><span class="hljs-params">()</span>   </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;GAMMAQD_SCALE; }
 
-  <span class="token comment">// Final-state clustering cuts</span>
-  <span class="token keyword">static</span> G4double <span class="token function">dpMaxDoublet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>DPMAX_DOUBLET<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">dpMaxTriplet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>DPMAX_TRIPLET<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> G4double <span class="token function">dpMaxAlpha</span><span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>DPMAX_ALPHA<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// Final-state clustering cuts</span>
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">dpMaxDoublet</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;DPMAX_DOUBLET; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">dpMaxTriplet</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;DPMAX_TRIPLET; }
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4double <span class="hljs-title">dpMaxAlpha</span><span class="hljs-params">()</span>   </span>{ <span class="hljs-keyword">return</span> Instance()-&gt;DPMAX_ALPHA; }
 
-  <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">DumpConfiguration</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> os<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">Instance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">DumpConfig</span><span class="token punctuation">(</span>os<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DumpConfiguration</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; os)</span> </span>{ Instance()-&gt;DumpConfig(os); }
 
-<span class="token keyword">private</span><span class="token operator">:</span>    <span class="token comment">// Environment variable values, null pointers mean not set</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_VERBOSE<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_CHECK_ECONS<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_USE_PRECOMPOUND<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_DO_COALESCENCE<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_SHOW_HISTORY<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_USE_3BODYMOM<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_USE_PHASESPACE<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_PIN_ABSORPTION<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4CASCADE_RANDOM_FILE<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_USE_BEST<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_RAD_2PAR<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_RAD_SCALE<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_RAD_SMALL<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_RAD_ALPHA<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_RAD_TRAILING<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_FERMI_SCALE<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_XSEC_SCALE<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> G4NUCMODEL_GAMMAQD<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> DPMAX_2CLUSTER<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> DPMAX_3CLUSTER<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> DPMAX_4CLUSTER<span class="token punctuation">;</span>
+<span class="hljs-keyword">private</span>:    <span class="hljs-comment">// Environment variable values, null pointers mean not set</span>
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_VERBOSE;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_CHECK_ECONS;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_USE_PRECOMPOUND;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_DO_COALESCENCE;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_SHOW_HISTORY;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_USE_3BODYMOM;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_USE_PHASESPACE;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_PIN_ABSORPTION;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4CASCADE_RANDOM_FILE;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_USE_BEST;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_RAD_2PAR;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_RAD_SCALE;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_RAD_SMALL;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_RAD_ALPHA;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_RAD_TRAILING;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_FERMI_SCALE;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_XSEC_SCALE;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* G4NUCMODEL_GAMMAQD;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* DPMAX_2CLUSTER;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* DPMAX_3CLUSTER;
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* DPMAX_4CLUSTER;
 
-  <span class="token keyword">void</span> <span class="token function">Initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Fill parameter values from envvar strings</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Initialize</span><span class="hljs-params">()</span></span>;        <span class="hljs-comment">// Fill parameter values from envvar strings</span>
 
-  G4int VERBOSE_LEVEL<span class="token punctuation">;</span>        <span class="token comment">// Top-level configuration flags</span>
-  G4bool CHECK_ECONS<span class="token punctuation">;</span>
-  G4bool USE_PRECOMPOUND<span class="token punctuation">;</span>
-  G4bool DO_COALESCENCE<span class="token punctuation">;</span>
-  G4bool SHOW_HISTORY<span class="token punctuation">;</span>
-  G4bool USE_3BODYMOM<span class="token punctuation">;</span>
-  G4bool USE_PHASESPACE<span class="token punctuation">;</span>
-  G4double PIN_ABSORPTION<span class="token punctuation">;</span>
-  G4String RANDOM_FILE<span class="token punctuation">;</span>
+  G4int VERBOSE_LEVEL;        <span class="hljs-comment">// Top-level configuration flags</span>
+  G4bool CHECK_ECONS;
+  G4bool USE_PRECOMPOUND;
+  G4bool DO_COALESCENCE;
+  G4bool SHOW_HISTORY;
+  G4bool USE_3BODYMOM;
+  G4bool USE_PHASESPACE;
+  G4double PIN_ABSORPTION;
+  G4String RANDOM_FILE;
 
-  G4bool BEST_PAR<span class="token punctuation">;</span>        <span class="token comment">// Nuclear structure parameters</span>
-<span class="token comment">//BEST_PAR has been used in a project on hold.</span>
-<span class="token comment">//Currently setting BEST_PAR or G4NUCMODEL_USE_BEST does not improve physics performance.</span>
-<span class="token comment">//Developer can get more information about this from cascade/test/README</span>
+  G4bool BEST_PAR;        <span class="hljs-comment">// Nuclear structure parameters</span>
+<span class="hljs-comment">//BEST_PAR has been used in a project on hold.</span>
+<span class="hljs-comment">//Currently setting BEST_PAR or G4NUCMODEL_USE_BEST does not improve physics performance.</span>
+<span class="hljs-comment">//Developer can get more information about this from cascade/test/README</span>
 
-  G4bool TWOPARAM_RADIUS<span class="token punctuation">;</span>
-  G4double RADIUS_SCALE<span class="token punctuation">;</span>    
-  G4double RADIUS_SMALL<span class="token punctuation">;</span>
-  G4double RADIUS_ALPHA<span class="token punctuation">;</span>
-  G4double RADIUS_TRAILING<span class="token punctuation">;</span>
-  G4double FERMI_SCALE<span class="token punctuation">;</span>
-  G4double XSEC_SCALE<span class="token punctuation">;</span>
-  G4double GAMMAQD_SCALE<span class="token punctuation">;</span>
+  G4bool TWOPARAM_RADIUS;
+  G4double RADIUS_SCALE;    
+  G4double RADIUS_SMALL;
+  G4double RADIUS_ALPHA;
+  G4double RADIUS_TRAILING;
+  G4double FERMI_SCALE;
+  G4double XSEC_SCALE;
+  G4double GAMMAQD_SCALE;
 
-  G4double DPMAX_DOUBLET<span class="token punctuation">;</span>    <span class="token comment">// Final-state clustering cuts</span>
-  G4double DPMAX_TRIPLET<span class="token punctuation">;</span>
-  G4double DPMAX_ALPHA<span class="token punctuation">;</span>
+  G4double DPMAX_DOUBLET;    <span class="hljs-comment">// Final-state clustering cuts</span>
+  G4double DPMAX_TRIPLET;
+  G4double DPMAX_ALPHA;
 
-<span class="token keyword">private</span><span class="token operator">:</span>    <span class="token comment">// Singleton -- no public constructor</span>
-  <span class="token function">G4CascadeParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">DumpConfig</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span> os<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+<span class="hljs-keyword">private</span>:    <span class="hljs-comment">// Singleton -- no public constructor</span>
+  G4CascadeParameters();
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DumpConfig</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp; os)</span> <span class="hljs-keyword">const</span></span>;
 
-  G4CascadeParamMessenger<span class="token operator">*</span> messenger<span class="token punctuation">;</span>        <span class="token comment">// For access via UI commands</span>
-  <span class="token keyword">friend</span> <span class="token keyword">class</span> <span class="token class-name">G4CascadeParamMessenger</span><span class="token punctuation">;</span>
+  G4CascadeParamMessenger* messenger;        <span class="hljs-comment">// For access via UI commands</span>
+  <span class="hljs-keyword">friend</span> <span class="hljs-keyword">class</span> G4CascadeParamMessenger;
 
-  <span class="token keyword">static</span> G4CascadeParameters<span class="token operator">*</span> fpInstance<span class="token punctuation">;</span>
+  <span class="hljs-keyword">static</span> G4CascadeParameters* fpInstance;
 </code></pre>
 <!-- G4CascadeParameters.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-09-01 10:26:50
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-09-01 10:26:50 </span> </footer>
                                 
                                 </section>
                             
@@ -3301,7 +3299,7 @@ DPMAX_4CLUSTER(getenv(&quot;DPMAX_4CLUSTER&quot;)),&quot;Maximum momentum for al
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4CascadeParameters","level":"1.4.27","depth":2,"next":{"title":"G4DeexPrecoParameters","level":"1.4.28","depth":2,"path":"class/G4DeexPrecoParameters.md","ref":"class/G4DeexPrecoParameters.md","articles":[]},"previous":{"title":"G4HadronicDeveloperParameters","level":"1.4.26","depth":2,"path":"class/G4HadronicDeveloperParameters.md","ref":"class/G4HadronicDeveloperParameters.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4CascadeParameters.md","mtime":"2018-09-01T02:26:50.222Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4CascadeParameters","level":"1.4.27","depth":2,"next":{"title":"G4DeexPrecoParameters","level":"1.4.28","depth":2,"path":"class/G4DeexPrecoParameters.md","ref":"class/G4DeexPrecoParameters.md","articles":[]},"previous":{"title":"G4HadronicDeveloperParameters","level":"1.4.26","depth":2,"path":"class/G4HadronicDeveloperParameters.md","ref":"class/G4HadronicDeveloperParameters.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4CascadeParameters.md","mtime":"2018-09-01T02:26:50.222Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

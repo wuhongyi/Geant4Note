@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3150,168 +3150,166 @@
 </li>
 </ul>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"> <span class="token keyword">public</span><span class="token operator">:</span>
-   <span class="token function">G4IonParametrisedLossModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> particle <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                              <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> name <span class="token operator">=</span> <span class="token string">&quot;ParamICRU73&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp"> <span class="hljs-keyword">public</span>:
+   G4IonParametrisedLossModel(<span class="hljs-keyword">const</span> G4ParticleDefinition* particle = <span class="hljs-number">0</span>,
+                              <span class="hljs-keyword">const</span> G4String&amp; name = <span class="hljs-string">&quot;ParamICRU73&quot;</span>);
 
-   <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4IonParametrisedLossModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="hljs-keyword">virtual</span> ~G4IonParametrisedLossModel();
 
-   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">Initialise</span><span class="token punctuation">(</span>
-                           <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                           <span class="token keyword">const</span> G4DataVector<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Cut energies</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Initialise</span><span class="hljs-params">(
+                           <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                           <span class="hljs-keyword">const</span> G4DataVector&amp;)</span></span>; <span class="hljs-comment">// Cut energies</span>
 
-   <span class="token keyword">virtual</span> G4double <span class="token function">MinEnergyCut</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Projectile</span>
-                     <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">MinEnergyCut</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile</span>
+                     <span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;
 
-   <span class="token keyword">virtual</span> G4double <span class="token function">ComputeCrossSectionPerAtom</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Kinetic energy of projectile</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Atomic number</span>
-                                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Mass number</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Energy cut for secondary prod.</span>
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Maximum energy of secondaries</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeCrossSectionPerAtom</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double,  <span class="hljs-comment">// Atomic number</span>
+                                 G4double,  <span class="hljs-comment">// Mass number</span>
+                 G4double,  <span class="hljs-comment">// Energy cut for secondary prod.</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Maximum energy of secondaries</span>
 
-   <span class="token keyword">virtual</span> G4double <span class="token function">CrossSectionPerVolume</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Target material</span>
-                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Kinetic energy</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Energy cut for secondary prod.</span>
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Maximum energy of secondaries</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">CrossSectionPerVolume</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4Material*,  <span class="hljs-comment">// Target material</span>
+                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy</span>
+                 G4double,  <span class="hljs-comment">// Energy cut for secondary prod.</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Maximum energy of secondaries</span>
 
-   <span class="token keyword">virtual</span> G4double <span class="token function">ComputeDEDXPerVolume</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Target material</span>
-                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Kinetic energy of projectile</span>
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Energy cut for secondary prod.</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">ComputeDEDXPerVolume</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Target material</span>
+                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Energy cut for secondary prod.</span>
 
-   <span class="token comment">// Function, which computes the continuous energy loss (due to electronic</span>
-   <span class="token comment">// stopping) for a given pre-step energy and step length by using</span>
-   <span class="token comment">// range vs energy (and energy vs range) tables  </span>
-   G4double <span class="token function">ComputeLossForStep</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Mat-cuts couple</span>
-                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Kinetic energy of projectile</span>
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Length of current step</span>
+   <span class="hljs-comment">// Function, which computes the continuous energy loss (due to electronic</span>
+   <span class="hljs-comment">// stopping) for a given pre-step energy and step length by using</span>
+   <span class="hljs-comment">// range vs energy (and energy vs range) tables  </span>
+   <span class="hljs-function">G4double <span class="hljs-title">ComputeLossForStep</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*, <span class="hljs-comment">// Mat-cuts couple</span>
+                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Length of current step</span>
 
-   <span class="token comment">// Function, which computes the mean energy transfer rate to delta rays </span>
-   <span class="token keyword">inline</span> G4double <span class="token function">DeltaRayMeanEnergyTransferRate</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Target Material</span>
-                     <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Kinetic energy of projectile</span>
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Energy cut for secondary prod.</span>
+   <span class="hljs-comment">// Function, which computes the mean energy transfer rate to delta rays </span>
+   <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">DeltaRayMeanEnergyTransferRate</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Target Material</span>
+                     <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 G4double,  <span class="hljs-comment">// Kinetic energy of projectile</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Energy cut for secondary prod.</span>
 
 
-   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">SampleSecondaries</span><span class="token punctuation">(</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4DynamicParticle<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">*</span><span class="token punctuation">,</span>
-                 <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">,</span>
-                 <span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span>
-                 G4double<span class="token punctuation">,</span>  <span class="token comment">// Energy cut for secondary prod.</span>
-                                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Maximum energy of secondaries</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SampleSecondaries</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt;*,
+                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,
+                 <span class="hljs-keyword">const</span> G4DynamicParticle*,
+                 G4double,  <span class="hljs-comment">// Energy cut for secondary prod.</span>
+                                 G4double)</span></span>; <span class="hljs-comment">// Maximum energy of secondaries</span>
 
-   <span class="token keyword">virtual</span> G4double <span class="token function">GetChargeSquareRatio</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                   <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Target Material</span>
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Kinetic energy of projectile</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetChargeSquareRatio</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                   <span class="hljs-keyword">const</span> G4Material*,  <span class="hljs-comment">// Target Material</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Kinetic energy of projectile</span>
 
-   <span class="token keyword">virtual</span> G4double <span class="token function">GetParticleCharge</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Projectile</span>
-                 <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Target Material</span>
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Kinetic energy of projectile </span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetParticleCharge</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4ParticleDefinition*, <span class="hljs-comment">// Projectile</span>
+                 <span class="hljs-keyword">const</span> G4Material*,  <span class="hljs-comment">// Target Material</span>
+                 G4double)</span></span>; <span class="hljs-comment">// Kinetic energy of projectile </span>
 
-   <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">CorrectionsAlongStep</span><span class="token punctuation">(</span>
-                                 <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">,</span><span class="token comment">// Mat.-Cut couple</span>
-                 <span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Dyn. particle</span>
-                 G4double<span class="token operator">&amp;</span><span class="token punctuation">,</span> <span class="token comment">// Energy loss in current step</span>
-                 G4double<span class="token operator">&amp;</span><span class="token punctuation">,</span> 
-                 G4double<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Length of current step</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CorrectionsAlongStep</span><span class="hljs-params">(
+                                 <span class="hljs-keyword">const</span> G4MaterialCutsCouple*,<span class="hljs-comment">// Mat.-Cut couple</span>
+                 <span class="hljs-keyword">const</span> G4DynamicParticle*,  <span class="hljs-comment">// Dyn. particle</span>
+                 G4double&amp;, <span class="hljs-comment">// Energy loss in current step</span>
+                 G4double&amp;, 
+                 G4double)</span></span>; <span class="hljs-comment">// Length of current step</span>
 
-   <span class="token comment">// Function which allows to add additional stopping power tables</span>
-   <span class="token comment">// in combination with a scaling algorithm, which may depend on dynamic</span>
-   <span class="token comment">// information like the current particle energy (the table and scaling </span>
-   <span class="token comment">// algorithm are used via a handler class, which performs e.g.caching or</span>
-   <span class="token comment">// which applies the scaling of energy and dE/dx values)</span>
-   G4bool <span class="token function">AddDEDXTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> name<span class="token punctuation">,</span>
-                     G4VIonDEDXTable<span class="token operator">*</span> table<span class="token punctuation">,</span> 
-                     G4VIonDEDXScalingAlgorithm<span class="token operator">*</span> algorithm <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+   <span class="hljs-comment">// Function which allows to add additional stopping power tables</span>
+   <span class="hljs-comment">// in combination with a scaling algorithm, which may depend on dynamic</span>
+   <span class="hljs-comment">// information like the current particle energy (the table and scaling </span>
+   <span class="hljs-comment">// algorithm are used via a handler class, which performs e.g.caching or</span>
+   <span class="hljs-comment">// which applies the scaling of energy and dE/dx values)</span>
+   <span class="hljs-function">G4bool <span class="hljs-title">AddDEDXTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; name,
+                     G4VIonDEDXTable* table, 
+                     G4VIonDEDXScalingAlgorithm* algorithm = <span class="hljs-number">0</span>)</span></span>; 
 
-   G4bool <span class="token function">RemoveDEDXTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+   <span class="hljs-function">G4bool <span class="hljs-title">RemoveDEDXTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; name)</span></span>; 
 
-   <span class="token comment">// Function which allows to switch off scaling of stopping powers of heavy</span>
-   <span class="token comment">// ions from existing ICRU 73 data</span>
-   <span class="token keyword">void</span> <span class="token function">DeactivateICRU73Scaling</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="hljs-comment">// Function which allows to switch off scaling of stopping powers of heavy</span>
+   <span class="hljs-comment">// ions from existing ICRU 73 data</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DeactivateICRU73Scaling</span><span class="hljs-params">()</span></span>;
 
-   <span class="token comment">// Function checking the applicability of physics tables to ion-material</span>
-   <span class="token comment">// combinations (Note: the energy range of tables is not checked)</span>
-   <span class="token keyword">inline</span> LossTableList<span class="token operator">::</span>iterator <span class="token function">IsApplicable</span><span class="token punctuation">(</span>
-                      <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Projectile (ion) </span>
-                      <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">// Target material</span>
+   <span class="hljs-comment">// Function checking the applicability of physics tables to ion-material</span>
+   <span class="hljs-comment">// combinations (Note: the energy range of tables is not checked)</span>
+   <span class="hljs-keyword">inline</span> LossTableList::<span class="hljs-function">iterator <span class="hljs-title">IsApplicable</span><span class="hljs-params">(
+                      <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile (ion) </span>
+                      <span class="hljs-keyword">const</span> G4Material*)</span></span>;           <span class="hljs-comment">// Target material</span>
 
-   <span class="token comment">// Function printing a dE/dx table for a given ion-material combination</span>
-   <span class="token comment">// and a specified energy grid </span>
-   <span class="token keyword">void</span> <span class="token function">PrintDEDXTable</span><span class="token punctuation">(</span>
-                      <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Projectile (ion) </span>
-                      <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Absorber material</span>
-                      G4double<span class="token punctuation">,</span>          <span class="token comment">// Minimum energy per nucleon</span>
-                      G4double<span class="token punctuation">,</span>          <span class="token comment">// Maximum energy per nucleon</span>
-                      G4int<span class="token punctuation">,</span>             <span class="token comment">// Number of bins</span>
-                      G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">// Logarithmic scaling of energy</span>
+   <span class="hljs-comment">// Function printing a dE/dx table for a given ion-material combination</span>
+   <span class="hljs-comment">// and a specified energy grid </span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintDEDXTable</span><span class="hljs-params">(
+                      <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile (ion) </span>
+                      <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Absorber material</span>
+                      G4double,          <span class="hljs-comment">// Minimum energy per nucleon</span>
+                      G4double,          <span class="hljs-comment">// Maximum energy per nucleon</span>
+                      G4int,             <span class="hljs-comment">// Number of bins</span>
+                      G4bool)</span></span>;           <span class="hljs-comment">// Logarithmic scaling of energy</span>
 
-   <span class="token comment">// Function printing a dE/dx table for a given ion-material combination</span>
-   <span class="token comment">// and a specified energy grid </span>
-   <span class="token keyword">void</span> <span class="token function">PrintDEDXTableHandlers</span><span class="token punctuation">(</span>
-                      <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>  <span class="token comment">// Projectile (ion) </span>
-                      <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token comment">// Absorber material</span>
-                      G4double<span class="token punctuation">,</span>          <span class="token comment">// Minimum energy per nucleon</span>
-                      G4double<span class="token punctuation">,</span>          <span class="token comment">// Maximum energy per nucleon</span>
-                      G4int<span class="token punctuation">,</span>             <span class="token comment">// Number of bins</span>
-                      G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">// Logarithmic scaling of energy</span>
+   <span class="hljs-comment">// Function printing a dE/dx table for a given ion-material combination</span>
+   <span class="hljs-comment">// and a specified energy grid </span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintDEDXTableHandlers</span><span class="hljs-params">(
+                      <span class="hljs-keyword">const</span> G4ParticleDefinition*,  <span class="hljs-comment">// Projectile (ion) </span>
+                      <span class="hljs-keyword">const</span> G4Material*, <span class="hljs-comment">// Absorber material</span>
+                      G4double,          <span class="hljs-comment">// Minimum energy per nucleon</span>
+                      G4double,          <span class="hljs-comment">// Maximum energy per nucleon</span>
+                      G4int,             <span class="hljs-comment">// Number of bins</span>
+                      G4bool)</span></span>;           <span class="hljs-comment">// Logarithmic scaling of energy</span>
 
-   <span class="token comment">// Function for setting energy loss limit for stopping power integration</span>
-   <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetEnergyLossLimit</span><span class="token punctuation">(</span>G4double ionEnergyLossLimit<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+   <span class="hljs-comment">// Function for setting energy loss limit for stopping power integration</span>
+   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEnergyLossLimit</span><span class="hljs-params">(G4double ionEnergyLossLimit)</span></span>; 
 
- <span class="token keyword">protected</span><span class="token operator">:</span>
+ <span class="hljs-keyword">protected</span>:
 
-   <span class="token keyword">virtual</span> 
-   G4double <span class="token function">MaxSecondaryEnergy</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>
-                   G4double<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// Kinetic energy of projectile</span>
+   <span class="hljs-function"><span class="hljs-keyword">virtual</span> 
+   G4double <span class="hljs-title">MaxSecondaryEnergy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*,
+                   G4double)</span></span>;   <span class="hljs-comment">// Kinetic energy of projectile</span>
 
- <span class="token keyword">private</span><span class="token operator">:</span>
-   <span class="token comment">// Function which updates parameters concerning the dE/dx calculation</span>
-   <span class="token comment">// (the parameters are only updated if the particle, the material or </span>
-   <span class="token comment">// the associated energy cut has changed)</span>
-   <span class="token keyword">void</span> <span class="token function">UpdateDEDXCache</span><span class="token punctuation">(</span>
-                  <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>   <span class="token comment">// Projectile (ion) </span>
-                  <span class="token keyword">const</span> G4Material<span class="token operator">*</span><span class="token punctuation">,</span>             <span class="token comment">// Target material</span>
-                  G4double cutEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">// Energy cut</span>
+ <span class="hljs-keyword">private</span>:
+   <span class="hljs-comment">// Function which updates parameters concerning the dE/dx calculation</span>
+   <span class="hljs-comment">// (the parameters are only updated if the particle, the material or </span>
+   <span class="hljs-comment">// the associated energy cut has changed)</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UpdateDEDXCache</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*,   <span class="hljs-comment">// Projectile (ion) </span>
+                  <span class="hljs-keyword">const</span> G4Material*,             <span class="hljs-comment">// Target material</span>
+                  G4double cutEnergy)</span></span>;           <span class="hljs-comment">// Energy cut</span>
 
-   <span class="token comment">// Function which updates parameters concerning the range calculation</span>
-   <span class="token comment">// (the parameters are only updated if the particle, the material or </span>
-   <span class="token comment">// the associated energy cut has changed)</span>
-   <span class="token keyword">void</span> <span class="token function">UpdateRangeCache</span><span class="token punctuation">(</span>
-                  <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>   <span class="token comment">// Projectile (ion) </span>
-                  <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Target material</span>
+   <span class="hljs-comment">// Function which updates parameters concerning the range calculation</span>
+   <span class="hljs-comment">// (the parameters are only updated if the particle, the material or </span>
+   <span class="hljs-comment">// the associated energy cut has changed)</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">UpdateRangeCache</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*,   <span class="hljs-comment">// Projectile (ion) </span>
+                  <span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;  <span class="hljs-comment">// Target material</span>
 
-   <span class="token comment">// Function, which updates parameters concering particle properties</span>
-   <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">UpdateCache</span><span class="token punctuation">(</span>
-                  <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Projectile (ion) </span>
+   <span class="hljs-comment">// Function, which updates parameters concering particle properties</span>
+   <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UpdateCache</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*)</span></span>;  <span class="hljs-comment">// Projectile (ion) </span>
 
-   <span class="token comment">// Function, which builds range vs energy (and energy vs range) vectors</span>
-   <span class="token comment">// for a given particle, material and energy cut   </span>
-   <span class="token keyword">void</span> <span class="token function">BuildRangeVector</span><span class="token punctuation">(</span>
-                  <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span>   <span class="token comment">// Projectile (ion) </span>
-                  <span class="token keyword">const</span> G4MaterialCutsCouple<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Material cuts couple</span>
+   <span class="hljs-comment">// Function, which builds range vs energy (and energy vs range) vectors</span>
+   <span class="hljs-comment">// for a given particle, material and energy cut   </span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildRangeVector</span><span class="hljs-params">(
+                  <span class="hljs-keyword">const</span> G4ParticleDefinition*,   <span class="hljs-comment">// Projectile (ion) </span>
+                  <span class="hljs-keyword">const</span> G4MaterialCutsCouple*)</span></span>;  <span class="hljs-comment">// Material cuts couple</span>
 
-   <span class="token comment">// Assignment operator and copy constructor are hidden:</span>
-   G4IonParametrisedLossModel <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span>
-                              <span class="token keyword">const</span> G4IonParametrisedLossModel <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token function">G4IonParametrisedLossModel</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4IonParametrisedLossModel <span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="hljs-comment">// Assignment operator and copy constructor are hidden:</span>
+   G4IonParametrisedLossModel &amp; <span class="hljs-keyword">operator</span>=(
+                              <span class="hljs-keyword">const</span> G4IonParametrisedLossModel &amp;right);
+   G4IonParametrisedLossModel(<span class="hljs-keyword">const</span> G4IonParametrisedLossModel &amp;);
 </code></pre>
 <!-- G4IonParametrisedLossModel.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-07-14 07:57:44
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-07-14 07:57:44 </span> </footer>
                                 
                                 </section>
                             
@@ -3354,7 +3352,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4IonParametrisedLossModel","level":"1.4.10.3","depth":3,"next":{"title":"G4ICRU49NuclearStoppingModel","level":"1.4.10.4","depth":3,"path":"class/G4ICRU49NuclearStoppingModel.md","ref":"class/G4ICRU49NuclearStoppingModel.md","articles":[]},"previous":{"title":"G4BetheBlochModel","level":"1.4.10.2","depth":3,"path":"class/G4BetheBlochModel.md","ref":"class/G4BetheBlochModel.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4IonParametrisedLossModel.md","mtime":"2018-07-13T23:57:44.185Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4IonParametrisedLossModel","level":"1.4.10.3","depth":3,"next":{"title":"G4ICRU49NuclearStoppingModel","level":"1.4.10.4","depth":3,"path":"class/G4ICRU49NuclearStoppingModel.md","ref":"class/G4ICRU49NuclearStoppingModel.md","articles":[]},"previous":{"title":"G4BetheBlochModel","level":"1.4.10.2","depth":3,"path":"class/G4BetheBlochModel.md","ref":"class/G4BetheBlochModel.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4IonParametrisedLossModel.md","mtime":"2018-07-13T23:57:44.185Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

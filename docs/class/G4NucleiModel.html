@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3136,11 +3136,11 @@
 ;; URL: http://wuhongyi.cn -->
 <h1 id="g4nucleimodel"><a name="g4nucleimodel" class="plugin-anchor" href="#g4nucleimodel"><i class="fa fa-link" aria-hidden="true"></i></a>G4NucleiModel</h1>
 <p><strong>&#x6A21;&#x578B;</strong></p>
-<pre class="language-"><code class="lang-cpp">  <span class="token keyword">void</span> <span class="token function">generateParticleFate</span><span class="token punctuation">(</span>G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">,</span>
-                G4ElementaryParticleCollider<span class="token operator">*</span> theEPCollider<span class="token punctuation">,</span>
-                std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4CascadParticle<span class="token operator">&gt;</span><span class="token operator">&amp;</span> cascade<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp">  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateParticleFate</span><span class="hljs-params">(G4CascadParticle&amp; cparticle,
+                G4ElementaryParticleCollider* theEPCollider,
+                <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4CascadParticle&gt;&amp; cascade)</span></span>;
 </code></pre>
-<pre class="language-"><code>// For the best approximation to a physical-units model, set the following:
+<pre><code>// For the best approximation to a physical-units model, set the following:
 //    setenv G4NUCMODEL_XSEC_SCALE   0.1
 //    setenv G4NUCMODEL_RAD_SCALE    1.0
 //    setenv G4NUCMODEL_RAD_2PAR     1
@@ -3153,244 +3153,242 @@
 <li>G4CascadeChannelTables</li>
 </ul>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
-  <span class="token function">G4NucleiModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">G4NucleiModel</span><span class="token punctuation">(</span>G4int a<span class="token punctuation">,</span> G4int z<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">explicit</span> <span class="token function">G4NucleiModel</span><span class="token punctuation">(</span>G4InuclNuclei<span class="token operator">*</span> nuclei<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+  G4NucleiModel();
+  G4NucleiModel(G4int a, G4int z);
+  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4NucleiModel</span><span class="hljs-params">(G4InuclNuclei* nuclei)</span></span>;
 
-  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4NucleiModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">virtual</span> ~G4NucleiModel();
 
-  <span class="token keyword">void</span> <span class="token function">setVerboseLevel</span><span class="token punctuation">(</span>G4int verbose<span class="token punctuation">)</span> <span class="token punctuation">{</span> verboseLevel <span class="token operator">=</span> verbose<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setVerboseLevel</span><span class="hljs-params">(G4int verbose)</span> </span>{ verboseLevel = verbose; }
 
-  <span class="token keyword">void</span> <span class="token function">generateModel</span><span class="token punctuation">(</span>G4InuclNuclei<span class="token operator">*</span> nuclei<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">generateModel</span><span class="token punctuation">(</span>G4int a<span class="token punctuation">,</span> G4int z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateModel</span><span class="hljs-params">(G4InuclNuclei* nuclei)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateModel</span><span class="hljs-params">(G4int a, G4int z)</span></span>;
 
-  <span class="token comment">// Arguments here are used for rescattering (::Propagate)</span>
-  <span class="token keyword">void</span> <span class="token function">reset</span><span class="token punctuation">(</span>G4int nHitNeutrons<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> G4int nHitProtons<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>
-         <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ThreeVector<span class="token operator">&gt;</span><span class="token operator">*</span> hitPoints<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Arguments here are used for rescattering (::Propagate)</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reset</span><span class="hljs-params">(G4int nHitNeutrons=<span class="hljs-number">0</span>, G4int nHitProtons=<span class="hljs-number">0</span>,
+         <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ThreeVector&gt;* hitPoints=<span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">printModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span> 
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printModel</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>; 
 
-  G4double <span class="token function">getDensity</span><span class="token punctuation">(</span>G4int ip<span class="token punctuation">,</span> G4int izone<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> nucleon_densities<span class="token punctuation">[</span>ip <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>izone<span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getDensity</span><span class="hljs-params">(G4int ip, G4int izone)</span> <span class="hljs-keyword">const</span> </span>{
+    <span class="hljs-keyword">return</span> nucleon_densities[ip - <span class="hljs-number">1</span>][izone];
+  }
 
-  G4double <span class="token function">getFermiMomentum</span><span class="token punctuation">(</span>G4int ip<span class="token punctuation">,</span> G4int izone<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> fermi_momenta<span class="token punctuation">[</span>ip <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>izone<span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getFermiMomentum</span><span class="hljs-params">(G4int ip, G4int izone)</span> <span class="hljs-keyword">const</span> </span>{
+    <span class="hljs-keyword">return</span> fermi_momenta[ip - <span class="hljs-number">1</span>][izone];
+  }
 
-  G4double <span class="token function">getFermiKinetic</span><span class="token punctuation">(</span>G4int ip<span class="token punctuation">,</span> G4int izone<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getFermiKinetic</span><span class="hljs-params">(G4int ip, G4int izone)</span> <span class="hljs-keyword">const</span></span>;
 
-  G4double <span class="token function">getPotential</span><span class="token punctuation">(</span>G4int ip<span class="token punctuation">,</span> G4int izone<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>ip <span class="token operator">==</span> <span class="token number">9</span> <span class="token operator">||</span> ip <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0.0</span><span class="token punctuation">;</span>        <span class="token comment">// Photons and leptons</span>
-    G4int ip0 <span class="token operator">=</span> ip <span class="token operator">&lt;</span> <span class="token number">3</span> <span class="token operator">?</span> ip <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>ip <span class="token operator">&gt;</span> <span class="token number">10</span> <span class="token operator">&amp;&amp;</span> ip <span class="token operator">&lt;</span> <span class="token number">18</span><span class="token punctuation">)</span> ip0 <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>ip <span class="token operator">&gt;</span> <span class="token number">20</span><span class="token punctuation">)</span> ip0 <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> izone <span class="token operator">&lt;</span> number_of_zones <span class="token operator">?</span> zone_potentials<span class="token punctuation">[</span>ip0<span class="token punctuation">]</span><span class="token punctuation">[</span>izone<span class="token punctuation">]</span> <span class="token operator">:</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getPotential</span><span class="hljs-params">(G4int ip, G4int izone)</span> <span class="hljs-keyword">const</span> </span>{
+    <span class="hljs-keyword">if</span> (ip == <span class="hljs-number">9</span> || ip &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span>;        <span class="hljs-comment">// Photons and leptons</span>
+    G4int ip0 = ip &lt; <span class="hljs-number">3</span> ? ip - <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">if</span> (ip &gt; <span class="hljs-number">10</span> &amp;&amp; ip &lt; <span class="hljs-number">18</span>) ip0 = <span class="hljs-number">3</span>;
+    <span class="hljs-keyword">if</span> (ip &gt; <span class="hljs-number">20</span>) ip0 = <span class="hljs-number">4</span>;
+    <span class="hljs-keyword">return</span> izone &lt; number_of_zones ? zone_potentials[ip0][izone] : <span class="hljs-number">0.0</span>;
+  }
 
-  <span class="token comment">// Factor to convert GEANT4 lengths to internal units</span>
-  G4double <span class="token function">getRadiusUnits</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> radiusUnits<span class="token operator">*</span>CLHEP<span class="token operator">::</span>fermi<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-comment">// Factor to convert GEANT4 lengths to internal units</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getRadiusUnits</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> radiusUnits*CLHEP::fermi; }
 
-  G4double <span class="token function">getRadius</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> nuclei_radius<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  G4double <span class="token function">getRadius</span><span class="token punctuation">(</span>G4int izone<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>izone<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0.</span>
-         <span class="token operator">:</span> <span class="token punctuation">(</span>izone<span class="token operator">&lt;</span>number_of_zones<span class="token punctuation">)</span> <span class="token operator">?</span> zone_radii<span class="token punctuation">[</span>izone<span class="token punctuation">]</span> <span class="token operator">:</span> nuclei_radius<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  G4double <span class="token function">getVolume</span><span class="token punctuation">(</span>G4int izone<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>izone<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0.</span>
-         <span class="token operator">:</span> <span class="token punctuation">(</span>izone<span class="token operator">&lt;</span>number_of_zones<span class="token punctuation">)</span> <span class="token operator">?</span> zone_volumes<span class="token punctuation">[</span>izone<span class="token punctuation">]</span> <span class="token operator">:</span> nuclei_volume<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getRadius</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> nuclei_radius; }
+  <span class="hljs-function">G4double <span class="hljs-title">getRadius</span><span class="hljs-params">(G4int izone)</span> <span class="hljs-keyword">const</span> </span>{
+    <span class="hljs-keyword">return</span> ( (izone&lt;<span class="hljs-number">0</span>) ? <span class="hljs-number">0.</span>
+         : (izone&lt;number_of_zones) ? zone_radii[izone] : nuclei_radius);
+  }
+  <span class="hljs-function">G4double <span class="hljs-title">getVolume</span><span class="hljs-params">(G4int izone)</span> <span class="hljs-keyword">const</span> </span>{
+    <span class="hljs-keyword">return</span> ( (izone&lt;<span class="hljs-number">0</span>) ? <span class="hljs-number">0.</span>
+         : (izone&lt;number_of_zones) ? zone_volumes[izone] : nuclei_volume);
+  }
 
-  G4int <span class="token function">getNumberOfZones</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> number_of_zones<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  G4int <span class="token function">getZone</span><span class="token punctuation">(</span>G4double r<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>G4int iz<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> iz<span class="token operator">&lt;</span>number_of_zones<span class="token punctuation">;</span> iz<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>r<span class="token operator">&lt;</span>zone_radii<span class="token punctuation">[</span>iz<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">return</span> iz<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> number_of_zones<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function">G4int <span class="hljs-title">getNumberOfZones</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> number_of_zones; }
+  <span class="hljs-function">G4int <span class="hljs-title">getZone</span><span class="hljs-params">(G4double r)</span> <span class="hljs-keyword">const</span> </span>{
+    <span class="hljs-keyword">for</span> (G4int iz=<span class="hljs-number">0</span>; iz&lt;number_of_zones; iz++) <span class="hljs-keyword">if</span> (r&lt;zone_radii[iz]) <span class="hljs-keyword">return</span> iz;
+    <span class="hljs-keyword">return</span> number_of_zones;
+  }
 
-  G4int <span class="token function">getNumberOfNeutrons</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> neutronNumberCurrent<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  G4int <span class="token function">getNumberOfProtons</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span>  <span class="token punctuation">{</span> <span class="token keyword">return</span> protonNumberCurrent<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-function">G4int <span class="hljs-title">getNumberOfNeutrons</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ <span class="hljs-keyword">return</span> neutronNumberCurrent; }
+  <span class="hljs-function">G4int <span class="hljs-title">getNumberOfProtons</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span>  </span>{ <span class="hljs-keyword">return</span> protonNumberCurrent; }
 
-  G4bool <span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> 
-    <span class="token keyword">return</span> neutronNumberCurrent <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> protonNumberCurrent <span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">;</span> 
-  <span class="token punctuation">}</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">empty</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>{ 
+    <span class="hljs-keyword">return</span> neutronNumberCurrent &lt; <span class="hljs-number">1</span> &amp;&amp; protonNumberCurrent &lt; <span class="hljs-number">1</span>; 
+  }
 
-  G4bool <span class="token function">stillInside</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> cparticle<span class="token punctuation">.</span><span class="token function">getCurrentZone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> number_of_zones<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-
-  G4CascadParticle <span class="token function">initializeCascad</span><span class="token punctuation">(</span>G4InuclElementaryParticle<span class="token operator">*</span> particle<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">typedef</span> std<span class="token operator">::</span>pair<span class="token operator">&lt;</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4CascadParticle<span class="token operator">&gt;</span><span class="token punctuation">,</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4InuclElementaryParticle<span class="token operator">&gt;</span> <span class="token operator">&gt;</span> modelLists<span class="token punctuation">;</span>
-
-  <span class="token keyword">void</span> <span class="token function">initializeCascad</span><span class="token punctuation">(</span>G4InuclNuclei<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclNuclei<span class="token operator">*</span> target<span class="token punctuation">,</span>
-            modelLists<span class="token operator">&amp;</span> output<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">stillInside</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; cparticle)</span> </span>{
+    <span class="hljs-keyword">return</span> cparticle.getCurrentZone() &lt; number_of_zones;
+  }
 
 
-  std<span class="token operator">::</span>pair<span class="token operator">&lt;</span>G4int<span class="token punctuation">,</span> G4int<span class="token operator">&gt;</span> <span class="token function">getTypesOfNucleonsInvolved</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> std<span class="token operator">::</span>pair<span class="token operator">&lt;</span>G4int<span class="token punctuation">,</span> G4int<span class="token operator">&gt;</span><span class="token punctuation">(</span>current_nucl1<span class="token punctuation">,</span> current_nucl2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function">G4CascadParticle <span class="hljs-title">initializeCascad</span><span class="hljs-params">(G4InuclElementaryParticle* particle)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">generateParticleFate</span><span class="token punctuation">(</span>G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">,</span>
-                G4ElementaryParticleCollider<span class="token operator">*</span> theEPCollider<span class="token punctuation">,</span>
-                std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4CascadParticle<span class="token operator">&gt;</span><span class="token operator">&amp;</span> cascade<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">std</span>::pair&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4CascadParticle&gt;, <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4InuclElementaryParticle&gt; &gt; modelLists;
 
-  G4bool <span class="token function">forceFirst</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">isProjectile</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">worthToPropagate</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span> 
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">initializeCascad</span><span class="hljs-params">(G4InuclNuclei* bullet, G4InuclNuclei* target,
+            modelLists&amp; output)</span></span>;
 
-  G4InuclElementaryParticle <span class="token function">generateNucleon</span><span class="token punctuation">(</span>G4int type<span class="token punctuation">,</span> G4int zone<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
 
-  G4LorentzVector <span class="token function">generateNucleonMomentum</span><span class="token punctuation">(</span>G4int type<span class="token punctuation">,</span> G4int zone<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-built_in">std</span>::pair&lt;G4int, G4int&gt; getTypesOfNucleonsInvolved() <span class="hljs-keyword">const</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">std</span>::pair&lt;G4int, G4int&gt;(current_nucl1, current_nucl2);
+  }
 
-  G4double <span class="token function">absorptionCrossSection</span><span class="token punctuation">(</span>G4double e<span class="token punctuation">,</span> G4int type<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-  G4double <span class="token function">totalCrossSection</span><span class="token punctuation">(</span>G4double ke<span class="token punctuation">,</span> G4int rtype<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateParticleFate</span><span class="hljs-params">(G4CascadParticle&amp; cparticle,
+                G4ElementaryParticleCollider* theEPCollider,
+                <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4CascadParticle&gt;&amp; cascade)</span></span>; 
 
-  <span class="token comment">// Identify whether given particle can interact with dibaryons</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">useQuasiDeuteron</span><span class="token punctuation">(</span>G4int ptype<span class="token punctuation">,</span> G4int qdtype<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">forceFirst</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; cparticle)</span> <span class="hljs-keyword">const</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">isProjectile</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; cparticle)</span> <span class="hljs-keyword">const</span></span>;
+  <span class="hljs-function">G4bool <span class="hljs-title">worthToPropagate</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; cparticle)</span> <span class="hljs-keyword">const</span></span>; 
 
-<span class="token keyword">protected</span><span class="token operator">:</span>
-  G4bool <span class="token function">passFermi</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4InuclElementaryParticle<span class="token operator">&gt;</span><span class="token operator">&amp;</span> particles<span class="token punctuation">,</span> 
-           G4int zone<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4InuclElementaryParticle <span class="hljs-title">generateNucleon</span><span class="hljs-params">(G4int type, G4int zone)</span> <span class="hljs-keyword">const</span></span>;
 
-  G4bool <span class="token function">passTrailing</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ThreeVector<span class="token operator">&amp;</span> hit_position<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4LorentzVector <span class="hljs-title">generateNucleonMomentum</span><span class="hljs-params">(G4int type, G4int zone)</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">boundaryTransition</span><span class="token punctuation">(</span>G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4double <span class="hljs-title">absorptionCrossSection</span><span class="hljs-params">(G4double e, G4int type)</span> <span class="hljs-keyword">const</span></span>;
+  <span class="hljs-function">G4double <span class="hljs-title">totalCrossSection</span><span class="hljs-params">(G4double ke, G4int rtype)</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">choosePointAlongTraj</span><span class="token punctuation">(</span>G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Identify whether given particle can interact with dibaryons</span>
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">useQuasiDeuteron</span><span class="hljs-params">(G4int ptype, G4int qdtype=<span class="hljs-number">0</span>)</span></span>;
 
-  G4InuclElementaryParticle <span class="token function">generateQuasiDeuteron</span><span class="token punctuation">(</span>G4int type1<span class="token punctuation">,</span> 
-                          G4int type2<span class="token punctuation">,</span>
-                          G4int zone<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+<span class="hljs-keyword">protected</span>:
+  <span class="hljs-function">G4bool <span class="hljs-title">passFermi</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4InuclElementaryParticle&gt;&amp; particles, 
+           G4int zone)</span></span>;
 
-  <span class="token keyword">typedef</span> std<span class="token operator">::</span>pair<span class="token operator">&lt;</span>G4InuclElementaryParticle<span class="token punctuation">,</span> G4double<span class="token operator">&gt;</span> partner<span class="token punctuation">;</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">passTrailing</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ThreeVector&amp; hit_position)</span></span>;
 
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>partner<span class="token operator">&gt;</span> thePartners<span class="token punctuation">;</span>        <span class="token comment">// Buffer for output below</span>
-  <span class="token keyword">void</span> <span class="token function">generateInteractionPartners</span><span class="token punctuation">(</span>G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">boundaryTransition</span><span class="hljs-params">(G4CascadParticle&amp; cparticle)</span></span>;
 
-  <span class="token comment">// Function for std::sort() to use in organizing partners by path length</span>
-  <span class="token keyword">static</span> G4bool <span class="token function">sortPartners</span><span class="token punctuation">(</span><span class="token keyword">const</span> partner<span class="token operator">&amp;</span> p1<span class="token punctuation">,</span> <span class="token keyword">const</span> partner<span class="token operator">&amp;</span> p2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>p2<span class="token punctuation">.</span>second <span class="token operator">&gt;</span> p1<span class="token punctuation">.</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">choosePointAlongTraj</span><span class="hljs-params">(G4CascadParticle&amp; cparticle)</span></span>;
 
-  <span class="token comment">// Functions used to generate model nuclear structure</span>
-  <span class="token keyword">void</span> <span class="token function">fillBindingEnergies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4InuclElementaryParticle <span class="hljs-title">generateQuasiDeuteron</span><span class="hljs-params">(G4int type1, 
+                          G4int type2,
+                          G4int zone)</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">fillZoneRadii</span><span class="token punctuation">(</span>G4double nuclearRadius<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">std</span>::pair&lt;G4InuclElementaryParticle, G4double&gt; partner;
 
-  G4double <span class="token function">fillZoneVolumes</span><span class="token punctuation">(</span>G4double nuclearRadius<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;partner&gt; thePartners;        <span class="hljs-comment">// Buffer for output below</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateInteractionPartners</span><span class="hljs-params">(G4CascadParticle&amp; cparticle)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">fillPotentials</span><span class="token punctuation">(</span>G4int type<span class="token punctuation">,</span> G4double tot_vol<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Function for std::sort() to use in organizing partners by path length</span>
+  <span class="hljs-function"><span class="hljs-keyword">static</span> G4bool <span class="hljs-title">sortPartners</span><span class="hljs-params">(<span class="hljs-keyword">const</span> partner&amp; p1, <span class="hljs-keyword">const</span> partner&amp; p2)</span> </span>{
+    <span class="hljs-keyword">return</span> (p2.second &gt; p1.second);
+  }
 
-  G4double <span class="token function">zoneIntegralWoodsSaxon</span><span class="token punctuation">(</span>G4double ur1<span class="token punctuation">,</span> G4double ur2<span class="token punctuation">,</span>
-                  G4double nuclearRadius<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Functions used to generate model nuclear structure</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fillBindingEnergies</span><span class="hljs-params">()</span></span>;
 
-  G4double <span class="token function">zoneIntegralGaussian</span><span class="token punctuation">(</span>G4double ur1<span class="token punctuation">,</span> G4double ur2<span class="token punctuation">,</span>
-                G4double nuclearRadius<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span> 
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fillZoneRadii</span><span class="hljs-params">(G4double nuclearRadius)</span></span>;
 
-  G4double <span class="token function">getRatio</span><span class="token punctuation">(</span>G4int ip<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>    <span class="token comment">// Fraction of nucleons still available</span>
+  <span class="hljs-function">G4double <span class="hljs-title">fillZoneVolumes</span><span class="hljs-params">(G4double nuclearRadius)</span></span>;
 
-  <span class="token comment">// Scale nuclear density with interactions so far</span>
-  G4double <span class="token function">getCurrentDensity</span><span class="token punctuation">(</span>G4int ip<span class="token punctuation">,</span> G4int izone<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fillPotentials</span><span class="hljs-params">(G4int type, G4double tot_vol)</span></span>;
 
-  <span class="token comment">// Average path length for any interaction of projectile and target</span>
-  <span class="token comment">//    = 1. / (density * cross-section)</span>
-  G4double <span class="token function">inverseMeanFreePath</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">,</span>
-                   <span class="token keyword">const</span> G4InuclElementaryParticle<span class="token operator">&amp;</span> target<span class="token punctuation">,</span>
-                   G4int zone <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// Override zone value</span>
-  <span class="token comment">// NOTE:  Function is non-const in order to use dummy_converter</span>
+  <span class="hljs-function">G4double <span class="hljs-title">zoneIntegralWoodsSaxon</span><span class="hljs-params">(G4double ur1, G4double ur2,
+                  G4double nuclearRadius)</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">// Use path-length and MFP (above) to throw random distance to collision</span>
-  G4double <span class="token function">generateInteractionLength</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> cparticle<span class="token punctuation">,</span>
-                     G4double path<span class="token punctuation">,</span> G4double invmfp<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4double <span class="hljs-title">zoneIntegralGaussian</span><span class="hljs-params">(G4double ur1, G4double ur2,
+                G4double nuclearRadius)</span> <span class="hljs-keyword">const</span></span>; 
 
-<span class="token keyword">private</span><span class="token operator">:</span>
-  G4int verboseLevel<span class="token punctuation">;</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getRatio</span><span class="hljs-params">(G4int ip)</span> <span class="hljs-keyword">const</span></span>;    <span class="hljs-comment">// Fraction of nucleons still available</span>
 
-  <span class="token comment">// Buffers for processing interactions on each cycle</span>
-  G4LorentzConvertor dummy_convertor<span class="token punctuation">;</span>    <span class="token comment">// For getting collision frame</span>
-  G4CollisionOutput EPCoutput<span class="token punctuation">;</span>        <span class="token comment">// For N-body inelastic collisions</span>
+  <span class="hljs-comment">// Scale nuclear density with interactions so far</span>
+  <span class="hljs-function">G4double <span class="hljs-title">getCurrentDensity</span><span class="hljs-params">(G4int ip, G4int izone)</span> <span class="hljs-keyword">const</span></span>;
 
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4InuclElementaryParticle<span class="token operator">&gt;</span> qdeutrons<span class="token punctuation">;</span>    <span class="token comment">// For h+(NN) trials</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> acsecs<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Average path length for any interaction of projectile and target</span>
+  <span class="hljs-comment">//    = 1. / (density * cross-section)</span>
+  <span class="hljs-function">G4double <span class="hljs-title">inverseMeanFreePath</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; cparticle,
+                   <span class="hljs-keyword">const</span> G4InuclElementaryParticle&amp; target,
+                   G4int zone = <span class="hljs-number">-1</span>)</span></span>;    <span class="hljs-comment">// Override zone value</span>
+  <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span>  Function is non-const in order to use dummy_converter</span>
 
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ThreeVector<span class="token operator">&gt;</span> coordinates<span class="token punctuation">;</span>    <span class="token comment">// for initializeCascad()</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4LorentzVector<span class="token operator">&gt;</span> momentums<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4InuclElementaryParticle<span class="token operator">&gt;</span> raw_particles<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Use path-length and MFP (above) to throw random distance to collision</span>
+  <span class="hljs-function">G4double <span class="hljs-title">generateInteractionLength</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; cparticle,
+                     G4double path, G4double invmfp)</span> <span class="hljs-keyword">const</span></span>;
 
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ThreeVector<span class="token operator">&gt;</span> collisionPts<span class="token punctuation">;</span>
+<span class="hljs-keyword">private</span>:
+  G4int verboseLevel;
 
-  <span class="token comment">// Temporary buffers for computing nuclear model</span>
-  G4double ur<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">;</span>        <span class="token comment">// Number of skin depths for each zone</span>
-  G4double v<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>        <span class="token comment">// Density integrals by zone</span>
-  G4double v1<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>        <span class="token comment">// Pseudo-volume (delta r^3) by zone</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> rod<span class="token punctuation">;</span>    <span class="token comment">// Nucleon density</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> pf<span class="token punctuation">;</span>    <span class="token comment">// Fermi momentum</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> vz<span class="token punctuation">;</span>    <span class="token comment">// Nucleon potential</span>
+  <span class="hljs-comment">// Buffers for processing interactions on each cycle</span>
+  G4LorentzConvertor dummy_convertor;    <span class="hljs-comment">// For getting collision frame</span>
+  G4CollisionOutput EPCoutput;        <span class="hljs-comment">// For N-body inelastic collisions</span>
 
-  <span class="token comment">// Nuclear model configuration</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> <span class="token operator">&gt;</span> nucleon_densities<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> <span class="token operator">&gt;</span> zone_potentials<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> <span class="token operator">&gt;</span> fermi_momenta<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> zone_radii<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> zone_volumes<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> binding_energies<span class="token punctuation">;</span>
-  G4double nuclei_radius<span class="token punctuation">;</span>
-  G4double nuclei_volume<span class="token punctuation">;</span>
-  G4int number_of_zones<span class="token punctuation">;</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4InuclElementaryParticle&gt; qdeutrons;    <span class="hljs-comment">// For h+(NN) trials</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; acsecs;
 
-  G4int A<span class="token punctuation">;</span>
-  G4int Z<span class="token punctuation">;</span>
-  G4InuclNuclei<span class="token operator">*</span> theNucleus<span class="token punctuation">;</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ThreeVector&gt; coordinates;    <span class="hljs-comment">// for initializeCascad()</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4LorentzVector&gt; momentums;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4InuclElementaryParticle&gt; raw_particles;
 
-  G4int neutronNumber<span class="token punctuation">;</span>
-  G4int protonNumber<span class="token punctuation">;</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ThreeVector&gt; collisionPts;
 
-  G4int neutronNumberCurrent<span class="token punctuation">;</span>
-  G4int protonNumberCurrent<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Temporary buffers for computing nuclear model</span>
+  G4double ur[<span class="hljs-number">7</span>];        <span class="hljs-comment">// Number of skin depths for each zone</span>
+  G4double v[<span class="hljs-number">6</span>];        <span class="hljs-comment">// Density integrals by zone</span>
+  G4double v1[<span class="hljs-number">6</span>];        <span class="hljs-comment">// Pseudo-volume (delta r^3) by zone</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; rod;    <span class="hljs-comment">// Nucleon density</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; pf;    <span class="hljs-comment">// Fermi momentum</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; vz;    <span class="hljs-comment">// Nucleon potential</span>
 
-  G4int current_nucl1<span class="token punctuation">;</span>
-  G4int current_nucl2<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Nuclear model configuration</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; &gt; nucleon_densities;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; &gt; zone_potentials;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; &gt; fermi_momenta;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; zone_radii;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; zone_volumes;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4double&gt; binding_energies;
+  G4double nuclei_radius;
+  G4double nuclei_volume;
+  G4int number_of_zones;
 
-  G4CascadeInterpolator<span class="token operator">&lt;</span><span class="token number">30</span><span class="token operator">&gt;</span> gammaQDinterp<span class="token punctuation">;</span>    <span class="token comment">// quasideuteron interpolator</span>
+  G4int A;
+  G4int Z;
+  G4InuclNuclei* theNucleus;
 
-  <span class="token comment">// Symbolic names for nuclear potentials</span>
-  <span class="token keyword">enum</span> PotentialType <span class="token punctuation">{</span> WoodsSaxon<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> Gaussian<span class="token operator">=</span><span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  G4int neutronNumber;
+  G4int protonNumber;
 
-  <span class="token comment">// Parameters for nuclear structure</span>
-  <span class="token keyword">const</span> G4double crossSectionUnits<span class="token punctuation">;</span>    <span class="token comment">// Scale from internal to natural units</span>
-  <span class="token keyword">const</span> G4double radiusUnits<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> G4double skinDepth<span class="token punctuation">;</span>        <span class="token comment">// Fraction of radius for outer skin</span>
-  <span class="token keyword">const</span> G4double radiusScale<span class="token punctuation">;</span>        <span class="token comment">// Coefficients for two-parameter fit</span>
-  <span class="token keyword">const</span> G4double radiusScale2<span class="token punctuation">;</span>        <span class="token comment">//   R = 1.16*cbrt(A) - 1.3456/cbrt(A)</span>
-  <span class="token keyword">const</span> G4double radiusForSmall<span class="token punctuation">;</span>     <span class="token comment">// Average radius of light A&lt;5 nuclei</span>
-  <span class="token keyword">const</span> G4double radScaleAlpha<span class="token punctuation">;</span>        <span class="token comment">// Scaling factor R_alpha/R_small</span>
-  <span class="token keyword">const</span> G4double fermiMomentum<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> G4double R_nucleon<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> G4double gammaQDscale<span class="token punctuation">;</span>        <span class="token comment">// Gamma/cluster scattering rescaling</span>
+  G4int neutronNumberCurrent;
+  G4int protonNumberCurrent;
 
-  <span class="token comment">// Cutoffs for extreme values</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double small<span class="token punctuation">;</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double large<span class="token punctuation">;</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double piTimes4thirds<span class="token punctuation">;</span>  <span class="token comment">// FIXME:  We should not be using this!</span>
+  G4int current_nucl1;
+  G4int current_nucl2;
 
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double alfa3<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> alfa6<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment">// Zone boundaries in radii</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double pion_vp<span class="token punctuation">;</span>        <span class="token comment">// Flat potentials for pi, K, Y</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double pion_vp_small<span class="token punctuation">;</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double kaon_vp<span class="token punctuation">;</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double hyperon_vp<span class="token punctuation">;</span>
+  G4CascadeInterpolator&lt;<span class="hljs-number">30</span>&gt; gammaQDinterp;    <span class="hljs-comment">// quasideuteron interpolator</span>
 
-  <span class="token comment">// Neutrons and protons, for computing trajectory placements</span>
-  <span class="token keyword">const</span> G4InuclElementaryParticle neutronEP<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> G4InuclElementaryParticle protonEP<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Symbolic names for nuclear potentials</span>
+  <span class="hljs-keyword">enum</span> PotentialType { WoodsSaxon=<span class="hljs-number">0</span>, Gaussian=<span class="hljs-number">1</span> };
+
+  <span class="hljs-comment">// Parameters for nuclear structure</span>
+  <span class="hljs-keyword">const</span> G4double crossSectionUnits;    <span class="hljs-comment">// Scale from internal to natural units</span>
+  <span class="hljs-keyword">const</span> G4double radiusUnits;
+  <span class="hljs-keyword">const</span> G4double skinDepth;        <span class="hljs-comment">// Fraction of radius for outer skin</span>
+  <span class="hljs-keyword">const</span> G4double radiusScale;        <span class="hljs-comment">// Coefficients for two-parameter fit</span>
+  <span class="hljs-keyword">const</span> G4double radiusScale2;        <span class="hljs-comment">//   R = 1.16*cbrt(A) - 1.3456/cbrt(A)</span>
+  <span class="hljs-keyword">const</span> G4double radiusForSmall;     <span class="hljs-comment">// Average radius of light A&lt;5 nuclei</span>
+  <span class="hljs-keyword">const</span> G4double radScaleAlpha;        <span class="hljs-comment">// Scaling factor R_alpha/R_small</span>
+  <span class="hljs-keyword">const</span> G4double fermiMomentum;
+  <span class="hljs-keyword">const</span> G4double R_nucleon;
+  <span class="hljs-keyword">const</span> G4double gammaQDscale;        <span class="hljs-comment">// Gamma/cluster scattering rescaling</span>
+
+  <span class="hljs-comment">// Cutoffs for extreme values</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double small;
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double large;
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double piTimes4thirds;  <span class="hljs-comment">// <span class="hljs-doctag">FIXME:</span>  We should not be using this!</span>
+
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double alfa3[<span class="hljs-number">3</span>], alfa6[<span class="hljs-number">6</span>];    <span class="hljs-comment">// Zone boundaries in radii</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double pion_vp;        <span class="hljs-comment">// Flat potentials for pi, K, Y</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double pion_vp_small;
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double kaon_vp;
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double hyperon_vp;
+
+  <span class="hljs-comment">// Neutrons and protons, for computing trajectory placements</span>
+  <span class="hljs-keyword">const</span> G4InuclElementaryParticle neutronEP;
+  <span class="hljs-keyword">const</span> G4InuclElementaryParticle protonEP;
 </code></pre>
 <!-- G4NucleiModel.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-09-04 06:02:43
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-09-04 06:02:43 </span> </footer>
                                 
                                 </section>
                             
@@ -3433,7 +3431,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4NucleiModel","level":"1.4.12","depth":2,"next":{"title":"G4HadronicInteraction","level":"1.4.13","depth":2,"path":"class/G4HadronicInteraction.md","ref":"class/G4HadronicInteraction.md","articles":[{"title":"G4HadronElastic","level":"1.4.13.1","depth":3,"path":"class/G4HadronElastic.md","ref":"class/G4HadronElastic.md","articles":[]},{"title":"G4ParticleHPElastic","level":"1.4.13.2","depth":3,"path":"class/G4ParticleHPElastic.md","ref":"class/G4ParticleHPElastic.md","articles":[]},{"title":"G4VIntraNuclearTransportModel","level":"1.4.13.3","depth":3,"path":"class/G4VIntraNuclearTransportModel.md","ref":"class/G4VIntraNuclearTransportModel.md","articles":[{"title":"G4CascadeInterface","level":"1.4.13.3.1","depth":4,"path":"class/G4CascadeInterface.md","ref":"class/G4CascadeInterface.md","articles":[]},{"title":"G4BinaryCascade","level":"1.4.13.3.2","depth":4,"path":"class/G4BinaryCascade.md","ref":"class/G4BinaryCascade.md","articles":[]}]},{"title":"G4ParticleHPInelastic","level":"1.4.13.4","depth":3,"path":"class/G4ParticleHPInelastic.md","ref":"class/G4ParticleHPInelastic.md","articles":[]},{"title":"G4NeutronRadCapture","level":"1.4.13.5","depth":3,"path":"class/G4NeutronRadCapture.md","ref":"class/G4NeutronRadCapture.md","articles":[]},{"title":"G4ParticleHPCapture","level":"1.4.13.6","depth":3,"path":"class/G4ParticleHPCapture.md","ref":"class/G4ParticleHPCapture.md","articles":[]},{"title":"G4LFission","level":"1.4.13.7","depth":3,"path":"class/G4LFission.md","ref":"class/G4LFission.md","articles":[]},{"title":"G4ParticleHPFission","level":"1.4.13.8","depth":3,"path":"class/G4ParticleHPFission.md","ref":"class/G4ParticleHPFission.md","articles":[]},{"title":"G4VPreCompoundModel","level":"1.4.13.9","depth":3,"path":"class/G4VPreCompoundModel.md","ref":"class/G4VPreCompoundModel.md","articles":[{"title":"G4PreCompoundModel","level":"1.4.13.9.1","depth":4,"path":"class/G4PreCompoundModel.md","ref":"class/G4PreCompoundModel.md","articles":[]}]}]},"previous":{"title":"G4UniversalFluctuation","level":"1.4.11.2","depth":3,"path":"class/G4UniversalFluctuation.md","ref":"class/G4UniversalFluctuation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4NucleiModel.md","mtime":"2018-09-03T22:02:43.336Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4NucleiModel","level":"1.4.12","depth":2,"next":{"title":"G4HadronicInteraction","level":"1.4.13","depth":2,"path":"class/G4HadronicInteraction.md","ref":"class/G4HadronicInteraction.md","articles":[{"title":"G4HadronElastic","level":"1.4.13.1","depth":3,"path":"class/G4HadronElastic.md","ref":"class/G4HadronElastic.md","articles":[]},{"title":"G4ParticleHPElastic","level":"1.4.13.2","depth":3,"path":"class/G4ParticleHPElastic.md","ref":"class/G4ParticleHPElastic.md","articles":[]},{"title":"G4VIntraNuclearTransportModel","level":"1.4.13.3","depth":3,"path":"class/G4VIntraNuclearTransportModel.md","ref":"class/G4VIntraNuclearTransportModel.md","articles":[{"title":"G4CascadeInterface","level":"1.4.13.3.1","depth":4,"path":"class/G4CascadeInterface.md","ref":"class/G4CascadeInterface.md","articles":[]},{"title":"G4BinaryCascade","level":"1.4.13.3.2","depth":4,"path":"class/G4BinaryCascade.md","ref":"class/G4BinaryCascade.md","articles":[]}]},{"title":"G4ParticleHPInelastic","level":"1.4.13.4","depth":3,"path":"class/G4ParticleHPInelastic.md","ref":"class/G4ParticleHPInelastic.md","articles":[]},{"title":"G4NeutronRadCapture","level":"1.4.13.5","depth":3,"path":"class/G4NeutronRadCapture.md","ref":"class/G4NeutronRadCapture.md","articles":[]},{"title":"G4ParticleHPCapture","level":"1.4.13.6","depth":3,"path":"class/G4ParticleHPCapture.md","ref":"class/G4ParticleHPCapture.md","articles":[]},{"title":"G4LFission","level":"1.4.13.7","depth":3,"path":"class/G4LFission.md","ref":"class/G4LFission.md","articles":[]},{"title":"G4ParticleHPFission","level":"1.4.13.8","depth":3,"path":"class/G4ParticleHPFission.md","ref":"class/G4ParticleHPFission.md","articles":[]},{"title":"G4VPreCompoundModel","level":"1.4.13.9","depth":3,"path":"class/G4VPreCompoundModel.md","ref":"class/G4VPreCompoundModel.md","articles":[{"title":"G4PreCompoundModel","level":"1.4.13.9.1","depth":4,"path":"class/G4PreCompoundModel.md","ref":"class/G4PreCompoundModel.md","articles":[]}]}]},"previous":{"title":"G4UniversalFluctuation","level":"1.4.11.2","depth":3,"path":"class/G4UniversalFluctuation.md","ref":"class/G4UniversalFluctuation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4NucleiModel.md","mtime":"2018-09-03T22:02:43.336Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3138,111 +3138,109 @@
 <p><strong>public G4VCrossSectionDataSet</strong></p>
 <p>Interaction cross-sections for the elastic process. </p>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
 
-  <span class="token function">G4ChipsNeutronElasticXS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>               <span class="token comment">// Constructor</span>
+  G4ChipsNeutronElasticXS();               <span class="hljs-comment">// Constructor</span>
 
-  <span class="token operator">~</span><span class="token function">G4ChipsNeutronElasticXS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  ~G4ChipsNeutronElasticXS();
 
-  <span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">Default_Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> <span class="token string">&quot;ChipsNeutronElasticXS&quot;</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+  <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* <span class="hljs-title">Default_Name</span><span class="hljs-params">()</span> </span>{<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;ChipsNeutronElasticXS&quot;</span>;}
 
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">CrossSectionDescription</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>  
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CrossSectionDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp;)</span> <span class="hljs-keyword">const</span></span>;  
 
-  <span class="token keyword">virtual</span> G4bool <span class="token function">IsIsoApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span> Pt<span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> G4int A<span class="token punctuation">,</span>    
-                 <span class="token keyword">const</span> G4Element<span class="token operator">*</span> elm<span class="token punctuation">,</span>
-                 <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4bool <span class="hljs-title">IsIsoApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle* Pt, G4int Z, G4int A,    
+                 <span class="hljs-keyword">const</span> G4Element* elm,
+                 <span class="hljs-keyword">const</span> G4Material* mat )</span></span>;
 
-  <span class="token comment">// At present momentum (pMom) in MeV/c, CS in mb (@@ Units)</span>
-  <span class="token keyword">virtual</span> G4double <span class="token function">GetIsoCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> G4int tgZ<span class="token punctuation">,</span> G4int A<span class="token punctuation">,</span>  
-                      <span class="token keyword">const</span> G4Isotope<span class="token operator">*</span> iso <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                      <span class="token keyword">const</span> G4Element<span class="token operator">*</span> elm <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                      <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// At present momentum (pMom) in MeV/c, CS in mb (@@ Units)</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetIsoCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, G4int tgZ, G4int A,  
+                      <span class="hljs-keyword">const</span> G4Isotope* iso = <span class="hljs-number">0</span>,
+                      <span class="hljs-keyword">const</span> G4Element* elm = <span class="hljs-number">0</span>,
+                      <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token keyword">virtual</span> G4double <span class="token function">GetChipsCrossSection</span><span class="token punctuation">(</span>G4double momentum<span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> G4int N<span class="token punctuation">,</span> G4int pdg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetChipsCrossSection</span><span class="hljs-params">(G4double momentum, G4int Z, G4int N, G4int pdg)</span></span>;
 
-  G4double <span class="token function">GetExchangeT</span><span class="token punctuation">(</span>G4int tZ<span class="token punctuation">,</span> G4int tN<span class="token punctuation">,</span> G4int pPDG<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Randomizes -t=Q2 (in IU=MeV^2)</span>
-  G4double <span class="token function">GetHMaxT</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                   <span class="token comment">// Currrent Max(-t=Q2)/2. (in IU=MeV^2)</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetExchangeT</span><span class="hljs-params">(G4int tZ, G4int tN, G4int pPDG)</span></span>; <span class="hljs-comment">// Randomizes -t=Q2 (in IU=MeV^2)</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetHMaxT</span><span class="hljs-params">()</span></span>;                   <span class="hljs-comment">// Currrent Max(-t=Q2)/2. (in IU=MeV^2)</span>
 
-<span class="token keyword">private</span><span class="token operator">:</span>
+<span class="hljs-keyword">private</span>:
 
-  G4double <span class="token function">CalculateCrossSection</span><span class="token punctuation">(</span>G4bool CS<span class="token punctuation">,</span> G4int F<span class="token punctuation">,</span> G4int I<span class="token punctuation">,</span> G4int pPDG<span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> G4int N<span class="token punctuation">,</span>
-                                                                              G4double pP<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4double <span class="hljs-title">CalculateCrossSection</span><span class="hljs-params">(G4bool CS, G4int F, G4int I, G4int pPDG, G4int Z, G4int N,
+                                                                              G4double pP)</span></span>;
 
-  G4double <span class="token function">GetSlope</span><span class="token punctuation">(</span>G4int tZ<span class="token punctuation">,</span> G4int tN<span class="token punctuation">,</span> G4int pPDG<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// Slope of the 1st diff. maximum</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetSlope</span><span class="hljs-params">(G4int tZ, G4int tN, G4int pPDG)</span></span>;     <span class="hljs-comment">// Slope of the 1st diff. maximum</span>
 
-  G4double <span class="token function">GetPTables</span><span class="token punctuation">(</span>G4double lpP<span class="token punctuation">,</span> G4double lPm<span class="token punctuation">,</span> G4int PDG<span class="token punctuation">,</span> G4int tZ<span class="token punctuation">,</span> G4int tN<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// newLP</span>
-  G4double <span class="token function">GetTabValues</span><span class="token punctuation">(</span>G4double lp<span class="token punctuation">,</span> G4int pPDG<span class="token punctuation">,</span> G4int tgZ<span class="token punctuation">,</span> G4int tgN<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// return CS(Si/Bi)</span>
-  G4double <span class="token function">GetQ2max</span><span class="token punctuation">(</span>G4int pPDG<span class="token punctuation">,</span> G4int tgZ<span class="token punctuation">,</span> G4int tgN<span class="token punctuation">,</span> G4double pP<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// return -t=Q2</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetPTables</span><span class="hljs-params">(G4double lpP, G4double lPm, G4int PDG, G4int tZ, G4int tN)</span></span>; <span class="hljs-comment">// newLP</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetTabValues</span><span class="hljs-params">(G4double lp, G4int pPDG, G4int tgZ, G4int tgN)</span></span>; <span class="hljs-comment">// return CS(Si/Bi)</span>
+  <span class="hljs-function">G4double <span class="hljs-title">GetQ2max</span><span class="hljs-params">(G4int pPDG, G4int tgZ, G4int tgN, G4double pP)</span></span>; <span class="hljs-comment">// return -t=Q2</span>
 
-<span class="token comment">// Body</span>
-<span class="token keyword">private</span><span class="token operator">:</span>
-  <span class="token comment">// --- Data formating AMDB (define the precalculated table structure) ---</span>
-  <span class="token keyword">const</span> G4int nPoints<span class="token punctuation">;</span><span class="token comment">// #of points in the AMDB tables     </span>
-  <span class="token keyword">const</span> G4int nLast<span class="token punctuation">;</span>  <span class="token comment">// the Last element in the table</span>
-  G4double    lPMin<span class="token punctuation">;</span>  <span class="token comment">// Min tabulated logarithmic Momentum  </span>
-  G4double    lPMax<span class="token punctuation">;</span>  <span class="token comment">// Max tabulated logarithmic Momentum  </span>
-  G4double    dlnP<span class="token punctuation">;</span>   <span class="token comment">// Log step in the table     </span>
-  <span class="token comment">// ---- Local (for particular pP, pPDG, tZ, tN) -----</span>
-  G4bool    onlyCS<span class="token punctuation">;</span>   <span class="token comment">// flag to calculate only CS (not S1/B1,S2/B2,S3/B3)</span>
-  G4double  lastSIG<span class="token punctuation">;</span>  <span class="token comment">// Last calculated cross section</span>
-  G4double  lastLP<span class="token punctuation">;</span>   <span class="token comment">// Last log(mom_of_the_incident_hadron in GeV)</span>
-  G4double  lastTM<span class="token punctuation">;</span>   <span class="token comment">// Last t_maximum                       </span>
-  G4int     lastN<span class="token punctuation">;</span>    <span class="token comment">// The last N of calculated nucleus</span>
-  G4int     lastZ<span class="token punctuation">;</span>    <span class="token comment">// The last Z of calculated nucleus</span>
-  G4double  lastP<span class="token punctuation">;</span>    <span class="token comment">// Last used in the cross section Momentum</span>
-  G4double  lastTH<span class="token punctuation">;</span>   <span class="token comment">// Last value of the Momentum Threshold</span>
-  G4double  lastCS<span class="token punctuation">;</span>   <span class="token comment">// Last value of the Cross Section</span>
-  G4int     lastI<span class="token punctuation">;</span>    <span class="token comment">// The last position in the DAMDB</span>
-  G4double  theSS<span class="token punctuation">;</span>    <span class="token comment">// The Last squared slope of first diffruction </span>
-  G4double  theS1<span class="token punctuation">;</span>    <span class="token comment">// The Last mantissa of first diffruction </span>
-  G4double  theB1<span class="token punctuation">;</span>    <span class="token comment">// The Last slope of first diffruction    </span>
-  G4double  theS2<span class="token punctuation">;</span>    <span class="token comment">// The Last mantissa of second diffruction</span>
-  G4double  theB2<span class="token punctuation">;</span>    <span class="token comment">// The Last slope of second diffruction   </span>
-  G4double  theS3<span class="token punctuation">;</span>    <span class="token comment">// The Last mantissa of third diffruction </span>
-  G4double  theB3<span class="token punctuation">;</span>    <span class="token comment">// The Last slope of third diffruction    </span>
-  G4double  theS4<span class="token punctuation">;</span>    <span class="token comment">// The Last mantissa of 4-th diffruction </span>
-  G4double  theB4<span class="token punctuation">;</span>    <span class="token comment">// The Last slope of 4-th diffruction    </span>
-  <span class="token comment">// ---- Global (AMBD of P-dependent tables for pPDG,tZ,tN) -----</span>
-  G4int     lastTZ<span class="token punctuation">;</span>   <span class="token comment">// Last atomic number of the target</span>
-  G4int     lastTN<span class="token punctuation">;</span>   <span class="token comment">// Last number of neutrons of the target</span>
-  G4double  lastPIN<span class="token punctuation">;</span>  <span class="token comment">// Last initialized max momentum</span>
-  G4double<span class="token operator">*</span> lastCST<span class="token punctuation">;</span>  <span class="token comment">// Last cross-section table</span>
-  G4double<span class="token operator">*</span> lastPAR<span class="token punctuation">;</span>  <span class="token comment">// Last parameters for functional calculation</span>
-  G4double<span class="token operator">*</span> lastSST<span class="token punctuation">;</span>  <span class="token comment">// E-dep of squared slope of the first difruction </span>
-  G4double<span class="token operator">*</span> lastS1T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of mantissa of the first difruction </span>
-  G4double<span class="token operator">*</span> lastB1T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of the slope of the first difruction</span>
-  G4double<span class="token operator">*</span> lastS2T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of mantissa of the second difruction</span>
-  G4double<span class="token operator">*</span> lastB2T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of the slope of theSecond difruction</span>
-  G4double<span class="token operator">*</span> lastS3T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of mantissa of the third difruction </span>
-  G4double<span class="token operator">*</span> lastB3T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of the slope of the third difruction</span>
-  G4double<span class="token operator">*</span> lastS4T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of mantissa of the 4-th difruction </span>
-  G4double<span class="token operator">*</span> lastB4T<span class="token punctuation">;</span>  <span class="token comment">// E-dep of the slope of the 4-th difruction</span>
+<span class="hljs-comment">// Body</span>
+<span class="hljs-keyword">private</span>:
+  <span class="hljs-comment">// --- Data formating AMDB (define the precalculated table structure) ---</span>
+  <span class="hljs-keyword">const</span> G4int nPoints;<span class="hljs-comment">// #of points in the AMDB tables     </span>
+  <span class="hljs-keyword">const</span> G4int nLast;  <span class="hljs-comment">// the Last element in the table</span>
+  G4double    lPMin;  <span class="hljs-comment">// Min tabulated logarithmic Momentum  </span>
+  G4double    lPMax;  <span class="hljs-comment">// Max tabulated logarithmic Momentum  </span>
+  G4double    dlnP;   <span class="hljs-comment">// Log step in the table     </span>
+  <span class="hljs-comment">// ---- Local (for particular pP, pPDG, tZ, tN) -----</span>
+  G4bool    onlyCS;   <span class="hljs-comment">// flag to calculate only CS (not S1/B1,S2/B2,S3/B3)</span>
+  G4double  lastSIG;  <span class="hljs-comment">// Last calculated cross section</span>
+  G4double  lastLP;   <span class="hljs-comment">// Last log(mom_of_the_incident_hadron in GeV)</span>
+  G4double  lastTM;   <span class="hljs-comment">// Last t_maximum                       </span>
+  G4int     lastN;    <span class="hljs-comment">// The last N of calculated nucleus</span>
+  G4int     lastZ;    <span class="hljs-comment">// The last Z of calculated nucleus</span>
+  G4double  lastP;    <span class="hljs-comment">// Last used in the cross section Momentum</span>
+  G4double  lastTH;   <span class="hljs-comment">// Last value of the Momentum Threshold</span>
+  G4double  lastCS;   <span class="hljs-comment">// Last value of the Cross Section</span>
+  G4int     lastI;    <span class="hljs-comment">// The last position in the DAMDB</span>
+  G4double  theSS;    <span class="hljs-comment">// The Last squared slope of first diffruction </span>
+  G4double  theS1;    <span class="hljs-comment">// The Last mantissa of first diffruction </span>
+  G4double  theB1;    <span class="hljs-comment">// The Last slope of first diffruction    </span>
+  G4double  theS2;    <span class="hljs-comment">// The Last mantissa of second diffruction</span>
+  G4double  theB2;    <span class="hljs-comment">// The Last slope of second diffruction   </span>
+  G4double  theS3;    <span class="hljs-comment">// The Last mantissa of third diffruction </span>
+  G4double  theB3;    <span class="hljs-comment">// The Last slope of third diffruction    </span>
+  G4double  theS4;    <span class="hljs-comment">// The Last mantissa of 4-th diffruction </span>
+  G4double  theB4;    <span class="hljs-comment">// The Last slope of 4-th diffruction    </span>
+  <span class="hljs-comment">// ---- Global (AMBD of P-dependent tables for pPDG,tZ,tN) -----</span>
+  G4int     lastTZ;   <span class="hljs-comment">// Last atomic number of the target</span>
+  G4int     lastTN;   <span class="hljs-comment">// Last number of neutrons of the target</span>
+  G4double  lastPIN;  <span class="hljs-comment">// Last initialized max momentum</span>
+  G4double* lastCST;  <span class="hljs-comment">// Last cross-section table</span>
+  G4double* lastPAR;  <span class="hljs-comment">// Last parameters for functional calculation</span>
+  G4double* lastSST;  <span class="hljs-comment">// E-dep of squared slope of the first difruction </span>
+  G4double* lastS1T;  <span class="hljs-comment">// E-dep of mantissa of the first difruction </span>
+  G4double* lastB1T;  <span class="hljs-comment">// E-dep of the slope of the first difruction</span>
+  G4double* lastS2T;  <span class="hljs-comment">// E-dep of mantissa of the second difruction</span>
+  G4double* lastB2T;  <span class="hljs-comment">// E-dep of the slope of theSecond difruction</span>
+  G4double* lastS3T;  <span class="hljs-comment">// E-dep of mantissa of the third difruction </span>
+  G4double* lastB3T;  <span class="hljs-comment">// E-dep of the slope of the third difruction</span>
+  G4double* lastS4T;  <span class="hljs-comment">// E-dep of mantissa of the 4-th difruction </span>
+  G4double* lastB4T;  <span class="hljs-comment">// E-dep of the slope of the 4-th difruction</span>
 
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> PAR<span class="token punctuation">;</span>   <span class="token comment">// Vector of parameters for functional calculations</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> CST<span class="token punctuation">;</span>   <span class="token comment">// Vector of cross-section table</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> SST<span class="token punctuation">;</span>   <span class="token comment">// Vector of the first squared slope</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> S1T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the first mantissa</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> B1T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the first slope</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> S2T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the secon mantissa</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> B2T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the second slope</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> S3T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the third mantissa</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> B3T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the third slope</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> S4T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the 4-th mantissa (gloria)</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">*</span><span class="token operator">&gt;</span> B4T<span class="token punctuation">;</span>   <span class="token comment">// Vector of the 4-th slope    (gloria)</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; PAR;   <span class="hljs-comment">// Vector of parameters for functional calculations</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; CST;   <span class="hljs-comment">// Vector of cross-section table</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; SST;   <span class="hljs-comment">// Vector of the first squared slope</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; S1T;   <span class="hljs-comment">// Vector of the first mantissa</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; B1T;   <span class="hljs-comment">// Vector of the first slope</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; S2T;   <span class="hljs-comment">// Vector of the secon mantissa</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; B2T;   <span class="hljs-comment">// Vector of the second slope</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; S3T;   <span class="hljs-comment">// Vector of the third mantissa</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; B3T;   <span class="hljs-comment">// Vector of the third slope</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; S4T;   <span class="hljs-comment">// Vector of the 4-th mantissa (gloria)</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double*&gt; B4T;   <span class="hljs-comment">// Vector of the 4-th slope    (gloria)</span>
 
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4int<span class="token operator">&gt;</span> colN<span class="token punctuation">;</span>  <span class="token comment">// Vector of N for calculated nuclei (isotops)</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4int<span class="token operator">&gt;</span>  colZ<span class="token punctuation">;</span>  <span class="token comment">// Vector of Z for calculated nuclei (isotops)</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> colP<span class="token punctuation">;</span>  <span class="token comment">// Vector of last momenta for the reaction</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> colTH<span class="token punctuation">;</span> <span class="token comment">// Vector of energy thresholds for the reaction</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> colCS<span class="token punctuation">;</span> <span class="token comment">// Vector of last cross sections for the reaction</span>
-  std<span class="token operator">::</span>vector <span class="token operator">&lt;</span>G4double<span class="token operator">&gt;</span> PIN<span class="token punctuation">;</span>   <span class="token comment">// Vector of max initialized log(P) in the table</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4int&gt; colN;  <span class="hljs-comment">// Vector of N for calculated nuclei (isotops)</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4int&gt;  colZ;  <span class="hljs-comment">// Vector of Z for calculated nuclei (isotops)</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double&gt; colP;  <span class="hljs-comment">// Vector of last momenta for the reaction</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double&gt; colTH; <span class="hljs-comment">// Vector of energy thresholds for the reaction</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double&gt; colCS; <span class="hljs-comment">// Vector of last cross sections for the reaction</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span> &lt;G4double&gt; PIN;   <span class="hljs-comment">// Vector of max initialized log(P) in the table</span>
 </code></pre>
 <!-- G4ChipsNeutronElasticXS.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-08-10 03:34:26
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-08-10 03:34:26 </span> </footer>
                                 
                                 </section>
                             
@@ -3285,7 +3283,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4ChipsNeutronElasticXS","level":"1.4.24.5","depth":3,"next":{"title":"G4NeutronCaptureXS","level":"1.4.24.6","depth":3,"path":"class/G4NeutronCaptureXS.md","ref":"class/G4NeutronCaptureXS.md","articles":[]},"previous":{"title":"G4BGGNucleonInelasticXS","level":"1.4.24.4","depth":3,"path":"class/G4BGGNucleonInelasticXS.md","ref":"class/G4BGGNucleonInelasticXS.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ChipsNeutronElasticXS.md","mtime":"2018-08-09T19:34:26.838Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4ChipsNeutronElasticXS","level":"1.4.24.5","depth":3,"next":{"title":"G4NeutronCaptureXS","level":"1.4.24.6","depth":3,"path":"class/G4NeutronCaptureXS.md","ref":"class/G4NeutronCaptureXS.md","articles":[]},"previous":{"title":"G4BGGNucleonInelasticXS","level":"1.4.24.4","depth":3,"path":"class/G4BGGNucleonInelasticXS.md","ref":"class/G4BGGNucleonInelasticXS.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ChipsNeutronElasticXS.md","mtime":"2018-08-09T19:34:26.838Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

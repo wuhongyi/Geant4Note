@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3141,120 +3141,118 @@
 <li>Both the name and the energy interval will be used for documentation </li>
 </ul>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">//with description</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>: <span class="hljs-comment">//with description</span>
 
-  <span class="token function">G4VCrossSectionDataSet</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> nam <span class="token operator">=</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  G4VCrossSectionDataSet(<span class="hljs-keyword">const</span> G4String&amp; nam = <span class="hljs-string">&quot;&quot;</span>);
 
-  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4VCrossSectionDataSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">virtual</span> ~G4VCrossSectionDataSet();
 
-  <span class="token comment">//============== Is Applicable methods ===============================</span>
-  <span class="token comment">// The following three methods have default implementations returning</span>
-  <span class="token comment">// &quot;false&quot;.  Derived classes should implement only needed methods.</span>
+  <span class="hljs-comment">//============== Is Applicable methods ===============================</span>
+  <span class="hljs-comment">// The following three methods have default implementations returning</span>
+  <span class="hljs-comment">// &quot;false&quot;.  Derived classes should implement only needed methods.</span>
 
-  <span class="token comment">// Element-wise cross section</span>
-  <span class="token keyword">virtual</span>
-  G4bool <span class="token function">IsElementApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> 
-                 <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Element-wise cross section</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span>
+  G4bool <span class="hljs-title">IsElementApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, G4int Z, 
+                 <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token comment">// Derived classes should implement this method if they provide isotope-wise </span>
-  <span class="token comment">// cross sections.  Default arguments G4Element and G4Material are needed to </span>
-  <span class="token comment">// access low-energy neutron cross sections, but are not required for others.</span>
-  <span class="token keyword">virtual</span>
-  G4bool <span class="token function">IsIsoApplicable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> G4int A<span class="token punctuation">,</span>    
-             <span class="token keyword">const</span> G4Element<span class="token operator">*</span> elm <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-             <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Derived classes should implement this method if they provide isotope-wise </span>
+  <span class="hljs-comment">// cross sections.  Default arguments G4Element and G4Material are needed to </span>
+  <span class="hljs-comment">// access low-energy neutron cross sections, but are not required for others.</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span>
+  G4bool <span class="hljs-title">IsIsoApplicable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, G4int Z, G4int A,    
+             <span class="hljs-keyword">const</span> G4Element* elm = <span class="hljs-number">0</span>,
+             <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token comment">//============== GetCrossSection methods ===============================</span>
+  <span class="hljs-comment">//============== GetCrossSection methods ===============================</span>
 
-  <span class="token comment">// This is a generic method to access cross section per element</span>
-  <span class="token comment">// This method should not be overwritten in a derived class</span>
-  <span class="token keyword">inline</span> G4double <span class="token function">GetCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">const</span> G4Element<span class="token operator">*</span><span class="token punctuation">,</span>
-                  <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// This is a generic method to access cross section per element</span>
+  <span class="hljs-comment">// This method should not be overwritten in a derived class</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, <span class="hljs-keyword">const</span> G4Element*,
+                  <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token comment">// This is a generic method to compute cross section per element</span>
-  <span class="token comment">// If the DataSet is not applicable the method returns zero</span>
-  <span class="token comment">// This method should not be overwritten in a derived class</span>
-  G4double <span class="token function">ComputeCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> 
-                   <span class="token keyword">const</span> G4Element<span class="token operator">*</span><span class="token punctuation">,</span>
-                   <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// This is a generic method to compute cross section per element</span>
+  <span class="hljs-comment">// If the DataSet is not applicable the method returns zero</span>
+  <span class="hljs-comment">// This method should not be overwritten in a derived class</span>
+  <span class="hljs-function">G4double <span class="hljs-title">ComputeCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, 
+                   <span class="hljs-keyword">const</span> G4Element*,
+                   <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token comment">// The following two methods have default implementations which throw</span>
-  <span class="token comment">// G4HadronicException.  Derived classes should implement only needed</span>
-  <span class="token comment">// methods, which are assumed to be called at run time.</span>
+  <span class="hljs-comment">// The following two methods have default implementations which throw</span>
+  <span class="hljs-comment">// G4HadronicException.  Derived classes should implement only needed</span>
+  <span class="hljs-comment">// methods, which are assumed to be called at run time.</span>
 
-  <span class="token comment">// Implement this method for element-wise cross section </span>
-  <span class="token keyword">virtual</span>
-  G4double <span class="token function">GetElementCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span>
-                  <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Implement this method for element-wise cross section </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span>
+  G4double <span class="hljs-title">GetElementCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, G4int Z,
+                  <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token comment">// Derived classes should implement this method if they provide isotope-wise</span>
-  <span class="token comment">// cross sections.  Default arguments G4Element and G4Material are needed to</span>
-  <span class="token comment">// access low-energy neutron cross sections, but are not required for others. </span>
-  <span class="token keyword">virtual</span>
-  G4double <span class="token function">GetIsoCrossSection</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4DynamicParticle<span class="token operator">*</span><span class="token punctuation">,</span> G4int Z<span class="token punctuation">,</span> G4int A<span class="token punctuation">,</span>  
-                  <span class="token keyword">const</span> G4Isotope<span class="token operator">*</span> iso <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                  <span class="token keyword">const</span> G4Element<span class="token operator">*</span> elm <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                  <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Derived classes should implement this method if they provide isotope-wise</span>
+  <span class="hljs-comment">// cross sections.  Default arguments G4Element and G4Material are needed to</span>
+  <span class="hljs-comment">// access low-energy neutron cross sections, but are not required for others. </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span>
+  G4double <span class="hljs-title">GetIsoCrossSection</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4DynamicParticle*, G4int Z, G4int A,  
+                  <span class="hljs-keyword">const</span> G4Isotope* iso = <span class="hljs-number">0</span>,
+                  <span class="hljs-keyword">const</span> G4Element* elm = <span class="hljs-number">0</span>,
+                  <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-number">0</span>)</span></span>;
 
-  <span class="token comment">//=====================================================================</span>
+  <span class="hljs-comment">//=====================================================================</span>
 
-  <span class="token comment">// Implement this method if needed</span>
-  <span class="token comment">// This method is called for element-wise cross section</span>
-  <span class="token comment">// Default implementation assumes equal cross sections for all isotopes </span>
-  <span class="token keyword">virtual</span> G4Isotope<span class="token operator">*</span> <span class="token function">SelectIsotope</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4Element<span class="token operator">*</span><span class="token punctuation">,</span> G4double kinEnergy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Implement this method if needed</span>
+  <span class="hljs-comment">// This method is called for element-wise cross section</span>
+  <span class="hljs-comment">// Default implementation assumes equal cross sections for all isotopes </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4Isotope* <span class="hljs-title">SelectIsotope</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4Element*, G4double kinEnergy)</span></span>;
 
-  <span class="token comment">// Implement this method if needed</span>
-  <span class="token keyword">virtual</span>
-  <span class="token keyword">void</span> <span class="token function">BuildPhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Implement this method if needed</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span>
+  <span class="hljs-keyword">void</span> <span class="hljs-title">BuildPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
 
-  <span class="token comment">// Implement this method if needed</span>
-  <span class="token comment">// Default implementation will provide a dump of the cross section </span>
-  <span class="token comment">// in logarithmic scale in the interval of applicability </span>
-  <span class="token keyword">virtual</span>
-  <span class="token keyword">void</span> <span class="token function">DumpPhysicsTable</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Implement this method if needed</span>
+  <span class="hljs-comment">// Default implementation will provide a dump of the cross section </span>
+  <span class="hljs-comment">// in logarithmic scale in the interval of applicability </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span>
+  <span class="hljs-keyword">void</span> <span class="hljs-title">DumpPhysicsTable</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition&amp;)</span></span>;
 
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">CrossSectionDescription</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CrossSectionDescription</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::ostream&amp;)</span> <span class="hljs-keyword">const</span></span>;
 
-<span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">// Without Description</span>
+<span class="hljs-keyword">public</span>: <span class="hljs-comment">// Without Description</span>
 
-  <span class="token keyword">virtual</span> G4int <span class="token function">GetVerboseLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4int <span class="hljs-title">GetVerboseLevel</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">SetVerboseLevel</span><span class="token punctuation">(</span>G4int value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">(G4int value)</span></span>;
 
-  <span class="token keyword">inline</span> G4double <span class="token function">GetMinKinEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetMinKinEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetMinKinEnergy</span><span class="token punctuation">(</span>G4double value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetMinKinEnergy</span><span class="hljs-params">(G4double value)</span></span>;
 
-  <span class="token keyword">inline</span> G4double <span class="token function">GetMaxKinEnergy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4double <span class="hljs-title">GetMaxKinEnergy</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetMaxKinEnergy</span><span class="token punctuation">(</span>G4double value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetMaxKinEnergy</span><span class="hljs-params">(G4double value)</span></span>;
 
-  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetName</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-<span class="token keyword">protected</span><span class="token operator">:</span>
+<span class="hljs-keyword">protected</span>:
 
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetName</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetName</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp;)</span></span>;
 
-  G4int verboseLevel<span class="token punctuation">;</span>
+  G4int verboseLevel;
 
-<span class="token keyword">private</span><span class="token operator">:</span>
+<span class="hljs-keyword">private</span>:
 
-  G4VCrossSectionDataSet <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VCrossSectionDataSet <span class="token operator">&amp;</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">G4VCrossSectionDataSet</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VCrossSectionDataSet<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  G4VCrossSectionDataSet &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4VCrossSectionDataSet &amp;right);
+  G4VCrossSectionDataSet(<span class="hljs-keyword">const</span> G4VCrossSectionDataSet&amp;);
 
-  G4CrossSectionDataSetRegistry<span class="token operator">*</span> registry<span class="token punctuation">;</span>
+  G4CrossSectionDataSetRegistry* registry;
 
-  G4double minKinEnergy<span class="token punctuation">;</span>
-  G4double maxKinEnergy<span class="token punctuation">;</span>
+  G4double minKinEnergy;
+  G4double maxKinEnergy;
 
-  G4String name<span class="token punctuation">;</span>
+  G4String name;
 </code></pre>
 <!-- G4VCrossSectionDataSet.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-08-10 03:27:04
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-08-10 03:27:04 </span> </footer>
                                 
                                 </section>
                             
@@ -3297,7 +3295,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VCrossSectionDataSet","level":"1.4.24","depth":2,"next":{"title":"G4HadronInelasticDataSet","level":"1.4.24.1","depth":3,"path":"class/G4HadronInelasticDataSet.md","ref":"class/G4HadronInelasticDataSet.md","articles":[]},"previous":{"title":"G4CrossSectionDataSetRegistry","level":"1.4.23","depth":2,"path":"class/G4CrossSectionDataSetRegistry.md","ref":"class/G4CrossSectionDataSetRegistry.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VCrossSectionDataSet.md","mtime":"2018-08-09T19:27:04.234Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VCrossSectionDataSet","level":"1.4.24","depth":2,"next":{"title":"G4HadronInelasticDataSet","level":"1.4.24.1","depth":3,"path":"class/G4HadronInelasticDataSet.md","ref":"class/G4HadronInelasticDataSet.md","articles":[]},"previous":{"title":"G4CrossSectionDataSetRegistry","level":"1.4.23","depth":2,"path":"class/G4CrossSectionDataSetRegistry.md","ref":"class/G4CrossSectionDataSetRegistry.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VCrossSectionDataSet.md","mtime":"2018-08-09T19:27:04.234Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

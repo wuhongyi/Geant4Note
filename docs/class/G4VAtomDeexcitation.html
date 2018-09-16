@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3137,146 +3137,144 @@
 <h1 id="g4vatomdeexcitation"><a name="g4vatomdeexcitation" class="plugin-anchor" href="#g4vatomdeexcitation"><i class="fa fa-link" aria-hidden="true"></i></a>G4VAtomDeexcitation</h1>
 <p>Abstract interface to energy loss models</p>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
 
-  <span class="token keyword">explicit</span> <span class="token function">G4VAtomDeexcitation</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> modname <span class="token operator">=</span> <span class="token string">&quot;Deexcitation&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">G4VAtomDeexcitation</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; modname = <span class="hljs-string">&quot;Deexcitation&quot;</span>)</span></span>;
 
-  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4VAtomDeexcitation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">virtual</span> ~G4VAtomDeexcitation();
 
-  <span class="token comment">//========== initialization ==========</span>
+  <span class="hljs-comment">//========== initialization ==========</span>
 
-  <span class="token comment">// Overall initialisation before new run</span>
-  <span class="token keyword">void</span> <span class="token function">InitialiseAtomicDeexcitation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Overall initialisation before new run</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseAtomicDeexcitation</span><span class="hljs-params">()</span></span>;
 
-  <span class="token comment">// Initialisation of deexcitation at the beginning of run </span>
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">InitialiseForNewRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Initialisation of deexcitation at the beginning of run </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseForNewRun</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
 
-  <span class="token comment">// Initialisation for a concrete atom </span>
-  <span class="token comment">// May be called at run time </span>
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">InitialiseForExtraAtom</span><span class="token punctuation">(</span>G4int Z<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Initialisation for a concrete atom </span>
+  <span class="hljs-comment">// May be called at run time </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitialiseForExtraAtom</span><span class="hljs-params">(G4int Z)</span> </span>= <span class="hljs-number">0</span>;
 
-  <span class="token keyword">void</span> <span class="token function">SetDeexcitationActiveRegion</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> rname<span class="token punctuation">,</span> 
-                                   G4bool valDeexcitation<span class="token punctuation">,</span>
-                                   G4bool valAuger<span class="token punctuation">,</span>
-                                   G4bool valPIXE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetDeexcitationActiveRegion</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4String&amp; rname, 
+                                   G4bool valDeexcitation,
+                                   G4bool valAuger,
+                                   G4bool valPIXE)</span></span>;
 
-  <span class="token comment">// Activation of deexcitation</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetFluo</span><span class="token punctuation">(</span>G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">inline</span> G4bool <span class="token function">IsFluoActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Activation of deexcitation</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetFluo</span><span class="hljs-params">(G4bool)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">IsFluoActive</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">// Activation of Auger electron production</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetAuger</span><span class="token punctuation">(</span>G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">inline</span> G4bool <span class="token function">IsAugerActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Activation of Auger electron production</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAuger</span><span class="hljs-params">(G4bool)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">IsAugerActive</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">// Activation of Auger cascade</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetAugerCascade</span><span class="token punctuation">(</span>G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">inline</span> G4bool <span class="token function">IsAugerCascadeActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Activation of Auger cascade</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAugerCascade</span><span class="hljs-params">(G4bool)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">IsAugerCascadeActive</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">// Activation of PIXE simulation</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetPIXE</span><span class="token punctuation">(</span>G4bool<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">inline</span> G4bool <span class="token function">IsPIXEActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Activation of PIXE simulation</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetPIXE</span><span class="hljs-params">(G4bool)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">IsPIXEActive</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">// Deexcitation model name</span>
-  <span class="token keyword">inline</span> <span class="token keyword">const</span> G4String<span class="token operator">&amp;</span> <span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Deexcitation model name</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> G4String&amp; <span class="hljs-title">GetName</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">// Access to the list of atoms active for deexcitation</span>
-  <span class="token keyword">inline</span> <span class="token keyword">const</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span><span class="token operator">&amp;</span> <span class="token function">GetListOfActiveAtoms</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Access to the list of atoms active for deexcitation</span>
+  <span class="hljs-keyword">inline</span> <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;&amp; GetListOfActiveAtoms() <span class="hljs-keyword">const</span>;
 
-  <span class="token comment">// Verbosity level</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">SetVerboseLevel</span><span class="token punctuation">(</span>G4int<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">inline</span> G4int <span class="token function">GetVerboseLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Verbosity level</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">(G4int)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4int <span class="hljs-title">GetVerboseLevel</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
 
-  <span class="token comment">//========== Run time methods ==========</span>
+  <span class="hljs-comment">//========== Run time methods ==========</span>
 
-  <span class="token comment">// Check if deexcitation is active for a given geometry volume</span>
-  <span class="token keyword">inline</span> G4bool <span class="token function">CheckDeexcitationActiveRegion</span><span class="token punctuation">(</span>G4int coupleIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">inline</span> G4bool <span class="token function">CheckAugerActiveRegion</span><span class="token punctuation">(</span>G4int coupleIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Check if deexcitation is active for a given geometry volume</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">CheckDeexcitationActiveRegion</span><span class="hljs-params">(G4int coupleIndex)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> G4bool <span class="hljs-title">CheckAugerActiveRegion</span><span class="hljs-params">(G4int coupleIndex)</span></span>;
 
-  <span class="token comment">// Get atomic shell by shell index, used by discrete processes </span>
-  <span class="token comment">// (for example, photoelectric), when shell vacancy sampled by the model</span>
-  <span class="token keyword">virtual</span> 
-  <span class="token keyword">const</span> G4AtomicShell<span class="token operator">*</span> <span class="token function">GetAtomicShell</span><span class="token punctuation">(</span>G4int Z<span class="token punctuation">,</span> 
-                                      G4AtomicShellEnumerator shell<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Get atomic shell by shell index, used by discrete processes </span>
+  <span class="hljs-comment">// (for example, photoelectric), when shell vacancy sampled by the model</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> 
+  <span class="hljs-keyword">const</span> G4AtomicShell* <span class="hljs-title">GetAtomicShell</span><span class="hljs-params">(G4int Z, 
+                                      G4AtomicShellEnumerator shell)</span> </span>= <span class="hljs-number">0</span>;
 
-  <span class="token comment">// generation of deexcitation for given atom and shell vacancy</span>
-  <span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">GenerateParticles</span><span class="token punctuation">(</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4DynamicParticle<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">*</span> secVect<span class="token punctuation">,</span>  
-                                <span class="token keyword">const</span> G4AtomicShell<span class="token operator">*</span><span class="token punctuation">,</span> 
-                                G4int Z<span class="token punctuation">,</span>
-                                G4int coupleIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// generation of deexcitation for given atom and shell vacancy</span>
+  <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GenerateParticles</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt;* secVect,  
+                                <span class="hljs-keyword">const</span> G4AtomicShell*, 
+                                G4int Z,
+                                G4int coupleIndex)</span></span>;
 
-  <span class="token comment">// generation of deexcitation for given atom and shell vacancy</span>
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">GenerateParticles</span><span class="token punctuation">(</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4DynamicParticle<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">*</span> secVect<span class="token punctuation">,</span>  
-                                 <span class="token keyword">const</span> G4AtomicShell<span class="token operator">*</span><span class="token punctuation">,</span> 
-                                 G4int Z<span class="token punctuation">,</span>
-                                 G4double gammaCut<span class="token punctuation">,</span>
-                                 G4double eCut<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// generation of deexcitation for given atom and shell vacancy</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GenerateParticles</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt;* secVect,  
+                                 <span class="hljs-keyword">const</span> G4AtomicShell*, 
+                                 G4int Z,
+                                 G4double gammaCut,
+                                 G4double eCut)</span> </span>= <span class="hljs-number">0</span>;
 
-  <span class="token comment">// access or compute PIXE cross section </span>
-  <span class="token keyword">virtual</span> G4double 
-  <span class="token function">GetShellIonisationCrossSectionPerAtom</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
-                                        G4int Z<span class="token punctuation">,</span> 
-                                        G4AtomicShellEnumerator shell<span class="token punctuation">,</span>
-                                        G4double kinE<span class="token punctuation">,</span>
-                                        <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// access or compute PIXE cross section </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double 
+  <span class="hljs-title">GetShellIonisationCrossSectionPerAtom</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4ParticleDefinition*, 
+                                        G4int Z, 
+                                        G4AtomicShellEnumerator shell,
+                                        G4double kinE,
+                                        <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-literal">nullptr</span>)</span> </span>= <span class="hljs-number">0</span>;
 
-  <span class="token comment">// access or compute PIXE cross section </span>
-  <span class="token keyword">virtual</span> G4double 
-  <span class="token function">ComputeShellIonisationCrossSectionPerAtom</span><span class="token punctuation">(</span>
-                                        <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span><span class="token punctuation">,</span> 
-                                        G4int Z<span class="token punctuation">,</span> 
-                                        G4AtomicShellEnumerator shell<span class="token punctuation">,</span>
-                                        G4double kinE<span class="token punctuation">,</span>
-                                        <span class="token keyword">const</span> G4Material<span class="token operator">*</span> mat <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// access or compute PIXE cross section </span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double 
+  <span class="hljs-title">ComputeShellIonisationCrossSectionPerAtom</span><span class="hljs-params">(
+                                        <span class="hljs-keyword">const</span> G4ParticleDefinition*, 
+                                        G4int Z, 
+                                        G4AtomicShellEnumerator shell,
+                                        G4double kinE,
+                                        <span class="hljs-keyword">const</span> G4Material* mat = <span class="hljs-literal">nullptr</span>)</span> </span>= <span class="hljs-number">0</span>;
 
-  <span class="token comment">// Sampling of PIXE for ionisation processes</span>
-  <span class="token keyword">void</span> <span class="token function">AlongStepDeexcitation</span><span class="token punctuation">(</span>std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4Track<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span> tracks<span class="token punctuation">,</span>  
-                             <span class="token keyword">const</span> G4Step<span class="token operator">&amp;</span> step<span class="token punctuation">,</span> 
-                             G4double<span class="token operator">&amp;</span> eLoss<span class="token punctuation">,</span>
-                             G4int coupleIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Sampling of PIXE for ionisation processes</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AlongStepDeexcitation</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4Track*&gt;&amp; tracks,  
+                             <span class="hljs-keyword">const</span> G4Step&amp; step, 
+                             G4double&amp; eLoss,
+                             G4int coupleIndex)</span></span>;
 
-<span class="token keyword">private</span><span class="token operator">:</span>
+<span class="hljs-keyword">private</span>:
 
-  <span class="token comment">// copy constructor and hide assignment operator</span>
-  <span class="token function">G4VAtomDeexcitation</span><span class="token punctuation">(</span>G4VAtomDeexcitation <span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
-  G4VAtomDeexcitation <span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4VAtomDeexcitation <span class="token operator">&amp;</span>right<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// copy constructor and hide assignment operator</span>
+  G4VAtomDeexcitation(G4VAtomDeexcitation &amp;) = <span class="hljs-keyword">delete</span>;
+  G4VAtomDeexcitation &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4VAtomDeexcitation &amp;right) = <span class="hljs-keyword">delete</span>;
 
-  G4EmParameters<span class="token operator">*</span>             theParameters<span class="token punctuation">;</span>  
-  <span class="token keyword">const</span> G4ParticleDefinition<span class="token operator">*</span> gamma<span class="token punctuation">;</span>
+  G4EmParameters*             theParameters;  
+  <span class="hljs-keyword">const</span> G4ParticleDefinition* gamma;
 
-  G4ProductionCutsTable<span class="token operator">*</span> theCoupleTable<span class="token punctuation">;</span>
-  G4int    verbose<span class="token punctuation">;</span>
-  G4String name<span class="token punctuation">;</span>
+  G4ProductionCutsTable* theCoupleTable;
+  G4int    verbose;
+  G4String name;
 
-  G4bool   isActive<span class="token punctuation">;</span>
-  G4bool   flagAuger<span class="token punctuation">;</span>
-  G4bool   flagAugerCascade<span class="token punctuation">;</span>
-  G4bool   flagPIXE<span class="token punctuation">;</span>
-  G4bool   ignoreCuts<span class="token punctuation">;</span>
+  G4bool   isActive;
+  G4bool   flagAuger;
+  G4bool   flagAugerCascade;
+  G4bool   flagPIXE;
+  G4bool   ignoreCuts;
 
-  G4bool   isActiveLocked<span class="token punctuation">;</span>
-  G4bool   isAugerLocked<span class="token punctuation">;</span>
-  G4bool   isAugerCascadeLocked<span class="token punctuation">;</span>
-  G4bool   isPIXELocked<span class="token punctuation">;</span>
+  G4bool   isActiveLocked;
+  G4bool   isAugerLocked;
+  G4bool   isAugerCascadeLocked;
+  G4bool   isPIXELocked;
 
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span>   activeZ<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span>   activeDeexcitationMedia<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span>   activeAugerMedia<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span>   activePIXEMedia<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4String<span class="token operator">&gt;</span> activeRegions<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span>   deRegions<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span>   AugerRegions<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4bool<span class="token operator">&gt;</span>   PIXERegions<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4DynamicParticle<span class="token operator">*</span><span class="token operator">&gt;</span> vdyn<span class="token punctuation">;</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;   activeZ;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;   activeDeexcitationMedia;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;   activeAugerMedia;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;   activePIXEMedia;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4String&gt; activeRegions;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;   deRegions;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;   AugerRegions;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4bool&gt;   PIXERegions;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4DynamicParticle*&gt; vdyn;
 
-  <span class="token keyword">static</span> G4int pixeIDg<span class="token punctuation">;</span>
-  <span class="token keyword">static</span> G4int pixeIDe<span class="token punctuation">;</span>
+  <span class="hljs-keyword">static</span> G4int pixeIDg;
+  <span class="hljs-keyword">static</span> G4int pixeIDe;
 </code></pre>
 <!-- G4VAtomDeexcitation.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-09-01 13:06:39
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-09-01 13:06:39 </span> </footer>
                                 
                                 </section>
                             
@@ -3319,7 +3317,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4VAtomDeexcitation","level":"1.4.7","depth":2,"next":{"title":"G4VIonDEDXScalingAlgorithm","level":"1.4.8","depth":2,"path":"class/G4VIonDEDXScalingAlgorithm.md","ref":"class/G4VIonDEDXScalingAlgorithm.md","articles":[{"title":"G4IonDEDXScalingICRU73","level":"1.4.8.1","depth":3,"path":"class/G4IonDEDXScalingICRU73.md","ref":"class/G4IonDEDXScalingICRU73.md","articles":[]}]},"previous":{"title":"G4EmParameters*","level":"1.4.6","depth":2,"path":"class/G4EmParameters.md","ref":"class/G4EmParameters.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VAtomDeexcitation.md","mtime":"2018-09-01T05:06:39.748Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4VAtomDeexcitation","level":"1.4.7","depth":2,"next":{"title":"G4VIonDEDXScalingAlgorithm","level":"1.4.8","depth":2,"path":"class/G4VIonDEDXScalingAlgorithm.md","ref":"class/G4VIonDEDXScalingAlgorithm.md","articles":[{"title":"G4IonDEDXScalingICRU73","level":"1.4.8.1","depth":3,"path":"class/G4IonDEDXScalingICRU73.md","ref":"class/G4IonDEDXScalingICRU73.md","articles":[]}]},"previous":{"title":"G4EmParameters*","level":"1.4.6","depth":2,"path":"class/G4EmParameters.md","ref":"class/G4EmParameters.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4VAtomDeexcitation.md","mtime":"2018-09-01T05:06:39.748Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

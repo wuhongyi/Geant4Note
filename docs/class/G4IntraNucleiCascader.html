@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3137,109 +3137,107 @@
 <h1 id="g4intranucleicascader"><a name="g4intranucleicascader" class="plugin-anchor" href="#g4intranucleicascader"><i class="fa fa-link" aria-hidden="true"></i></a>G4IntraNucleiCascader</h1>
 <p><strong>public G4CascadeColliderBase</strong></p>
 <p><strong>&#x4EA7;&#x751F;&#x5BF9;&#x649E;&#x4EA7;&#x7269;&#xFF01;&#xFF01;&#xFF01;</strong></p>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span> G4CollisionOutput<span class="token operator">&amp;</span> globalOutput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target, G4CollisionOutput&amp; globalOutput)</span></span>;
 </code></pre>
-<pre class="language-"><code class="lang-cpp">  G4bool <span class="token function">initialize</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp">  <span class="hljs-function">G4bool <span class="hljs-title">initialize</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">newCascade</span><span class="token punctuation">(</span>G4int itry<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Clear buffers for next attempt</span>
-  <span class="token keyword">void</span> <span class="token function">setupCascade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">// Fill cascade using nuclear model</span>
-  <span class="token keyword">void</span> <span class="token function">generateCascade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Track secondaries through nucleus</span>
-  G4bool <span class="token function">finishCascade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Clean up output, check consistency</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">newCascade</span><span class="hljs-params">(G4int itry)</span></span>;        <span class="hljs-comment">// Clear buffers for next attempt</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setupCascade</span><span class="hljs-params">()</span></span>;            <span class="hljs-comment">// Fill cascade using nuclear model</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateCascade</span><span class="hljs-params">()</span></span>;        <span class="hljs-comment">// Track secondaries through nucleus</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">finishCascade</span><span class="hljs-params">()</span></span>;        <span class="hljs-comment">// Clean up output, check consistency</span>
 
-  <span class="token keyword">void</span> <span class="token function">finalize</span><span class="token punctuation">(</span>G4int itry<span class="token punctuation">,</span>         <span class="token comment">// Transfer final state for return</span>
-        G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span>
-        G4CollisionOutput<span class="token operator">&amp;</span> globalOutput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">finalize</span><span class="hljs-params">(G4int itry,         <span class="hljs-comment">// Transfer final state for return</span>
+        G4InuclParticle* bullet, G4InuclParticle* target,
+        G4CollisionOutput&amp; globalOutput)</span></span>;
 </code></pre>
 <ul>
 <li>G4NucleiModel</li>
 </ul>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
-  <span class="token function">G4IntraNucleiCascader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4IntraNucleiCascader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
+  G4IntraNucleiCascader();
+  <span class="hljs-keyword">virtual</span> ~G4IntraNucleiCascader();
 
-  <span class="token keyword">void</span> <span class="token function">collide</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span>
-           G4CollisionOutput<span class="token operator">&amp;</span> globalOutput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">collide</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target,
+           G4CollisionOutput&amp; globalOutput)</span></span>;
 
-  <span class="token comment">// For use with Propagate to preload a set of secondaries</span>
-  <span class="token keyword">void</span> <span class="token function">rescatter</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4KineticTrackVector<span class="token operator">*</span> theSecondaries<span class="token punctuation">,</span>
-         G4V3DNucleus<span class="token operator">*</span> theNucleus<span class="token punctuation">,</span> G4CollisionOutput<span class="token operator">&amp;</span> globalOutput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// For use with Propagate to preload a set of secondaries</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rescatter</span><span class="hljs-params">(G4InuclParticle* bullet, G4KineticTrackVector* theSecondaries,
+         G4V3DNucleus* theNucleus, G4CollisionOutput&amp; globalOutput)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">setVerboseLevel</span><span class="token punctuation">(</span>G4int verbose<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setVerboseLevel</span><span class="hljs-params">(G4int verbose=<span class="hljs-number">0</span>)</span></span>;
 
-<span class="token keyword">private</span><span class="token operator">:</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4int itry_max<span class="token punctuation">;</span>        <span class="token comment">// Maximum number of attempts</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4int reflection_cut<span class="token punctuation">;</span>    <span class="token comment">// Maximum number of reflections</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double small_ekin<span class="token punctuation">;</span>    <span class="token comment">// Tolerance for round-off zero</span>
-  <span class="token keyword">static</span> <span class="token keyword">const</span> G4double quasielast_cut<span class="token punctuation">;</span>    <span class="token comment">// To recover elastic scatters</span>
+<span class="hljs-keyword">private</span>:
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4int itry_max;        <span class="hljs-comment">// Maximum number of attempts</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4int reflection_cut;    <span class="hljs-comment">// Maximum number of reflections</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double small_ekin;    <span class="hljs-comment">// Tolerance for round-off zero</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> G4double quasielast_cut;    <span class="hljs-comment">// To recover elastic scatters</span>
 
-<span class="token keyword">protected</span><span class="token operator">:</span>
-  G4bool <span class="token function">initialize</span><span class="token punctuation">(</span>G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="hljs-keyword">protected</span>:
+  <span class="hljs-function">G4bool <span class="hljs-title">initialize</span><span class="hljs-params">(G4InuclParticle* bullet, G4InuclParticle* target)</span></span>;
 
-  <span class="token keyword">void</span> <span class="token function">newCascade</span><span class="token punctuation">(</span>G4int itry<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Clear buffers for next attempt</span>
-  <span class="token keyword">void</span> <span class="token function">setupCascade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">// Fill cascade using nuclear model</span>
-  <span class="token keyword">void</span> <span class="token function">generateCascade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Track secondaries through nucleus</span>
-  G4bool <span class="token function">finishCascade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// Clean up output, check consistency</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">newCascade</span><span class="hljs-params">(G4int itry)</span></span>;        <span class="hljs-comment">// Clear buffers for next attempt</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setupCascade</span><span class="hljs-params">()</span></span>;            <span class="hljs-comment">// Fill cascade using nuclear model</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateCascade</span><span class="hljs-params">()</span></span>;        <span class="hljs-comment">// Track secondaries through nucleus</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">finishCascade</span><span class="hljs-params">()</span></span>;        <span class="hljs-comment">// Clean up output, check consistency</span>
 
-  <span class="token keyword">void</span> <span class="token function">finalize</span><span class="token punctuation">(</span>G4int itry<span class="token punctuation">,</span>         <span class="token comment">// Transfer final state for return</span>
-        G4InuclParticle<span class="token operator">*</span> bullet<span class="token punctuation">,</span> G4InuclParticle<span class="token operator">*</span> target<span class="token punctuation">,</span>
-        G4CollisionOutput<span class="token operator">&amp;</span> globalOutput<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">finalize</span><span class="hljs-params">(G4int itry,         <span class="hljs-comment">// Transfer final state for return</span>
+        G4InuclParticle* bullet, G4InuclParticle* target,
+        G4CollisionOutput&amp; globalOutput)</span></span>;
 
-  G4InuclParticle<span class="token operator">*</span> <span class="token function">createTarget</span><span class="token punctuation">(</span>G4V3DNucleus<span class="token operator">*</span> theNucleus<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4InuclParticle* <span class="hljs-title">createTarget</span><span class="hljs-params">(G4V3DNucleus* theNucleus)</span></span>;
 
-  <span class="token comment">// Functions to transfer input high-energy cascade for propagation</span>
-  <span class="token keyword">void</span> <span class="token function">preloadCascade</span><span class="token punctuation">(</span>G4V3DNucleus<span class="token operator">*</span> theNucleus<span class="token punctuation">,</span>
-              G4KineticTrackVector<span class="token operator">*</span> theSecondaries<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">copyWoundedNucleus</span><span class="token punctuation">(</span>G4V3DNucleus<span class="token operator">*</span> theNucleus<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">copySecondaries</span><span class="token punctuation">(</span>G4KineticTrackVector<span class="token operator">*</span> theSecondaries<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">processSecondary</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4KineticTrack<span class="token operator">*</span> aSecondary<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">releaseSecondary</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4KineticTrack<span class="token operator">*</span> aSecondary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Functions to transfer input high-energy cascade for propagation</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preloadCascade</span><span class="hljs-params">(G4V3DNucleus* theNucleus,
+              G4KineticTrackVector* theSecondaries)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">copyWoundedNucleus</span><span class="hljs-params">(G4V3DNucleus* theNucleus)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">copySecondaries</span><span class="hljs-params">(G4KineticTrackVector* theSecondaries)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">processSecondary</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4KineticTrack* aSecondary)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">releaseSecondary</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4KineticTrack* aSecondary)</span></span>;
 
-  <span class="token comment">// Functions to handle, e.g., low-energy hyperons stuck inside potential</span>
-  <span class="token keyword">void</span> <span class="token function">processTrappedParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> trapped<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">void</span> <span class="token function">decayTrappedParticle</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> trapped<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Functions to handle, e.g., low-energy hyperons stuck inside potential</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">processTrappedParticle</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; trapped)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">decayTrappedParticle</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; trapped)</span></span>;
 
-  <span class="token comment">// Test if particle is able to interact in nucleus</span>
-  G4bool <span class="token function">particleCanInteract</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4CascadParticle<span class="token operator">&amp;</span> cpart<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// Test if particle is able to interact in nucleus</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">particleCanInteract</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4CascadParticle&amp; cpart)</span> <span class="hljs-keyword">const</span></span>;
 
-<span class="token keyword">private</span><span class="token operator">:</span> 
-  G4NucleiModel<span class="token operator">*</span> model<span class="token punctuation">;</span>
-  G4ElementaryParticleCollider<span class="token operator">*</span> theElementaryParticleCollider<span class="token punctuation">;</span>
-  G4CascadeRecoilMaker<span class="token operator">*</span> theRecoilMaker<span class="token punctuation">;</span>
-  G4CascadeCoalescence<span class="token operator">*</span> theClusterMaker<span class="token punctuation">;</span>
-  G4CascadeHistory<span class="token operator">*</span> theCascadeHistory<span class="token punctuation">;</span>
+<span class="hljs-keyword">private</span>: 
+  G4NucleiModel* model;
+  G4ElementaryParticleCollider* theElementaryParticleCollider;
+  G4CascadeRecoilMaker* theRecoilMaker;
+  G4CascadeCoalescence* theClusterMaker;
+  G4CascadeHistory* theCascadeHistory;
 
-  <span class="token comment">// Buffers and parameters for cascade attempts</span>
-  G4InuclNuclei<span class="token operator">*</span> tnuclei<span class="token punctuation">;</span>        <span class="token comment">// Target nucleus (must be non-zero)</span>
-  G4InuclNuclei<span class="token operator">*</span> bnuclei<span class="token punctuation">;</span>        <span class="token comment">// Non-zero if ion-ion collision</span>
-  G4InuclElementaryParticle<span class="token operator">*</span> bparticle<span class="token punctuation">;</span>    <span class="token comment">// Non-zero if hadron-ion collision</span>
+  <span class="hljs-comment">// Buffers and parameters for cascade attempts</span>
+  G4InuclNuclei* tnuclei;        <span class="hljs-comment">// Target nucleus (must be non-zero)</span>
+  G4InuclNuclei* bnuclei;        <span class="hljs-comment">// Non-zero if ion-ion collision</span>
+  G4InuclElementaryParticle* bparticle;    <span class="hljs-comment">// Non-zero if hadron-ion collision</span>
 
-  G4double minimum_recoil_A<span class="token punctuation">;</span>        <span class="token comment">// Require fragment with this mass</span>
-  G4double coulombBarrier<span class="token punctuation">;</span>
+  G4double minimum_recoil_A;        <span class="hljs-comment">// Require fragment with this mass</span>
+  G4double coulombBarrier;
 
-  <span class="token comment">// Buffers for creation (and reuse) of rescattering targets</span>
-  G4InuclNuclei<span class="token operator">*</span> nucleusTarget<span class="token punctuation">;</span>
-  G4InuclElementaryParticle<span class="token operator">*</span> protonTarget<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Buffers for creation (and reuse) of rescattering targets</span>
+  G4InuclNuclei* nucleusTarget;
+  G4InuclElementaryParticle* protonTarget;
 
-  <span class="token comment">// Buffers for collecting result of cascade (reset on each iteration)</span>
-  G4CollisionOutput output<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4CascadParticle<span class="token operator">&gt;</span> cascad_particles<span class="token punctuation">;</span>
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4CascadParticle<span class="token operator">&gt;</span> new_cascad_particles<span class="token punctuation">;</span>
-  G4ExitonConfiguration theExitonConfiguration<span class="token punctuation">;</span>
+  <span class="hljs-comment">// Buffers for collecting result of cascade (reset on each iteration)</span>
+  G4CollisionOutput output;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4CascadParticle&gt; cascad_particles;
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4CascadParticle&gt; new_cascad_particles;
+  G4ExitonConfiguration theExitonConfiguration;
 
-  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4ThreeVector<span class="token operator">&gt;</span> hitNucleons<span class="token punctuation">;</span>    <span class="token comment">// Nucleons hit before rescatter</span>
+  <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4ThreeVector&gt; hitNucleons;    <span class="hljs-comment">// Nucleons hit before rescatter</span>
 
-<span class="token keyword">private</span><span class="token operator">:</span>
-  <span class="token comment">// Copying of modules is forbidden</span>
-  <span class="token function">G4IntraNucleiCascader</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4IntraNucleiCascader<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  G4IntraNucleiCascader<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4IntraNucleiCascader<span class="token operator">&amp;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="hljs-keyword">private</span>:
+  <span class="hljs-comment">// Copying of modules is forbidden</span>
+  G4IntraNucleiCascader(<span class="hljs-keyword">const</span> G4IntraNucleiCascader&amp;);
+  G4IntraNucleiCascader&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> G4IntraNucleiCascader&amp;);
 </code></pre>
 <!-- G4IntraNucleiCascader.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-09-04 05:46:05
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-09-04 05:46:05 </span> </footer>
                                 
                                 </section>
                             
@@ -3282,7 +3280,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4IntraNucleiCascader","level":"1.4.31.1.3","depth":4,"next":{"title":"G4CascadeCheckBalance","level":"1.4.31.2","depth":3,"path":"class/G4CascadeCheckBalance.md","ref":"class/G4CascadeCheckBalance.md","articles":[]},"previous":{"title":"G4ElementaryParticleCollider","level":"1.4.31.1.2","depth":4,"path":"class/G4ElementaryParticleCollider.md","ref":"class/G4ElementaryParticleCollider.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4IntraNucleiCascader.md","mtime":"2018-09-03T21:46:05.802Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4IntraNucleiCascader","level":"1.4.31.1.3","depth":4,"next":{"title":"G4CascadeCheckBalance","level":"1.4.31.2","depth":3,"path":"class/G4CascadeCheckBalance.md","ref":"class/G4CascadeCheckBalance.md","articles":[]},"previous":{"title":"G4ElementaryParticleCollider","level":"1.4.31.1.2","depth":4,"path":"class/G4ElementaryParticleCollider.md","ref":"class/G4ElementaryParticleCollider.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4IntraNucleiCascader.md","mtime":"2018-09-03T21:46:05.802Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

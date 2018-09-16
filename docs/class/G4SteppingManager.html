@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3138,219 +3138,217 @@
 <p>This is the class which plays an essential role in tracking the particle. It takes cares all message passing between objects in the different categories (for example, geometry(including transportation), interactions in matter, etc). It&apos;s public method &apos;stepping&apos; steers to step the particle.</p>
 <p>Geant4 kernel use only</p>
 <h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp">   <span class="token keyword">typedef</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4int<span class="token operator">&gt;</span> 
-             G4SelectedAtRestDoItVector<span class="token punctuation">;</span>
-   <span class="token keyword">typedef</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4int<span class="token operator">&gt;</span> 
-             G4SelectedAlongStepDoItVector<span class="token punctuation">;</span>
-   <span class="token keyword">typedef</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>G4int<span class="token operator">&gt;</span>
-             G4SelectedPostStepDoItVector<span class="token punctuation">;</span>
+<pre><code class="lang-cpp">   <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4int&gt; 
+             G4SelectedAtRestDoItVector;
+   <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4int&gt; 
+             G4SelectedAlongStepDoItVector;
+   <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;G4int&gt;
+             G4SelectedPostStepDoItVector;
 
-   <span class="token keyword">static</span> <span class="token keyword">const</span> size_t SizeOfSelectedDoItVector<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">;</span>
-     <span class="token comment">// In global scope for porting on WIN-VC compiler...</span>
+   <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">size_t</span> SizeOfSelectedDoItVector=<span class="hljs-number">100</span>;
+     <span class="hljs-comment">// In global scope for porting on WIN-VC compiler...</span>
 </code></pre>
-<pre class="language-"><code class="lang-cpp"><span class="token comment">// G4SteppingManager</span>
+<pre><code class="lang-cpp"><span class="hljs-comment">// G4SteppingManager</span>
 
 
-<span class="token comment">//--------</span>
-<span class="token keyword">public</span><span class="token operator">:</span> <span class="token comment">//without description</span>
-<span class="token comment">//--------</span>
+<span class="hljs-comment">//--------</span>
+<span class="hljs-keyword">public</span>: <span class="hljs-comment">//without description</span>
+<span class="hljs-comment">//--------</span>
 
-<span class="token comment">// Constructor/Destructor</span>
+<span class="hljs-comment">// Constructor/Destructor</span>
 
-   <span class="token function">G4SteppingManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// SteppingManger should be dynamically persistent, therefore </span>
-      <span class="token comment">// you need to invoke new() when you call this constructor.</span>
-      <span class="token comment">// &quot;Secodary track vector&quot; will be dynamically created by this </span>
-      <span class="token comment">// cosntructor. &quot;G4UserSteppingAction&quot; will be also constructed </span>
-      <span class="token comment">// in this constructor, and &quot;this&quot; pointer will be passed to </span>
-      <span class="token comment">// &quot;G4UserSteppingAction&quot;. </span>
+   G4SteppingManager();
+      <span class="hljs-comment">// SteppingManger should be dynamically persistent, therefore </span>
+      <span class="hljs-comment">// you need to invoke new() when you call this constructor.</span>
+      <span class="hljs-comment">// &quot;Secodary track vector&quot; will be dynamically created by this </span>
+      <span class="hljs-comment">// cosntructor. &quot;G4UserSteppingAction&quot; will be also constructed </span>
+      <span class="hljs-comment">// in this constructor, and &quot;this&quot; pointer will be passed to </span>
+      <span class="hljs-comment">// &quot;G4UserSteppingAction&quot;. </span>
 
-   <span class="token operator">~</span><span class="token function">G4SteppingManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   ~G4SteppingManager();
 
-<span class="token comment">// Get/Set functions</span>
+<span class="hljs-comment">// Get/Set functions</span>
 
-   <span class="token keyword">const</span> G4TrackVector<span class="token operator">*</span> <span class="token function">GetSecondary</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-   <span class="token keyword">void</span> <span class="token function">SetUserAction</span><span class="token punctuation">(</span>G4UserSteppingAction<span class="token operator">*</span> apAction<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4Track<span class="token operator">*</span> <span class="token function">GetTrack</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-   <span class="token keyword">void</span> <span class="token function">SetVerboseLevel</span><span class="token punctuation">(</span>G4int vLevel<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">void</span> <span class="token function">SetVerbose</span><span class="token punctuation">(</span>G4VSteppingVerbose<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4Step<span class="token operator">*</span> <span class="token function">GetStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-   <span class="token keyword">void</span> <span class="token function">SetNavigator</span><span class="token punctuation">(</span>G4Navigator<span class="token operator">*</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-
-<span class="token comment">// Other member functions</span>
-
-   G4StepStatus <span class="token function">Stepping</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Steers to move the give particle from the TrackingManger </span>
-      <span class="token comment">// by one Step.</span>
-
-  <span class="token keyword">void</span> <span class="token function">SetInitialStep</span><span class="token punctuation">(</span>G4Track<span class="token operator">*</span> valueTrack<span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token comment">// Sets up initial track information (enegry, position, etc) to </span>
-     <span class="token comment">// the PreStepPoint of the G4Step. This funciton has to be called </span>
-     <span class="token comment">// just once before the stepping loop in the &quot;TrackingManager&quot;.</span>
-
-  <span class="token keyword">void</span> <span class="token function">GetProcessNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// Get methods</span>
-   G4double <span class="token function">GetPhysicalStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetGeometricalStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetCorrectedStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4bool <span class="token function">GetPreStepPointIsGeom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4bool <span class="token function">GetFirstStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4StepStatus <span class="token function">GetfStepStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetTempInitVelocity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetTempVelocity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetMass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetsumEnergyChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4VParticleChange<span class="token operator">*</span> <span class="token function">GetfParticleChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4Track<span class="token operator">*</span> <span class="token function">GetfTrack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4TrackVector<span class="token operator">*</span> <span class="token function">GetfSecondary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4Step<span class="token operator">*</span> <span class="token function">GetfStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4StepPoint<span class="token operator">*</span> <span class="token function">GetfPreStepPoint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4StepPoint<span class="token operator">*</span> <span class="token function">GetfPostStepPoint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4VPhysicalVolume<span class="token operator">*</span> <span class="token function">GetfCurrentVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4VSensitiveDetector<span class="token operator">*</span> <span class="token function">GetfSensitive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4VProcess<span class="token operator">*</span> <span class="token function">GetfCurrentProcess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> <span class="token function">GetfAtRestDoItVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> <span class="token function">GetfAlongStepDoItVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> <span class="token function">GetfPostStepDoItVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> <span class="token function">GetfAlongStepGetPhysIntVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> <span class="token function">GetfPostStepGetPhysIntVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> <span class="token function">GetfAtRestGetPhysIntVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetcurrentMinimumStep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetnumberOfInteractionLengthLeft</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   size_t <span class="token function">GetfAtRestDoItProcTriggered</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   size_t <span class="token function">GetfAlongStepDoItProcTriggered</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   size_t <span class="token function">GetfPostStepDoItProcTriggered</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4int <span class="token function">GetfN2ndariesAtRestDoIt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4int <span class="token function">GetfN2ndariesAlongStepDoIt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4int <span class="token function">GetfN2ndariesPostStepDoIt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4Navigator<span class="token operator">*</span> <span class="token function">GetfNavigator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4int <span class="token function">GetverboseLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   size_t <span class="token function">GetMAXofAtRestLoops</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   size_t <span class="token function">GetMAXofAlongStepLoops</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   size_t <span class="token function">GetMAXofPostStepLoops</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4SelectedAtRestDoItVector<span class="token operator">*</span> <span class="token function">GetfSelectedAtRestDoItVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4SelectedAlongStepDoItVector<span class="token operator">*</span> <span class="token function">GetfSelectedAlongStepDoItVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4SelectedPostStepDoItVector<span class="token operator">*</span> <span class="token function">GetfSelectedPostStepDoItVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double   <span class="token function">GetfPreviousStepSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">const</span> G4TouchableHandle<span class="token operator">&amp;</span> <span class="token function">GetTouchableHandle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4SteppingControl <span class="token function">GetStepControlFlag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4UserSteppingAction<span class="token operator">*</span> <span class="token function">GetUserAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4double <span class="token function">GetphysIntLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4ForceCondition <span class="token function">GetfCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   G4GPILSelection  <span class="token function">GetfGPILSelection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token comment">//</span>
-   G4bool KillVerbose<span class="token punctuation">;</span>
-<span class="token comment">//---------   </span>
-   <span class="token keyword">private</span><span class="token operator">:</span>
-<span class="token comment">//---------   </span>
-
-<span class="token comment">// Member functions</span>
-
-   <span class="token keyword">void</span> <span class="token function">DefinePhysicalStepLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Calculate corresponding physical length from the mean free path </span>
-      <span class="token comment">// left for each discrete phyiscs process. The minimum allowable</span>
-      <span class="token comment">// Step for each continious process will be also calculated.</span>
-   <span class="token keyword">void</span> <span class="token function">InvokeAtRestDoItProcs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">void</span> <span class="token function">InvokeAlongStepDoItProcs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">void</span> <span class="token function">InvokePostStepDoItProcs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">void</span> <span class="token function">InvokePSDIP</span><span class="token punctuation">(</span>size_t<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// </span>
-   G4double <span class="token function">CalculateSafety</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// Return the estimated safety value at the PostStepPoint</span>
-   <span class="token keyword">void</span> <span class="token function">ApplyProductionCut</span><span class="token punctuation">(</span>G4Track<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// Member data </span>
-
-   G4UserSteppingAction<span class="token operator">*</span> fUserSteppingAction<span class="token punctuation">;</span>
-
-   G4VSteppingVerbose<span class="token operator">*</span> fVerbose<span class="token punctuation">;</span>
-
-   G4double PhysicalStep<span class="token punctuation">;</span>
-   G4double GeometricalStep<span class="token punctuation">;</span>
-   G4double CorrectedStep<span class="token punctuation">;</span>
-   G4bool PreStepPointIsGeom<span class="token punctuation">;</span>
-   G4bool FirstStep<span class="token punctuation">;</span>
-   G4StepStatus fStepStatus<span class="token punctuation">;</span>
-
-   G4double TempInitVelocity<span class="token punctuation">;</span>
-   G4double TempVelocity<span class="token punctuation">;</span>
-   G4double Mass<span class="token punctuation">;</span>
-
-   G4double sumEnergyChange<span class="token punctuation">;</span>
-
-   G4VParticleChange<span class="token operator">*</span> fParticleChange<span class="token punctuation">;</span>
-   G4Track<span class="token operator">*</span> fTrack<span class="token punctuation">;</span>
-   G4TrackVector<span class="token operator">*</span> fSecondary<span class="token punctuation">;</span>
-   G4Step<span class="token operator">*</span> fStep<span class="token punctuation">;</span>
-   G4StepPoint<span class="token operator">*</span> fPreStepPoint<span class="token punctuation">;</span>
-   G4StepPoint<span class="token operator">*</span> fPostStepPoint<span class="token punctuation">;</span>
-
-   G4VPhysicalVolume<span class="token operator">*</span> fCurrentVolume<span class="token punctuation">;</span>
-   G4VSensitiveDetector<span class="token operator">*</span> fSensitive<span class="token punctuation">;</span>
-   G4VProcess<span class="token operator">*</span> fCurrentProcess<span class="token punctuation">;</span>
-      <span class="token comment">// The pointer to the process of which DoIt or</span>
-      <span class="token comment">// GetPhysicalInteractionLength has been just executed.</span>
+   <span class="hljs-function"><span class="hljs-keyword">const</span> G4TrackVector* <span class="hljs-title">GetSecondary</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetUserAction</span><span class="hljs-params">(G4UserSteppingAction* apAction)</span></span>;
+   <span class="hljs-function">G4Track* <span class="hljs-title">GetTrack</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVerboseLevel</span><span class="hljs-params">(G4int vLevel)</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetVerbose</span><span class="hljs-params">(G4VSteppingVerbose*)</span></span>;
+   <span class="hljs-function">G4Step* <span class="hljs-title">GetStep</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetNavigator</span><span class="hljs-params">(G4Navigator* value)</span></span>;
 
 
-   G4ProcessVector<span class="token operator">*</span> fAtRestDoItVector<span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> fAlongStepDoItVector<span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> fPostStepDoItVector<span class="token punctuation">;</span>
+<span class="hljs-comment">// Other member functions</span>
 
-   G4ProcessVector<span class="token operator">*</span> fAtRestGetPhysIntVector<span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> fAlongStepGetPhysIntVector<span class="token punctuation">;</span>
-   G4ProcessVector<span class="token operator">*</span> fPostStepGetPhysIntVector<span class="token punctuation">;</span>
+   <span class="hljs-function">G4StepStatus <span class="hljs-title">Stepping</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-comment">// Steers to move the give particle from the TrackingManger </span>
+      <span class="hljs-comment">// by one Step.</span>
 
-   size_t MAXofAtRestLoops<span class="token punctuation">;</span>
-   size_t MAXofAlongStepLoops<span class="token punctuation">;</span>
-   size_t MAXofPostStepLoops<span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetInitialStep</span><span class="hljs-params">(G4Track* valueTrack)</span></span>;
+     <span class="hljs-comment">// Sets up initial track information (enegry, position, etc) to </span>
+     <span class="hljs-comment">// the PreStepPoint of the G4Step. This funciton has to be called </span>
+     <span class="hljs-comment">// just once before the stepping loop in the &quot;TrackingManager&quot;.</span>
 
-   size_t fAtRestDoItProcTriggered<span class="token punctuation">;</span>
-   size_t fAlongStepDoItProcTriggered<span class="token punctuation">;</span>
-   size_t fPostStepDoItProcTriggered<span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">GetProcessNumber</span><span class="hljs-params">()</span></span>;
 
-   G4int fN2ndariesAtRestDoIt<span class="token punctuation">;</span>
-   G4int fN2ndariesAlongStepDoIt<span class="token punctuation">;</span>
-   G4int fN2ndariesPostStepDoIt<span class="token punctuation">;</span>
-      <span class="token comment">// These are the numbers of secondaries generated by the process</span>
-      <span class="token comment">// just executed.</span>
+<span class="hljs-comment">// Get methods</span>
+   <span class="hljs-function">G4double <span class="hljs-title">GetPhysicalStep</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetGeometricalStep</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetCorrectedStep</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4bool <span class="hljs-title">GetPreStepPointIsGeom</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4bool <span class="hljs-title">GetFirstStep</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4StepStatus <span class="hljs-title">GetfStepStatus</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetTempInitVelocity</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetTempVelocity</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetMass</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetsumEnergyChange</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4VParticleChange* <span class="hljs-title">GetfParticleChange</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4Track* <span class="hljs-title">GetfTrack</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4TrackVector* <span class="hljs-title">GetfSecondary</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4Step* <span class="hljs-title">GetfStep</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4StepPoint* <span class="hljs-title">GetfPreStepPoint</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4StepPoint* <span class="hljs-title">GetfPostStepPoint</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4VPhysicalVolume* <span class="hljs-title">GetfCurrentVolume</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4VSensitiveDetector* <span class="hljs-title">GetfSensitive</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4VProcess* <span class="hljs-title">GetfCurrentProcess</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetfAtRestDoItVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetfAlongStepDoItVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetfPostStepDoItVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetfAlongStepGetPhysIntVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetfPostStepGetPhysIntVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4ProcessVector* <span class="hljs-title">GetfAtRestGetPhysIntVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetcurrentMinimumStep</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetnumberOfInteractionLengthLeft</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-keyword">size_t</span> GetfAtRestDoItProcTriggered();
+   <span class="hljs-keyword">size_t</span> GetfAlongStepDoItProcTriggered();
+   <span class="hljs-keyword">size_t</span> GetfPostStepDoItProcTriggered();
+   <span class="hljs-function">G4int <span class="hljs-title">GetfN2ndariesAtRestDoIt</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4int <span class="hljs-title">GetfN2ndariesAlongStepDoIt</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4int <span class="hljs-title">GetfN2ndariesPostStepDoIt</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4Navigator* <span class="hljs-title">GetfNavigator</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4int <span class="hljs-title">GetverboseLevel</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-keyword">size_t</span> GetMAXofAtRestLoops();
+   <span class="hljs-keyword">size_t</span> GetMAXofAlongStepLoops();
+   <span class="hljs-keyword">size_t</span> GetMAXofPostStepLoops();
+   <span class="hljs-function">G4SelectedAtRestDoItVector* <span class="hljs-title">GetfSelectedAtRestDoItVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4SelectedAlongStepDoItVector* <span class="hljs-title">GetfSelectedAlongStepDoItVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4SelectedPostStepDoItVector* <span class="hljs-title">GetfSelectedPostStepDoItVector</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double   <span class="hljs-title">GetfPreviousStepSize</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">const</span> G4TouchableHandle&amp; <span class="hljs-title">GetTouchableHandle</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4SteppingControl <span class="hljs-title">GetStepControlFlag</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4UserSteppingAction* <span class="hljs-title">GetUserAction</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4double <span class="hljs-title">GetphysIntLength</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4ForceCondition <span class="hljs-title">GetfCondition</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function">G4GPILSelection  <span class="hljs-title">GetfGPILSelection</span><span class="hljs-params">()</span></span>;
+  <span class="hljs-comment">//</span>
+   G4bool KillVerbose;
+<span class="hljs-comment">//---------   </span>
+   <span class="hljs-keyword">private</span>:
+<span class="hljs-comment">//---------   </span>
 
-   G4Navigator <span class="token operator">*</span>fNavigator<span class="token punctuation">;</span>
+<span class="hljs-comment">// Member functions</span>
 
-   G4int verboseLevel<span class="token punctuation">;</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DefinePhysicalStepLength</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-comment">// Calculate corresponding physical length from the mean free path </span>
+      <span class="hljs-comment">// left for each discrete phyiscs process. The minimum allowable</span>
+      <span class="hljs-comment">// Step for each continious process will be also calculated.</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InvokeAtRestDoItProcs</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InvokeAlongStepDoItProcs</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InvokePostStepDoItProcs</span><span class="hljs-params">()</span></span>;
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InvokePSDIP</span><span class="hljs-params">(size_t)</span></span>; <span class="hljs-comment">// </span>
+   <span class="hljs-function">G4double <span class="hljs-title">CalculateSafety</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-comment">// Return the estimated safety value at the PostStepPoint</span>
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ApplyProductionCut</span><span class="hljs-params">(G4Track*)</span></span>;
 
-   G4SelectedAtRestDoItVector<span class="token operator">*</span> fSelectedAtRestDoItVector<span class="token punctuation">;</span>
-   G4SelectedAlongStepDoItVector<span class="token operator">*</span> fSelectedAlongStepDoItVector<span class="token punctuation">;</span>
-   G4SelectedPostStepDoItVector<span class="token operator">*</span> fSelectedPostStepDoItVector<span class="token punctuation">;</span>
+<span class="hljs-comment">// Member data </span>
 
-   G4double   fPreviousStepSize<span class="token punctuation">;</span>
+   G4UserSteppingAction* fUserSteppingAction;
 
-   G4TouchableHandle fTouchableHandle<span class="token punctuation">;</span>
+   G4VSteppingVerbose* fVerbose;
 
-   G4SteppingControl StepControlFlag<span class="token punctuation">;</span>
+   G4double PhysicalStep;
+   G4double GeometricalStep;
+   G4double CorrectedStep;
+   G4bool PreStepPointIsGeom;
+   G4bool FirstStep;
+   G4StepStatus fStepStatus;
 
-   G4double kCarTolerance<span class="token punctuation">;</span>
-      <span class="token comment">// Cached geometrical tolerance on surface</span>
-   G4double proposedSafety<span class="token punctuation">;</span>
-      <span class="token comment">// This keeps the minimum safety value proposed by AlongStepGPILs.</span>
-   G4ThreeVector endpointSafOrigin<span class="token punctuation">;</span>
-   G4double endpointSafety<span class="token punctuation">;</span>
-      <span class="token comment">// To get the true safety value at the PostStepPoint, you have</span>
-      <span class="token comment">// to subtract the distance to &apos;endpointSafOrigin&apos; from this value.</span>
-   G4double physIntLength<span class="token punctuation">;</span>
-   G4ForceCondition fCondition<span class="token punctuation">;</span>
-   G4GPILSelection  fGPILSelection<span class="token punctuation">;</span>
-      <span class="token comment">// Above three variables are for the method </span>
-      <span class="token comment">// DefinePhysicalStepLength(). To pass these information to</span>
-      <span class="token comment">// the method Verbose, they are kept at here. Need a more </span>
-      <span class="token comment">// elegant mechanism.</span>
+   G4double TempInitVelocity;
+   G4double TempVelocity;
+   G4double Mass;
+
+   G4double sumEnergyChange;
+
+   G4VParticleChange* fParticleChange;
+   G4Track* fTrack;
+   G4TrackVector* fSecondary;
+   G4Step* fStep;
+   G4StepPoint* fPreStepPoint;
+   G4StepPoint* fPostStepPoint;
+
+   G4VPhysicalVolume* fCurrentVolume;
+   G4VSensitiveDetector* fSensitive;
+   G4VProcess* fCurrentProcess;
+      <span class="hljs-comment">// The pointer to the process of which DoIt or</span>
+      <span class="hljs-comment">// GetPhysicalInteractionLength has been just executed.</span>
+
+
+   G4ProcessVector* fAtRestDoItVector;
+   G4ProcessVector* fAlongStepDoItVector;
+   G4ProcessVector* fPostStepDoItVector;
+
+   G4ProcessVector* fAtRestGetPhysIntVector;
+   G4ProcessVector* fAlongStepGetPhysIntVector;
+   G4ProcessVector* fPostStepGetPhysIntVector;
+
+   <span class="hljs-keyword">size_t</span> MAXofAtRestLoops;
+   <span class="hljs-keyword">size_t</span> MAXofAlongStepLoops;
+   <span class="hljs-keyword">size_t</span> MAXofPostStepLoops;
+
+   <span class="hljs-keyword">size_t</span> fAtRestDoItProcTriggered;
+   <span class="hljs-keyword">size_t</span> fAlongStepDoItProcTriggered;
+   <span class="hljs-keyword">size_t</span> fPostStepDoItProcTriggered;
+
+   G4int fN2ndariesAtRestDoIt;
+   G4int fN2ndariesAlongStepDoIt;
+   G4int fN2ndariesPostStepDoIt;
+      <span class="hljs-comment">// These are the numbers of secondaries generated by the process</span>
+      <span class="hljs-comment">// just executed.</span>
+
+   G4Navigator *fNavigator;
+
+   G4int verboseLevel;
+
+   G4SelectedAtRestDoItVector* fSelectedAtRestDoItVector;
+   G4SelectedAlongStepDoItVector* fSelectedAlongStepDoItVector;
+   G4SelectedPostStepDoItVector* fSelectedPostStepDoItVector;
+
+   G4double   fPreviousStepSize;
+
+   G4TouchableHandle fTouchableHandle;
+
+   G4SteppingControl StepControlFlag;
+
+   G4double kCarTolerance;
+      <span class="hljs-comment">// Cached geometrical tolerance on surface</span>
+   G4double proposedSafety;
+      <span class="hljs-comment">// This keeps the minimum safety value proposed by AlongStepGPILs.</span>
+   G4ThreeVector endpointSafOrigin;
+   G4double endpointSafety;
+      <span class="hljs-comment">// To get the true safety value at the PostStepPoint, you have</span>
+      <span class="hljs-comment">// to subtract the distance to &apos;endpointSafOrigin&apos; from this value.</span>
+   G4double physIntLength;
+   G4ForceCondition fCondition;
+   G4GPILSelection  fGPILSelection;
+      <span class="hljs-comment">// Above three variables are for the method </span>
+      <span class="hljs-comment">// DefinePhysicalStepLength(). To pass these information to</span>
+      <span class="hljs-comment">// the method Verbose, they are kept at here. Need a more </span>
+      <span class="hljs-comment">// elegant mechanism.</span>
 </code></pre>
 <!-- G4SteppingManager.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-08-07 07:09:25
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-08-07 07:09:25 </span> </footer>
                                 
                                 </section>
                             
@@ -3393,7 +3391,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4SteppingManager","level":"1.4.35","depth":2,"next":{"title":"G4VTrajectory","level":"1.4.36","depth":2,"path":"class/G4VTrajectory.md","ref":"class/G4VTrajectory.md","articles":[{"title":"G4Trajectory","level":"1.4.36.1","depth":3,"path":"class/G4Trajectory.md","ref":"class/G4Trajectory.md","articles":[]}]},"previous":{"title":"G4TrackingManager","level":"1.4.34","depth":2,"path":"class/G4TrackingManager.md","ref":"class/G4TrackingManager.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4SteppingManager.md","mtime":"2018-08-06T23:09:25.810Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4SteppingManager","level":"1.4.35","depth":2,"next":{"title":"G4VTrajectory","level":"1.4.36","depth":2,"path":"class/G4VTrajectory.md","ref":"class/G4VTrajectory.md","articles":[{"title":"G4Trajectory","level":"1.4.36.1","depth":3,"path":"class/G4Trajectory.md","ref":"class/G4Trajectory.md","articles":[]}]},"previous":{"title":"G4TrackingManager","level":"1.4.34","depth":2,"path":"class/G4TrackingManager.md","ref":"class/G4TrackingManager.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4SteppingManager.md","mtime":"2018-08-06T23:09:25.810Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

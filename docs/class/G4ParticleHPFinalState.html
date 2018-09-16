@@ -25,7 +25,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -57,11 +57,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-ace/ace.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
                 
             
                 
@@ -3135,104 +3135,102 @@
 ;;     Update #: 1
 ;; URL: http://wuhongyi.cn -->
 <h1 id="g4particlehpfinalstate"><a name="g4particlehpfinalstate" class="plugin-anchor" href="#g4particlehpfinalstate"><i class="fa fa-link" aria-hidden="true"></i></a>G4ParticleHPFinalState</h1>
-<pre class="language-"><code>#ifdef G4PHPDEBUG
+<pre><code>#ifdef G4PHPDEBUG
     getenv(&quot;G4ParticleHPDebug&quot;)
 </code></pre><h2 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>class</h2>
-<pre class="language-"><code class="lang-cpp"><span class="token keyword">public</span><span class="token operator">:</span>
+<pre><code class="lang-cpp"><span class="hljs-keyword">public</span>:
 
-  <span class="token function">G4ParticleHPFinalState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span> 
-    hasFSData <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span> 
-    hasXsec <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    hasAnyData <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    theBaseZ <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    theBaseA <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    theBaseM <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  G4ParticleHPFinalState()
+  { 
+    hasFSData = <span class="hljs-literal">true</span>; 
+    hasXsec = <span class="hljs-literal">true</span>;
+    hasAnyData = <span class="hljs-literal">true</span>;
+    theBaseZ = <span class="hljs-number">0</span>;
+    theBaseA = <span class="hljs-number">0</span>;
+    theBaseM = <span class="hljs-number">0</span>;
 
-    theNDLDataZ <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    theNDLDataA <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    theNDLDataM <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    theNDLDataZ = <span class="hljs-number">0</span>;
+    theNDLDataA = <span class="hljs-number">0</span>;
+    theNDLDataM = <span class="hljs-number">0</span>;
 
-     adjustResult <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-     <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">getenv</span><span class="token punctuation">(</span> <span class="token string">&quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot;</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> adjustResult <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+     adjustResult = <span class="hljs-literal">true</span>;
+     <span class="hljs-keyword">if</span> ( getenv( <span class="hljs-string">&quot;G4PHP_DO_NOT_ADJUST_FINAL_STATE&quot;</span> ) ) adjustResult = <span class="hljs-literal">false</span>;
 
-     theProjectile <span class="token operator">=</span> G4Neutron<span class="token operator">::</span><span class="token function">Neutron</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     theProjectile = G4Neutron::Neutron();
 
-     theResult<span class="token punctuation">.</span><span class="token function">Put</span><span class="token punctuation">(</span> <span class="token constant">NULL</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+     theResult.Put( <span class="hljs-literal">NULL</span> );
 
-  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  };
 
-  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">G4ParticleHPFinalState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="hljs-keyword">virtual</span> ~G4ParticleHPFinalState(){};
 
-  <span class="token comment">//virtual void Init (G4double A, G4double Z, G4String &amp; dirName, G4String &amp; aFSType) = 0;</span>
-  <span class="token keyword">void</span> Init <span class="token punctuation">(</span>G4double A<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> dirName<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> aFSType<span class="token punctuation">,</span> G4ParticleDefinition<span class="token operator">*</span> projectile<span class="token punctuation">)</span> <span class="token punctuation">{</span> G4int M <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> Init <span class="token punctuation">(</span> A<span class="token punctuation">,</span> Z<span class="token punctuation">,</span> M<span class="token punctuation">,</span> dirName<span class="token punctuation">,</span> aFSType<span class="token punctuation">,</span><span class="token keyword">const_cast</span><span class="token operator">&lt;</span>G4ParticleDefinition<span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>projectile<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword">virtual</span> <span class="token keyword">void</span> Init <span class="token punctuation">(</span>G4double A<span class="token punctuation">,</span> G4double Z<span class="token punctuation">,</span> G4int M<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> dirName<span class="token punctuation">,</span> G4String <span class="token operator">&amp;</span> aFSType<span class="token punctuation">,</span> G4ParticleDefinition<span class="token operator">*</span> <span class="token punctuation">)</span> <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token keyword">virtual</span> G4HadFinalState <span class="token operator">*</span> <span class="token function">ApplyYourself</span><span class="token punctuation">(</span><span class="token keyword">const</span> G4HadProjectile <span class="token operator">&amp;</span> <span class="token punctuation">)</span> 
-  <span class="token punctuation">{</span>
-    <span class="token keyword">throw</span> <span class="token function">G4HadronicException</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">,</span> <span class="token constant">__LINE__</span><span class="token punctuation">,</span> <span class="token string">&quot;G4HadFinalState * ApplyYourself(const G4HadProjectile &amp; theTrack) needs implementation&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">//virtual void Init (G4double A, G4double Z, G4String &amp; dirName, G4String &amp; aFSType) = 0;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Init</span> <span class="hljs-params">(G4double A, G4double Z, G4String &amp; dirName, G4String &amp; aFSType, G4ParticleDefinition* projectile)</span> </span>{ G4int M = <span class="hljs-number">0</span>; Init ( A, Z, M, dirName, aFSType,<span class="hljs-keyword">const_cast</span>&lt;G4ParticleDefinition*&gt;(projectile)); };
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Init</span> <span class="hljs-params">(G4double A, G4double Z, G4int M, G4String &amp; dirName, G4String &amp; aFSType, G4ParticleDefinition* )</span> </span>=<span class="hljs-number">0</span>;
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4HadFinalState * <span class="hljs-title">ApplyYourself</span><span class="hljs-params">(<span class="hljs-keyword">const</span> G4HadProjectile &amp; )</span> 
+  </span>{
+    <span class="hljs-keyword">throw</span> G4HadronicException(__FILE__, __LINE__, <span class="hljs-string">&quot;G4HadFinalState * ApplyYourself(const G4HadProjectile &amp; theTrack) needs implementation&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+  };
 
-  <span class="token comment">// of course this would better be Done templating G4ParticleHPChannel..., </span>
-  <span class="token comment">// but due to peculiarities of the DEC compiler, this way it</span>
-  <span class="token comment">// is easier to maintain.</span>
-  <span class="token keyword">virtual</span> G4ParticleHPFinalState <span class="token operator">*</span> <span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="hljs-comment">// of course this would better be Done templating G4ParticleHPChannel..., </span>
+  <span class="hljs-comment">// but due to peculiarities of the DEC compiler, this way it</span>
+  <span class="hljs-comment">// is easier to maintain.</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4ParticleHPFinalState * <span class="hljs-title">New</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
 
-  G4bool <span class="token function">HasXsec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> hasXsec<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">HasFSData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> hasFSData<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-  G4bool <span class="token function">HasAnyData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> hasAnyData<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="hljs-function">G4bool <span class="hljs-title">HasXsec</span><span class="hljs-params">()</span> </span>{<span class="hljs-keyword">return</span> hasXsec;};
+  <span class="hljs-function">G4bool <span class="hljs-title">HasFSData</span><span class="hljs-params">()</span> </span>{<span class="hljs-keyword">return</span> hasFSData;};
+  <span class="hljs-function">G4bool <span class="hljs-title">HasAnyData</span><span class="hljs-params">()</span> </span>{<span class="hljs-keyword">return</span> hasAnyData;};
 
-  <span class="token keyword">virtual</span> G4double <span class="token function">GetXsec</span><span class="token punctuation">(</span>G4double <span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword">virtual</span> G4ParticleHPVector <span class="token operator">*</span> <span class="token function">GetXsec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4double <span class="hljs-title">GetXsec</span><span class="hljs-params">(G4double )</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; };
+  <span class="hljs-function"><span class="hljs-keyword">virtual</span> G4ParticleHPVector * <span class="hljs-title">GetXsec</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; };
 
-  <span class="token keyword">void</span>     <span class="token function">SetA_Z</span><span class="token punctuation">(</span>G4double anA<span class="token punctuation">,</span> G4double aZ<span class="token punctuation">,</span> G4int aM<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>theBaseA <span class="token operator">=</span> anA<span class="token punctuation">;</span> theBaseZ <span class="token operator">=</span> aZ<span class="token punctuation">;</span> theBaseM<span class="token operator">=</span>aM<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-  G4double <span class="token function">GetZ</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> theBaseZ<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-  G4double <span class="token function">GetN</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> theBaseA<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-  G4double <span class="token function">GetA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> theBaseA<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span> 
-  G4int <span class="token function">GetM</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> theBaseM<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span>     <span class="hljs-title">SetA_Z</span><span class="hljs-params">(G4double anA, G4double aZ, G4int aM=<span class="hljs-number">0</span>)</span> </span>{theBaseA = anA; theBaseZ = aZ; theBaseM=aM; };
+  <span class="hljs-function">G4double <span class="hljs-title">GetZ</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> theBaseZ; };
+  <span class="hljs-function">G4double <span class="hljs-title">GetN</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> theBaseA; };
+  <span class="hljs-function">G4double <span class="hljs-title">GetA</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> theBaseA; }; 
+  <span class="hljs-function">G4int <span class="hljs-title">GetM</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> theBaseM; };
 
-  <span class="token keyword">void</span> <span class="token function">SetAZMs</span><span class="token punctuation">(</span>G4double anA<span class="token punctuation">,</span> G4double aZ<span class="token punctuation">,</span> G4int aM<span class="token punctuation">,</span> G4ParticleHPDataUsed used<span class="token punctuation">)</span> 
-  <span class="token punctuation">{</span> theBaseA <span class="token operator">=</span> anA<span class="token punctuation">;</span> theBaseZ <span class="token operator">=</span> aZ<span class="token punctuation">;</span> theBaseM<span class="token operator">=</span>aM<span class="token punctuation">;</span> 
-    theNDLDataA<span class="token operator">=</span><span class="token punctuation">(</span>G4int<span class="token punctuation">)</span>used<span class="token punctuation">.</span><span class="token function">GetA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> theNDLDataZ<span class="token operator">=</span><span class="token punctuation">(</span>G4int<span class="token punctuation">)</span>used<span class="token punctuation">.</span><span class="token function">GetZ</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> theNDLDataM<span class="token operator">=</span>used<span class="token punctuation">.</span><span class="token function">GetM</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetAZMs</span><span class="hljs-params">(G4double anA, G4double aZ, G4int aM, G4ParticleHPDataUsed used)</span> 
+  </span>{ theBaseA = anA; theBaseZ = aZ; theBaseM=aM; 
+    theNDLDataA=(G4int)used.GetA(); theNDLDataZ=(G4int)used.GetZ(); theNDLDataM=used.GetM(); };
 
-  <span class="token keyword">void</span> <span class="token function">SetProjectile</span><span class="token punctuation">(</span> G4ParticleDefinition<span class="token operator">*</span> projectile <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    theProjectile <span class="token operator">=</span> projectile<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SetProjectile</span><span class="hljs-params">( G4ParticleDefinition* projectile )</span> </span>{
+    theProjectile = projectile; }
 
-<span class="token keyword">protected</span><span class="token operator">:</span>
+<span class="hljs-keyword">protected</span>:
 
-  G4bool hasXsec<span class="token punctuation">;</span>
-  G4bool hasFSData<span class="token punctuation">;</span>
-  G4bool hasAnyData<span class="token punctuation">;</span>
-  G4ParticleHPNames theNames<span class="token punctuation">;</span>
+  G4bool hasXsec;
+  G4bool hasFSData;
+  G4bool hasAnyData;
+  G4ParticleHPNames theNames;
 
-  <span class="token comment">//G4HadFinalState theResult;</span>
-  G4Cache<span class="token operator">&lt;</span> G4HadFinalState<span class="token operator">*</span> <span class="token operator">&gt;</span> theResult<span class="token punctuation">;</span>
+  <span class="hljs-comment">//G4HadFinalState theResult;</span>
+  G4Cache&lt; G4HadFinalState* &gt; theResult;
 
 
-  G4double theBaseA<span class="token punctuation">;</span>
-  G4double theBaseZ<span class="token punctuation">;</span>
-  G4int theBaseM<span class="token punctuation">;</span>
+  G4double theBaseA;
+  G4double theBaseZ;
+  G4int theBaseM;
 
-<span class="token comment">//080721</span>
-   <span class="token keyword">protected</span><span class="token operator">:</span>
-      <span class="token keyword">void</span> adjust_final_state <span class="token punctuation">(</span> G4LorentzVector <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      G4bool <span class="token function">DoNotAdjustFinalState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token operator">!</span>G4ParticleHPManager<span class="token operator">::</span><span class="token function">GetInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">GetDoNotAdjustFinalState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-      G4int theNDLDataZ<span class="token punctuation">;</span>
-      G4int theNDLDataA<span class="token punctuation">;</span>
-      G4int theNDLDataM<span class="token punctuation">;</span>
+<span class="hljs-comment">//080721</span>
+   <span class="hljs-keyword">protected</span>:
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">adjust_final_state</span> <span class="hljs-params">( G4LorentzVector )</span></span>;
+      <span class="hljs-function">G4bool <span class="hljs-title">DoNotAdjustFinalState</span><span class="hljs-params">()</span></span>{ <span class="hljs-keyword">return</span> !G4ParticleHPManager::GetInstance()-&gt;GetDoNotAdjustFinalState(); };
+      G4int theNDLDataZ;
+      G4int theNDLDataA;
+      G4int theNDLDataM;
 
-   <span class="token keyword">private</span><span class="token operator">:</span>
-      G4bool adjustResult<span class="token punctuation">;</span>
+   <span class="hljs-keyword">private</span>:
+      G4bool adjustResult;
 
-<span class="token keyword">protected</span><span class="token operator">:</span>
-  G4ParticleDefinition<span class="token operator">*</span> theProjectile<span class="token punctuation">;</span>
+<span class="hljs-keyword">protected</span>:
+  G4ParticleDefinition* theProjectile;
 </code></pre>
 <!-- G4ParticleHPFinalState.md ends here -->
-<script type="text/javascript">var className='atoc';</script> 
+<script type="text/javascript">var className='atoc';</script>
 
-<footer class="page-footer"><span class="copyright">&#xA9; Hongyi Wu all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last-Modified&#xFF1A;
-2018-09-01 23:47:09
-</span></footer>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> <a href="http://wuhongyi.cn/" target="_blank">&#xA9; Hongyi Wu</a> </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2018-09-01 23:47:09 </span> </footer>
                                 
                                 </section>
                             
@@ -3275,7 +3273,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPFinalState","level":"1.4.22","depth":2,"next":{"title":"G4ParticleHPElasticFS","level":"1.4.22.1","depth":3,"path":"class/G4ParticleHPElasticFS.md","ref":"class/G4ParticleHPElasticFS.md","articles":[]},"previous":{"title":"G4ParticleChangeForLoss","level":"1.4.21.1","depth":3,"path":"class/G4ParticleChangeForLoss.md","ref":"class/G4ParticleChangeForLoss.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","-highlight","github","prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","mermaid","tbfed-pagefooter","ace","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"prism":{},"styles":{"website":"website.css","ebook":"ebook.css","pdf":"pdf.css","mobi":"ebook.css","epub":"ebook.css"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"sans","size":2,"theme":"white"},"sectionx":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ParticleHPFinalState.md","mtime":"2018-09-01T15:47:09.385Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T04:57:03.059Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"G4ParticleHPFinalState","level":"1.4.22","depth":2,"next":{"title":"G4ParticleHPElasticFS","level":"1.4.22.1","depth":3,"path":"class/G4ParticleHPElasticFS.md","ref":"class/G4ParticleHPElasticFS.md","articles":[]},"previous":{"title":"G4ParticleChangeForLoss","level":"1.4.21.1","depth":3,"path":"class/G4ParticleChangeForLoss.md","ref":"class/G4ParticleChangeForLoss.md","articles":[]},"dir":"ltr"},"config":{"plugins":["search","sharing","fontsettings","livereload","highlight","github","-prism","ad","alerts","atoc","splitter","sitemap","image-captions","anchors","latex-codecogs","-katex","mermaid","ace","-tbfed-pagefooter","page-footer-ex","sectionx","mcqx","fbqx","spoiler","anchor-navigation","youtubex","redirect","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"© Hongyi Wu","modify_label":"Last-Modified：","modify_format":"YYYY-MM-DD HH:mm:ss"},"latex-codecogs":{"type":"gif"},"spoiler":{},"ad":{"contentBottom":"","contentTop":""},"ace":{},"github":{"url":"https://github.com/wuhongyi"},"fbqx":{},"livereload":{},"page-footer-ex":{"copyright":"[© Hongyi Wu](http://wuhongyi.cn/)","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"atoc":{"addClass":true,"className":"atoc"},"splitter":{},"search":{},"mermaid":{},"anchor-navigation":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"family":"serif","size":2,"theme":"sepia"},"sectionx":{},"highlight":{},"sitemap":{"hostname":"http://wuhongyi.cn/"},"youtubex":{"embedDescription":{"de":"Eingebettetes Video:","default":"Embedded video:"}},"alerts":{},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"redirect":{},"mcqx":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"expandable-chapters":{},"image-captions":{"variable_name":"_pictures"}},"theme":"default","author":"Hongyi Wu(吴鸿毅)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"PhysicsProcesses/Hadronic.html#fig1.3.2.1","level":"1.3.2","list_caption":"Figure: Hadronic Model Inventory","alt":"Hadronic Model Inventory","nro":1,"url":"/img/HadronicModelInventory.png","index":1,"caption_template":"Figure: _CAPTION_","label":"Hadronic Model Inventory","attributes":{},"skip":false,"key":"1.3.2.1"}]},"title":"Geant4 Note","gitbook":"*","description":"吴鸿毅笔记"},"file":{"path":"class/G4ParticleHPFinalState.md","mtime":"2018-09-01T15:47:09.385Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-09-16T05:59:18.349Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
