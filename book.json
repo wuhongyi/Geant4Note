@@ -11,6 +11,7 @@
 	"-highlight",
 	"github",
 	"prism",
+	"ad",
 	"splitter",
 	"sitemap",
 	"image-captions",
@@ -29,6 +30,10 @@
 	"expandable-chapters"
     ],
     "pluginsConfig": {
+	"ad": {
+	    "contentTop": "http://wuhongyi.cn/   wuhongyi@qq.com",
+	    "contentBottom": "..."
+	},
 	"github": {
 	    "url": "https://github.com/wuhongyi"
 	},
@@ -36,7 +41,7 @@
             "hostname": "http://wuhongyi.cn/"
 	},
 	"tbfed-pagefooter": {
-	    "copyright":"&Hongyi Wu",
+	    "copyright":"© Hongyi Wu",
 	    "modify_label": "Last-Modified：",
 	    "modify_format": "YYYY-MM-DD HH:mm:ss"
 	},
