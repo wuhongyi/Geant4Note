@@ -2,7 +2,6 @@
     "title": "Geant4 Note",
     "description": "吴鸿毅笔记",
     "author": "Hongyi Wu(吴鸿毅)",
-    "language": "zh",
     "plugins": [
 	"search",
 	"sharing",
