@@ -2,7 +2,7 @@
     "title": "Geant4 Note",
     "description": "吴鸿毅笔记",
     "author": "Hongyi Wu(吴鸿毅)",
-    "language": "zh-ch",
+    "language": "zh",
     "plugins": [
 	"search",
 	"sharing",
@@ -31,8 +31,8 @@
     ],
     "pluginsConfig": {
 	"ad": {
-	    "contentTop": "http://wuhongyi.cn/   wuhongyi@qq.com",
-	    "contentBottom": "..."
+	    "contentTop": "",
+	    "contentBottom": ""
 	},
 	"github": {
 	    "url": "https://github.com/wuhongyi"
