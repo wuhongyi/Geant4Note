@@ -4,15 +4,20 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 日 9月 16 11:08:10 2018 (+0800)
-;; Last-Updated: 一 9月 17 12:30:03 2018 (+0800)
+;; Last-Updated: 一 9月 17 12:58:58 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 9
+;;     Update #: 11
 ;; URL: http://wuhongyi.cn -->
 
 # gitbook test
 
 <!-- toc -->
 
+This is a spoiler: {%s%}Hello World.{%ends%}
+
+{%fbq%}Testing the plugin, enter the word "hello" into the field ______, "world" into ______.{%endfbq%}
+
+{%fbq%}Testing. Please type $$hello## (hello) and $$world## (world).{%endfbq%}
 
 ## 这是第一部分
 
