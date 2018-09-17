@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 日 9月 16 11:08:10 2018 (+0800)
-;; Last-Updated: 日 9月 16 14:17:59 2018 (+0800)
+;; Last-Updated: 一 9月 17 12:19:43 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 7
+;;     Update #: 8
 ;; URL: http://wuhongyi.cn -->
 
 # gitbook test
@@ -15,6 +15,15 @@
 
 
 ## 这是第一部分
+
+<!--sec data-title="Introduction" data-id="section0" data-show=true ces-->
+
+Insert markdown content here (you should start with h3 if you use heading).
+
+<!--endsec-->
+
+<button class="section" target="section1" show="Show next section" hide="Hide next section"></button>
+
 
 ## 这是第二部分
 
