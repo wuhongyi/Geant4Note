@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 日 9月 16 11:08:10 2018 (+0800)
-;; Last-Updated: 一 9月 17 12:19:43 2018 (+0800)
+;; Last-Updated: 一 9月 17 12:30:03 2018 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 8
+;;     Update #: 9
 ;; URL: http://wuhongyi.cn -->
 
 # gitbook test
@@ -23,6 +23,45 @@ Insert markdown content here (you should start with h3 if you use heading).
 <!--endsec-->
 
 <button class="section" target="section1" show="Show next section" hide="Hide next section"></button>
+
+
+{%mcq ans="o1"%}
+{%title%} This is a question?
+{%o1%} First option
+{%o2%} Second option
+{%o3%} Third option
+{%o4%} Fourth option
+{%endmcq%}
+
+{%mcq ans="o1", count=2%}
+{%title%} This is a question?
+{%o1%} First option
+{%o2%} Second option
+{%o3%} Third option
+{%o4%} Fourth option
+{%hint%} This is a hint.
+{%endmcq%}
+
+{%mcq ans="o1", count=2%}
+{%title%} This is a question?
+{%o1%} First option
+{%o2%} Second option
+{%o3%} Third option
+{%o4%} Fourth option
+{%o5%} Fourth option
+{%o6%} Fourth option
+{%o7%} Fourth option
+{%o8%} Fourth option
+{%endmcq%}
+
+{%mcq ans="o1", random=true%}
+{%title%} This is a question?
+{%o1%} First option
+{%o2%} Second option
+{%o3%} Third option
+{%o4%} Fourth option
+{%endmcq%}
+
 
 
 ## 这是第二部分
