@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:22:16 2017 (+0800)
-;; Last-Updated: 四 3月 28 13:08:43 2019 (+0800)
+;; Last-Updated: 四 3月 28 13:26:56 2019 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 17
+;;     Update #: 18
 ;; URL: http://wuhongyi.cn -->
 
 # 简介
@@ -28,16 +28,16 @@
 ### 物理过程
 
 - 2010
-	- [ICCHENP / Geant4 models for simulation of multiple scattering](http://wuhongyi.cn/Geant4Note/pdf/article/phys/V_N_Ivanchenko_2010_J._Phys.%3A_Conf._Ser._219_032045.pdf)
+	- [ICCHENP / Geant4 models for simulation of multiple scattering](http://wuhongyi.cn/Geant4Note/pdf/article/phys/V_N_Ivanchenko_2010_219_032045.pdf)
 - 2011
 	- [PNST / Recent Improvements in Geant4 Electromagnetic Physics Models and Interfaces](http://wuhongyi.cn/Geant4Note/pdf/article/phys/530ea20fdcead1cd2e5de881e9655c7c6a00.pdf)
 - 2014
-	- [ICCHENP / Geant4 Electromagnetic Physics for LHC Upgrade](http://wuhongyi.cn/Geant4Note/pdf/article/phys/Ivanchenko_2014_J._Phys.%3A_Conf._Ser._513_022015.pdf)
+	- [ICCHENP / Geant4 Electromagnetic Physics for LHC Upgrade](http://wuhongyi.cn/Geant4Note/pdf/article/phys/Ivanchenko_2014_513_022015.pdf)
 - 2015
 	- [NIMA / The Geant4 Bertini Cascade](http://wuhongyi.cn/Geant4Note/pdf/article/phys/1-s2.0-S0168900215011134-main.pdf)
 - 2017
 	- [NIMA / New physics model in GEANT4 for the simulation of neutron interactions with organic scintillation detectors](http://wuhongyi.cn/Geant4Note/pdf/article/phys/1-s2.0-S0168900217306745-main.pdf)
-	- [IOP / Recent progress of Geant4 electromagnetic physics for LHC and other applications](http://wuhongyi.cn/Geant4Note/pdf/article/phys/Bagulya_2017_J._Phys.%3A_Conf._Ser._898_042032.pdf)
+	- [IOP / Recent progress of Geant4 electromagnetic physics for LHC and other applications](http://wuhongyi.cn/Geant4Note/pdf/article/phys/Bagulya_2017_898_042032.pdf)
 
 ### 几何
 
