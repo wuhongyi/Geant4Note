@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 12月 23 22:22:16 2017 (+0800)
-;; Last-Updated: 日 2月 24 18:57:26 2019 (+0800)
+;; Last-Updated: 四 3月 28 13:08:43 2019 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 13
+;;     Update #: 17
 ;; URL: http://wuhongyi.cn -->
 
 # 简介
@@ -24,12 +24,20 @@
 - 2016
 	- [NIMA / Recent developments in GEANT4](http://wuhongyi.cn/Geant4Note/pdf/article/1-s2.0-S0168900216306957-main.pdf)
 
+
 ### 物理过程
 
+- 2010
+	- [ICCHENP / Geant4 models for simulation of multiple scattering](http://wuhongyi.cn/Geant4Note/pdf/article/phys/V_N_Ivanchenko_2010_J._Phys.%3A_Conf._Ser._219_032045.pdf)
+- 2011
+	- [PNST / Recent Improvements in Geant4 Electromagnetic Physics Models and Interfaces](http://wuhongyi.cn/Geant4Note/pdf/article/phys/530ea20fdcead1cd2e5de881e9655c7c6a00.pdf)
+- 2014
+	- [ICCHENP / Geant4 Electromagnetic Physics for LHC Upgrade](http://wuhongyi.cn/Geant4Note/pdf/article/phys/Ivanchenko_2014_J._Phys.%3A_Conf._Ser._513_022015.pdf)
 - 2015
 	- [NIMA / The Geant4 Bertini Cascade](http://wuhongyi.cn/Geant4Note/pdf/article/phys/1-s2.0-S0168900215011134-main.pdf)
 - 2017
 	- [NIMA / New physics model in GEANT4 for the simulation of neutron interactions with organic scintillation detectors](http://wuhongyi.cn/Geant4Note/pdf/article/phys/1-s2.0-S0168900217306745-main.pdf)
+	- [IOP / Recent progress of Geant4 electromagnetic physics for LHC and other applications](http://wuhongyi.cn/Geant4Note/pdf/article/phys/Bagulya_2017_J._Phys.%3A_Conf._Ser._898_042032.pdf)
 
 ### 几何
 
@@ -69,6 +77,7 @@
 	- [NIMA / Validation of Geant4 fragmentation for Heavy Ion Therapy](http://wuhongyi.cn/Geant4Note/pdf/article/app/1-s2.0-S016890021730699X-main.pdf)
 	- [ARI / Optimization of the Monte Carlo simulation model of NaI(Tl) detector by Geant4 code](http://wuhongyi.cn/Geant4Note/pdf/article/app/1-s2.0-S0969804317307479-main.pdf)
 	- [NIMA / Implementation of the n-body Monte-Carlo event generator into the Geant4 toolkit for photonuclear studies](http://wuhongyi.cn/Geant4Note/pdf/article/app/1-s2.0-S0168900217300104-main.pdf)
+	- [PMB / Comparison of Geant4 multiple Coulomb scattering models with theory for radiotherapy protons](http://wuhongyi.cn/Geant4Note/pdf/article/app/Makarova_2017_Phys._Med._Biol._62_5959.pdf)
 - 2018
 	- [NIMB / Latest Geant4 developments for PIXE applications](http://wuhongyi.cn/Geant4Note/pdf/article/app/1-s2.0-S0168583X18305846-main.pdf)
 	- [NIMB / Implementation of photon elastic scattering in GEANT4](http://wuhongyi.cn/Geant4Note/pdf/article/app/1-s2.0-S0168583X1830538X-main.pdf)
