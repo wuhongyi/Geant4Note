@@ -4,9 +4,9 @@
 ;; Author: Hongyi Wu(吴鸿毅)
 ;; Email: wuhongyi@qq.com 
 ;; Created: 六 11月 19 08:59:31 2016 (+0800)
-;; Last-Updated: 五 2月  9 22:58:26 2018 (+0800)
+;; Last-Updated: 五 7月 16 22:07:11 2021 (+0800)
 ;;           By: Hongyi Wu(吴鸿毅)
-;;     Update #: 24
+;;     Update #: 25
 ;; URL: http://wuhongyi.cn -->
 
 # 修改源代码
@@ -27,6 +27,8 @@
 
 想要模拟放射性衰变，需要先确认 **source/processes/decay/include/G4DecayProcessType.hh** 中调用数据库的核子数范围，如果超出范围，需要修改源代码。
 
+
+G4RadioactiveDecayBase.hh 用来实现具体的衰变
 
 
 ## PhotonEvaporation
